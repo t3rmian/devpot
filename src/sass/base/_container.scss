@@ -1,0 +1,51 @@
+.container:not(.post-container) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    .page {
+        margin: auto;
+    }
+}
+
+@media (max-width: 640px) {
+    .container:not(.post-container) {
+        .page:before {
+            content: '';
+            display: block;
+            height: 3rem;
+        }
+    }
+}
+
+
+@media (min-width: 640px) {
+    .container:not(.post-container) {
+        .page {
+            min-width: 400px;
+            max-width: 800px;
+            padding: 2rem;
+        }
+    }
+}
+
+@media (min-width: 320px) {
+    .container:not(.post-container) {
+        .page {
+            padding: 2rem;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .container:not(.post-container) {
+        .page {
+            padding: 1rem;
+        }
+
+        header {
+            .search-bar-container {
+                top: 1rem;
+            }
+        }
+    }
+}

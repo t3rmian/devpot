@@ -1,0 +1,15 @@
+.date-head {
+    text-align: left;
+    padding-left: 1em;
+    font-weight: normal;
+    font-family: $title-font-family;
+}
+
+.date-col {
+    font-family: $title-font-family;
+    padding-left: 2em;
+}
+
+.date-col+* {
+    padding-left: 1em;
+}

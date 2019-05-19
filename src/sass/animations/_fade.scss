@@ -1,0 +1,41 @@
+.fadeIn {
+    visibility: visible;
+    opacity: 1;
+    transition:
+        visibility $element-transition-delay $element-transition-timing-function,
+        opacity $element-transition-delay $element-transition-timing-function,
+        color $theme-transition-delay $theme-transition-timing-function !important;
+}
+
+.fadeOut {
+    visibility: hidden;
+    opacity: 0;
+    transition:
+        visibility $element-transition-delay $element-transition-timing-function,
+        opacity $element-transition-delay $element-transition-timing-function,
+        color $theme-transition-delay $theme-transition-timing-function !important;
+}
+
+table tbody .expanded {
+    opacity: 1;
+    animation: fade 1s linear;
+}
+
+@for $i from 2 through 5 {
+    table tbody:nth-child(#{$i}) .expanded {
+        opacity: 1;
+        animation: fade #{($i - 1) * $element-transition-delay}s $element-transition-timing-function;
+    }
+}
+
+@keyframes fade {
+    0% {
+        max-height: 0;
+        opacity: 0;
+    }
+
+    100% {
+        max-height: 100px;
+        opacity: 100%;
+    }
+}

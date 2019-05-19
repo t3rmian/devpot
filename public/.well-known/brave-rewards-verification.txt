@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: $template.config.js._siteRoot
+Token: $template.config.js.optional.braveRewardsToken

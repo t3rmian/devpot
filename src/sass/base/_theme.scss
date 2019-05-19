@@ -1,0 +1,133 @@
+$themes: (light: (primary-background-color: white,
+        primary-background-color-less-intense: #eee,
+        primary-border-color: #ddd,
+        primary-box-shadow-color: rgba(0, 0, 0, 0.5),
+        primary-color: #333,
+        primary-color-less-intense: #666,
+        primary-color-more-intense: black,
+        secondary-color: #108db8,
+        secondary-color-less-intense: #0d6b8a,
+        logo-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%) //https://codepen.io/sosuke/pen/Pjoqqp
+    ),
+    dark: (primary-background-color: #333,
+        primary-background-color-less-intense: #444,
+        primary-border-color: #666,
+        primary-box-shadow-color: rgba(0, 0, 0, 0.75),
+        primary-color: #ccc,
+        primary-color-less-intense: #999,
+        primary-color-more-intense: white,
+        secondary-color: #ef7247,
+        secondary-color-less-intense: #f29475,
+        logo-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(100%) contrast(104%)
+    ),
+);
+
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+
+@mixin themify($themes: $themes) {
+
+    @each $theme,
+    $map in $themes {
+        $theme-map: () !global;
+
+        @each $key,
+        $submap in $map {
+            $value: map-get(map-get($themes, $theme), '#{$key}');
+            $theme-map: map-merge($theme-map, ($key: $value)) !global;
+        }
+
+        $selector: '.theme-#{$theme}';
+
+        @at-root #{&} #{$selector} {
+            @content;
+        }
+
+        $theme-map: null !global;
+    }
+}
+
+#root {
+    @include themify($themes) {
+        background-color: themed('primary-background-color');
+        transition: background-color $theme-transition-delay $theme-transition-timing-function;
+
+        .post-logo img,
+        img.logo {
+            -webkit-filter: themed('logo-filter');
+            filter: themed('logo-filter');
+            transition: filter $theme-transition-delay $theme-transition-timing-function, -webkit-filter $theme-transition-delay $theme-transition-timing-function !important;
+        }
+
+        .container,
+        .page {
+            background-color: themed('primary-background-color');
+            transition: background-color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        *:not(button):not(input):not(a) {
+            color: themed('primary-color');
+            transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        a,
+        button.link {
+            color: themed('secondary-color');
+            transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        a:hover,
+        button.link:hover {
+            color: themed('secondary-color-less-intense');
+            transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        .header-container {
+            *:not(button):not(input):not(a) {
+                color: themed('primary-color-more-intense');
+                transition: color $theme-transition-delay $theme-transition-timing-function;
+            }
+        }
+
+        .title {
+            color: themed('primary-color-more-intense');
+            transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        .langs {
+            .lang {
+                a[data-disabled=true] {
+                    color: themed('primary-color-less-intense');
+                    transition: color $theme-transition-delay $theme-transition-timing-function;
+                }
+            }
+        }
+
+        .date-col {
+            color: themed('primary-color-less-intense');
+            transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        .content img {
+            border-width: 1px;
+            border-style: outset;
+            border-color: themed('primary-border-color');
+            -webkit-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
+            -moz-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
+            box-shadow: 4px 4px 5px 0px themed('primary-box-shadow-color');
+        }
+
+        .updated,
+        .author,
+        .meta .item {
+            color: themed('primary-color-less-intense');
+            transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        .meta .item *:not(a) {
+            color: themed('primary-color-less-intense');
+            transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+    }
+}

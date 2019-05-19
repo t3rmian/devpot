@@ -1,0 +1,13 @@
+.tag-cloud {
+    position: absolute;
+    top: 6rem;
+    right: 2rem;
+    text-align: right;
+    max-width: 200px;
+}
+
+@media screen and (max-width: 1300px) {
+    .tag-cloud {
+        display: none;
+    }
+}

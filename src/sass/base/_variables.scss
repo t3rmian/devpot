@@ -1,0 +1,23 @@
+$header-font-family: 'Black Ops One',
+cursive;
+$title-font-family: 'Raleway',
+sans-serif;
+$text-font-family: 'Montserrat',
+sans-serif;
+$sans-serif-font: "HelveticaNeue-Light",
+"Helvetica Neue Light",
+"Helvetica Neue",
+Helvetica,
+Arial,
+"Lucida Grande",
+sans-serif;
+
+
+$element-transition-delay: 0.25s;
+$element-transition-timing-function: ease-in;
+$theme-transition-delay: 0.5s;
+$theme-transition-timing-function: ease-in;
+$routing-transition-delay: 0.45s;
+$routing-transition-timing-function: ease-in;
+
+@import url('https://fonts.googleapis.com/css?family=Black+Ops+One|Montserrat|Raleway');
