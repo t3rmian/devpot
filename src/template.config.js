@@ -6,10 +6,10 @@ export default {
 
   optional: {
     commentsRepo: "t3rmian/blog",
-    // ga: "UA-73928706-6",
+    ga: "UA-73928706-7",
     twitterAuthor: "t3rmian",
-    // braveRewardsToken:
-    //   "8b5efef3f30421b88d644c7a469434a562cb4935f83c122327ce4b34aba0cb0c",
-    disallow: "Disallow: /",
+    braveRewardsToken:
+      "d8168da8e5089e3919156575ad5514238efa9fcd453950683ab55ebbf2be54e5",
+    disallow: "Disallow: /"
   }
 };
