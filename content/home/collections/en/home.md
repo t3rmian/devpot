@@ -1,4 +1,4 @@
 ---
-title: blog template
+title: blog
 ---
-A minimalistic blog template build on react-static with multilingual support, lazy image loading and SEO optimization. The structure consists of pages for index, tags, search, post and 404.
+Software development without any tricks or gimmicks! Loose talks and helpful solutions verified in battle. Make a cup of tea, sit back and enjoy some writings.

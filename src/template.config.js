@@ -1,11 +1,11 @@
 export default {
-  siteTitle: "418",
-  siteLongTitle: "418: devblog",
+  siteTitle: "Devpot",
+  siteLongTitle: "Devpot: blog",
   siteRoot: "https://418.netlify.com",
   defaultLanguage: "en",
 
   optional: {
-    commentsRepo: "t3rmian/blog",
+    commentsRepo: "t3rmian/devpot",
     ga: "UA-73928706-7",
     twitterAuthor: "t3rmian",
     braveRewardsToken:

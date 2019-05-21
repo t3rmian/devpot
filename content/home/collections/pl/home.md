@@ -1,4 +1,4 @@
 ---
-title: szablon bloga
+title: blog
 ---
-Minimalistyczny szablon bloga oparty na react-static z obsługą wielu języków, leniwym ładowaniem obrazów i optymalizacją SEO. Struktura składa się ze stron indeksu, tagów, wyszukiwania, postu oraz strony 404.
+Magia programowania bez żadnych sztuczek! Luźne przemyślenia i rozwiązania sprawdzone w boju. Zaparz filiżankę kawy, usiadź wygodnie i poczytaj.
