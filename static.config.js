@@ -5,6 +5,13 @@ import React from "react";
 import config from "./src/template.config";
 import jdown from "jdown";
 import path from "path";
+import chokidar from "chokidar";
+import { rebuildRoutes } from "react-static/node";
+
+if (process.env.NODE_ENV === "development") {
+  chokidar.watch("content", { ignoreInitial: true })
+        .on("all", (path) => {console.log("sad" +path); rebuildRoutes();})
+}
 
 export default {
   siteRoot: config.siteRoot,
