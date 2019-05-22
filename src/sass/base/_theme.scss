@@ -5,8 +5,8 @@ $themes: (light: (primary-background-color: white,
         primary-color: #333,
         primary-color-less-intense: #666,
         primary-color-more-intense: black,
-        secondary-color: #108db8,
-        secondary-color-less-intense: #0d6b8a,
+        secondary-color: #2cb810,
+        secondary-color-less-intense: #0d8a3d,
         logo-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%) //https://codepen.io/sosuke/pen/Pjoqqp
     ),
     dark: (primary-background-color: #333,
@@ -18,8 +18,7 @@ $themes: (light: (primary-background-color: white,
         primary-color-more-intense: white,
         secondary-color: #ef7247,
         secondary-color-less-intense: #f29475,
-        logo-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(100%) contrast(104%)
-    ),
+        logo-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(100%) contrast(104%)),
 );
 
 @function themed($key) {
@@ -109,13 +108,23 @@ $themes: (light: (primary-background-color: white,
             transition: color $theme-transition-delay $theme-transition-timing-function;
         }
 
-        .content img {
-            border-width: 1px;
-            border-style: outset;
-            border-color: themed('primary-border-color');
-            -webkit-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
-            -moz-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
-            box-shadow: 4px 4px 5px 0px themed('primary-box-shadow-color');
+        .content {
+            img {
+                border-width: 1px;
+                border-style: outset;
+                border-color: themed('primary-border-color');
+                -webkit-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
+                -moz-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
+                box-shadow: 4px 4px 5px 0px themed('primary-box-shadow-color');
+            }
+
+            blockquote {
+                border-color: themed('secondary-color');
+
+                * {
+                    color: themed('primary-color-less-intense') !important;
+                }
+            }
         }
 
         .updated,
