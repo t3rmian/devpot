@@ -31,6 +31,9 @@ export default () => {
   });
   const expandFromIndex = 3;
   if (!expanded) {
+    if (posts.length < expandFromIndex) {
+      expanded = true
+    }
     posts = posts.slice(0, expandFromIndex);
   } else {
     for (let i = expandFromIndex; i < posts.length; i++) {
