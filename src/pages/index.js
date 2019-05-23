@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 
 export default () => {
   const { t } = useTranslation();
+  const expandFromIndex = 3;
   let {
     home,
     posts,
@@ -24,16 +25,12 @@ export default () => {
       ? window.sessionStorage.getItem("expanded")
         ? true
         : false
-      : false
+      : posts.length < expandFromIndex
   );
   posts.sort(function(a, b) {
     return new Date(b.date) - new Date(a.date);
   });
-  const expandFromIndex = 3;
   if (!expanded) {
-    if (posts.length < expandFromIndex) {
-      expanded = true
-    }
     posts = posts.slice(0, expandFromIndex);
   } else {
     for (let i = expandFromIndex; i < posts.length; i++) {
