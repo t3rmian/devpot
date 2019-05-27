@@ -9,11 +9,25 @@ import lifecycle from "react-pure-lifecycle";
 import { useRouteData } from "react-static";
 import { useTranslation } from "react-i18next";
 import config from "../template.config";
-import { lazyLoadImages, loadComments } from "../utils";
-import { getCommentsTheme } from "../components/Theme";
+import { lazyLoadImages, loadComments, loadHighlight } from "../utils";
+import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
+import hljs from "highlight.js";
+
+const updateCodeSyntaxHighlighting = () => {
+  document.querySelectorAll("pre code").forEach(block => {
+    const languageClass = [].slice
+      .call(block.classList)
+      .find(c => c.indexOf("language-") >= 0);
+    if (languageClass !== undefined) {
+      block.parentElement.classList.add(languageClass.split("-")[1]);
+    }
+    hljs.highlightBlock(block);
+  });
+};
 
 const methods = {
   componentDidMount() {
+    updateCodeSyntaxHighlighting();
     lazyLoadImages(document.querySelectorAll(".content img[data-src]"));
     if (config.optional.commentsRepo) {
       loadComments(
@@ -21,7 +35,11 @@ const methods = {
         config.optional.commentsRepo,
         getCommentsTheme()
       );
+      loadHighlight(getHighlightTheme())
     }
+  },
+  componentDidUpdate() {
+    updateCodeSyntaxHighlighting();
   }
 };
 

@@ -65,9 +65,13 @@ $themes: (light: (primary-background-color: white,
             transition: background-color $theme-transition-delay $theme-transition-timing-function;
         }
 
-        *:not(button):not(input):not(a) {
+        *:not(button):not(input):not(a):not(code):not(pre):not([class^="hljs-"]) {
             color: themed('primary-color');
             transition: color $theme-transition-delay $theme-transition-timing-function;
+        }
+
+        code {
+            background-color: themed('primary-background-color-less-intense');
         }
 
         a,

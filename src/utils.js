@@ -40,6 +40,29 @@ export function loadComments(anchor, repo, theme) {
   anchor.appendChild(script);
 }
 
+export function loadHighlight(theme) {
+  const highlightId = "hljs-theme";
+  const highlight = document.getElementById(highlightId);
+  if (!highlight) {
+    const head = document.getElementsByTagName("head")[0];
+    const link = document.createElement("link");
+    link.id = highlightId;
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href =
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/" +
+      theme +
+      ".min.css";
+    link.media = "all";
+    head.appendChild(link);
+  } else {
+    highlight.href =
+      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/" +
+      theme +
+      ".min.css";
+  }
+}
+
 export function lazyLoadImages(images) {
   const options = {
     rootMargin: "100px 0px",

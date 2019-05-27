@@ -2,6 +2,7 @@ import Cookies from "universal-cookie";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import config from "../template.config";
+import { loadComments, loadHighlight } from "../utils";
 
 export default function Theme() {
   const { t } = useTranslation();
@@ -17,11 +18,11 @@ export default function Theme() {
 
     const anchor = document.getElementById("comments");
     if (anchor != null) {
-      const commentsTheme = getCommentsTheme();
       while (anchor.firstChild) {
         anchor.removeChild(anchor.firstChild);
       }
-      loadComments(anchor, config.optional.commentsRepo, commentsTheme);
+      loadComments(anchor, config.optional.commentsRepo, getCommentsTheme());
+      loadHighlight(getHighlightTheme());
     }
   };
 
@@ -73,4 +74,15 @@ export const loadTheme = () => {
       themeManager.classList.add(theme);
     }
   }
+};
+
+export const getHighlightTheme = () => {
+  const theme = new Cookies().get("theme");
+  const highlightTheme =
+    theme === undefined
+      ? "github"
+      : theme.indexOf("light") >= 0
+      ? "github"
+      : "monokai-sublime";
+  return highlightTheme;
 };

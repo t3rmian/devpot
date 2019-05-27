@@ -46,6 +46,19 @@
             line-height: 1.4em;
             text-align: justify;
 
+            pre {
+                display: flex;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            code {
+                border-radius: 3px;
+                font-size: 85%;
+                margin: 0;
+                padding: .2em .4em;
+            }
+
             blockquote {
                 border-left: .25em solid;
                 padding: 0 1em;
@@ -61,13 +74,19 @@
                 }
             }
 
+            ol {
+                ul {
+                    margin-top: initial;
+                }
+            }
+
             @media (min-width: 1050px) {
-                
+
                 >:not(img):not(table) {
                     margin-left: 75px;
                     margin-right: 75px;
                 }
-                
+
                 li {
                     margin-left: 25px;
                 }

@@ -11,6 +11,7 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "axios": "^0.18.0",
+    "highlight.js": "^9.15.6",
     "htmr": "^0.7.0",
     "i18next": "^15.0.9",
     "jdown": "^1.0.1",
