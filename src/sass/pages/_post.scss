@@ -182,6 +182,12 @@
     .post-container {
         .page {
             padding: 1rem 1rem 1rem 1rem;
+
+            .content {
+                img {
+                    width: auto;
+                }
+            }
         }
     }
 }
