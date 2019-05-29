@@ -80,7 +80,7 @@
                 }
             }
 
-            @media (min-width: 1050px) {
+            @media (min-width: 1200px) {
 
                 >:not(img):not(table) {
                     margin-left: 75px;
@@ -136,6 +136,18 @@
     }
 }
 
+@media (max-width: 1200px) {
+    .post-container {
+        .page {
+            .content {
+                img {
+                    max-width: 100%;
+                }
+            }
+        }
+    }
+}
+
 @media (max-width: 640px) {
     .post-container {
         .page {
@@ -182,12 +194,6 @@
     .post-container {
         .page {
             padding: 1rem 1rem 1rem 1rem;
-
-            .content {
-                img {
-                    width: auto;
-                }
-            }
         }
     }
 }
