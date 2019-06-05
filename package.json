@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "highlight.js": "^9.15.6",
     "htmr": "^0.7.0",
     "i18next": "^15.0.9",
@@ -40,6 +40,8 @@
   },
   "resolutions": {
     "react-static/webpack-dev-server": "~3.1.10",
-    "react-static/react-helmet": "5.2.1"
+    "react-static/react-helmet": "5.2.1",
+    "fstream": "^1.0.12",
+    "marked": "^0.6.1"
   }
 }
