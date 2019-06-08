@@ -43,13 +43,16 @@
         }
 
         .content {
-            line-height: 1.4em;
+            line-height: 1.55em;
             text-align: justify;
 
             pre {
                 display: flex;
-                white-space: normal;
+                white-space: pre-wrap;
                 word-break: break-word;
+                code {
+                    width: 100%;
+                }
             }
 
             code {
@@ -99,7 +102,7 @@
 
             img {
                 display: block;
-                margin: 0 auto 0 auto;
+                margin: 0.5em auto 1.25em auto;
                 max-width: 1050px;
             }
         }
