@@ -1,5 +1,5 @@
 ---
-title: JMeter - introduction
+title: JMeter — introduction
 url: jmeter-introduction
 id: 4
 tags:
