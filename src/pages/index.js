@@ -24,8 +24,8 @@ export default () => {
     typeof window !== "undefined"
       ? window.sessionStorage.getItem("expanded")
         ? true
-        : false
-      : posts.length < expandFromIndex
+        : posts.length <= expandFromIndex
+      : posts.length <= expandFromIndex
   );
   posts.sort(function(a, b) {
     return new Date(b.date) - new Date(a.date);
