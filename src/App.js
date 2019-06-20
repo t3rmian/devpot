@@ -20,7 +20,7 @@ const methods = {
         window.dataLayer.push(arguments);
       }
       gtag("js", new Date());
-      gtag("config", config.ga);
+      gtag("config", config.optional.ga);
     }
 
     const throttle = (ms, fun) => {
