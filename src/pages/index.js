@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 
 export default () => {
   const { t } = useTranslation();
-  const expandFromIndex = 3;
+  const expandFromIndex = 5;
   let {
     home,
     posts,
