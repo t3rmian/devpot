@@ -1,26 +1,26 @@
 ---
-title: Android test watcher with screen capture
-url: android-screen-capture-test-watcher
+title: Android test watcher i zrzut ekranu
+url: android-test-watcher-zrzut-ekranu
 id: 7
 tags:
   - android
-  - testing
+  - testy
 author: Damian Terlecki
-date: 2019-06-30T20:00:00
+date: 2019-07-07T20:00:00
 source: https://github.com/t3rmian/travis-android-demo
 ---
 
-Debugging failed tests on Android, especially those which are run on remote servers (hello CI) is often a matter of some guessing. In some situations, the application can become a resource hungry monster and you will keep wondering why is that view not visible (!!) when it actually is on your HAXM powered top-end local machine. I certainly encountered such a situation, not to mention welcome dialogs which sometimes clogged the tests and other shenanigans. A simple solution for analysis of these issues is to capture the screen in case of test failure.
+Debugowanie nieudanych testów na Androidzie, szczególnie tych, które uruchamiane są na zdalnym serwerze (CI), to często kwestia zgadywania
+Nie jest to jakiś wyjątek, że aplikacja momentami może stać się głodnym zasobów potworem. W takiej sytuacji trudno nie zastanowić się, dlaczego ten nieszczęsny element nie jest widoczny (!!), skoro testy na twojej super szybkiej maszynie lokalnej z włączonym HAXM działają bez zarzutu. Przynajmniej mnie spotkała już taka sytuacja, nie wspominając już o oknach powitalnych, które czasem zatykały testy oraz inne cuda wianki. Prostym rozwiązaniem przy analizie takich problemów jest stworzenie zrzutu ekranu w przypadku niepowodzenia testu.
 
-Let's then jump straight into it.
-First, add *INTERNET* permissions in manifest element in `AndroidManifest.xml`. We need this permission to be able to send a captured screenshot to some online hosting service.
-You could, of course, implement a solution involving external storage instead and I will hint you later the code would differ.
+Przejdźmy więc do konkretów.
+Na początku dodamy uprawnienie dla aplikacji na korzystanie z internetu wewnątrz elementu manifest w pliku `AndroidManifest.xml`. Będziemy tego potrzebowali w celu wysłania zrzutu ekranu na jakikolwiek serwer. Można oczywiście zaimplementować rozwiązanie w oparciu o zewnętrzną pamięć masową, dlatego też w dalszej części zasygnalizuję miejsce, w którym nasz kod nieco by się różnił.
 
 ```xml
 &lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
 ```
 
-We will use the *Retrofit2* library to implement a REST interface on the client side. If you're not familiar with this library, it significantly simplifies communication with REST services. Add AndroidX test libraries which including core, runner, rules, and integration with JUnit.
+Skorzystamy z biblioteki *Retrofit2* w celu implementacji interfejsu po stronie klienta. Pozwala ona na znaczne uproszczenie komunikacji z serwisami REST-owymi. Nie zapomnij również dodać paczek — AndroidX — na bazie których zbudujemy nasze testy (core, runner, rules oraz integracja z JUnitem).
 
 ```Gradle
 implementation 'com.squareup.retrofit2:retrofit:2.5.0'
@@ -30,12 +30,12 @@ androidTestImplementation 'androidx.test.ext:junit:1.1.1'
 androidTestImplementation 'androidx.test:rules:1.2.0'
 ```
 
-Create a simple test. I've used one of the starters available when creating a new project in Android Studio and created a test for the generated `ItemListActivity`.
-In this test, we will use AndroidX test rule. For functional testing, an `ActivityTestRule` is usually used. It provides a way to automatically launch and terminate the activity before and after the test is complete. What we additionally want to achieve is to take a screenshot in case when such test fails. Of course, we could implement this in each test but, an even better solution is to use a `TestWatcher` wchich implements a `TestRule` interface.
+Stwórzmy prosty test. Do tego celu wygenerowałem jeden z początkowych projektów w Android Studio i stworzyłem test dla klasy `ItemListActivity`. W teście tym użyjemy reguł z biblioteki AndroidX. Do testów funkcjonalnych aktywności najlepiej pasuje już zaimplementowana reguła `ActivityTestRule`. Ułatwia ona tworzenie (startowanie) aktywności oraz jej kończenie. To, co chcemy dodatkowo osiągnąć to utworzenie zrzutu ekranu w przypadku gdy taki test się nie powiedzie. Oczywiście moglibyśmy zaimplementować takie rozwiązanie w każdym pojedynczym teście, jednak znacznie lepszą solucją będzie rozszerzenie abstrakcyjnej klasy `TestWatcher`, która implementuje już interfejs `TestRule` i przy okazji dostarcza nam ciekawych funkcjonalności.
 
-For now, combine those two rules (`ActivityTestRule` and our `TestWatcher` to-be-implemented screenshot capture rule) using `RuleChain`. By setting the first one as an outer rule and second one as "around" rule we will ensure, that the `ScreenshotOnTestFailedRule` (an implementation of `TestWatcher`) will be applied first and `ActivityTestRule` will be applied last.
+Na razie połącz obie reguły (`ActivityTestRule` oraz nasze nowe rozszerzenie klasy `TestWatcher`, w którym zaimplementujemy tworzenie zrzutu ekranu) za pomocą `RuleChain`. Ustawienie tej pierwszej jako reguła zewnętrzna, a drugiej jako reguła "wokół", poskutkuje tym, że `ScreenshotOnTestFailedRule` (implementacja TestWatchera) zostanie zaaplikowana (uruchomiona) jako pierwsza, a `ActivityTestRule` jako ostatnia.
 
-Note that we will use `@JvmField` annotation together with `@Rule` so that the compiler won't complain about the rule not being public field (Kotlin). You could reach a similar result using `@get:Rule`. More info on [proandroiddev.com](https://proandroiddev.com/fix-kotlin-and-new-activitytestrule-the-rule-must-be-public-f0c5c583a865).
+Zauważ użycie adnotacji `@JvmField` wraz z `@Rule`. Dzięki temu kompilator nie będzie narzekał na to, że pole z regułą nie jest publiczne (język Kotlin).
+Rownie dobrze można tutaj użyć adnotacji `@get:Rule`. Więcej informacji na ten temat znajdziesz na [proandroiddev.com](https://proandroiddev.com/fix-kotlin-and-new-activitytestrule-the-rule-must-be-public-f0c5c583a865).
 
 ```Kotlin
 @RunWith(AndroidJUnit4::class)
@@ -54,10 +54,10 @@ class ItemListActivityTest {
 }
 ```
 
-Let's now move to a more juicy part which is an implementation of `ScreenshotOnTestFailedRule`. `TestWatcher` superclass provides many useful methods which are invoked when appropriate situation occurs in our test. Among others, there are `succeeded` and `failed` methods. In our case, we are interested in the latter. `protected void failed(Throwable e, Description description)` is invoked when a test fails and we can extend it to add our logic to capture a screenshot. This way we will know how the view looked when the test failed. Probably you could also dump the UI hierarchy with UIAutomator at this point to get even more debugging info.
+Przejdźmy teraz do bardziej interesującej części — implementacji `ScreenshotOnTestFailedRule`. Klasa bazowa `TestWatcher` dostarcza wielu użytecznych metod, które podpięte są do odpowiedniego zdarzenia w teście. Mamy tu między innymi metody `succeeded` oraz `failed`. W tym przypadku najbardziej zainteresuje nas ta druga.
+Metoda `protected void failed(Throwable e, Description description)` wywoływana jest w przypadku, gdy test się nie powiedzie. Zazwyczaj w takim przypadku wyrzucany jest wyjątek. Tutaj właśnie dodamy naszą logikę przechwytującą ekran. W ten sposób dowiemy się, jak wyglądał widok w momencie, gdy dana asercja nie została spełniona. Swoją drogą może to być również dobry moment na stworzenie zrzutu hierarchii widoku (UIAutomator), gdybyśmy potrzebowali jeszcze więcej informacji.
 
-In the capture logic, we will use a `Screenshot` and `ScreenCaptureProcessor` interfaces from AndroidX test runner library. Mind that this API is currently in beta phase.
-The name of the test and method can be easily extracted from the `Description`, as well as an exception object which is passed to the `failed()` method. You could also log an exception name which I imagine might come handy in many cases. Select the desired format of the image and pass the captured screenshot to the processor.
+Przy implementacji tworzenia zrzutu ekranu wykorzystamy interfejsy `Screenshot` oraz `ScreenCaptureProcessor` pochodzące biblioteki AndroidX (paczka `runner`). Należy jednak mieć na uwadze, że API to jest obecnie w fazie beta. Nazwę testu w łatwy sposób można otrzymać z obiektu `Description`. Dodatkowe informacje dostępne są w obiekcie wyjątku — mogą się przydać przy tworzeniu bardziej złożonego logowania do powiązania ze zrzutem. Ostatecznie należy wybrać format zrzutu i przekazać go do procesora. Ten zajmie się docelowym zapisem obrazu.
 
 ```Java
 public class ScreenshotOnTestFailedRule extends TestWatcher {
@@ -93,9 +93,9 @@ public class ScreenshotOnTestFailedRule extends TestWatcher {
 }
 ```
 
-The `ScreenCaptureProcessor` interface has just one method `public String process(ScreenCapture capture) throws IOException` to implement. We will use this interface to upload the image to some external file hosting. You might as well try saving it on external storage and later retrieve it automatically with *adb*, however, I haven't had too much luck with getting write permissions (maybe because of [this bug](https://issuetracker.google.com/issues/64389280)) at the time.
+Interfejs `ScreenCaptureProcessor` posiada tylko jedną metodę `public String process(ScreenCapture capture) throws IOException`. To w niej zaimplementujemy wysłanie obrazu na serwer. W tym właśnie miejscu można równie dobrze zapisać zrzut w zewnętrznej pamięci masowej, który następnie można wydobyć np. za pomocą *adb*. Sam jednak nie miałem zbyt wiele szczęścia z uzyskaniem uprawnień do zapisu (być może z powodu [tego błędu](https://issuetracker.google.com/issues/64389280)).
 
-Going back to our upload processor — the implementation is quite straightforward. Send the image data synchronously using a multipart body and log the response or error if such happens. Use tags like in the previous class to easily filter the logs. You can do so using *logcat* built-in Android Studio or running `adb logcat` later. In the response, there should be a link to the image, and from previous logs, you will be able to connect it to the correct test method (or you can add additional log info here).
+Wracając do naszego procesora — implementacja wysyłania pliku jest dosyć prosta. Polega na synchronicznym wysłaniu obrazu jako *multipart body* oraz zalogowaniu odpowiedzi zwrotnej (pozytywnej bądź błędu). Polecam użycie tagów jak poprzednio w celu łatwego przefiltrowania logów. Można to zrobić przy użyciu wbudowanego w Android Studio *logcata* bądź wywołać `adb logcat` w połączeniu z *grepem*. W odpowiedzi powinniśmy otrzymać link do zrzutu (jeśli skorzystamy z tego samego serwisu), a poprzedzające logi pozwolą na powiązanie obrazu z wyrzuconym wyjątkiem.
 
 ```Java
 public class UploadScreenCaptureProcessor implements ScreenCaptureProcessor {
@@ -140,7 +140,8 @@ interface UploadService {
 }
 ```
 
-We will use https://file.io which is an awesome solution for personal projects. The service offers an ephemeral hosting — after first download, the file gets deleted. There is a free plan, which is sufficient for small projects (100 uploads per day). Though, you can use any other service or host your own private. For creating the service implementation we will use *Retrofit2*:
+W naszym przypadku skorzystamy z serwisu https://file.io, który świetnie sprawdza się w przypadku prywatnych projektów. Oferuje on efemeryczny hosting — po pierwszym pobraniu plik zostaje usunięty. Co ważne, serwis ten oferuje darmowy plan, który jest wystarczający dla małych projektów (limit 100 wrzutek dziennie). Chociaż, możesz skorzystać z każdej innej usługi lub postawić własny serwer. Do implementacji usługi po stronie klienta posłużymy się biblioteką *Retrofit2*:
+
 
 ```Java
 class ServiceGenerator {
@@ -161,11 +162,11 @@ class ServiceGenerator {
 }
 ```
 
-Now if some test fails, you can check the error in logs (using Android Studio or terminal) and take a peek at the view.
+Teraz, jeśli jakiś test się nie powiedzie, będziesz miał możliwość łatwego sprawdzenia błędu w logach (Android Studio lub poprzez terminal) i porównania go ze zrzutem ekranu.
 
 > adb logcat -dv time *:V | grep "TestRunner\\|ScreenshotOnTestFailedRule\\|UploadScreenCaptureProcessor"
 
-Look for "link" property with *UploadScreenCaptureProcessor* tag:
+Szukaj pola o nazwie "link" z tagiem *UploadScreenCaptureProcessor*:
 
 ```log
 06-23 17:58:28.969 I/TestRunner( 7860): run started: 1 tests
@@ -213,4 +214,4 @@ Look for "link" property with *UploadScreenCaptureProcessor* tag:
 06-23 17:58:42.433 I/TestRunner( 7860): run finished: 1 tests, 1 failed, 0 ignored
 ```
 
-![Android — screen captured on failed test](/img/hq/android-screen-capture-demo.jpg "Captured screen")
+![Android — zrzut ekranu spowodowany nieudanym testem](/img/hq/android-screen-capture-demo.jpg "Zrzut ekranu")
