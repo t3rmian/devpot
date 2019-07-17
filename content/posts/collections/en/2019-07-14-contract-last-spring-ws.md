@@ -20,7 +20,7 @@ JAX-WS is a pretty valid choice for any of the mentioned development styles. How
 
 ### POM Configuration
 
-Firstly, we will need some basic dependencies. I recommend using `spring-boot-starter-parent` as the parent project. You will also probably use `spring-boot-starter-data-jpa` and `spring-boot-starter-web`. They can be picked in the Spring Initializr. For sure we would also need the package with web services support, together with wsdl4j generator to produce the specification.
+Firstly, we will need some basic dependencies. I recommend using `spring-boot-starter-parent` as the parent project. You will also probably use `spring-boot-starter-data-jpa` and `spring-boot-starter-web`. They can be picked in the **Spring Initializr**. For sure we would also need the package with web services support, together with *wsdl4j* generator to produce the specification.
 
 ```xml
 &lt;dependency&gt;
@@ -181,7 +181,7 @@ public class UserEndpoint implements WSEndpoint {
 }
 ```
 
-Any deviations from this rule will cause a generation of improperly linked operations in your WSDL. However, there are a few ways around this and I will show you two of them. Why is it a problem, you might ask. Well, there might come a situation where you would like to reuse the same element in multiple places without creating redundant code. Above you can see that there is an uncommon class ObjectFactory. This class has a `@XmlRegistry` annotation that marks a factory with methods used for mapping schema elements (`@XmlElementDecl`). This results in the same output as mentioned before `@XmlRootElement`. The alternative is to use multiple classes with the root annotation.
+Any deviations from this rule will cause a generation of improperly linked operations in your WSDL. However, there are a few ways around this and I will show you two of them. Why is it a problem, you might ask. Well, there might come a situation where you would like to reuse the same element in multiple places without creating redundant code. Above you can see that there is an uncommon class *ObjectFactory*. This class has a `@XmlRegistry` annotation that marks a factory with methods used for mapping schema elements (`@XmlElementDecl`). This results in the same output as mentioned before `@XmlRootElement`. The alternative is to use multiple derivative classes with the root annotation.
 
 ```java
 @XmlRegistry
@@ -384,7 +384,7 @@ public class ReflectionWsdl11Definition extends DefaultWsdl11Definition {
 
 ### Serving the web service
 
-Finally, run `mvn clean install` or `mvn jaxb2:schemagen` to generate the XSD. After that, start your Spring Boot application (IDE or by executing `spring-boot:run`) and the WSDL should be generated during the start. If everything's set up properly, you will be able to access your WSDL (in this sample case) at http://localhost:8080/ws/users.wsdl. Load it in the SoapUI or use curl.
+Finally, run `mvn clean install` or `mvn jaxb2:schemagen` to generate the XSD. In case you don't have Maven installed, you can use `mvnw` wrapper from the sample project. After that, start your Spring Boot application (IDE or by executing `mvn spring-boot:run`) and the WSDL should be generated during the start. If everything's set up properly, you will be able to access your WSDL (in this sample case) at http://localhost:8080/ws/users.wsdl. Load it in the SoapUI or use *curl*.
 
 ```xml
 &lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:t3r=&quot;https://github.com/t3rmian/jmeter-samples&quot;&gt;
@@ -439,4 +439,4 @@ Finally, run `mvn clean install` or `mvn jaxb2:schemagen` to generate the XSD. A
 &lt;/SOAP-ENV:Envelope&gt;
 ```
 
-Don't forget to enable validation when testing the interface. In SoapUI you can do so by ticking *Validate Requests* and *Validate Responses* checkboxes in the menu *-> File -> Preferences -> Editor Setting*. If you stumble upon any problems, you can always compare with the sample project. The link can be found at the top of the page.
+Don't forget to enable validation when testing the interface. In SoapUI you can do so by ticking *Validate Requests* and *Validate Responses* checkboxes in the menu *-> File -> Preferences -> Editor Setting*. If you stumble upon any problems, you can always compare with the sample project. The link can be found at the top of the page. Note that you may encounter [unforeseen errors](https://github.com/mojohaus/jaxb2-maven-plugin/issues/129) when using (compiling with) newer versions of JDK. For more control over the XSD generation, I recommend [JAXB-Facets](https://github.com/whummer/jaxb-facets).
