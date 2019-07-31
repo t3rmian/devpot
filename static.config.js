@@ -9,8 +9,8 @@ import chokidar from "chokidar";
 import { rebuildRoutes } from "react-static/node";
 
 if (process.env.NODE_ENV === "development") {
-  chokidar.watch("content", { ignoreInitial: true })
-        .on("all", (path) => {console.log("sad" +path); rebuildRoutes();})
+  chokidar.watch(["content", "sass"], { ignoreInitial: true })
+        .on("all", (path) => { rebuildRoutes(); })
 }
 
 export default {

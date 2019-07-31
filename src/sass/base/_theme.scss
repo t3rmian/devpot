@@ -8,6 +8,7 @@ $themes: (light: (primary-background-color: white,
         secondary-color: #2cb810,
         secondary-color-less-intense: #0d8a3d,
         logo-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%), //https://codepen.io/sosuke/pen/Pjoqqp
+        logo-filter-hover: invert(51%) sepia(32%) saturate(4500%) hue-rotate(77deg) brightness(84%) contrast(87%),
         theme-switch-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(200%) contrast(54%)),
     dark: (primary-background-color: #333,
         primary-background-color-less-intense: #444,
@@ -19,6 +20,7 @@ $themes: (light: (primary-background-color: white,
         secondary-color: #ef7247,
         secondary-color-less-intense: #f29475,
         logo-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(100%) contrast(104%),
+        logo-filter-hover: invert(51%) sepia(51%) saturate(600%) hue-rotate(329deg) brightness(97%) contrast(92%),
         theme-switch-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%)));
 
 @function themed($key) {
@@ -59,15 +61,19 @@ $themes: (light: (primary-background-color: white,
 
             .post-logo img,
             img.logo {
-                -webkit-filter: themed('logo-filter');
                 filter: themed('logo-filter');
-                transition: filter $theme-transition-delay $theme-transition-timing-function, -webkit-filter $theme-transition-delay $theme-transition-timing-function !important;
+                transition: filter $theme-transition-delay $theme-transition-timing-function !important;
+            }
+
+            a:hover.post-logo img,
+            a:hover img.logo {
+                filter: themed('logo-filter-hover');
+                transition: filter $theme-transition-short-delay $theme-transition-short-timing-function !important;
             }
     
             .theme-switcher img {
-                -webkit-filter: themed('theme-switch-filter');
                 filter: themed('theme-switch-filter');
-                transition: filter $theme-transition-delay $theme-transition-timing-function, -webkit-filter $theme-transition-delay $theme-transition-timing-function !important;
+                transition: filter $theme-transition-delay $theme-transition-timing-function !important;
             }
     
     
@@ -85,7 +91,7 @@ $themes: (light: (primary-background-color: white,
             a:hover,
             button.link:hover {
                 color: themed('secondary-color-less-intense');
-                transition: color $theme-transition-delay $theme-transition-timing-function;
+                transition: color $theme-transition-short-delay $theme-transition-short-timing-function;
             }
     
             .header-container {
