@@ -4,6 +4,14 @@
     right: 2rem;
     text-align: right;
     max-width: 200px;
+
+    .tag-cloud-container {
+        @for $i from 1 through 10 {
+            a:nth-child(#{$i}) {
+                font-size: #{(11 - $i)/10 * 0.25 + 1}rem;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 1300px) {

@@ -13,9 +13,9 @@ export default function TagCloud({ tags, lang }) {
       </div>
       <br/>
       {t("Tag cloud", { lng: lang })}
-      <div>
+      <div className="tag-cloud-container">
         {tags.map(tag => (
-          <Link key={tag.value} to={tag.path}>{` ${tag.value}`}</Link>
+          <Link key={tag.value} to={tag.path}>{` #${tag.value}`}</Link>
         ))}
       </div>
     </nav>
