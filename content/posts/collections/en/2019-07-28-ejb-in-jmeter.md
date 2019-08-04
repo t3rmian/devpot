@@ -12,11 +12,11 @@ date: 2019-07-28T20:00:00
 
 During the development and maintenance of Java enterprise applications, you might come across a need of executing some remote EJB interface methods. This desire may unfold in many cases. One possible scenario is that the project configuration is not prepared for integration testing and there is an immediate requirement of validating some core methods used by EJB clients. In other cases, you might want to do some performance testing. However, in my opinion, the best matching use case for this is a situation, where you have some trigger-method for invoking data processing which is not exposed in typical REST/SOAP interface, and you need to invoke it in an automated way, bypassing user interface.
 
-In the JMeter, to invoke EJB methods you would have to create [your own sampler](https://dzone.com/articles/test-your-ejbs-with-jmeter) (by default the JMeter does not provide an EJB sampler). Though, if you need something quick and simple it's doable with *JSR223 Sampler*. Either way, to call EJB from you will need client libraries from an application server that hosts your EJB, and your remote interfaces. Put them in `JMETER_HOME/lib` or `JMETER_HOME/lib/ext`. JMeter will automatically pick up classes from these jars ([classpath](https://jmeter.apache.org/usermanual/get-started.html#classpath)) and load them at the start.
+In the JMeter, to invoke EJB methods you would have to create [your own sampler](https://dzone.com/articles/test-your-ejbs-with-jmeter) (by default the JMeter does not provide an EJB sampler). Though, if you need something quick and simple it's doable with *JSR223 Sampler*. Either way, to call EJB from remote, you will need client libraries from an application server that hosts your EJB, and your remote interfaces. Put them in `JMETER_HOME/lib` or `JMETER_HOME/lib/ext`. JMeter will automatically pick up classes from these jars ([classpath](https://jmeter.apache.org/usermanual/get-started.html#classpath)) and load them at the start.
 
 ### Invoking EJB from a remote client using JNDI
 
-As mentioned before, the EJB invocation can be achieved in a simple JSR223 Sampler. I prefer using Groovy for this but you can use whatever you like. Here is a small piece of code which you would want to edit to your needs:
+As mentioned before, the EJB invocation can be achieved in a simple JSR223 Sampler. To create it, start with Thread Group and assign JSR223 Sampler under it. I prefer using Groovy for this but you can use whatever you like. Here is a small piece of code which you would want to edit to your needs:
 
 ```groovy
 import java.io.Serializable;
@@ -47,4 +47,4 @@ environment.setSecurityCrendentials("guest"); /* env.put(Context.SECURITY_CREDEN
 InitialContext ctx = environment.getInitialContext();
 ```
 
-The above sample presents execution of EJB method on the WebLogic server using a remote client. In this case, RMI communication is done using a proprietary protocol called T3 protocol. This can vary for other application servers. For example in WildFly versions < 8, **jnp** had been utilized, which has been later switched to [http remoting](https://docs.jboss.org/author/display/WFLY10/Remote+EJB+invocations+via+JNDI+-+EJB+client+API+or+remote-naming+project), and starting from the version 11, [EJBs can be invoked over HTTP](https://docs.jboss.org/author/display/WFLY/EJB+over+HTTP).
+The above sample presents execution of EJB method on the WebLogic server using a remote client. In this case, RMI communication is done using a proprietary protocol called **T3** protocol. This can vary for other application servers. For example in WildFly versions < 8, **jnp** had been utilized, which has been later switched to [http remoting](https://docs.jboss.org/author/display/WFLY10/Remote+EJB+invocations+via+JNDI+-+EJB+client+API+or+remote-naming+project), and starting from the version 11, [EJBs can be invoked over HTTP](https://docs.jboss.org/author/display/WFLY/EJB+over+HTTP).
