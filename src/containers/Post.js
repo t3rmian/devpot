@@ -55,6 +55,11 @@ export function Post() {
       : lazyImgRegex.exec(post.contents) != null
       ? RegExp.$1
       : null;
+  const authorLang = isDefaultLang ? "/" : "/" + lang + "/"
+  const authorSite = post.authorSite ? post.authorSite : config.authorSite + authorLang
+  const author = (post.author === config.author || post.author == null)
+      ? (<a href={`${authorSite}`}>{config.author}</a>)
+      : post.author;
 
   return (
     <div className="container post-container">
@@ -139,7 +144,7 @@ export function Post() {
                           </time>
                         </td>
                       )}
-                      {post.author && <td className="author">{post.author}</td>}
+                      {post.author && <td className="author">{author}</td>}
                     </tr>
                   </tbody>
                 </table>

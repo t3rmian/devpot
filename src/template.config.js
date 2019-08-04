@@ -1,4 +1,6 @@
 export default {
+  author: "Damian Terlecki",
+  authorSite: "https://t3rmian.github.io",
   siteTitle: "Devpot",
   siteLongTitle: "Devpot: blog",
   siteRoot: "https://418.netlify.com",
