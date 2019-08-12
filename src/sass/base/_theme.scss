@@ -80,6 +80,7 @@ $themes: (light: (primary-background-color: white,
     
             code {
                 background-color: themed('primary-background-color-less-intense');
+                box-shadow: 0 0 1px 2px themed('primary-background-color');
             }
     
             a,
@@ -133,8 +134,28 @@ $themes: (light: (primary-background-color: white,
                 blockquote {
                     border-color: themed('secondary-color');
     
-                    * {
+                    *:not(a) {
                         color: themed('primary-color-less-intense') !important;
+                    }
+                }
+
+                table:not(.more){
+                    th {
+                        background-color: themed('primary-color');
+                        color: themed('primary-background-color');
+                    }
+
+                    td, 
+                    th {
+                        border-color: themed('primary-color-less-intense');
+                    }
+
+                    th:not(:first-child) {
+                        border-left-color: themed('primary-background-color');
+                    }
+
+                    th:not(:last-child) {
+                        border-right-color: themed('primary-background-color');
                     }
                 }
             }

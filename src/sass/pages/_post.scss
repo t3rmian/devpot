@@ -46,6 +46,10 @@
             line-height: 1.55em;
             text-align: justify;
 
+            pre, code {
+                font-family: monospace;
+            }
+
             pre {
                 display: flex;
                 white-space: pre-wrap;
@@ -56,10 +60,11 @@
             }
 
             code {
+                display: inline-block;
                 border-radius: 3px;
                 font-size: 85%;
                 margin: 0;
-                padding: .2em .4em;
+                padding: .0em .4em;
                 text-align: left;
             }
 
@@ -70,8 +75,12 @@
                 text-align: initial;
             }
 
-            ul {
+            p+ul {
                 margin-top: -0.75em;
+            }
+
+            ul {
+                margin-top: 0;
 
                 li {
                     line-height: 1.6em;
@@ -84,7 +93,24 @@
                 }
             }
 
+            table:not(.more) {
+                border-collapse: collapse;
+                
+                li * {vertical-align:top}
+
+                td,
+                th {
+                    border-width: 1px;
+                    border-style: solid;
+                    padding:10px;
+                }
+            }
+
             @media (min-width: 1200px) {
+
+                table:not(.more) {
+                    margin: 0 75px;
+                }
 
                 >:not(img):not(table) {
                     margin-left: 75px;
@@ -95,11 +121,49 @@
                     margin-left: 25px;
                 }
 
-                td {
+                .more td {
                     padding-left: 75px;
                     padding-right: 75px;
                 }
             }
+
+            table.rwd * {
+                text-align: left
+            }
+            @media screen and (max-width: 400px) {
+                pre, code {
+                    word-break: break-all;
+                }
+            }
+
+            @media screen and (max-width: 800px) {
+
+                table.rwd {
+
+                    thead {
+                        display: none;
+                    }
+                    
+                    tr {
+                        border-top: 3px solid;
+                        display: block;
+                        margin-top: 2rem;
+                    }
+                    
+                    td {
+                        display: block;
+                    }
+                    
+                    td::before {
+                        content: attr(data-label) ':';
+                        margin-right: .5rem;
+                        float: left;
+                        font-weight: 900;
+                    }
+                }
+
+
+              }
 
             img {
                 display: block;
