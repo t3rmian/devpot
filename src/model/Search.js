@@ -2,7 +2,7 @@ import Index from "./Index";
 import i18n from "../i18n";
 
 export default function Search(content, defaultLang, lang) {
-  const search = Index(content, defaultLang, lang);
+  const search = Index(content, defaultLang, lang, true);
   const { blog } = content;
   const isDefaultLang = defaultLang === lang;
   const path = isDefaultLang

@@ -25,7 +25,11 @@ export function gradeTags(blog, isDefaultLang, lang) {
   return tags;
 }
 
-export default function Index(content, defaultLang, lang) {
+function mapPost(post, loadEagerly) {
+  return loadEagerly ? post : { date: post.date, title: post.title };
+}
+
+export default function Index(content, defaultLang, lang, loadEagerly) {
   const { blog, home } = content;
   const isDefaultLang = defaultLang === lang;
   const path = isDefaultLang ? "/" : `/${lang}/`;
@@ -37,7 +41,7 @@ export default function Index(content, defaultLang, lang) {
     getData: () => ({
       home: home[lang][0],
       posts: blog[lang].map(p => ({
-        ...p,
+        ...mapPost(p, loadEagerly),
         path: `${path}${i18n.t("posts", { lng: lang })}/${p.url}`
       })),
       lang,
