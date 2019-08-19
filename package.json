@@ -42,6 +42,7 @@
     "react-static/webpack-dev-server": "~3.1.10",
     "react-static/react-helmet": "5.2.1",
     "fstream": "^1.0.12",
-    "marked": "^0.6.1"
+    "marked": "^0.6.1",
+    "lodash": "^4.17.13"
   }
 }
