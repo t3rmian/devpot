@@ -5893,10 +5893,10 @@ lodash.uniq@^4.5.0:
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
   integrity sha1-0CJTc662Uq3BvILklFM5qEJ1R3M=
 
-lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.3, lodash@^4.17.5, lodash@~4.17.10:
-  version "4.17.11"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha512-cQKh8igo5QUhZ7lg38DYWAxMvjSAKG0A8wGSVimP07SIUEK2UO+arSRKbRZWtelMtN5V0Hkwh5ryOto/SshYIg==
+lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.3, lodash@^4.17.5, lodash@~4.17.10:
+  version "4.17.15"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
 logalot@^2.0.0, logalot@^2.1.0:
   version "2.1.0"
@@ -7896,7 +7896,7 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-dom@^16.8.2, react-dom@^16.8.6:
+react-dom@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.8.6.tgz#71d6303f631e8b0097f56165ef608f051ff6e10f"
   integrity sha512-1nL7PIq9LTL3fthPqwkvr2zY7phIPjYrT0jp4HjyEQrEROnw4dG41VVwi/wfoCneoleqrNX7iAD+pXebJZwrwA==
@@ -7905,6 +7905,16 @@ react-dom@^16.8.2, react-dom@^16.8.6:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.6"
+
+react-dom@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
+  integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.15.0"
 
 react-fast-compare@^2.0.2:
   version "2.0.4"
@@ -7921,19 +7931,18 @@ react-helmet@5.2.1, react-helmet@^5.2.0:
     react-fast-compare "^2.0.2"
     react-side-effect "^1.1.0"
 
-react-hot-loader@^4.3.6, react-hot-loader@^4.8.4:
-  version "4.8.4"
-  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.8.4.tgz#357ba342e367fd42d6a870a9c0601c23fa0730c6"
-  integrity sha512-O98btZXcm24ZgP+aPBD0W9N+GEnkOg6vlLEy/IMZ53u3K/dGqO0I/RU4qrmQzE+wMDLpwNo5TwxaAjVw9Y+IBA==
+react-hot-loader@^4.12.10, react-hot-loader@^4.3.6, react-hot-loader@^4.8.4:
+  version "4.12.11"
+  resolved "https://registry.yarnpkg.com/react-hot-loader/-/react-hot-loader-4.12.11.tgz#06bd618d0a7343c8afa4a31206844f651193bae5"
+  integrity sha512-ySsg1hPwr/5dkZCJVp1nZRbwbpbEQ+3e2+bn/D681Wvr9+o+5bLKkTGq0TXskj8HgCS3ScysXddOng9Cg+JKzw==
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
     hoist-non-react-statics "^3.3.0"
     loader-utils "^1.1.0"
-    lodash "^4.17.11"
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
-    shallowequal "^1.0.2"
+    shallowequal "^1.1.0"
     source-map "^0.7.3"
 
 react-i18next@^10.7.0:
@@ -7967,12 +7976,12 @@ react-side-effect@^1.1.0:
     exenv "^1.2.1"
     shallowequal "^1.0.1"
 
-react-static-plugin-reach-router@^7.0.10:
+react-static-plugin-reach-router@~7.0.10:
   version "7.0.10"
   resolved "https://registry.yarnpkg.com/react-static-plugin-reach-router/-/react-static-plugin-reach-router-7.0.10.tgz#0ebd8b914bbd4e3e4ca2b355ba6f837e9c6821a4"
   integrity sha512-EJBflq0t6c8ldiakLyRqaht8hXx4FFc+zKrsoeHnBWzSq9SfmDjC9tdEKSC8twkqC7ypY4QmqWAiQsF3U15/Cw==
 
-react-static-plugin-sass@^7.0.10:
+react-static-plugin-sass@~7.0.10:
   version "7.0.10"
   resolved "https://registry.yarnpkg.com/react-static-plugin-sass/-/react-static-plugin-sass-7.0.10.tgz#73c2ecfc363d98ca44487bbd537a650849134758"
   integrity sha512-5aY7Sa789yq8mLhDnJ3VJVqWDj3vb4m6XMM2PqP0tSn4Z7rlKHa3KrYE4c/JVyO1JhP5TxKQla7Yz4Cs73rJ/w==
@@ -7981,12 +7990,12 @@ react-static-plugin-sass@^7.0.10:
     node-sass "^4.11.0"
     sass-loader "^7.1.0"
 
-react-static-plugin-sitemap@^7.0.10:
+react-static-plugin-sitemap@~7.0.10:
   version "7.0.10"
   resolved "https://registry.yarnpkg.com/react-static-plugin-sitemap/-/react-static-plugin-sitemap-7.0.10.tgz#a7db197a5efe9a7ed085f290eca09f960b6906b9"
   integrity sha512-biaVICu7Jmu6qwXiW4cUZsSdLAT2N/YbggvKDYD7yEwZ+ShSQpTh95hYM3tKCCwOlGLXq1Mm/KNOPTEG0j0QlA==
 
-react-static-plugin-source-filesystem@^7.0.10:
+react-static-plugin-source-filesystem@~7.0.10:
   version "7.0.10"
   resolved "https://registry.yarnpkg.com/react-static-plugin-source-filesystem/-/react-static-plugin-source-filesystem-7.0.10.tgz#11fe5fd5803bed9f019829ced54c85f0ca1ee9b1"
   integrity sha512-b3D1Rk9KAIQoCwnPDz+96m7i48DfeUcfWd7MuVxK90/uhKttsOSrC+pwQ+aSUCwkS9RJgbKmZWWVv0YVlJJsng==
@@ -7994,7 +8003,7 @@ react-static-plugin-source-filesystem@^7.0.10:
     chokidar "^2.1.5"
     glob "^7.1.3"
 
-react-static@^7.0.10:
+react-static@~7.0.10:
   version "7.0.10"
   resolved "https://registry.yarnpkg.com/react-static/-/react-static-7.0.10.tgz#b08d583810c5bf7a2865ea647ea2ceec0eb8f993"
   integrity sha512-7sWx6IhWkUbKpVyCQdYjTcqbRQiR94OfQ0fbIXFpR/C2ujnMTK9xGyrlbmPPF7R5aRI1SQMhYNRqCknbI8FOlg==
@@ -8091,7 +8100,7 @@ react-universal-component@^4.0.0:
     prop-types "^15.5.10"
     react-hot-loader "^4.3.6"
 
-react@^16.8.2, react@^16.8.6:
+react@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
@@ -8100,6 +8109,15 @@ react@^16.8.2, react@^16.8.6:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.13.6"
+
+react@^16.9.0:
+  version "16.9.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
+  integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
 
 read-metadata@^1.0.0:
   version "1.0.0"
@@ -8519,10 +8537,10 @@ sax@^1.2.4, sax@~1.2.4:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-scheduler@^0.13.6:
-  version "0.13.6"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
-  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
+scheduler@^0.13.6, scheduler@^0.14.0, scheduler@^0.15.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.14.0.tgz#b392c23c9c14bfa2933d4740ad5603cc0d59ea5b"
+  integrity sha512-9CgbS06Kki2f4R9FjLSITjZo5BZxPsryiRNyL3LpvrM9WxcVmhlqAOc9E+KQbeI2nqej4JIIbOsfdL51cNb4Iw==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -8747,7 +8765,7 @@ shallow-clone@^1.0.0:
     kind-of "^5.0.0"
     mixin-object "^2.0.1"
 
-shallowequal@^1.0.1, shallowequal@^1.0.2:
+shallowequal@^1.0.1, shallowequal@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
