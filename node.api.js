@@ -35,6 +35,20 @@ export default (options = {}) => ({
     applyManifestConfig(DIST);
     applyBraveRewardsConfig(DIST);
     applyRobotsConfig(DIST);
+  },
+  webpack: (currentWebpackConfig, state) => {
+    const newConfig = { ...currentWebpackConfig };
+    newConfig.optimization.splitChunks.cacheGroups.vendors = {
+      test: /[\\/]node_modules[\\/]/,
+      priority: -10,
+      chunks: "initial"
+    };
+    newConfig.optimization.splitChunks.cacheGroups.default = {
+      minChunks: 2,
+      priority: -20,
+      reuseExistingChunk: true
+    };
+    return newConfig;
   }
 });
 
