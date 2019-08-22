@@ -14,7 +14,7 @@ export default function Theme() {
       .call(themeManager.classList)
       .filter(c => c.indexOf("theme-") >= 0)[0];
     const cookies = new Cookies();
-    cookies.set("theme", theme);
+    cookies.set("theme", theme, { path: "/", maxAge: 365 * 24 * 60 * 60 });
 
     const anchor = document.getElementById("comments");
     if (anchor != null) {
