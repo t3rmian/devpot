@@ -37,6 +37,10 @@ export default (options = {}) => ({
     applyRobotsConfig(DIST);
   },
   webpack: (currentWebpackConfig, state) => {
+    const { stage } = state
+    if (stage === 'dev') {
+      return currentWebpackConfig;
+    }
     const newConfig = { ...currentWebpackConfig };
     newConfig.optimization.splitChunks.cacheGroups.vendors = {
       test: /[\\/]node_modules[\\/]/,
