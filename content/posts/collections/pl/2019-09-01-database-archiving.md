@@ -85,6 +85,6 @@ ALTER TABLE nazwa_tabeli MODIFY
   ) [ONLINE];
 ```
 
-Najbardziej złożonym przypadkiem jest sytuacja, gdy tabela jest już podzielona na partycje. Przy takim stanie rzeczy mamy dwie opcje
+Najbardziej złożonym przypadkiem jest sytuacja, gdy tabela jest już podzielona na partycje. Przy takim stanie rzeczy mamy dwie opcje:
 1. [Partycjonowanie istniejącej tabeli za pomocą DBMS_REDEFINITION.](https://oracle-base.com/articles/misc/partitioning-an-existing-table)
 2. [Partycjonowanie istniejącej tabeli za pomocą EXCHANGE PARTITION.](https://oracle-base.com/articles/misc/partitioning-an-existing-table-using-exchange-partition)
