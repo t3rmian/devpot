@@ -21,11 +21,15 @@ export default {
   getRoutes: async () => {
     const blog = await jdown("content/posts", { fileInfo: true });
     const home = await jdown("content/home", { fileInfo: true });
-    Object.keys(blog).forEach(lang =>
+    Object.keys(blog).forEach(lang => {
+      if (blog[lang].filter(post => post.id).length) { 
+        console.warn("Some posts have missing ids. Please check.");
+      }
+      blog[lang] = blog[lang].filter(post => post.id);
       blog[lang].sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);
       })
-    );
+    });
     return [
       ...I18nIndexes(blog, config.defaultLanguage, home),
       ...I18nTags(blog, config.defaultLanguage),
