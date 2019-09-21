@@ -81,3 +81,7 @@ export function lazyLoadImages(images) {
   const observer = new IntersectionObserver(onIntersection, options);
   images.forEach(image => observer.observe(image));
 }
+
+export function countPostMinutes(post) {
+  return Math.round(0.5 + post.contents.split(" ").length / 130)
+}

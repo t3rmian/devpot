@@ -31,7 +31,11 @@ const resources = {
       "Updated": "Updated",
       "Light theme": "Light theme",
       "Dark theme": "Dark theme",
-      "Tested in Brave": "Tested in Brave browser"
+      "Tested in Brave": "Tested with Brave",
+
+      short: "~ 10 min",
+      medium: "10 ~ 20 min",
+      long: "20 min ~",
     }
   },
   pl: {
@@ -54,7 +58,7 @@ const resources = {
       "Updated": "Aktualizacja",
       "Light theme": "Jasny szablon",
       "Dark theme": "Ciemny szablon",
-      "Tested in Brave": "Przetestowano w przeglądarce Brave"
+      "Tested in Brave": "Sprawdź w Brave",
     }
   }
 };
