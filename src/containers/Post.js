@@ -9,7 +9,7 @@ import lifecycle from "react-pure-lifecycle";
 import { useRouteData } from "react-static";
 import { useTranslation } from "react-i18next";
 import config from "../template.config";
-import { lazyLoadImages, loadComments, loadHighlight } from "../utils";
+import { lazyLoadImages, loadComments, loadHighlight, countPostMinutes } from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
 import hljs from "highlight.js";
 
@@ -46,7 +46,7 @@ const methods = {
 export function Post() {
   const { post, isDefaultLang, lang, langRefs, tags, root } = useRouteData();
   const { t } = useTranslation();
-  const minutesRead = Math.round(0.5 + post.contents.split(" ").length / 130);
+  const minutesRead = countPostMinutes(post);
   const hqImgRegex = /data-src=\"(.*?)\">/gi;
   const lazyImgRegex = /src=\"(.*?)\">/gi;
   const imageUrl =

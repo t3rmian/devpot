@@ -7,6 +7,9 @@ import jdown from "jdown";
 import path from "path";
 import chokidar from "chokidar";
 import { rebuildRoutes } from "react-static/node";
+import { timeToLength } from "./src/model/Length";
+import { countPostMinutes } from "./src/utils";
+import i18n from "./src/i18n";
 
 if (process.env.NODE_ENV === "development") {
   chokidar.watch(["content", "sass"], { ignoreInitial: true })
@@ -26,6 +29,11 @@ export default {
         console.warn("Some posts have missing ids. Please check.");
       }
       blog[lang] = blog[lang].filter(post => post.id);
+      blog[lang].forEach(post => {
+        const minutes = countPostMinutes(post);
+        const length = timeToLength(minutes)
+        post.tags.push(i18n.t(length, {lng: lang}));
+      });
       blog[lang].sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);
       })
