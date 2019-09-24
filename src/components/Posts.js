@@ -5,8 +5,11 @@ import { useTranslation } from "react-i18next";
 
 export default function Posts({ posts, lang }) {
   const { t } = useTranslation();
-  const postsByMonth = groupBy(posts, post =>
-    capitalize(t("date=year+month", { date: new Date(post.date), lng: lang }))
+  const now = new Date();
+  const postsByMonth = groupBy(
+    posts.filter(post => new Date(post.date) < now),
+    post =>
+      capitalize(t("date=year+month", { date: new Date(post.date), lng: lang }))
   );
   return (
     <table>
