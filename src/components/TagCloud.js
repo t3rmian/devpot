@@ -8,6 +8,7 @@ export default function TagCloud({ tags, lang }) {
   const lengthTags = tags.filter(tag =>
     Object.values(Length).some(length => tag.value === t(length, { lng: lang }))
   );
+  lengthTags.sort((a, b) => a.value.localeCompare(b.value));
   tags = tags.filter(
     tag => !lengthTags.some(lengthTag => lengthTag.value === tag.value)
   );
@@ -30,8 +31,8 @@ export default function TagCloud({ tags, lang }) {
       <br />
       <div>
         {lengthTags.map(tag => (
-          <div>
-            <Link key={tag.value} to={tag.path}>{`${tag.value}`}</Link>
+          <div key={tag.value}>
+            <Link to={tag.path}>{`${tag.value}`}</Link>
           </div>
         ))}
       </div>
