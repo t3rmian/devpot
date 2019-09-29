@@ -7,7 +7,7 @@ export default function Posts({ posts, lang }) {
   const { t } = useTranslation();
   const now = new Date();
   const postsByMonth = groupBy(
-    posts.filter(post => new Date(post.date) < now),
+    posts.filter(post => new Date(post.date) < now || post.devMode),
     post =>
       capitalize(t("date=year+month", { date: new Date(post.date), lng: lang }))
   );
