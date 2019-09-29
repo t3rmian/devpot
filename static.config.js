@@ -11,7 +11,9 @@ import { timeToLength } from "./src/model/Length";
 import { countPostMinutes } from "./src/utils";
 import i18n from "./src/i18n";
 
+let devMode = undefined;
 if (process.env.NODE_ENV === "development") {
+  devMode = true;
   chokidar.watch(["content", "sass"], { ignoreInitial: true })
         .on("all", (path) => { rebuildRoutes(); })
 }
@@ -30,6 +32,7 @@ export default {
       }
       blog[lang] = blog[lang].filter(post => post.id);
       blog[lang].forEach(post => {
+        post.devMode = devMode;
         const minutes = countPostMinutes(post);
         const length = timeToLength(minutes)
         post.tags.push(i18n.t(length, {lng: lang}));
