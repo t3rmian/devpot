@@ -57,4 +57,4 @@ To remove the class you can unpack the archive remove it and package it again. W
 &lt;/plugins&gt;
 ```
 
-Depending on whether you're deploying an exploded archive or not, you might want to edit the plugin configuration. It's quite a dirty way, so use it as a last resort when hotfixing stuff.
+Depending on whether you're deploying an exploded archive or not, you might want to edit the plugin configuration. It's quite a dirty way and not always applicable, so use it as a last resort when hotfixing stuff.
