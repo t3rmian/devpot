@@ -55,5 +55,43 @@
 <polygon fill="black" stroke="black" points="222.5,-128.676 226,-138.677 229.5,-128.677 222.5,-128.676"/>
 <text text-anchor="middle" x="244.5" y="-109.8" font-family="Times,serif" font-size="14.00"> JITC</text>
 </g>
+<!--
+@startuml
+digraph foo {
+    rankdir="LR";
+    node [fixedsize=true, height=1 shape=rectangle style=filled]
+
+    { rank=same;
+        0 [style = invis];
+        1 [style = invis];
+        0 -> 1 [style = invis];
+    }
+
+	subgraph cluster_0 {
+        node [fixedsize=true, width=1.5, shape=rectangle style=filled]
+
+		style=filled;
+		color=gold;
+		node [style=filled,color=white];
+		".java file" -> ".class file"  [ label = " javac" ]
+		label = "Compile time";
+    }
+	subgraph cluster_1 {
+        node [fixedsize=true, width=1.5 shape=rectangle style=filled]
+
+		style=filled;
+		color=goldenrod1;
+		node [style=filled,color=white];
+        "Native code" -> "ClassLoader" [ dir = back, label="JIT Compiler" ]
+		".class file" -> "ClassLoader"  [ label = "               java", constraint=false ]
+
+		label = "Run time";
+        {rankdir=RL}
+	}
+   	0 -> ".java file"[style=invis];
+    1 -> "Native code"[style=invis];
+}
+@enduml
+-->
 </g>
 </svg>
