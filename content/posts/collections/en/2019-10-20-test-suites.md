@@ -1,23 +1,26 @@
 ---
-title: Test suites and categorization
-url: test-suites-categorization
+title: Test suites, categorization and parallelism
+url: test-suites-categorization-and-parallelism
 id: 15
 tags:
   - testing
   - java
   - android
+  - maven
+  - gradle
 author: Damian Terlecki
 date: 2019-10-20T20:00:00
 ---
 
 Writing automated tests might be considered a boring chore by many people. Nevertheless, everyone will agree, that a decent coverage will yield you a lot of saved time later on. Especially as the team members might change over time, and it might be hard to predict the consequences of even small changes for the newcomers.
 
-Why would you want to consider creating test suites?
+Why would you want to consider creating test suites and start categorizing your tests?
 
-## Test execution takes too much time
+### Test execution takes too much time
 
-This is not a problem in the case of unit tests. Integration verification might come to your mind, but it's often not the case either. Surely, it takes more time
-to initialize some module, service or test database, than to test a few isolated lines in the code. The main culprit here is the end to end type and user interface type tests.
+This is not a problem in the case of unit tests. Integration verification might come to your mind, but it's often not the case either. Surely, it takes more time to initialize some module, service or test database, than to test a few isolated lines in the code. However, the main culprit here is the end to end type and user interface type tests.
+
+<img src="/img/hq/test-pyramid.svg" alt="Mike Cohn's Test Pyramid" title="Mike Cohn's Test Pyramid">
 
 You might say that you don't need E2E/UI tests. And that might be true depending on the application type. For example, if the system under test is only a backend service that exposes some API in the form of web services it's a no wonder you won't have to touch this problem. Though, if your application is in majority composed of a user interface, the case may be different. You will almost always forget to test at least one important path in your unit/integration test. Often these paths are crucial and can expose some unwanted behavior.
 
@@ -25,18 +28,17 @@ An example from me of such a use case was a problem with zoom controls in one of
 
 The main point of why UI and E2E tests take considerably longer time is that in each step, the application has to load all necessary resources and display them to the (test engine) user. Sometimes you can save a few seconds here and there, by reusing the application state from the previous test. On the other hand, it increases the text complexity. Then, you have to introduce test ordering, which makes it harder to verify dependent tests in case of failures. Sometimes you would want to have your tests completely isolated. Restarting the app can take the majority of the time.
 
-## Parallelization
-
-<img src="/img/hq/PBMap-travis.png" alt="Parallelized build" title="Parallelized build">
+### Parallelization
 
 The first thing that comes to mind is the test parallelization. Speeding up the test phase is a critical factor in telling whether the new version is stable and ready for production. We can achieve this at two levels. Firstly, we can modify some neat parameters of our build tools:
 - Gradle has [maxParallelForks](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.Test.html#org.gradle.api.tasks.testing.Test:maxParallelForks) which enables parallelized test execution:
+
 ```groovy
 tasks.withType(Test) {
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 }
 ```
-- in Maven you can use a very satisfying [configuration possibilities](https://www.baeldung.com/maven-junit-parallel-tests) of surefire and failsafe plugins.
+- in Maven you can use a very satisfying [configuration options](https://www.baeldung.com/maven-junit-parallel-tests) of surefire and failsafe plugins.
 
 In some cases though, it might be hard to parallelize E2E/UI tests at this level, for example in Android, where you can only execute one test at a time (out of the box) on a given device. So, the second option is to create separate test suites and categorize your tests to run these groups at the same time, just on different devices.
 
@@ -47,7 +49,9 @@ Coming back to our topic, if you've yet to guess where we would parallelize the 
 - [build matrix in Travis](https://docs.travis-ci.com/user/build-matrix/) and [parallel jobs](https://docs.travis-ci.com/user/speeding-up-the-build/);
 - [parallelism in CircleCI](https://circleci.com/docs/2.0/parallelism-faster-jobs/).
 
-This way you will be able to run your categorized tests in parallel. Let's now go over how to create test suites, prepare test groups and configure the build tool (Maven/Gradle) to execute them. I will focus mostly on Android and Java (and JUnit 4, so assume it's imported in each case) as I have the most experience with them, but the same concepts are often found in other languages and tools. 
+This way you will be able to run your categorized tests in parallel. Let's now go over how to create test suites, prepare test groups and configure the build tool (Maven/Gradle) to execute them. I will focus mostly on Android and Java (and JUnit 4, so assume it's imported in each case) as I have the most experience with them, but the same concepts are often found in other languages and tools.
+
+<img src="/img/hq/PBMap-travis.png" alt="Parallelized build" title="Parallelized build">
 
 ### Android
 
@@ -125,7 +129,7 @@ public interface SmallTest {
 Ok, so we've got our categorized tests, but how do we run only the small tests? This requires some knowledge of Maven but you will catch it easily.
 Firstly, for integration tests we will use `maven-failsafe-plugin`, for unit tests, it's recommended to configure `maven-surefire-plugin`. Include the
 mentioned plugin in the build phase:
-```maven
+```xml
 &lt;build&gt;
 	&lt;plugins&gt;
 		&lt;plugin&gt;
@@ -144,7 +148,7 @@ There are a few things worth mentioning here. We use the most recent version to 
 Next, we have a unresolvable symbol in the groups configuration. To initialize this property, we will use Maven profile. Let's now define a 
 profile, under the project, corresponding to the test category which will be executed:
 
-```maven
+```xml
 &lt;profiles&gt;
 	&lt;profile&gt;
 		&lt;id&gt;SmallTest&lt;/id&gt;
@@ -162,7 +166,7 @@ an options category exclusion.
 
 To target only specific modules add them as a `-pl` or `--projects` parameter (`mvnw -help` will yield you additional info). To run a specific test suite use `mvnw -Dit.test=SpecificTestSuite verify`. For `maven-surefire-plugin` it would be `mvnw -Dtest=SpecificTestSuite test`.
 
-# Summary
+### Summary
 
 That's pretty much it. As you can see, grouping and categorizing your tests isn't too complex and can save you a lot of time later on. If you've yet to use test parallelization with categorization and test suites, I highly encourage you to try it. Especially if your tests are mainly focused on user interface and take a considerable amount of time. Speeding up the test phase can accelerate your delivery process. In effect making your product more agile in a case when some change needs to be quickly developed, verified and delivered.
 
