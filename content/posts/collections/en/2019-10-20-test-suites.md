@@ -14,7 +14,7 @@ date: 2019-10-20T20:00:00
 
 Writing automated tests might be considered a boring chore by many people. Nevertheless, everyone will agree, that a decent coverage will yield you a lot of saved time later on. Especially as the team members might change over time, and it might be hard to predict the consequences of even small changes for the newcomers.
 
-Why would you want to consider creating test suites and start categorizing your tests?
+Pointing out the importance of tests, let's now ask the main question. When and why you should consider creating test suites and start categorizing your tests?
 
 ### Test execution takes too much time
 
