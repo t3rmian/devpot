@@ -47,8 +47,8 @@ export function Post() {
   const { post, isDefaultLang, lang, langRefs, tags, root } = useRouteData();
   const { t } = useTranslation();
   const minutesRead = countPostMinutes(post);
-  const hqImgRegex = /data-src=\"(.*?)\">/gi;
-  const lazyImgRegex = /src=\"(.*?)\">/gi;
+  const hqImgRegex = /data-src=\"(.*?)\"/gi;
+  const lazyImgRegex = /src=\"(.*?)\"/gi;
   const imageUrl =
     hqImgRegex.exec(post.contents) != null
       ? RegExp.$1
