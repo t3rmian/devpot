@@ -1,0 +1,49 @@
+<svg width="510" height="400" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>background</title>
+  <rect fill="#ffffff" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_3" class="68-parentgroup" transform="translate(10,0)">
+   <g id="svg_16" class="72-plots">
+    <g id="svg_25" transform="matrix(1,0,0,1,0,15.0475) " class="114-point">
+     <path id="svg_26" stroke-linecap="round" fill="#c0c0c0" fill-opacity="0.000001" d="m110,237.8675l280,0l70,90.285l-420,0l70,-90.285z"/>
+     <path id="svg_27" stroke-linecap="round" stroke="#000000" fill="#a7c053" stroke-width="0" d="m110,237.8675l140,0l0,90.285l-210,0l70,-90.285z"/>
+     <path id="svg_28" stroke-linecap="round" stroke="#000000" fill="#748c20" stroke-width="0" d="m250,237.8675l140,0l70,90.285l-210,0l0,-90.285z"/>
+     <path id="svg_29" stroke-opacity="0.8" stroke-linecap="round" stroke="#333333" fill="#c0c0c0" fill-opacity="0.000001" d="m110,237.8675l280,0l70,90.285l-420,0l70,-90.285z"/>
+    </g>
+    <g id="svg_30" class="120-point">
+     <path id="svg_31" stroke-linecap="round" fill="#c0c0c0" fill-opacity="0.000001" d="m180,147.5825l140,0l70,90.285l-280,0l70,-90.285z"/>
+     <path id="svg_32" stroke-linecap="round" stroke="#000000" fill="#ebb633" stroke-width="0" d="m180,147.5825l70,0l0,90.285l-140,0l70,-90.285z"/>
+     <path id="svg_33" stroke-linecap="round" stroke="#000000" fill="#b88300" stroke-width="0" d="m250,147.5825l70,0l70,90.285l-140,0l0,-90.285z"/>
+     <path id="svg_34" stroke-opacity="0.8" stroke-linecap="round" stroke="#333333" fill="#c0c0c0" fill-opacity="0.000001" d="m180,147.5825l140,0l70,90.285l-280,0l70,-90.285z"/>
+    </g>
+    <g id="svg_35" transform="matrix(1,0,0,1,0,-15.0475) " class="126-point">
+     <path id="svg_36" stroke-linecap="round" fill="#c0c0c0" fill-opacity="0.000001" d="m250,57.2975l0,0l70,90.285l-140,0l70,-90.285z"/>
+     <path id="svg_37" stroke-linecap="round" stroke="#000000" fill="#edeae4" stroke-width="0" d="m250,57.2975l0,0l0,90.285l-70,0l70,-90.285z"/>
+     <path id="svg_38" stroke-linecap="round" stroke="#000000" fill="#bab7b0" stroke-width="0" d="m250,57.2975l0,0l70,90.285l-70,0l0,-90.285z"/>
+     <path id="svg_39" stroke-opacity="0.8" stroke-linecap="round" stroke="#333333" fill="#c0c0c0" fill-opacity="0.000001" d="m250,57.2975l0,0l70,90.285l-140,0l70,-90.285z"/>
+    </g>
+   </g>
+   <g stroke="null" id="svg_44" font-style="normal" font-weight="bold" font-size="10px" font-family=" helvetica neue, arial" class="75-datalabel">
+    <g stroke="null" id="svg_45" class="101-canvasdatalabel"/>
+    <text x="0" id="svg_46" transform="matrix(1,0,0,0.9534757779185353,250,282.3033845414404) " y="20.559656" text-anchor="middle" fill="#000000" font-weight=" bold">Testy jednostkowe</text>
+    <path stroke="#555555" id="svg_47" stroke-linecap="round" fill="none" d="m0,29.202911"/>
+    <text x="0" id="svg_48" transform="matrix(1,0,0,0.9534757779185353,250,181.87139716383632) " y="20.559656" text-anchor="middle" fill="#000000" font-weight=" bold">Testy integracyjne</text>
+    <path stroke="#555555" id="svg_49" stroke-linecap="round" fill="none" d="m0,14.855484"/>
+    <text x="0" id="svg_50" transform="matrix(1,0,0,0.9534757779185353,250,81.4394097862322) " y="8.559656" text-anchor="middle" fill="#000000" font-weight=" bold">
+     <tspan stroke="null" id="svg_51" xml:space="preserve" x="0"/>
+     <tspan stroke="null" id="svg_52" xml:space="preserve" x="0" dy="12"/>
+     <tspan stroke="null" id="svg_53" x="0" dy="12">Testy UI/E2E</tspan>
+    </text>
+    <path stroke="#555555" id="svg_54" stroke-linecap="round" fill="none" d="m0,0.508058"/>
+   </g>
+   <line stroke-linecap="null" stroke-linejoin="null" id="svg_80" y2="42" x2="25" y1="343.304933" x1="25" fill-opacity="null" stroke-opacity="null" stroke-width="null" stroke="#000000" fill="none"/>
+   <line stroke="#000000" stroke-linecap="null" stroke-linejoin="null" id="svg_86" y2="50" x2="32" y1="42" x1="25" stroke-width="NaN" fill="none"/>
+   <line stroke="#000000" stroke-linecap="null" stroke-linejoin="null" id="svg_88" y2="50" x2="18" y1="42" x1="25" stroke-width="NaN" fill="none"/>
+   <text stroke="#000000" transform="matrix(1.04141258670215,0,0,1,-2.07795349958031,0) " font-weight="bold" xml:space="preserve" text-anchor="start" font-family="Helvetica Neue,Arial" font-size="14px" id="svg_89" y="64.872509" x="39.291874" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">Czas</text>
+   <text id="svg_58" font-weight="bold" font-size="14px" font-family="Helvetica Neue,Arial" y="374" text-anchor=" middle" x="250" fill="#333333">Piramida testów</text>
+  </g>
+ </g>
+</svg>
