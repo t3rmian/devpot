@@ -1,9 +1,9 @@
 export default {
   author: "Damian Terlecki",
-  authorSite: "https://t3rmian.github.io",
+  authorSite: "https://termian.dev",
   siteTitle: "Devpot",
-  siteLongTitle: "Devpot: blog",
-  siteRoot: "https://418.netlify.com",
+  siteLongTitle: "Devpot: a coder's blog",
+  siteRoot: "https://blog.termian.dev",
   defaultLanguage: "en",
 
   optional: {
