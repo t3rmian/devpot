@@ -17,7 +17,7 @@ export default function TagCloud({ tags, lang }) {
   return (
     <nav className="tag-cloud fadeIn">
       <div>
-        <a href="https://brave.com/net946">
+        <a href="https://brave.com/ter403">
           {t("Tested in Brave", { lng: lang })}
         </a>
       </div>
