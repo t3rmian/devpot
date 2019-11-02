@@ -31,7 +31,7 @@ const resources = {
       "Updated": "Updated",
       "Light theme": "Light theme",
       "Dark theme": "Dark theme",
-      "Tested in Brave": "Tested with Brave",
+      "Tested in Brave": "Check out in Brave",
 
       short: "~ 10 min",
       medium: "10 ~ 20 min",
