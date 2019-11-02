@@ -1,5 +1,8 @@
 .post-container {
-
+    .content > figure {
+        margin: 0;
+    }
+    
     .page {
         max-width: 1050px;
         margin: 0 auto 0 auto;
