@@ -1,4 +1,4 @@
 ---
-title: blog
+title: a coder's blog
 ---
-Software development without any tricks or gimmicks! Loose talks and helpful solutions verified in battle. Make a cup of tea, sit back and enjoy some writings.
+Hungry for more knowledge? Take a bite of some insightful articles on software development. Make a cup of tea, sit back and take your time reading about helpful solutions verified in battle, with some focus on Java.
