@@ -19,8 +19,9 @@ One of the limiting factors of mobile devices is resources. The problem which ar
 
 So what to do here? As you would expect, there are a lot of different resolutions like progressive loading or subsampling, but let's pick a correct tool for our problem and see how map engines handle this.
 
+<figure>
 <a href="https://play.google.com/store/apps/details?id=io.github.t3r1jj.pbmap"><img src="/img/hq/PBMap-loading.png" alt="PBMap — tiles loading" title="PBMap — tiles loading"></a>
-
+</figure>
 
 ## Tiles
 
@@ -53,7 +54,9 @@ In my opinion, this is one of the most satisfactory topics in mapping. You take 
 
 If you consider an indoor map, you might need some custom logic for displaying routes spanning over multiple floors. This is the place where you might need the third dimension — altitude. The simplest implementation is to hide the edges with heigh different than the one defined in the map. For outdoor ones, a color gradient might be meaningful.
 
+<figure>
 <a href="https://play.google.com/store/apps/details?id=io.github.t3r1jj.pbmap"><img src="/img/hq/PBMap-routing.png" alt="PBMap — routing" title="PBMap — routing"></a>
+</figure>
 
 ## Resource preparation
 
