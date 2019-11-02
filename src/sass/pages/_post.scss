@@ -113,7 +113,7 @@
                     margin: 0 75px;
                 }
 
-                >:not(img):not(table) {
+                >:not(img):not(table):not(figure) {
                     margin-left: 75px;
                     margin-right: 75px;
                 }
