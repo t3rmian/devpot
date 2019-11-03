@@ -91,7 +91,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({MapActivitySearchIT.class, ControllerMementoIT.class})
 public class ITTestSuite {}
 ```
-Przy takiej konfiguracji cały zestaw możemy wykonać, przekazując klasę jako parametr runnera `android.testInstrumentationRunnerArguments.class = io.github.t3r1jj.pbmap.main.ITTestSuite`. Ten sposób pozwala nam to stworzyć wiele różnych konfiguracji testowych. Chcesz przetestować tylko podstawowe funkcje, przeprowadzić długotrwałe testy, pogrupować je w równej wielkości zestawy - nie ma problemu.
+Przy takiej konfiguracji cały zestaw możemy wykonać, przekazując klasę jako parametr runnera `android.testInstrumentationRunnerArguments.class = io.github.t3r1jj.pbmap.main.ITTestSuite`. Ten sposób pozwala nam to stworzyć wiele różnych konfiguracji testowych. Chcesz przetestować tylko podstawowe funkcje, przeprowadzić długotrwałe testy, pogrupować je w równej wielkości zestawy — nie ma problemu.
 
 ### Java
 
