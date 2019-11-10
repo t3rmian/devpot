@@ -11,11 +11,11 @@ date: 2019-11-03T20:00:00
 source: https://github.com/t3rmian/PBMap
 ---
 
-Creating your own maps in Android might come as hard at first, but after learning how they work, it can become a starting point of a pretty fun project. If you've yet to discover how such maps are implemented, and what problems might arise during the development — fear not. Today I will try to briefly explain some aspects of map engine, resource preparation, mapping and routing. This will be based on my own experience of creating apps connected with mapping, with the most recently updated one — PBMap (interactive map of the Bialystok University of Technology for mobile devices).
+Creating your own maps in Android might come as hard at first, but after learning how they work, it can become a starting point of a pretty fun project. If you've yet to discover how such maps are implemented, and what problems might arise during the development — fear not. Today I will try to briefly explain some aspects of map engine, resource preparation, mapping and routing. This will be based on my own experience of creating apps connected with mapping, with the most recently updated one — [PBMap](https://play.google.com/store/apps/details?id=io.github.t3r1jj.pbmap) (interactive map of the Bialystok University of Technology for mobile devices).
 
 # Map engine
 
-One of the limiting factors of mobile devices is resources. The problem which arises in our case is the map image itself. Ideally, we would like to have a very high-quality map. This is usually connected with a high-resolution image, which in addition increases with the area size. Let's take a 4000px x 4000px map as an example. It is a reasonable size for displaying a detailed map of a university campus. The size of the loaded image which represents this map in *ARGB8888* format will take over **60MB** of memory! It will take some time to load, but the worst part is that the interaction with it will be terrible. Your application will start skipping frames. Freezing on zoom will be inevitable, and dragging will become a hell. Of course, if you don't run out of memory at some point.
+One of the limiting factors of mobile devices is resources. The problem which arises in our case is the map image itself. Ideally, we would like to have a very high-quality map. This is usually connected with a high-resolution image, which in addition increases with the area size. Let's take a *4000px x 4000px* map as an example. It is a reasonable size for displaying a detailed map of a university campus. The size of the loaded image which represents this map in *ARGB8888* format will take over **60MB** of memory! It will take some time to load, but the worst part is that the interaction with it will be terrible. Your application will start skipping frames. Freezing on zoom will be inevitable, and dragging will become a hell. Of course, if you don't run out of memory at some point.
 
 So what to do here? As you would expect, there are a lot of different resolutions like progressive loading or subsampling, but let's pick a correct tool for our problem and see how map engines handle this.
 
@@ -46,11 +46,11 @@ Assuming you want to add some POIs to a prepared map, you will need to define it
 
 If you had to do it by yourself, you would not only need to translate the coordinates into pixel positions but also keep in mind the scale (zoom level). Though, it hasn't all been said yet. The translation part is the trickiest one. This is a very pretty broad topic. There are multiple datums (models of Earth), map projections and there is always some [distortion](https://en.wikipedia.org/wiki/Theorema_Egregium) when representing a sphere's surface on a plane.
 
-From a layman point of view, an important mention would be that most web mapping applications use the web Mercator projection. This projection is pretty close to WGS84 utilized by the GPS system ([check the differences](https://lyzidiamond.com/posts/4326-vs-3857)). The engine may not provide the implementation to translate coordinates to the desired projection, but it usually gives some interface for your own calculations. If you have a small scale map, a default linear will usually yield a negligible error on the positioning.
+From a layman point of view, an important mention would be that most web mapping applications use the *Web Mercator* projection. This projection is pretty close to *WGS84* utilized by the GPS system ([check the differences](https://lyzidiamond.com/posts/4326-vs-3857)). The engine may not provide the implementation to translate coordinates to the desired projection, but it usually gives some interface for your own calculations. If you have a small scale map, a default linear interpolation will usually yield a negligible error on the positioning.
 
 ## Routing
 
-In my opinion, this is one of the most satisfactory topics in mapping. You take the algorithm you learned in uni - Dijkstra (weighted graph) or BFS (unweighted), implement it and it works. Top it with graphical route overlay and it starts looking gorgeous. Integration with a GPS can be a bit quirky in some cases but brings a lot of value. Also, don't forget to display the distance to the target!
+In my opinion, this is one of the most satisfactory topics in mapping. You take the algorithm you learned in uni — *Dijkstra* (weighted graph) or *BFS* (unweighted), implement it and it works. Top it with graphical route overlay and it starts looking gorgeous. Integration with a GPS can be a bit quirky in some cases but brings a lot of value. Also, don't forget to display the distance to the target!
 
 If you consider an indoor map, you might need some custom logic for displaying routes spanning over multiple floors. This is the place where you might need the third dimension — altitude. The simplest implementation is to hide the edges with heigh different than the one defined in the map. For outdoor ones, a color gradient might be meaningful.
 
@@ -120,12 +120,12 @@ In my case, each map is also bound to a route consisting of bidirectional edges:
 &lt;/route&gt;
 ```
 
-As for tiles, I've reused some open-source snapshots and made my own basic indoor maps. The tiles can be generated by any program for generating tiles :) As far as I remember I used [ImageMagick](https://imagemagick.org/index.php) recommended by the author of [TileView](https://github.com/moagrius/TileView/wiki/Creating-Tiles) library which is at the core of PBMap:
+As for tiles, I've reused some open-source snapshots and made my own basic indoor maps. The tiles can be generated by any program for generating tiles :) As far as I remember I used [ImageMagick](https://imagemagick.org/index.php) recommended by the author of [TileView](https://github.com/moagrius/TileView/wiki/Creating-Tiles) library which is at the core of PBMap. After creating the tiles, the map interface will take care of loading and managing them in the correct order.
 
 ```bash
 convert image.png -crop 256x256 -set filename:tile "%%[fx:page.x/256]_%%[fx:page.y/256]" +repage +adjoin "tiles/tile-%%[filename:tile].png"
 ```
-<img src="/img/hq/PBMap-tiles.png" alt="PBMap - tiles" title="PBMap - tiles">
+<img src="/img/hq/PBMap-tiles.png" alt="PBMap — tiles" title="PBMap — tiles">
 
 # Summary
 
