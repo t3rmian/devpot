@@ -123,7 +123,7 @@ export default {
           {config.optional.ga && (
             <script
               async
-              src={`https://www.googletagmanager.com/gtag/js?id=${config.ga}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${config.optional.ga}`}
             />
           )}
         </Head>
