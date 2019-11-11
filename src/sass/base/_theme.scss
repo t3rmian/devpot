@@ -180,3 +180,13 @@ $themes: (light: (primary-background-color: white,
         
     }
 }
+
+.theme-dark {
+
+    .hljs-comment,
+    .hljs-quote,
+    .hljs-deletion,
+    .hljs-meta {
+        color: #ffc66d;
+    }
+}

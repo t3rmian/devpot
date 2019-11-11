@@ -68,9 +68,9 @@ export const getHighlightTheme = () => {
   const theme = new Cookies().get("theme");
   const highlightTheme =
     theme === undefined
-      ? "github"
+      ? "idea"
       : theme.indexOf("light") >= 0
-      ? "github"
-      : "monokai-sublime";
+      ? "idea"
+      : "dark";
   return highlightTheme;
 };

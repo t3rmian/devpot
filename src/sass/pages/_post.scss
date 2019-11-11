@@ -49,8 +49,8 @@
             line-height: 1.55em;
             text-align: justify;
 
-            pre, code {
-                font-family: monospace;
+            pre, code, pre *, code * {
+                font-family: Consolas, "Liberation Mono", Courier, monospace;
             }
 
             pre {
