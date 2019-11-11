@@ -120,7 +120,7 @@ W moim przypadku każda mapa jest również powiązana z trasą składającą si
 &lt;/route&gt;
 ```
 
-Jeśli chodzi o same kafelki, możesz wykorzystać otwartoźródłowe dane np. z OpenStreetMap. Największą wartość mają jednak własnoręcznie przygotowane mapy. Mając obraz, kafelki mogą być wygenerowane przez dowolny program do generowania kafelków :) O ile pamiętam, sam używałem programu [ImageMagick](https://imagemagick.org/index.php) polecanego przez autora [TileView](https://github.com/moagrius/TileView/wiki/Creating-Tiles) — biblioteka stanowiącej rdzeń MapyPB:
+Jeśli chodzi o same kafelki, możesz wykorzystać otwartoźródłowe dane np. z OpenStreetMap. Największą wartość mają jednak własnoręcznie przygotowane mapy. Mając obraz, kafelki mogą być wygenerowane przez dowolny program do generowania kafelków :) O ile pamiętam, sam używałem programu [ImageMagick](https://imagemagick.org/index.php) polecanego przez autora [TileView](https://github.com/moagrius/TileView/wiki/Creating-Tiles) — biblioteki stanowiącej rdzeń MapyPB:
 
 ```bash
 convert image.png -crop 256x256 -set filename:tile "%%[fx:page.x/256]_%%[fx:page.y/256]" +repage +adjoin "tiles/tile-%%[filename:tile].png"
