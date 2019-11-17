@@ -15,6 +15,12 @@ There are multiple tools well suited for monitoring databases and checking if a 
 If you don't have any advanced tooling at hand but have a JDK set-up you could get by reusing some simple snippet written in Java. A prerequisite for this is that you need to add your [database driver as a dependency](https://www.mkyong.com/maven/how-to-add-oracle-jdbc-driver-in-your-maven-local-repository/). The program connects to the database, queries it for some condition and if it's met, finishes displaying a dialog to the user:
 
 ```java
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class Monitor {
     private static final int REPEAT_TIME_MS = 1000 * 60;
 
