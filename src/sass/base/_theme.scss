@@ -50,6 +50,17 @@ $themes: (light: (primary-background-color: white,
 }
 
 #root {
+    .warn {
+        color: darkorange !important;
+    }
+    .err {
+        color: crimson !important;
+    }
+    .img-formula {
+        background-color: white;
+        padding: 8px;
+    }
+
     @include themify($themes) {
         background-color: themed('primary-background-color');
         transition: background-color $theme-transition-delay $theme-transition-timing-function;
@@ -140,22 +151,41 @@ $themes: (light: (primary-background-color: white,
                 }
 
                 table:not(.more){
+                    .th,
                     th {
                         background-color: themed('primary-color');
                         color: themed('primary-background-color');
+                        font-weight: bold;
                     }
 
+                    .th,
                     td, 
                     th {
                         border-color: themed('primary-color-less-intense');
                     }
 
-                    th:not(:first-child) {
-                        border-left-color: themed('primary-background-color');
+                    thead {
+                        th:not(:first-child) {
+                            border-left-color: themed('primary-background-color');
+                        }
+
+                        th:not(:last-child) {
+                            border-right-color: themed('primary-background-color');
+                        }
+
+                        th.corner-header {
+                            border-bottom-color: themed('primary-background-color');
+                        }
                     }
 
-                    th:not(:last-child) {
-                        border-right-color: themed('primary-background-color');
+                    tbody {
+                        .th {
+                            border-top-color: themed('primary-background-color');
+                        }
+
+                        tr:not(:last-child) .th {
+                            border-bottom-color: themed('primary-background-color');
+                        }
                     }
                 }
             }
