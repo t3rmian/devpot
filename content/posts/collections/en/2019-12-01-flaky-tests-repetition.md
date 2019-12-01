@@ -16,10 +16,10 @@ As we go up the hierarchy of tests, we often encounter the problem of test flaki
 
 The more higher-level tests you have, the higher the chances of failed build are. Imagine 10% of your tests are flaky, e.g.: each one of them fails once in 1000 runs. 1 out of 1000, that's like 0.1%! Doesn't sound that bad, does it? Now imagine that the test suite size is 1000, not too small, not too big. So for 100 tests that are nondeterministic, the cumulative probability of having a failed build will be:
 
-<img src="http://latex.codecogs.com/gif.latex?P%28FAILED%5C_TEST%29%20%3D%201%2F1000" alt="P(FAILED_TEST) = 1/1000" class="img-formula">
-<img src="http://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_TEST%29%20%3D%20P%28%5COmega%29%20-%201%2F1000%20%3D%20999%2F1000" alt="P(SUCCESSFUL_TEST) = P(\Omega) - 1/1000 = 999/1000" class="img-formula">
-<img src="http://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_BUILD%29%20%3D%20%5Ccap_1%5EN%20P%28SUCCESSFUL%5C_TEST%5C_N%29%20%5Capprox%2090%5C%25" alt="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" title="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" class="img-formula">
-<img src="http://latex.codecogs.com/gif.latex?P%28FAILED%5C_BUILD%29%20%3D%20P%28%5COmega%29%20-%20P%28SUCCESSFUL%5C_BUILD%29%20%5Capprox%2010%5C%25" alt="P(FAILED_BUILD) = P(\Omega) - P(SUCCESSFUL_BUILD) = 10%" class="img-formula">
+<img src="https://latex.codecogs.com/gif.latex?P%28FAILED%5C_TEST%29%20%3D%201%2F1000" alt="P(FAILED_TEST) = 1/1000" class="img-formula">
+<img src="https://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_TEST%29%20%3D%20P%28%5COmega%29%20-%201%2F1000%20%3D%20999%2F1000" alt="P(SUCCESSFUL_TEST) = P(\Omega) - 1/1000 = 999/1000" class="img-formula">
+<img src="https://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_BUILD%29%20%3D%20%5Ccap_1%5EN%20P%28SUCCESSFUL%5C_TEST%5C_N%29%20%5Capprox%2090%5C%25" alt="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" title="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" class="img-formula">
+<img src="https://latex.codecogs.com/gif.latex?P%28FAILED%5C_BUILD%29%20%3D%20P%28%5COmega%29%20-%20P%28SUCCESSFUL%5C_BUILD%29%20%5Capprox%2010%5C%25" alt="P(FAILED_BUILD) = P(\Omega) - P(SUCCESSFUL_BUILD) = 10%" class="img-formula">
 
 Now, this starts looking **unfeasible**. Imagine analyzing logs of every tenth build just to find out there was a connection problem. Though, to see a general picture we would have to analyze a broader range of parameters:
 <center>
