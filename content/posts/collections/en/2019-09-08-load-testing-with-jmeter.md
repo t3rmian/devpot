@@ -141,7 +141,7 @@ You might also want to compare other ways to generate random numbers. I've run s
             <a href="https://jmeter.apache.org/usermanual/functions.html#__Random">__Random</a>
          </td>
          <td data-label="Throughput [execs/sec]">
-            <span style="color:crimson">5065</span>
+            <span class="err">5065</span>
          </td>
          <td data-label="Note">
             Twice the slowest
