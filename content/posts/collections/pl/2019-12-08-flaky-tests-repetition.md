@@ -1,32 +1,33 @@
 ---
-title: Repetition of flaky tests
-url: flaky-tests-repetition
+title: Niestabilne testy w procesie CI/CD
+url: analiza-testów-niedeterministycznych
 id: 18
 tags:
   - java
   - android
-  - testing
+  - testy
 author: Damian Terlecki
-date: 2019-12-01T20:00:00
+date: 2019-12-08T20:00:00
 ---
 
-As we go up the hierarchy of tests, we often encounter the problem of test flakiness. The term _flaky_ means that for the same code the test sometimes results in failure but in other cases it's successful. There are many reasons for this. Higher-level tests are generally bigger, require more resources and have potentially more points of failure. They may include some network communication, they might load some large data while your machine invokes a garbage collector. Sometimes they indicate performance problems, in other cases, it's a problem with the environment configuration. Excluding situations where the test is just badly written, there are also a lot of cases when they detect a serious problem occurring once in a blue moon (concurrency) which should, in fact, be reported and fixed.
+Idąc w górę hierarchii testów, często napotykamy, na problem testów niestabilnych (ang. flaky tests). Określenie _flaky_, popularne w literaturze angielskiej oznacza, sytuację, w której test tej samej części kodu zwraca różne rezultaty (czasami kończy się niepowodzeniem, mimo braku zmian w kodzie). Ze względu na to, że testy na wyższym poziomie są na ogół większe, wymagają więcej zasobów i sprawdzają integrację z wieloma komponentami, to właśnie tej kategorii testów najczęściej dotyczy problem niestabilności. Testy te mogą obejmować pewną komunikację sieciową, mogą ładować duże dane, część z nich może działać w tle, a kolejność synchronizacji może być nie zawsze deterministyczna. W innych przypadkach wskazują one na problemy z wydajnością, bądź z konfiguracją środowiska, ostatecznie, mogą po prostu sprowadzać się do niepoprawnych założeń podczas implementacji testu.
 
-## Statistics
+## Statystyka
 
-The more higher-level tests you have, the higher the chances of failed build are. Imagine 10% of your tests are flaky, e.g.: each one of them fails once in 1000 runs. 1 out of 1000, that's like 0.1%! Doesn't sound that bad, does it? Now imagine that the test suite size is 1000, not too small, not too big. So for 100 tests that are nondeterministic, the cumulative probability of having a failed build will be:
+Wraz ze wzrostem liczby testów integracyjnych, UI, sieciowych i współbieżności wzrastają szanse na niepowodzenie integracyjnego procesu budowania (CI). Wyobraź sobie, że 10% twoich testów charakteryzuje się niestabilnością, np.: każdy z nich kończy się niepowodzeniem raz na 1000 przebiegów. 1 na 1000, czyli 0,1%! Nie brzmi to tak źle, prawda? Teraz wyobraź sobie, że mamy 1000 testów, nie za mało, nie za dużo. Zatem dla 100 testów, które są w tym sensie niedeterministyczne, skumulowane prawdopodobieństwo niepowodzenia weryfikacji wyniesie:
 
 <img src="https://latex.codecogs.com/gif.latex?P%28FAILED%5C_TEST%29%20%3D%201%2F1000" alt="P(FAILED_TEST) = 1/1000" class="img-formula">
 <img src="https://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_TEST%29%20%3D%20P%28%5COmega%29%20-%201%2F1000%20%3D%20999%2F1000" alt="P(SUCCESSFUL_TEST) = P(\Omega) - 1/1000 = 999/1000" class="img-formula">
 <img src="https://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_BUILD%29%20%3D%20%5Ccap_1%5EN%20P%28SUCCESSFUL%5C_TEST%5C_N%29%20%5Capprox%2090%5C%25" alt="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" title="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" class="img-formula">
 <img src="https://latex.codecogs.com/gif.latex?P%28FAILED%5C_BUILD%29%20%3D%20P%28%5COmega%29%20-%20P%28SUCCESSFUL%5C_BUILD%29%20%5Capprox%2010%5C%25" alt="P(FAILED_BUILD) = P(\Omega) - P(SUCCESSFUL_BUILD) = 10%" class="img-formula">
 
-Now, this starts looking **unfeasible**. Imagine analyzing logs of every tenth build just to find out there was a connection problem. Though, to see a general picture we would have to analyze a broader range of parameters:
+Ok, to zaczyna brzmieć już jak **problem**. Statystycznie co dziesiąty proces zakończy się niepowodzeniem, pomimo praktycznie 100%-owej szansy na powodzenie każdego testu. Proces będziemy musieli analizować, często dochodząc do wniosku, że zarówno test, jak i kod wyglądają poprawnie, a na rezultat miał wpływ jakiś czynnik zewnętrzny. Jednak, aby zobaczyć ogólny obraz prawdopodobieństwa niepowodzenia weryfikacji, warto przeanalizować szerszy zakres parametrów:
+
 <center>
 <table>
 <thead>
     <tr>
-        <th class="corner-header">🠇 Number of test \<br/>Test failure probability 🠆</th>
+        <th class="corner-header">🠇 Liczba testów \<br/>Prawdopodobieństwo niepowodzenia testu 🠆</th>
         <th>1 / 100 000</th>
         <th>1 / 10 000</th>
         <th>1 / 1 000</th>
@@ -45,25 +46,21 @@ Now, this starts looking **unfeasible**. Imagine analyzing logs of every tenth b
  <tr><td class="th">2000</td><td class="warn">2%</td><td class="err">18%</td><td class="err">86%</td><td class="err">100%</td><td class="err">100%</td></tr>
 </tbody>
 </table>
-<b>Probability of failure in the process of verification during CI/CD</b>
+<b>Szansa niepowodzenia procesu weryfikacji w procesie CI/CD</b>
 </center>
 
-Studying the table we will easily find out some situations in which we will spend more time checking why the build failed than doing something productive.
-Of course, we could fix the test, but sometimes we are limited by time (work time/execution time). Another option is to remove the test or ignore the results, but often those tests might still be an added value and give us some **meaningful information**.
+Przeglądając tabelkę, z łatwością odkryjemy sytuacje, w których spędzimy więcej czasu sprawdzając, dlaczego, kompilacja się nie powiodła, niż robiąc coś produktywnego. Oczywiście czasami możemy zaadaptować test do pewnych warunków, ale w wielu przypadkach nie przewidzimy wszystkiego, a nasz wpływ na samo środowisko może być minimalny. Inną opcją jest usunięcie testu lub zignorowanie jego wyników, jednakże często stanowią one wartość dodaną i dostarczają nam **dodatkowych informacji** na działania testowanych elementów.
 
-The third option, a little cheat, which I incorporated in one of the projects, and might also suit you, is to repeat the flaky test. If we have a test that fails once out of ten times, by repeating it once we should get the failure rate down to 1/100; repeating it two times – to 1/1000. With a base failure rate of 1/100, we will get an even better decrease. In theory, we will drastically move from the right edge of the above table to the left one with a very low failure rate.
+Trzecim sposobem na rozwiązanie problemu jest powtarzanie testów niestabilnych. Jeśli mamy test, który kończy się niepowodzeniem raz na dziesięć razy, powtarzając go raz, powinniśmy obniżyć prawdopodobieństwo niepowodzenia do 1/100; powtarzając go dwa razy — do 1/1000. Przy bazowym prawdopodobieństwie wynoszącym 1/100 uzyskamy jeszcze większy spadek. Dzięki temu, w teorii, bezproblemowo przejdziemy od prawej krawędzi powyższej tabeli (duży wskaźnik awaryjności) do lewej (bardzo niska szansa na niepowodzenie).
 
-## Java and Android
+## Java i Android
 
-As the flaky tests are the most prevalent in Android I will demonstrate how to implement a test repetition on that platform. 
-In the past, this feature was available out-of-the-box when using [@FlakyTest](https://developer.android.com/reference/android/test/FlakyTest.html) annotation.
-With the recent introduction of the new testing framework `androidx.test` this option has been removed. Nevertheless, the JUnit which we usually use is a pretty powerful tool and provides us an API allowing us to implement this feature. This also works the same way for the standard Java.
+Ponieważ niestabilne testy są dosyć częstym problemem podczas weryfikacji interfejsu użytkownika w Androidzie (podobną kategorią są testy Selenium), pokażę, jak zaimplementować mechanizm powtórzeń testów na tej platformie. W przeszłości ta funkcja była standardowo dostępna wraz z adnotacją [@FlakyTest](https://developer.android.com/reference/android/test/FlakyTest.html). Wraz z wprowadzeniem pakietu testowego `androidx.test` opcja ta została niestety usunięta. Niemniej jednak, jeśli korzystamy z JUnita to nie mamy czym się przejmować. JUnit jest dość potężnym narzędziem i zapewnia nam interfejs pozwalający zaimplementować tę funkcjonalność w kilku prostych krokach. W podobny sposób można to zrealizować w standardowej Javie.
 
 ### RetryStatement
 
-Let's start with the core interface. Each part of the test class code (an action) is wrapped in an `org.junit.runners.model.Statement` with `evaluate` method.
-This is not only the code written under method with `@Test` annotation, but also code with other annotations like `@BeforeClass` and `@AfterClass`. Therefore,
-the first step for implementing our retry feature is to decorate this statement as so:
+Zacznijmy od samego rdzenia. Każda część kodu klasy testowej opakowywana jest w `org.junit.runners.model.Statement` za pomocą metody `evaluate`.
+Pod uwagę barny jest nie tylko kod metody z adnotacją `@Test`, ale także kod pozostałych metod z adnotacjami, takimi jak `@BeforeClass` czy `@AfterClass`. W związku z tym, pierwszym krokiem do zaimplementowania naszej funkcji ponawiania jest udekorowanie tej klasy w następujący sposób:
 
 ```java
 class RetryStatementDecorator extends Statement {
@@ -103,7 +100,7 @@ class RetryStatementDecorator extends Statement {
 
 ### RetryTestRule
 
-The next thing which we need to do is to somehow apply this statement to our tests. For sure we could use a `TestRule` interface and implement our own one:
+Następną rzeczą, którą musimy zrobić, jest zaaplikowanie naszej klasy do testów. Na pewno możemy użyć interfejsu `TestRule` i zaimplementować własny odpowiednik:
 
 ```java
 public class RetryRule implements TestRule {
@@ -121,7 +118,7 @@ public class RetryRule implements TestRule {
 }
 ```
 
-With an exemplary use inside a test:
+Z bardzo prostym sposobem użycia w klasie testowej:
 ```java
     @Rule
     public RuleChain testRule = RuleChain
@@ -130,11 +127,11 @@ With an exemplary use inside a test:
             .around(new RetryRule());
 ```
 
-And this will work in many cases, but in general, **only the @Test statement will be retried**. What this means is that the test code will be re-executed for the state of activity after the last failure. Imagine you have a test that opens some kind of menu and searches through it for a specific item. During the retry, the test will fail at opening the menu as it will already be opened. You could of course deal with it one way or the other, but the best way would be to implement the retry at the higher level – at the test runner level.
+I to zadziała w wielu przypadkach, ogólnie jednak **tylko metoda z adnotacją @Test zostanie powtórzona**. Oznacza to, że dany test zostanie ponownie wykonany dla stanu *Activity*, jaki pozostał po nieudanym wykonaniu. Wyobraź sobie, że masz test, który przykładowo otwiera menu i szuka w nim określonego elementu. Podczas kolejnej próby test zakończy się niepowodzeniem przy otwieraniu menu, ponieważ menu będzie już otwarte. Możesz oczywiście obejść ten problem w ten czy inny sposób, ale najlepszym sposobem byłoby wdrożenie powtórzenia na wyższym poziomie — na poziomie *runnera*.
 
 ### RetryRunner
 
-Having come up to this point, the implementation might sound a bit complex, but fear not – it's, in fact, very simple. We want to implement the retry method both at the class block level as well as the method block level. This way each time our test fails, we will get our Activity recreated too. For this, we will extend `AndroidJUnit4ClassRunner`. We could probably use `BlockJUnit4ClassRunner` here instead as it contains everything we need, though, if you check the implementation of `AndroidJUnit4` which is usually used in the case of instrumentation tests, you will see that it loads `androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner`. In general, I prefer to keep changes minimal.
+Dochodząc do tego momentu, cała implementacja może wydawać się nieco złożona, w zasadzie jest jednak bardzo prosta. Chcemy zaimplementować funkcję ponawiania zarówno na poziomie bloku kodu odnoszącego się do klasy (`@BeforeClass`), jak i na poziomie bloku metody (`@Test1`). W ten sposób za każdym razem, gdy nasz test się nie powiedzie, będziemy mieli pewność, że nasze *Activity* zostanie stworzone na nowo. W tym celu rozszerzymy `AndroidJUnit4ClassRunner`. Prawdopodobnie moglibyśmy użyć tutaj `BlockJUnit4ClassRunner`, ponieważ klasa ta zawiera wszystko, czego potrzebujemy, jednak jeśli zerkniesz na implementację `AndroidJUnit4`, czyli klasy, która jest standardowo wykorzystywana do testów w Androidzie, zobaczysz, że inicjuje ona właśnie `androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner`. Dobrą zasadą jest ograniczanie zmian do minimum.
 
 ```java
 public class RetryRunner extends AndroidJUnit4ClassRunner {
@@ -155,9 +152,7 @@ public class RetryRunner extends AndroidJUnit4ClassRunner {
 
 }
 ```
-
-Quite simple isn't it? We reuse the `RetryStatementDecorator` defined before, decorating the statement received from the implementations of the parent classes.
-For the retry count I've used a custom debug build config property defined in the Gradle module build:
+Całkiem proste, prawda? Ponownie wykorzystujemy zdefiniowaną wcześniej klasę `RetryStatementDecorator`, dekorując instrukcję otrzymaną z implementacji klas nadrzędnych. Do limitu liczby ponownych prób użyłem niestandardowego pola generowanego podczas procesu budowy w Gradle'u właściwego dla konfiguracji *debug*:
 
 ```groovy
 android {
@@ -168,14 +163,13 @@ android {
     }
 }
 ```
-
-Using this runner is as simple as swapping `@RunWith(AndroidJUnit4.class)` with `@RunWith(RetryRunner.class)`. You could also try the option from the `AndroidJUnit4` javadocs:
+Wykorzystanie naszego nowego runnera polega na zamianie wartości adnotacji `@RunWith(AndroidJUnit4.class)` na `@RunWith(RetryRunner.class)`. W specyficznych przypadkach możesz także wypróbować opcję z udokumentowaną w javadocu klasy `AndroidJUnit4`:
 
 > This implementation will delegate to the appropriate runner based on the build-system provided value. A custom runner can be provided by specifying the full class name in a 'android.junit.runner' system property.
 
-However, I haven't been successful with this one in Android. I suspect the runner is executed on the device and it's hard to set the values for system parameters there. A `RunnerBuilder` class might also be useful here as it can be passed as a parameter to the [instrumentation runner](https://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner).
+Jednakże, jeśli runner będzie działał na urządzeniu/emulatorze (do czego nawiązuję w tym artykule), to miej na uwadze, że trudno tam ustawić wartości parametrów systemowych. Przydatna może być również klasa `RunnerBuilder`, ponieważ może być przekazana jako parametr do [runnera odpowiedzialnego za instrumentację](https://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner).
 
-If you run this now for a failing test you should get something like:
+Teraz dla testu zakończonego niepowodzeniem, powinniśmy uzyskać uzyskać coś takiego:
 ```java
 2019-12-01 16:15:49.176 4818-4834/? W/RetryStatementDecorator: onAboutCreate(io.github.t3r1jj.pbmap.about.AboutActivityIT): run 1 failed
 2019-12-01 16:15:51.788 4818-4834/? W/RetryStatementDecorator: onAboutCreate(io.github.t3r1jj.pbmap.about.AboutActivityIT): run 2 failed
@@ -220,13 +214,13 @@ If you run this now for a failing test you should get something like:
         at android.app.Instrumentation$InstrumentationThread.run(Instrumentation.java:2074)
 ```
 
-### Surefire and Failsafe plugins
+### Wtyczki Surefire i Failsafe
 
-If you're using Surefire or Failsafe plugins in your project, the case might be much simpler. These two plugins provide an [API](https://maven.apache.org/surefire/maven-surefire-plugin/examples/rerun-failing-tests.html) allowing you to rerun failed tests (JUnit 4.x):
+Jeśli używasz wtyczek *Surefire* lub *Failsafe* w swoim projekcie, sprawa może być znacznie prostsza. Te dwie wtyczki zapewniają [interfejs](https://maven.apache.org/surefire/maven-surefire-plugin/examples/rerun-failing-tests.html), umożliwiający ponowne uruchomienie nieudanych testów (JUnit 4.x):
 ```bash
 mvn -Dsurefire.rerunFailingTestsCount=3 test
 ```
 
-## Summary
+## Podsumowanie
 
-By re-running your flaky tests you can increase the build success rate without having to remove the tests. They might still provide some useful information, though in general, it's a good idea to analyze each case before applying the retry rule. If you're hungry for more information, I recommend [John Micco's](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html) and [Jeff Listfield's](https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html) posts about test flakiness on Google blog about testing.
+Ponowne uruchamianie testów niestabilnych pozwala zmniejszyć liczbę niepowodzeń w naszym procesie CI/CD, bez konieczności usuwania problematycznych testów. Mogą one bowiem dostarczać użytecznych informacji, choć ogólnie dobrym pomysłem jest przeanalizowanie każdego przypadku przed zastosowaniem takiej funkcjonalności. Jeśli chcesz dowiedzieć się więcej o testach niedeterministycznych, polecam posty [Johna Micco](https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html) i [Jeffa Listfielda](https://testing.googleblog.com/2017/04/where-do-our-flaky-tests-come-from.html) na temat niestabilności testów na blogu Google.
