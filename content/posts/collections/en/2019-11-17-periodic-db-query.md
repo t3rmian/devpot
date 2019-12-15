@@ -72,7 +72,7 @@ public class Monitor {
 
     public static void main(String[] args) {
         String query = "SELECT PENDING FROM TEMP_CLEANUP_STATUS WHERE PENDING = 0;";
-        String connectionUrl = "<user>/<password>@//<host>:<port>/<database>";
+        String connectionUrl = "&lt;user&gt;/&lt;password&gt;@//&lt;host&gt;:&lt;port&gt;/&lt;database&gt;";
         String command = "echo " + query + " | " + SQL_PLUS_PATH + " -L " + connectionUrl;
         try {
             //noinspection InfiniteLoopStatement
