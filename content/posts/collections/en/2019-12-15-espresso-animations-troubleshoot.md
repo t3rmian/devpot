@@ -75,7 +75,7 @@ In such a case you may try creating custom flavors without animations (which I d
 
 Depending on how the animations are implemented (`android.animation`/`android.view.animation`/external libraries) it's possible that you may eliminate the "Animations or transitions are enabled on the target device" message and the above error will still persist. The animations might still [keep the UI thread not idle](https://stackoverflow.com/a/29662747) and Espresso will wait indefinitely.
 
-The last resort solution is not that painful and actually feasible. Fot the problematic tests just switch from Espresso to [UIAutomator (API 18+)](https://alexilyenko.github.io/uiautomator-basics/) with custom timeout:
+The last resort solution is not that painful and actually feasible. For the problematic tests just switch from Espresso to [UIAutomator (API 18+)](https://alexilyenko.github.io/uiautomator-basics/) with a custom timeout:
 
 ```Java
 //onView(withId(R.id.action_search)).perform(click())
