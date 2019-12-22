@@ -33,7 +33,7 @@ Głównym powodem, dla którego testy UI i E2E trwają znacznie dłużej, jest t
 Tematem na dzisiaj jest zrównoleglenie testów. Przyspieszenie fazy testowej jest kluczowym czynnikiem decydującym o tym, jak szybko będziemy w stanie stwierdzić, czy nowa wersja jest stabilna i gotowa do produkcji. Możemy to osiągnąć na dwóch poziomach. Po pierwsze, możemy zmodyfikować zdefiniowane do tego parametry narzędzi do budowania projektu:
 - Gradle ma do tego parametr [maxParallelForks](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.Test.html#org.gradle.api.tasks.testing.Test:maxParallelForks) umożliwiający równoległe wykonywanie testów:
 
-```groovy
+```gradle
 tasks.withType(Test) {
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 }
@@ -57,7 +57,7 @@ W ten sposób możesz równolegle uruchomić skategoryzowane testy. Zobaczmy ter
 
 Android ma tę wspaniałą listę bibliotek testowych *AndroidX*. Wystarczy dodać `testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"` do `defaultConfig` w `build.gradle` na poziomie modułu aplikacyjnego (standardowo `app`). Ta klasa służy do uruchamiania testów JUnit3 i JUnit4 na aplikacji Androidowej (z tego co wiem, nie ma jeszcze oficjalnej obsługi JUnit5, ale znajdziemy [rozwiązania](https://github.com/mannodermaus/android-junit5) stworzone przez samą społeczność skupioną wokół Androida). Przedstawiony runner obsługuje kilka przydatnych parametrów. Domyślne jego użycie polega na uruchomieniu `./gradlew connectedAndroidTest`. Aha, i oczywiście przed tym musimy załadować zależności:
 
-```groovy
+```gradle
 androidTestImplementation "androidx.test:core:1.2.0"
 androidTestImplementation "androidx.test:runner:1.2.0"
 androidTestImplementation "androidx.test.ext:junit:1.1.1"

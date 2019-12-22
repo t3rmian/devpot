@@ -34,7 +34,7 @@ adb shell settings put global animator_duration_scale 0
 
 Jeśli biegle władasz Gradlem, możesz równie dobrze utworzyć specjalne do tego zadanie i powiązać je przed fazą testowania:
 
-```
+```gradle
 task disableAnimations(type: Exec) {
     def adb = "$System.env.ANDROID_HOME/platform-tools/adb"
     commandLine "$adb", 'shell', 'settings', 'put', 'global', 'window_animation_scale', '0'
@@ -49,7 +49,7 @@ project.gradle.taskGraph.whenReady {
 
 Istnieje także specjalny parametr, który można ustawić w `build.gradle` (parametr działa w przypadku uruchamiania z poziomu Gradle'a):
 
-```groovy
+```gradle
 android {
   testOptions {
     animationsDisabled = true
