@@ -33,7 +33,7 @@ The main point of why UI and E2E tests take considerably longer time is that in 
 The first thing that comes to mind is the test parallelization. Speeding up the test phase is a critical factor in telling whether the new version is stable and ready for production. We can achieve this at two levels. Firstly, we can modify some neat parameters of our build tools:
 - Gradle has [maxParallelForks](https://docs.gradle.org/current/dsl/org.gradle.api.tasks.testing.Test.html#org.gradle.api.tasks.testing.Test:maxParallelForks) which enables parallelized test execution:
 
-```groovy
+```gradle
 tasks.withType(Test) {
     maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
 }
@@ -58,7 +58,7 @@ This way you will be able to run your categorized tests in parallel. Let's now g
 Android has this splendid list of AndroidX Test libraries. All it takes is to add `testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"` to the app `defaultConfig` in the `build.gradle`. This class is used to run JUnit3 and JUnit4 tests against an Android package (there doesn't seem to be any official support for JUnit5 yet, though some [solutions](https://github.com/mannodermaus/android-junit5) already exist). The runner supports some useful parametrization.
 Default usage consists of running `./gradlew connectedAndroidTest`. Oh, and of course the dependencies:
 
-```groovy
+```gradle
 androidTestImplementation "androidx.test:core:1.2.0"
 androidTestImplementation "androidx.test:runner:1.2.0"
 androidTestImplementation "androidx.test.ext:junit:1.1.1"

@@ -159,7 +159,7 @@ public class RetryRunner extends AndroidJUnit4ClassRunner {
 Quite simple isn't it? We reuse the `RetryStatementDecorator` defined before, decorating the statement received from the implementations of the parent classes.
 For the retry count I've used a custom debug build config property defined in the Gradle module build:
 
-```groovy
+```gradle
 android {
     buildTypes {
         debug {

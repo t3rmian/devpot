@@ -154,7 +154,7 @@ public class RetryRunner extends AndroidJUnit4ClassRunner {
 ```
 Całkiem proste, prawda? Ponownie wykorzystujemy zdefiniowaną wcześniej klasę `RetryStatementDecorator`, dekorując instrukcję otrzymaną z implementacji klas nadrzędnych. Do limitu liczby ponownych prób użyłem niestandardowego pola generowanego podczas procesu budowy w Gradle'u właściwego dla konfiguracji *debug*:
 
-```groovy
+```gradle
 android {
     buildTypes {
         debug {
