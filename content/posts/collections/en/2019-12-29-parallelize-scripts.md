@@ -20,6 +20,9 @@ T = S + (T - S)
 T(N) = S + (T(1) - S) / N
 ```
 
+<img style="background: white" src="/img/hq/amadahls-law.svg" alt="Amdahl's Law - Speedup" title="Amdahl's Law - Speedup">
+
+
 #### Linux
 
 On the Linux environment running scripts in parallel comes to executing them in the background and [waiting for finish](http://man7.org/linux/man-pages/man2/waitid.2.html). Additionally the best practice is to limit the parallelism to the [number of processors](http://man7.org/linux/man-pages/man1/nproc.1.html) as we won't gain anything above that value, only cause an additional overhead. 
