@@ -20,7 +20,7 @@ T = S + (T - S)
 T(N) = S + (T(1) - S) / N
 ```
 
-<img style="background: white" src="/img/hq/amadahls-law.svg" alt="Amdahl's Law - Speedup" title="Amdahl's Law - Speedup">
+<img style="background: white" src="/img/hq/amadahls-law.svg" alt="Amdahl's Law – Speedup" title="Amdahl's Law – Speedup">
 
 
 #### Linux
@@ -39,3 +39,17 @@ wait
 
 #### Windows
 
+Subroutine + NUMBER_OF_PROCESSORS
+
+```console
+@ECHO off
+set PARALLELISM=%NUMBER_OF_PROCESSORS%
+for /R %%f in (..\app\src\main\assets\data\*) do (
+    START "my_parallelized_task" cmd.exe /c generate_site_tree.bat %%f
+    call :wait
+)
+
+:wait
+for /f %%i in ('tasklist /fi "windowtitle eq my_parallelized_task" ^| find /I /C "cmd.exe"') do set taskCount=%%i
+if "%taskCount%"=="%PARALLELISM%" goto :wait
+```
