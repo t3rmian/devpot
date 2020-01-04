@@ -19,12 +19,18 @@
 table tbody .expanded {
     opacity: 1;
     animation: fade 1s linear;
+    -o-animation: fade 1s linear;
+    -moz-animation: fade 1s linear;
+    -webkit-animation: fade 1s linear;
 }
 
 @for $i from 2 through 5 {
     table tbody:nth-child(#{$i}) .expanded {
         opacity: 1;
         animation: fade #{($i - 1) * $element-transition-delay}s $element-transition-timing-function;
+        -o-animation: fade #{($i - 1) * $element-transition-delay}s $element-transition-timing-function;
+        -moz-animation: fade #{($i - 1) * $element-transition-delay}s $element-transition-timing-function;
+        -webkit-animation: fade #{($i - 1) * $element-transition-delay}s $element-transition-timing-function;
     }
 }
 
