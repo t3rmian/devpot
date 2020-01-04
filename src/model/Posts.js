@@ -18,7 +18,7 @@ export default function Posts(blog, defaultLang, lang, tags, root) {
             lang: lng,
             url: `/${lng}/${i18n.t("posts", { lng: lng })}/${
               blog[lng].find(p => p.id === post.id).url
-            }`,
+            }/`,
             selected: lng === lang
           })),
         ...(blog[defaultLang].some(p => p.id === post.id)
@@ -27,7 +27,7 @@ export default function Posts(blog, defaultLang, lang, tags, root) {
                 lang: defaultLang,
                 url: `/${i18n.t("posts", { lng: defaultLang })}/${
                   blog[defaultLang].find(p => p.id === post.id).url
-                }`,
+                }/`,
                 selected: defaultLang === lang
               }
             ]

@@ -35,7 +35,7 @@ export default function Tags(blog, defaultLang, lang) {
             )
             .map(lng => ({
               lang: lng,
-              url: `/${lng}/${i18n.t("tags", { lng })}/${tag}`,
+              url: `/${lng}/${i18n.t("tags", { lng })}/${tag}/`,
               selected: lng === lang
             })),
           ...(blog[defaultLang].some(p =>
@@ -44,7 +44,7 @@ export default function Tags(blog, defaultLang, lang) {
             ? [
                 {
                   lang: defaultLang,
-                  url: `/${i18n.t("tags", { lng: defaultLang })}/${tag}`,
+                  url: `/${i18n.t("tags", { lng: defaultLang })}/${tag}/`,
                   selected: defaultLang === lang
                 }
               ]

@@ -32,7 +32,7 @@ export default () => {
             .filter(lang => lang !== i18n.t("defaultLang"))
             .map(lang => ({
               lang,
-              url: `/${lang}`
+              url: `/${lang}/`
             })),
           {
             lang: i18n.t("defaultLang"),

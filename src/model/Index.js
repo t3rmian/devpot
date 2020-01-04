@@ -42,7 +42,7 @@ export default function Index(content, defaultLang, lang, loadEagerly) {
       home: home[lang][0],
       posts: blog[lang].map(p => ({
         ...mapPost(p, loadEagerly),
-        path: `${path}${i18n.t("posts", { lng: lang })}/${p.url}`
+        path: `${path}${i18n.t("posts", { lng: lang })}/${p.url}/`
       })),
       lang,
       isDefaultLang,
@@ -51,7 +51,7 @@ export default function Index(content, defaultLang, lang, loadEagerly) {
           .filter(lng => lng !== defaultLang)
           .map(lng => ({
             lang: lng,
-            url: `/${lng}`,
+            url: `/${lng}/`,
             selected: lng === lang
           })),
         { lang: defaultLang, url: "/", selected: defaultLang === lang }
