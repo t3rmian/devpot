@@ -23,9 +23,9 @@ T(N) = S + (T(1) - S) / N
 <img style="background: white" src="/img/hq/amadahls-law.svg" alt="Amdahl's Law – Speedup" title="Amdahl's Law – Speedup">
 
 
-#### Linux
+### Linux
 
-On the Linux environment running scripts in parallel comes to executing them in the background and [waiting for finish](http://man7.org/linux/man-pages/man2/waitid.2.html). Additionally, the best practice is to limit the parallelism to the [number of processors](http://man7.org/linux/man-pages/man1/nproc.1.html) as we won't gain anything above that value, only cause additional overhead. 
+On the Linux environment running scripts in parallel comes to executing them in the background (appending `&`) and eventually [waiting for finish](http://man7.org/linux/man-pages/man2/waitid.2.html). Additionally, the best practice is to limit the parallelism to the [number of processors](http://man7.org/linux/man-pages/man1/nproc.1.html) as we won't gain anything above that value, only cause additional overhead. 
 
 ```bash
 PARALLELISM=$(nproc)
@@ -37,7 +37,7 @@ done
 wait
 ```
 
-#### Windows
+### Windows
 
 In the case of Windows, I recommend using the Linux version through additional tools installed with Git or through something like Cygwin. If your options are really limited, try out the following batch snippet. This program will run the tasks in parallel limiting the number of custom-named *cmd.exe* processes to the [%NUMBER_OF_PROCESSORS%](http://environmentvariables.org/Number_Of_Processors) environment variable.
 
@@ -53,6 +53,6 @@ for /R %%f in (..\app\src\main\assets\data\*) do (
 for /f %%i in ('tasklist /fi "windowtitle eq my_parallelized_task" ^| find /I /C "cmd.exe"') do set taskCount=%%i
 if "%taskCount%"=="%PARALLELISM%" goto :wait
 ```
-#### Summary
+### Summary
 
 Parallelizing your scripts can be a quite fun exercise. Saving a few minutes on each execution can sum up over time to some incredible numbers. You will have to refactor some of your code into separate scripts, which is a good thing if your task is oversized. It is also a nice way to get more familiar with scripting in your favorite environment.
