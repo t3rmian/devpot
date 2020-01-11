@@ -37,6 +37,11 @@ const methods = {
       );
       loadHighlight(getHighlightTheme())
     }
+    [...document.getElementsByTagName("a")]
+      .forEach(a => {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener noreferrer");
+      });
   },
   componentDidUpdate() {
     updateCodeSyntaxHighlighting();
