@@ -38,6 +38,7 @@ const methods = {
       loadHighlight(getHighlightTheme())
     }
     [...document.getElementsByTagName("a")]
+      .filter(a => a.hostname !== window.location.hostname)
       .forEach(a => {
         a.setAttribute("target", "_blank");
         a.setAttribute("rel", "noopener noreferrer");
