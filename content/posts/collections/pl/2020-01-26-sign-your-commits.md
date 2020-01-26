@@ -9,7 +9,7 @@ author: Damian Terlecki
 date: 2020-01-26T20:00:00
 ---
 
-Hasła to tylko jedna z wielu metod uwierzytelniania. Kolejny poziom, jakim jest autentykacja przy użyciu klucza SSH zwykle nie jest niezbędny, gdy mamy do czynienia z bezpiecznym połączeniem. W przeciwnej sytuacji właściwe jego wykorzystanie zapewnia dodatkowy poziom bezpieczeństwa. Na przykład w przypadku ataków [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) (w przypadku wycieku klucza prywatnego hosta) [uniemożliwia oszustowi uwierzytelnioną komunikację z serwerem](https://www.gremwell.com/ssh-mitm-public-key-authentication).
+Hasła to tylko jedna z wielu metod uwierzytelniania. Kolejny poziom, jakim jest autentykacja przy użyciu klucza SSH zwykle nie jest niezbędny, gdy mamy do czynienia z bezpiecznym połączeniem. W przeciwnej sytuacji właściwe jego wykorzystanie zapewnia dodatkowy poziom bezpieczeństwa. Na przykład w przypadku ataków [man-in-the-middle](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) (przy wycieku klucza prywatnego hosta) [uniemożliwia oszustowi uwierzytelnioną komunikację z serwerem](https://www.gremwell.com/ssh-mitm-public-key-authentication).
 
 Korzystając z systemu kontroli wersji Git, możesz wybrać uwierzytelnianie za pomocą hasła lub uwierzytelnianie za pomocą klucza publicznego SSH. Najpopularniejsze produkty hostingowe Git, takie jak GitHub, Gitlab i Bitbucket, wszystkie obsługują klucze SSH nie tylko na poziomie konta, ale także na poziomie projektu (klucze wdrożeniowe/deployment keys). Jednak w przypadku Gita zarówno hasło (konto), jak i klucz SSH definiują jedynie poziomy dostępu do zdalnego repozytorium oraz jego gałęzi. Obie te metody same w sobie **nie dowodzą autentyczności i autorstwa** zmian wypychanych na daną gałąź.
 
