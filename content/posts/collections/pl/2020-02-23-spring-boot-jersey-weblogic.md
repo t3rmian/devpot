@@ -182,7 +182,7 @@ W takim przypadku dobrym pomysłem jest sprawdzenie, czy przypadkiem nie wstrzyk
 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 ```
 
-#### Domyślne skanowanie Jerseya
+#### Automatycznie zarejestrowany Jersey
 
 Zasoby aplikacji JAX-RS mogą być nadal poddawane skanowaniu przez WebLogic. Jeśli rejestrujemy kontenery serwletów jawnie i programowo w Spring Boot za pośrednictwem `ServletRegistrationBean` taka sytuacja może nie być dla nas na rękę. Możemy nie chcieć skanować wybranych zasobów bądź żadnego z nich (bądź chcemy mieć dostęp do domyślnej ścieżki `/resources/*`).
 
@@ -207,7 +207,7 @@ Aby to zrobić wystarczy podać wartość parametru `jersey.config.server.provid
       &lt;param-name&gt;jersey.config.server.resource.validation.ignoreErrors&lt;/param-name&gt;
       &lt;param-value&gt;1&lt;/param-value&gt;
     &lt;/init-param&gt;
-    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;load-on-startup&gt;-1&lt;/load-on-startup&gt;
   &lt;/servlet&gt;
   &lt;servlet-mapping&gt;
     &lt;servlet-name&gt;jersey&lt;/servlet-name&gt;
