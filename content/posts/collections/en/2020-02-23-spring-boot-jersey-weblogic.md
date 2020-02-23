@@ -181,7 +181,7 @@ In such a case, it's a good idea to check whether `@Context HttpServletRequest r
 ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
 ```
 
-#### Default Jersey scanning
+#### Automatically registered Jersey
 
 JAX-RS application resources can still be scanned by the WebLogic. This would be unfeasible if you're registering the servlet containers explicitly and programmatically in Spring Boot through `ServletRegistrationBean`. You might want to not have some or any of the resources scanned (or change the default mapping). 
 
@@ -206,7 +206,7 @@ To do this, just provide a parameter value (empty to disable) for `jersey.config
       &lt;param-name&gt;jersey.config.server.resource.validation.ignoreErrors&lt;/param-name&gt;
       &lt;param-value&gt;1&lt;/param-value&gt;
     &lt;/init-param&gt;
-    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;load-on-startup&gt;-1&lt;/load-on-startup&gt;
   &lt;/servlet&gt;
   &lt;servlet-mapping&gt;
     &lt;servlet-name&gt;jersey&lt;/servlet-name&gt;
