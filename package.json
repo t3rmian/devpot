@@ -45,6 +45,9 @@
     "marked": "^0.6.1",
     "lodash": "^4.17.13",
     "react-hot-loader": "^4.12.10",
-    "scheduler": "^0.14.0"
+    "scheduler": "^0.14.0",
+    "serialize-javascript": "^2.1.1",
+    "union-value": "^1.0.1",
+    "set-value": "^2.0.1"
   }
 }
