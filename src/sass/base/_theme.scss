@@ -60,6 +60,9 @@ $themes: (light: (primary-background-color: white,
         background-color: white;
         padding: 8px;
     }
+    .language-yml .hljs-bullet {
+        background: initial;
+    }
 
     @include themify($themes) {
         background-color: themed('primary-background-color');
