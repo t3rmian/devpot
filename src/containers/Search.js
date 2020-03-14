@@ -33,6 +33,7 @@ export default function Search() {
     .replace(/[.,]/g, " ")
     .replace(/\s\s+/g, " ")
     .replace(/\?q=/g, " ")
+    .toLowerCase()
     .split(" ")
     .filter(Boolean);
   const matchingPosts = posts
