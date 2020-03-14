@@ -8,6 +8,7 @@
     "analyze": "react-static build --analyze",
     "serve": "serve dist -p 3000",
     "selenium-postinstall": "node_modules/.bin/selenium-standalone install",
+    "test": "./node_modules/.bin/wdio ./wdio.conf.js"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
@@ -58,6 +59,7 @@
     "scheduler": "^0.14.0",
     "serialize-javascript": "^2.1.1",
     "union-value": "^1.0.1",
-    "set-value": "^2.0.1"
+    "set-value": "^2.0.1",
+    "acorn": "^6.4.1"
   }
 }
