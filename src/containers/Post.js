@@ -160,8 +160,8 @@ export function Post() {
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
         <div id="comments" />
-        <Footer langRefs={langRefs} />
         <SearchBar root={root} lang={lang} />
+        <Footer langRefs={langRefs} />
       </div>
     </div>
   );

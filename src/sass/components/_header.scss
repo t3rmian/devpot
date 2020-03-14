@@ -1,11 +1,12 @@
 header {
+
     @media (max-width: 640px) {
         .header-row {
             flex-direction: column;
         }
 
         .search-bar-container {
-            width: 200px;
+            width: 220px;
             text-align: center;
             left: 50%;
             transform: translate(-50%, 0);
@@ -62,14 +63,21 @@ header {
     .search-bar-container {
         position: absolute;
         top: 2rem;
+    }
+}
 
-        input {
-            padding-bottom: 2px;
-        }
+.search-bar-container {
+    input {
+        padding-bottom: 2px;
+    }
 
-        input,
-        button {
-            border-width: 1px;
-        }
+    input,
+    button {
+        border-width: 1px;
+    }
+
+    button {
+        padding-top: 0;
+        padding-bottom: 2px;
     }
 }
