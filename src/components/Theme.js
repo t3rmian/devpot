@@ -49,10 +49,19 @@ export const getCommentsTheme = () => {
   return commentsTheme;
 };
 
-export const getTheme = () => {
+export const loadTheme = () => {
   const cookies = new Cookies();
-  const theme = cookies.get("theme");
-  return theme ? theme : "theme-light";
+  if (cookies.get("theme")) {
+    const theme = cookies.get("theme");
+    const themeManager = document.getElementById("theme");
+    if (!themeManager.classList.contains(theme)) {
+      [].slice
+        .call(themeManager.classList)
+        .filter(c => c.indexOf("theme-") >= 0)
+        .forEach(c => themeManager.classList.remove(c));
+      themeManager.classList.add(theme);
+    }
+  }
 };
 
 export const getHighlightTheme = () => {
