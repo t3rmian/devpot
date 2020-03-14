@@ -15,6 +15,6 @@ export default {
   }
 };
 
-function isPreview() {
-  return (process && process.env && process.env.CONTEXT && process.env.CONTEXT !== 'production');
+export function isPreview() {
+  return process.env.CONTEXT && process.env.CONTEXT !== 'production';
 }
