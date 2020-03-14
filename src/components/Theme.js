@@ -51,9 +51,9 @@ export const getCommentsTheme = () => {
 
 export const loadTheme = () => {
   const cookies = new Cookies();
+  const themeManager = document.getElementById("theme");
   if (cookies.get("theme")) {
     const theme = cookies.get("theme");
-    const themeManager = document.getElementById("theme");
     if (!themeManager.classList.contains(theme)) {
       [].slice
         .call(themeManager.classList)
@@ -62,6 +62,7 @@ export const loadTheme = () => {
       themeManager.classList.add(theme);
     }
   }
+  themeManager.classList.add("transition-theme");
 };
 
 export const getHighlightTheme = () => {

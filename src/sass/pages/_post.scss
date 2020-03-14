@@ -63,13 +63,9 @@
             }
 
             code {
-                display: inline-block;
-                border-radius: 3px;
-                font-size: 85%;
-                margin: 0;
-                padding: .0em .4em;
-                text-align: left;
-                vertical-align: middle;
+                display: inline;
+                word-break: break-all;
+                padding: 0.10em 0.2em;
             }
 
             blockquote {

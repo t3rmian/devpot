@@ -66,31 +66,29 @@ $themes: (light: (primary-background-color: white,
 
     @include themify($themes) {
         background-color: themed('primary-background-color');
-        transition: background-color $theme-transition-delay $theme-transition-timing-function;
+
+        .loading{
+            color: themed('primary-color-more-intense');
+            transition: all $theme-transition-short-delay $theme-transition-short-timing-function !important;
+        }
 
         .transition-group .container,
         .transition-group .page {
             background-color: themed('primary-background-color');
-            transition: background-color $theme-transition-delay $theme-transition-timing-function;
 
             .post-logo img,
             img.logo {
                 filter: themed('logo-filter');
-                transition: filter $theme-transition-delay $theme-transition-timing-function !important;
             }
 
             a:hover.post-logo img,
             a:hover img.logo {
                 filter: themed('logo-filter-hover');
-                transition: filter $theme-transition-short-delay $theme-transition-short-timing-function !important;
             }
     
             .theme-switcher img {
                 filter: themed('theme-switch-filter');
-                transition: filter $theme-transition-delay $theme-transition-timing-function !important;
             }
-    
-    
     
             code {
                 background-color: themed('primary-background-color-less-intense');
@@ -100,39 +98,33 @@ $themes: (light: (primary-background-color: white,
             a,
             button.link {
                 color: themed('secondary-color');
-                transition: color $theme-transition-delay $theme-transition-timing-function;
             }
     
             a:hover,
             button.link:hover {
                 color: themed('secondary-color-less-intense');
-                transition: color $theme-transition-short-delay $theme-transition-short-timing-function;
             }
     
             .header-container {
                 *:not(button):not(input):not(a) {
                     color: themed('primary-color-more-intense');
-                    transition: color $theme-transition-delay $theme-transition-timing-function;
                 }
             }
     
             .title {
                 color: themed('primary-color-more-intense');
-                transition: color $theme-transition-delay $theme-transition-timing-function;
             }
     
             .langs {
                 .lang {
                     a[data-disabled=true] {
                         color: themed('primary-color-less-intense');
-                        transition: color $theme-transition-delay $theme-transition-timing-function;
                     }
                 }
             }
     
             .date-col {
                 color: themed('primary-color-less-intense');
-                transition: color $theme-transition-delay $theme-transition-timing-function;
             }
     
             .content {
@@ -197,20 +189,86 @@ $themes: (light: (primary-background-color: white,
             .author,
             .meta .item {
                 color: themed('primary-color-less-intense');
-                transition: color $theme-transition-delay $theme-transition-timing-function;
             }
     
             .meta .item *:not(a) {
                 color: themed('primary-color-less-intense');
+            }
+
+        }
+        *:not(button):not(input):not(a):not(code):not(pre):not([class^="hljs-"]) {
+            color: themed('primary-color');
+        }
+    }
+
+    .transition-theme {
+        transition: background-color $theme-transition-delay $theme-transition-timing-function;
+
+        .transition-group .container,
+        .transition-group .page {
+            transition: background-color $theme-transition-delay $theme-transition-timing-function;
+
+            .post-logo img,
+            img.logo {
+                transition: filter $theme-transition-delay $theme-transition-timing-function !important;
+            }
+
+            a:hover.post-logo img,
+            a:hover img.logo {
+                transition: filter $theme-transition-short-delay $theme-transition-short-timing-function !important;
+            }
+    
+            .theme-switcher img {
+                transition: filter $theme-transition-delay $theme-transition-timing-function !important;
+            }
+    
+            a,
+            button.link {
+                transition: color $theme-transition-delay $theme-transition-timing-function;
+            }
+    
+            a:hover,
+            button.link:hover {
+                transition: color $theme-transition-short-delay $theme-transition-short-timing-function;
+            }
+    
+            .header-container {
+                *:not(button):not(input):not(a) {
+                    transition: color $theme-transition-delay $theme-transition-timing-function;
+                }
+            }
+    
+            .title {
+                transition: color $theme-transition-delay $theme-transition-timing-function;
+            }
+    
+            .langs {
+                .lang {
+                    a[data-disabled=true] {
+                        transition: color $theme-transition-delay $theme-transition-timing-function;
+                    }
+                }
+            }
+    
+            .date-col {
+                transition: color $theme-transition-delay $theme-transition-timing-function;
+            }
+    
+            p, h1, h2, h3, h4, h5, span, time, strong, i, b, u,
+            .updated,
+            .author,
+            .meta .item {
+                transition: color $theme-transition-delay $theme-transition-timing-function;
+            }
+    
+            .meta .item *:not(a) {
                 transition: color $theme-transition-delay $theme-transition-timing-function;
             }
         }
 
-        *:not(button):not(input):not(a):not(code):not(pre):not([class^="hljs-"]) {
-            color: themed('primary-color');
-            transition: color $theme-transition-delay $theme-transition-timing-function;
+        code {
+                transition: all $theme-transition-delay $theme-transition-timing-function;
         }
-        
     }
 }
 
