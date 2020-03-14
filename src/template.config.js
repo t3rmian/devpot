@@ -1,9 +1,9 @@
 export default {
   author: "Damian Terlecki",
-  authorSite: isPreview() ? process.env.DEPLOY_PRIME_URL : "https://termian.dev",
+  authorSite: "https://termian.dev",
   siteTitle: "Devpot",
   siteLongTitle: "Devpot: a coder's blog",
-  siteRoot: "https://blog.termian.dev",
+  siteRoot: isPreview() ? process.env.DEPLOY_PRIME_URL : "https://blog.termian.dev",
   defaultLanguage: "en",
 
   optional: {
