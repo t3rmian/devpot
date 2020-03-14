@@ -111,7 +111,7 @@ There is also another very clever way to secure the static site under some circu
 > The password's hash is part of the URI. Enforce HTTPS to avoid man in the middle attacks.  
 > Pasting the link directly to someone will bypass the login.  
 
-The provided sample is a demo of a single page but it could easily be extended to multi-page auth. Though, as you can see it could be easily leaked if the link is shared. If you don't care, but still want to minimize the visibility, slap a *noindex* meta value for robots to disable search engine indexing.
+The provided sample is a demo of a single page but it could easily be extended to multi-page auth. Though, as you can see it could be easily leaked if the link is shared. If you don't care, but still want to minimize the visibility, slap a *noindex* meta value for robots to disable search engine indexing:
 `&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot; /&gt;`. Generally, this might be a valid solution if you're a one-man team under consideration of the above flaws.
 
 ### Encrypted HTML page
