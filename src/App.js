@@ -8,12 +8,9 @@ import Loader from "./components/Loader";
 import React from "react";
 import config from "./template.config";
 import lifecycle from "react-pure-lifecycle";
-import { loadTheme } from "components/Theme";
 
 const methods = {
   componentDidMount(props) {
-    loadTheme();
-
     if (config.optional.ga) {
       window.dataLayer = window.dataLayer || [];
       function gtag() {
@@ -66,13 +63,13 @@ const methods = {
   }
 };
 
-function App() {
+function App({ theme }) {
   return (
     <Root>
       <Head>
         <meta charSet="UTF-8" />
       </Head>
-      <div id="theme" className="theme-light">
+      <div id="theme" className={theme}>
         <React.Suspense fallback={Loader()}>
           <Location>
             {({ location }) => {
