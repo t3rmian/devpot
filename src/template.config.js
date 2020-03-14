@@ -16,5 +16,5 @@ export default {
 };
 
 function isPreview() {
-  return (process && process.env && process.env.DEPLOY_PRIME_URL);
+  return (process && process.env && process.env.CONTEXT && process.env.CONTEXT !== 'production');
 }
