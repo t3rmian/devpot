@@ -2,7 +2,7 @@ import I18nIndexes from "./src/model/I18nIndexes";
 import I18nSearch from "./src/model/I18nSearch";
 import I18nTags from "./src/model/I18nTags";
 import React from "react";
-import config from "./src/template.config";
+import config, { isPreview } from "./src/template.config";
 import jdown from "jdown";
 import path from "path";
 import chokidar from "chokidar";
@@ -11,7 +11,7 @@ import { timeToLength } from "./src/model/Length";
 import { countPostMinutes } from "./src/utils";
 import i18n from "./src/i18n";
 
-let devMode = undefined;
+let devMode = isPreview();
 if (process.env.NODE_ENV === "development") {
   devMode = true;
   chokidar.watch(["content", "sass"], { ignoreInitial: true })

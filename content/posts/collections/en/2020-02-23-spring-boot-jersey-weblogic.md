@@ -66,7 +66,7 @@ Ok, but aren't we missing something? With the JAR method, we specified the main 
 
 To load your Spring application configuration in the container environment, we have to set up the starting point equivalent of the main method (which will configure the dispatcher, filters, servlets and listeners). Keep in mind that this configuration is for Servlet API 3.1+ (Spring Boot 2 + WLS 12.2.1). For legacy versions, [spring-boot-legacy](https://github.com/dsyer/spring-boot-legacy) might be helpful.
 
-Back to the topic – we have to extend `SpringBootServletInitializer` and provide our configuration sources. What's more, **we need to implement `WebApplicationInitializer` again**, even though the `SpringBootServletInitializer` already implements it. Otherwise, WebLogic does not pick up this class (if you're curious, how this mechanism works – check out [SpringServletContainerInitializer javadocs](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/SpringServletContainerInitializer.html)).
+Back to the topic – we have to extend `SpringBootServletInitializer` and provide our configuration sources. What's more, depending on the version, we might need to implement `WebApplicationInitializer` again, even though the `SpringBootServletInitializer` already implements it. Otherwise, WebLogic does not pick up this class. This is a bug that has been resolved in version 12.1.3 (patch 16769849). If you're curious, how the mechanism works – check out [SpringServletContainerInitializer javadocs](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/SpringServletContainerInitializer.html).
 
 ```java
 @SpringBootApplication
