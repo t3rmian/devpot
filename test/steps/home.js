@@ -23,8 +23,40 @@ When('I click on any article on home page', function () {
 });
 Then('I should be redirected to the article site with its contents', function () {
   browser.waitUntil(() => {
-    return $('.post-container') != null
+    return $('.post-container').isExisting()
   }, 5000, 'Expected loading finish');
   expect(browser.getUrl()).to.be.not.equal(this.previousUrl);
   expect($('body').getText()).to.include(this.articleTitle);
+});
+
+When('I type some words in the search input', function () {
+  const search = $('[type = "search"]');
+  this.keyword = "WebLogic"
+  search.setValue(this.keyword);
+  const searchButton = $('[type = "search"] + button');
+  searchButton.click()
+});
+Then('I should be presented with the list of clickable articles containing any of the typed words', function () {
+  browser.waitUntil(() => {
+    return $('.search-header').isExisting()
+  }, 5000, 'Expected loading finish');
+  expect($('main').getText()).to.include(this.keyword)
+  expect($('main table').getText()).to.include(this.keyword)
+  expect($$('main a').length).to.be.above(0);
+});
+
+When('I type some gibberish in the search input', function () {
+  const search = $('[type = "search"]');
+  this.keyword = "asdasfsadwefsvxzsdf"
+  search.setValue(this.keyword);
+  const searchButton = $('[type = "search"] + button');
+  searchButton.click()
+});
+Then('I should be presented with a message that nothing has been found', function () {
+  browser.waitUntil(() => {
+    return $('.search-header').isExisting()
+  }, 5000, 'Expected loading finish');
+  expect($('main').getText()).to.include(this.keyword.toUpperCase())
+  expect($('main').getText()).to.include("We don't have such content")
+  expect($$('main a').length).to.be.equal(0);
 });

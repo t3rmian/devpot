@@ -24,7 +24,7 @@ export default ({root, lang}) => {
         action={root + t("search", { lng: lang })}
         className="search-bar"
       >
-        <input type="search" name="q" />
+        <input type="search" />
         <button>⌕</button>
       </form>
     </div>

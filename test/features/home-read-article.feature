@@ -1,4 +1,4 @@
-Feature: Read more
+Feature: Read article
 
     As a visitor of the blog
     I want to go to a selected article
