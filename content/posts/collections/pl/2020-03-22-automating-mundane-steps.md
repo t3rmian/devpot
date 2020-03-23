@@ -104,9 +104,9 @@ VERSION=$(grep version "pom.xml" | head -n 2 | tail -n 1 | cut -d">" -f2 | cut -
 
 # Potwierdzenie wywołanie kolejnego polecenia - aktualizacji zgłoszenia na Jirze
 read -p "Push and update tracking with git jira-update $VERSION $TITLE? &lt;y/N&gt; " prompt
-if [[ $prompt =~ [yY](es)* ]]
+if [[ $prompt =~ [yY](es)* ]]; then
   git push && git jira-update $VERSION $TITLE
-then
+fi
 ```
 
 #### Aktualizacja informacje na Jirze
