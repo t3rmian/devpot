@@ -60,3 +60,23 @@ Then('I should be presented with a message that nothing has been found', functio
   expect($('main').getText()).to.include("We don't have such content")
   expect($$('main a').length).to.be.equal(0);
 });
+
+When('I click on any tag from the tag cloud', function () {
+  browser.setWindowSize(1600, browser.getWindowSize().height);
+  const tags = $$('.tag-cloud-container a');
+  const index = Math.floor(Math.random() * tags.length);
+  const selectedTag = tags[index];
+  this.selectedTagValue = selectedTag.getText().split("#")[1];
+  console.log("CLiuck on " + this.selectedTagValue)
+  selectedTag.click()
+});
+Then('I should be presented with the list of clickable articles with selected tag', function () {
+  browser.waitUntil(() => {
+    return $('main').isExisting() && $('main').getText().indexOf(this.selectedTagValue.toUpperCase()) >= 0
+  }, 5000, 'Expected tag loading finish');
+  $$('main a')[0].click();
+  browser.waitUntil(() => {
+    return $('.tags').isExisting()
+  }, 5000, 'Expected article loading finish');
+  expect($('.tags').getText()).to.include(this.selectedTagValue);
+});
