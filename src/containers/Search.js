@@ -24,7 +24,7 @@ export default function Search() {
   } = useRouteData();
   const url = typeof window !== "undefined" ? window.location.href : path;
 
-  const [, query] = url.split(path);
+  const query = "?q=" + url.split(/\?q=/).slice(1).join("?q=");
   langRefs = langRefs.map(lr => ({
     ...lr,
     url: lr.url + query
@@ -32,7 +32,7 @@ export default function Search() {
   const words = decodeURIComponent(query)
     .replace(/[.,]/g, " ")
     .replace(/\s\s+/g, " ")
-    .replace(/\?q=/g, " ")
+    .replace(/\?q=/, " ")
     .toLowerCase()
     .split(" ")
     .filter(Boolean);
@@ -55,7 +55,7 @@ export default function Search() {
   if (matchingPosts.length > 0) {
     content = <Posts posts={matchingPosts} lang={lang} />;
   } else {
-    content = <div>{t("No content")}</div>;
+    content = <div>{t("No content", { lng: lang })}</div>;
   }
   return (
     <div className="container search-container">
