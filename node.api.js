@@ -1,3 +1,4 @@
+import webpack from "webpack";
 import chalk from "chalk";
 import fs from "fs-extra";
 import nodePath from "path";
@@ -52,6 +53,24 @@ export default (options = {}) => ({
       priority: -20,
       reuseExistingChunk: true
     };
+    newConfig.plugins.push(
+      new webpack.ContextReplacementPlugin(
+        /highlight\.js\/lib\/languages$/,
+        new RegExp(`^./(${[
+          "kotlin",
+          "properties",
+          "shell",
+          "plaintext",
+          "yaml",
+          "groovy",
+          "sql",
+          "gradle",
+          "bash",
+          "xml",
+          "java"
+        ].join('|')})$`),
+      )
+    );
     return newConfig;
   }
 });

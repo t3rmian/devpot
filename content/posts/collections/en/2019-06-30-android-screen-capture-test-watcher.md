@@ -167,7 +167,7 @@ Now if some test fails, you can check the error in logs (using Android Studio or
 
 Look for "link" property with *UploadScreenCaptureProcessor* tag:
 
-```log
+```plaintext
 06-23 17:58:28.969 I/TestRunner( 7860): run started: 1 tests
 06-23 17:58:28.997 I/TestRunner( 7860): started: testOnCreate(t3rmian.github.io.travis_android_demo.ItemListActivityTest)
 06-23 17:58:39.186 I/ScreenshotOnTestFailedRule( 7860): Taking a screenshot of failed test

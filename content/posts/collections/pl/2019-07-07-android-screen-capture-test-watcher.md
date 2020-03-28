@@ -168,7 +168,7 @@ Teraz, jeśli jakiś test się nie powiedzie, będziesz miał możliwość łatw
 
 Szukaj pola o nazwie "link" z tagiem *UploadScreenCaptureProcessor*:
 
-```log
+```plaintext
 06-23 17:58:28.969 I/TestRunner( 7860): run started: 1 tests
 06-23 17:58:28.997 I/TestRunner( 7860): started: testOnCreate(t3rmian.github.io.travis_android_demo.ItemListActivityTest)
 06-23 17:58:39.186 I/ScreenshotOnTestFailedRule( 7860): Taking a screenshot of failed test
