@@ -67,7 +67,6 @@ When('I click on any tag from the tag cloud', function () {
   const index = Math.floor(Math.random() * tags.length);
   const selectedTag = tags[index];
   this.selectedTagValue = selectedTag.getText().split("#")[1];
-  console.log("CLiuck on " + this.selectedTagValue)
   selectedTag.click()
 });
 Then('I should be presented with the list of clickable articles with selected tag', function () {
@@ -79,4 +78,21 @@ Then('I should be presented with the list of clickable articles with selected ta
     return $('.tags').isExisting()
   }, 5000, 'Expected article loading finish');
   expect($('.tags').getText()).to.include(this.selectedTagValue);
+});
+
+When('I choose the Polish language', function () {
+  $('a[hreflang=pl]').click();
+});
+Then('I should see the page in the Polish language', function () {
+  browser.setWindowSize(1600, browser.getWindowSize().height);
+  browser.waitUntil(() => {
+    return !$('.loading').isExisting()
+  }, 5000, 'Expected loading finish');
+  expect($('body').getText()).to.include("Najnowsze".toUpperCase());
+  expect($('body').getText()).to.include("Więcej");
+  expect($('body').getText()).to.include("Głodny");
+  const monthsRegex = "Sty Lut Mar Kwi Maj Cze Lip Sie Wrz Paz Lis Gru".replace(/ /g, "|")
+  expect($('body').getText()).to.match(monthsRegex);
+  expect($$('.date-col+td a')[0].getUrl()).to.include("/pl/");
+  expect($$('.tag-cloud-container a')[0].getUrl()).to.include("/pl/");
 });

@@ -41,7 +41,7 @@ wait
 
 In the case of Windows, I recommend using the Linux version through additional tools installed with Git or through something like Cygwin. If your options are really limited, try out the following batch snippet. This program will run the tasks in parallel limiting the number of custom-named *cmd.exe* processes to the [%NUMBER_OF_PROCESSORS%](http://environmentvariables.org/Number_Of_Processors) environment variable.
 
-```console
+```shell
 @ECHO off
 set PARALLELISM=%NUMBER_OF_PROCESSORS%
 for /R %%f in (..\app\src\main\assets\data\*) do (

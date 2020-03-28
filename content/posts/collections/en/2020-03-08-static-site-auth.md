@@ -42,7 +42,7 @@ In October 2019 GitLab.com introduced [GitLab Pages Access Control](https://docs
 
 If you're using the **GitHub** and still would like to have this fancy feature, you could set up a mirror repository od GitLab and define an automatic push from GitHub using an action, e.g. `.github/workflows/documentation-cd.yml`:
 
-```yml
+```yaml
 name: Static site mirror
 
 on:
@@ -65,7 +65,7 @@ jobs:
 
 The next step is to configure the [secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) for communication between GitLab and GitHub. And then we define the GitLab CI `.gitlab-ci.yml`. If you're using Sphinx for documentation, it could look like this:
 
-```yml
+```yaml
 image: "rappdw/docker-java-python"
 
 before_script:

@@ -11,7 +11,26 @@ import { useTranslation } from "react-i18next";
 import config from "../template.config";
 import { lazyLoadImages, loadComments, loadHighlight, countPostMinutes } from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
-import hljs from "highlight.js";
+import hljs from 'highlight.js/lib/highlight';
+
+const registerLanguage = name => {
+  const lang = require(`highlight.js/lib/languages/${name}`);
+  hljs.registerLanguage(name, lang);
+};
+
+[
+  "kotlin",
+  "properties",
+  "shell",
+  "plaintext",
+  "yaml",
+  "groovy",
+  "sql",
+  "gradle",
+  "bash",
+  "xml",
+  "java"
+].forEach(registerLanguage);
 
 const updateCodeSyntaxHighlighting = () => {
   document.querySelectorAll("pre code").forEach(block => {

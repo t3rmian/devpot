@@ -42,7 +42,7 @@ W październiku 2019 GitLab.com wprowadził [kontrolę dostępu do stron projekt
 
 Jeśli używasz **GitHuba** i nadal chcesz mieć tę funkcjonalność, możesz skonfigurować lustrzaną kopię repozytorium na GitLabie i zdefiniować automatyczne wypychanie zmian z GitHub za pomocą akcji, np. w pliku `.github/workflows/documentation-cd.yml`:
 
-```yml
+```yaml
 name: Static site mirror
 
 on:
@@ -65,7 +65,7 @@ jobs:
 
 Kolejnym krokiem jest skonfigurowanie [poufnej zmiennej](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets) `GITLAB_SSH_PRIVATE_KEY` do komunikacji między GitLabem i GitHubem. Następnie definiujemy integrację przy pomocy pliku GitLab CI `.gitlab-ci.yml`. Przykładowo zbudowanie i wdrożenie dokumentacji generowanej przez Sphinxa może wyglądać następująco:
 
-```yml
+```yaml
 image: "rappdw/docker-java-python"
 
 before_script:
