@@ -11,8 +11,8 @@ jobs:
     services:
       selenium:
         image: selenium/standalone-firefox
-      ports:
-        - 4444:4444
+        ports:
+          - 4444:4444
         
     steps:
     - uses: actions/checkout@v2
