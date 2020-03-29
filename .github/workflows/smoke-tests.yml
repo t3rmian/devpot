@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Smoke tests
 
 on:
   [pull_request]
