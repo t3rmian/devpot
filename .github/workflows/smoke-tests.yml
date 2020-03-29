@@ -22,4 +22,4 @@ jobs:
         node-version: 10.x
     - run: npm install -g yarn
     - run: yarn install
-    - run: yarn test-ci
+    - run: yarn test-ci || yarn test-ci
