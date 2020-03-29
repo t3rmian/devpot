@@ -10,7 +10,7 @@ jobs:
     
     services:
       selenium:
-        image: selenium/standalone-firefox
+        image: selenium/standalone-chrome
         ports:
           - 4444:4444
         
@@ -22,4 +22,4 @@ jobs:
         node-version: 10.x
     - run: npm install -g yarn
     - run: yarn install
-    - run: yarn test-ci || yarn test-ci
+    - run: yarn test-ci
