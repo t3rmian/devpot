@@ -20,5 +20,4 @@ jobs:
         node-version: 10.x
     - run: npm install -g yarn
     - run: yarn install
-    - run: yarn selenium-postinstall
-    - run: yarn test
+    - run: yarn test-ci
