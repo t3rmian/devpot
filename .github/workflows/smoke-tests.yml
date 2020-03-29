@@ -13,6 +13,7 @@ jobs:
         image: selenium/standalone-chrome
         ports:
           - 4444:4444
+        options: -v /dev/shm:/dev/shm
         
     steps:
     - uses: actions/checkout@v2
