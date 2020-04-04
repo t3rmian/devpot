@@ -16,21 +16,25 @@ jobs:
         options: -v /dev/shm:/dev/shm
         
     steps:
-    - name: Create smoke tests QUEUED status commit comment
+    - name: Create smoke tests PENDING status commit comment
       if: ${{ github.event.state == 'pending' }}
-      uses: peter-evans/commit-comment@v1
-      with:
-        sha: ${{ github.event.commit.sha }}
-        body: Preview deploy started, waiting for completion to start the smoke tests...
-    - name: Create smoke tests STARTED status commit comment
+      run: |
+        curl --location --request POST
+        'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
+        --header 'Content-Type: application/json'
+        --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
+        --header 'Content-Type: application/json'
+        --data-raw '{
+	      "state": "pending",
+	      "target_url": "https://github.com/${{ github.repository }}/actions?query=workflow%253A%22${{ github.workflow }}",
+	      "context": "${{ github.workflow }}",
+	      "descrption": "Waiting for deployment"
+        }'
+    - name: Extract deployment URL
+      run: echo ::set-env name=SITE_URL::${{ github.github.event.target_url }}
       if: ${{ github.event.state == 'success' }}
-      uses: peter-evans/commit-comment@v1
-      with:
-        sha: ${{ github.event.commit.sha }}
-        body: Preview deploy ended, starting smoke tests...
-    - run: echo ::set-env name=SITE_URL::${{ github.github.event.target_url }}
-      if: ${{ github.event.state == 'success' }}
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
       if: ${{ github.event.state == 'success' }}
       with:
         ref: ${{ github.event.commit.sha }}
@@ -47,7 +51,15 @@ jobs:
       if: ${{ github.event.state == 'success' }}
     - name: Create smoke tests FINISHED status commit comment
       if: ${{ github.event.state == 'success' }}
-      uses: peter-evans/commit-comment@v1
-      with:
-        sha: ${{ github.event.commit.sha }}
-        body: Smoke tests ended with status ${{ job.status }}
+      run: |
+        curl --location --request POST
+        'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
+        --header 'Content-Type: application/json'
+        --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
+        --header 'Content-Type: application/json'
+        --data-raw '{
+	      "state": "${{ job.status }}",
+	      "target_url": "https://github.com/t3rmian/devpot/actions?query=workflow%253A%22${{ github.workflow }}",
+	      "context": "${{ github.workflow }}",
+	      "descrption": "Waiting for deployment"
+        }'
