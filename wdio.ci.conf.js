@@ -194,6 +194,7 @@ exports.config = {
         global.assert   = chai.assert;
         global.should   = chai.should();
         global.SITE_URL = process.env.SITE_URL || "https://blog.termian.dev/";
+        console.log("SITE_URL: " + global.SITE_URL);
     },
     /**
      * Runs before a WebdriverIO command gets executed.
