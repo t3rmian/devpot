@@ -46,7 +46,7 @@ jobs:
     - run: yarn test-ci
       if: ${{ github.event.state == 'success' }}
       env:
-        SITE_URL: ${{ github.github.event.target_url }}
+        SITE_URL: ${{ github.event.target_url }}
     - name: Create FINISHED status
       if: ${{ github.event.state == 'success' }}
       run: >-
