@@ -29,9 +29,6 @@ jobs:
         "context": "${{ github.workflow }}",
         "descrption": "Waiting for deployment"
         }'
-    - name: Extract deployment URL
-      run: echo ::set-env name=SITE_URL::${{ github.github.event.target_url }}
-      if: ${{ github.event.state == 'success' }}
     - name: Checkout
       uses: actions/checkout@v2
       if: ${{ github.event.state == 'success' }}
@@ -50,14 +47,17 @@ jobs:
       if: ${{ github.event.state == 'success' }}
     - name: Create smoke tests FINISHED status commit comment
       if: ${{ github.event.state == 'success' }}
+      env:
+        SITE_URL: ${{ github.github.event.target_url }}
       run: >-
+        if [ ${{ job.status }} == Success ]; then echo success; else echo failure; fi | xargs -I{}
         curl --location --request POST
         'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
         --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
         --header 'Content-Type: application/json'
         --data-raw '{
-        "state": "${{ job.status }}",
+        "state": "{status}",
         "target_url": "https://github.com/t3rmian/devpot/actions?query=workflow%253A%22${{ github.workflow }}",
         "context": "${{ github.workflow }}",
-        "descrption": "Waiting for deployment"
+        "descrption": "Finished smoke tests"
         }'
