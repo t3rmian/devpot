@@ -7,8 +7,9 @@
     "build": "react-static build",
     "analyze": "react-static build --analyze",
     "serve": "serve dist -p 3000",
-    "selenium-postinstall": "node_modules/.bin/selenium-standalone install",
-    "test": "./node_modules/.bin/wdio ./wdio.conf.js"
+    "selenium-install": "node_modules/.bin/selenium-standalone install",
+    "test": "./node_modules/.bin/wdio ./wdio.conf.js",
+    "test-ci": "./node_modules/.bin/wdio ./wdio.ci.conf.js"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
