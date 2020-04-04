@@ -16,53 +16,41 @@ jobs:
         options: -v /dev/shm:/dev/shm
         
     steps:
-    - run: sudo apt-get -y -qq install jq
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - name: Dump job context
-      env:
-        JOB_CONTEXT: ${{ toJson(job) }}
-      run: echo "$JOB_CONTEXT"
-    - name: Dump steps context
-      env:
-        STEPS_CONTEXT: ${{ toJson(steps) }}
-      run: echo "$STEPS_CONTEXT"
-    - name: Dump runner context
-      env:
-        RUNNER_CONTEXT: ${{ toJson(runner) }}
-      run: echo "$RUNNER_CONTEXT"
-    - name: Dump strategy context
-      env:
-        STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-      run: echo "$STRATEGY_CONTEXT"
-    - name: Dump matrix context
-      env:
-        MATRIX_CONTEXT: ${{ toJson(matrix) }}
-      run: echo "$MATRIX_CONTEXT"
-    - name: Debug
-      run: git log --oneline -1
-    - run: >
-        echo $(curl
-        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.base_ref }}'
-        --header 'Content-Type: application/json'
-        --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
-        | jq --raw-output '.[] | select(.state | test("success")) | .target_url')
-    - run: >
-        echo ::set-env name=SITE_URL::$(curl
-        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.base_ref }}'
-        --header 'Content-Type: application/json'
-        --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
-        | jq --raw-output '.[] | select(.state | test("success")) | .target_url')
-    - name: Target URL for deployment test not found
-      if: ${{ env.SITE_URL != '' }}
-      run: exit 1
+    - name: Create smoke tests QUEUED status commit comment
+      if: ${{ github.event.state == 'pending' }}
+      uses: peter-evans/commit-comment@v1
+      with:
+        token: ${{ github.event.commit.sha }}
+        sha: 843dea1cc2e721163c20a5c876b5b155f7f3aa75
+        body: Preview deploy started, waiting for completion to start the smoke tests...
+    - name: Create smoke tests STARTED status commit comment
+      if: ${{ github.event.state == 'success' }}
+      uses: peter-evans/commit-comment@v1
+      with:
+        token: ${{ github.event.commit.sha }}
+        sha: 843dea1cc2e721163c20a5c876b5b155f7f3aa75
+        body: Preview deploy ended, starting smoke tests...
+    - run: echo ::set-env name=SITE_URL::${{ github.github.event.target_url }}
+      if: ${{ github.event.state == 'success' }}
     - uses: actions/checkout@v2
+      if: ${{ github.event.state == 'success' }}
+      with:
+        ref: ${{ github.event.commit.sha }}
     - name: Use Node.js 10.x
+      if: ${{ github.event.state == 'success' }}
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
     - run: npm install -g yarn
+      if: ${{ github.event.state == 'success' }}
     - run: yarn install
+      if: ${{ github.event.state == 'success' }}
     - run: yarn test-ci
+      if: ${{ github.event.state == 'success' }}
+    - name: Create smoke tests FINISHED status commit comment
+      if: ${{ github.event.state == 'success' }}
+      uses: peter-evans/commit-comment@v1
+      with:
+        token: ${{ github.event.commit.sha }}
+        sha: 843dea1cc2e721163c20a5c876b5b155f7f3aa75
+        body: Smoke tests ended with status ${{ job.status }}
