@@ -19,13 +19,13 @@ jobs:
     - run: sudo apt-get -y -qq install jq
     - run: >
         echo $(curl
-        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}'
+        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.head_ref }}'
         --header 'Content-Type: application/json'
         --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
         | jq --raw-output '.[] | select(.state | test("success")) | .target_url')
     - run: >
         echo ::set-env name=SITE_URL::$(curl
-        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}'
+        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.head_ref }}'
         --header 'Content-Type: application/json'
         --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
         | jq --raw-output '.[] | select(.state | test("success")) | .target_url')
