@@ -18,7 +18,7 @@ jobs:
     steps:
     - name: Create smoke tests PENDING status commit comment
       if: ${{ github.event.state == 'pending' }}
-      run: |
+      run: >-
         curl --location --request POST
         'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
         --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
@@ -50,7 +50,7 @@ jobs:
       if: ${{ github.event.state == 'success' }}
     - name: Create smoke tests FINISHED status commit comment
       if: ${{ github.event.state == 'success' }}
-      run: |
+      run: >-
         curl --location --request POST
         'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
         --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
