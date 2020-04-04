@@ -193,7 +193,7 @@ exports.config = {
         global.expect   = chai.expect;
         global.assert   = chai.assert;
         global.should   = chai.should();
-        global.SITE_URL = "https://blog.termian.dev/";
+        global.SITE_URL = process.env.SITE_URL || "https://blog.termian.dev/";
     },
     /**
      * Runs before a WebdriverIO command gets executed.

@@ -1,7 +1,7 @@
 name: Smoke tests
 
 on:
-  [pull_request]
+  status
 
 jobs:
   build:
@@ -16,6 +16,16 @@ jobs:
         options: -v /dev/shm:/dev/shm
         
     steps:
+    - run: sudo apt-get -y -qq install jq
+    - run: >
+        echo ::set-env name=SITE_URL::$(curl
+        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}'
+        --header 'Content-Type: application/json'
+        --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
+        | jq --raw-output '.[] | select(.state | test("success")) | .target_url')
+    - name: Target URL for deployment test not found
+      if: ${{ env.SITE_URL == '' }}
+      run: exit 0
     - uses: actions/checkout@v2
     - name: Use Node.js 10.x
       uses: actions/setup-node@v1
