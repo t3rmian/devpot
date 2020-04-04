@@ -18,14 +18,14 @@ jobs:
     steps:
     - name: Create smoke tests QUEUED status commit comment
       if: ${{ github.event.state == 'pending' }}
-      uses: peter-evans/commit-comment@v1.2.0
+      uses: peter-evans/commit-comment@fe2ac2c
       with:
         token: ${{ github.event.commit.sha }}
         sha: 843dea1cc2e721163c20a5c876b5b155f7f3aa75
         body: Preview deploy started, waiting for completion to start the smoke tests...
     - name: Create smoke tests STARTED status commit comment
       if: ${{ github.event.state == 'success' }}
-      uses: peter-evans/commit-comment@v1.2.0
+      uses: peter-evans/commit-comment@fe2ac2c
       with:
         token: ${{ github.event.commit.sha }}
         sha: 843dea1cc2e721163c20a5c876b5b155f7f3aa75
@@ -49,7 +49,7 @@ jobs:
       if: ${{ github.event.state == 'success' }}
     - name: Create smoke tests FINISHED status commit comment
       if: ${{ github.event.state == 'success' }}
-      uses: peter-evans/commit-comment@v1.2.0
+      uses: peter-evans/commit-comment@fe2ac2c
       with:
         token: ${{ github.event.commit.sha }}
         sha: 843dea1cc2e721163c20a5c876b5b155f7f3aa75
