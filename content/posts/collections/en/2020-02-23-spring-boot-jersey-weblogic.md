@@ -193,8 +193,8 @@ To do this, just provide a parameter value (empty to disable) for `jersey.config
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
   xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
-  xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&quot;
-  version=&quot;2.5&quot; metadata-complete=&quot;true&quot;&gt;
+  xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;
+  version=&quot;3.0&quot; metadata-complete=&quot;true&quot;&gt;
   &lt;servlet&gt;
     &lt;servlet-name&gt;jersey&lt;/servlet-name&gt;
     &lt;servlet-class&gt;org.glassfish.jersey.servlet.ServletContainer&lt;/servlet-class&gt;
@@ -214,6 +214,8 @@ To do this, just provide a parameter value (empty to disable) for `jersey.config
   &lt;/servlet-mapping&gt;
 &lt;/web-app&gt;
 ```
+
+There is a [caveat](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/WebApplicationInitializer.html) that the `web.xml` version must be set to "3.0" or higher. Otherwise, the Spring bootstrapping might get ignored.
 
 ## Summary
 

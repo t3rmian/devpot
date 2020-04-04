@@ -216,6 +216,8 @@ Aby to zrobić wystarczy podać wartość parametru `jersey.config.server.provid
 &lt;/web-app&gt;
 ```
 
+Warto zaznaczyć, że wersja `web.xml` [musi być ustawiona](https://javadoc.io/doc/org.springframework/spring-web/5.2.4.RELEASE/org/springframework/web/WebApplicationInitializer.html) na "3.0" bądź wyżej. W przeciwnym razie Springowy mechanizm ładowania może zostać zignorowany.
+
 ## Podsumowanie
 
 Dzięki implementacji specyfikacji JEE, serwery aplikacyjne znacznie różnią się od serwerów WWW typu Tomcat. Chociaż konfiguracja nie jest trywialna, nadal można przekonwertować aplikację Spring Boot uruchamianą na wbudowanym serwerze do aplikacji internetowej kompatybilnej z serwerem aplikacyjnym, takim jak WebLogic. Kroki, które należy podjąć w przypadku takiej migracji, są na ogół podobne, niezależnie od dostawców, choć ich szczegóły (implementacja) może się różnić. Na przykład serwer aplikacyjny WildFly ma `jboss-deployment-structure.xml`, który służy do podobnego celu co `weblogic-application.xml` (odpowiednik `weblogic.xml` na poziomie paczki EAR). Więcej szczegółów na ten temat można zwykle znaleźć w dokumentacji danego serwera w sekcji "Class Loading".

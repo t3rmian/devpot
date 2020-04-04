@@ -1,0 +1,36 @@
+name: Smoke tests
+
+on:
+  status
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    services:
+      selenium:
+        image: selenium/standalone-chrome
+        ports:
+          - 4444:4444
+        options: -v /dev/shm:/dev/shm
+        
+    steps:
+    - run: sudo apt-get -y -qq install jq
+    - run: >
+        echo ::set-env name=SITE_URL::$(curl
+        --location --request GET 'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.sha }}'
+        --header 'Content-Type: application/json'
+        --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
+        | jq --raw-output '.[] | select(.state | test("success")) | .target_url')
+    - name: Target URL for deployment test not found
+      if: ${{ env.SITE_URL == '' }}
+      run: exit 0
+    - uses: actions/checkout@v2
+    - name: Use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    - run: npm install -g yarn
+    - run: yarn install
+    - run: yarn test-ci

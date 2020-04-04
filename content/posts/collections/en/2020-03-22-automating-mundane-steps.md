@@ -106,9 +106,9 @@ VERSION=$(grep version "pom.xml" | head -n 2 | tail -n 1 | cut -d">" -f2 | cut -
 
 # Ask whether to update Jira ticket - you might stop here and continue with additional merges
 read -p "Push and update tracking with git jira-update $VERSION $TITLE? &lt;y/N&gt; " prompt
-if [[ $prompt =~ [yY](es)* ]]
+if [[ $prompt =~ [yY](es)* ]]; then
   git push && git jira-update $VERSION $TITLE
-then
+figit s
 ```
 
 #### Update Jira tracking information
