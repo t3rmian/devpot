@@ -58,6 +58,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Extract PR number
+      if: ${{ github.event.state == 'success' }}
       id: extract_data
       env:
         JSON_DATA: ${{ steps.get_pr_number.outputs.data }}
