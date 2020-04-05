@@ -40,7 +40,7 @@ jobs:
             repository(name: $repo, owner: $owner) {
               commit: object(expression: $sha) {
                 ... on Commit {
-                  associatedPullRequests(first:1){
+                  associatedPullRequests(first:1) {
                     edges{
                       node{
                         potentialMergeCommit {
@@ -53,7 +53,7 @@ jobs:
               }
             }
           }
-        owner: ${{ github.event.repository.owner.name }}
+        owner: ${{ github.event.repository.owner.login }}
         repo: ${{ github.event.repository.name }}
         sha: ${{ github.event.commit.sha }}
       env:
