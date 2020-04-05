@@ -30,22 +30,20 @@ jobs:
         "descrption": "Waiting for deployment."
         }'
 
-    - name: Get PR merge commit SHA
+    - name: Get PR number
       uses: octokit/graphql-action@v2.x
       if: ${{ github.event.state == 'success' }}
-      id: get_merge_sha
+      id: get_pr_number
       with:
         query: |
-          query getPRMergeSha($sha: String, $repo: String!, $owner: String!){
+          query getPRMergeSha($sha: String, $repo: String!, $owner: String!) {
             repository(name: $repo, owner: $owner) {
               commit: object(expression: $sha) {
                 ... on Commit {
                   associatedPullRequests(first:1) {
-                    edges{
-                      node{
-                        potentialMergeCommit {
-                          oid
-                        }
+                    edges {
+                      node {
+                        number
                       }
                     }
                   }
@@ -59,19 +57,19 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Extract PR merge commit SHA
+    - name: Extract PR number
       id: extract_data
       env:
-        JSON_DATA: ${{ steps.get_merge_sha.outputs.data }}
+        JSON_DATA: ${{ steps.get_pr_number.outputs.data }}
       run: |
-        MERGE_SHA=$(echo "${JSON_DATA}" | jq '.repository.commit.associatedPullRequests.edges[] | select( .node.potentialMergeCommit )')
-        echo "::set-output name=merge_sha::${MERGE_SHA}"
+        PR_NUMBER=$(echo "${JSON_DATA}" | jq '.repository.commit.associatedPullRequests.edges[] | select( .node.number )')
+        echo "::set-output name=pr_number::${PR_NUMBER}"
 
     - name: Checkout
       uses: actions/checkout@v2
       if: ${{ github.event.state == 'success' }}
       with:
-        ref: ${{ steps.extract_data.outputs.merge_sha }}
+        ref: pull/${{ steps.extract_data.outputs.pr_number }}/merge
 
     - run: yarn install
       if: ${{ github.event.state == 'success' && steps.yarn-cache.outputs.cache-hit != 'true' }}
