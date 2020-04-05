@@ -29,17 +29,57 @@ jobs:
         "context": "${{ github.workflow }}",
         "descrption": "Waiting for deployment."
         }'
+
+    - name: Get PR merge commit SHA
+      uses: octokit/graphql-action@v2.x
+      if: ${{ github.event.state == 'success' }}
+      id: get_merge_sha
+      with:
+        query: |
+          query getPRMergeSha($sha: String, $repo: String!, $owner: String!){
+            repository(name: $repo, owner: $owner) {
+              commit: object(expression: $sha) {
+                ... on Commit {
+                  associatedPullRequests(first:1){
+                    edges{
+                      node{
+                        potentialMergeCommit {
+                          oid
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        owner: ${{ github.event.repository.owner.name }}
+        repo: ${{ github.event.repository.name }}
+        sha: ${{ github.event.commit.sha }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract PR merge commit SHA
+      id: extract_data
+      env:
+        JSON_DATA: ${{ steps.get_merge_sha.outputs.data }}
+      run: |
+        MERGE_SHA=$(echo "${JSON_DATA}" | jq '.repository.commit.associatedPullRequests.edges[] | select( .node.potentialMergeCommit )')
+        echo "::set-output name=merge_sha::${MERGE_SHA}"
+
     - name: Checkout
       uses: actions/checkout@v2
       if: ${{ github.event.state == 'success' }}
       with:
-        ref: ${{ github.event.commit.sha }}
+        ref: ${{ steps.extract_data.outputs.merge_sha }}
+
     - run: yarn install
       if: ${{ github.event.state == 'success' && steps.yarn-cache.outputs.cache-hit != 'true' }}
     - run: yarn test-ci
       if: ${{ github.event.state == 'success' }}
       env:
         SITE_URL: ${{ github.event.target_url }}
+
     - name: Create FINISHED status
       if: ${{ github.event.state == 'success' }}
       run: >-
