@@ -62,14 +62,14 @@ jobs:
       env:
         JSON_DATA: ${{ steps.get_pr_number.outputs.data }}
       run: |
-        PR_NUMBER=$(echo "${JSON_DATA}" | jq '.repository.commit.associatedPullRequests.edges[] | select( .node.number )')
+        PR_NUMBER=$(echo "${JSON_DATA}" | jq '.repository.commit.associatedPullRequests.edges[].node.number')
         echo "::set-output name=pr_number::${PR_NUMBER}"
 
     - name: Checkout
       uses: actions/checkout@v2
       if: ${{ github.event.state == 'success' }}
       with:
-        ref: pull/${{ steps.extract_data.outputs.pr_number }}/merge
+        ref: refs/pull/${{ steps.extract_data.outputs.pr_number }}/merge
 
     - run: yarn install
       if: ${{ github.event.state == 'success' && steps.yarn-cache.outputs.cache-hit != 'true' }}
