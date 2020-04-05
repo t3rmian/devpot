@@ -11,6 +11,7 @@ tags:
   - testing
 author: Damian Terlecki
 date: 2020-04-05T20:00:00
+source: https://github.com/t3rmian/devpot/blob/3702a2424b9db457ceec31a29645a32f621ec257/.github/workflows/smoke-tests.yml
 ---
 
 Recently, after accidentally breaking a search feature on my blog, I've started adding automated tests for my Jamstack website. Since from time to time I like to develop directly through GitHub, I've taken a liking to the Netlify deploy previews. I figured out that it would be really witty to run automated tests against such preview, so that I could quickly assess the situation and verify errors remotely, without having to spin up my own environment.
@@ -26,7 +27,9 @@ One of the major strengths of Netlify is that it provides a way to preview how o
 <img src="/img/hq/netlify-deploy-previews.png" alt="Netlify deploy previews" title="Netlify deploy previews"/>
 
 By default Netlify also runs some checks (headers, redirections, mixed content validation) and posts updates back to GitHub through its API.
-The main thing we are interested in is the commit status updates. There will be generally two such calls per updated pull request. The first one is information about the pending deployment, and the second will be the result of the deployment (success or failure). This is a very good place to start a GitHub action which will initiate the smoke/E2E tests.
+The key point we are interested in is the commit status updates.
+
+There will be generally two such calls per updated pull request. The first one is information about the pending deployment, and the second will be the result of the deployment (success or failure). This is a very good place to start a GitHub action which will initiate the smoke/E2E tests.
 
 <img src="/img/hq/netlify-notifications.png" alt="Netlify commit notifications" title="Netlify commit notifications"/>
 
@@ -48,7 +51,7 @@ on:
 This is however quirky, because:
 > Note: This event will only trigger a workflow run if the workflow file is on the master or default branch.
 
-What's more, the `GITHUB_SHA` will refer to the last commit on the default branch. That's not quite what we expect. We will need a reference to the head commit of the pull request to add our own status for the tests, as well as a reference to the test merge of the pull request to checkout the merged code.
+What's more, the `$GITHUB_SHA` will refer to the last commit on the default branch. That's not quite what we expect. We will need a reference to the head commit of the pull request to add our own status for the tests, as well as a reference to the test merge of the pull request to checkout the merged code.
 We will come back to that later on.
 
 At this point, you might have one question in mind. If we will update the status with an action that is triggered by a status change, won't that create a recursive workflow? Fortunately, this case has been [covered](https://help.github.com/en/actions/reference/events-that-trigger-workflows#triggering-new-workflows-using-a-personal-access-token) by the GitHub team and we can sleep soundly.
@@ -71,7 +74,7 @@ jobs:
         options: -v /dev/shm:/dev/shm
 ```
 
-Do mind to use `-v /dev/shm:/dev/shm`, otherwise, it's highly probable that the browser will be crashing. Since our main job will not be run in the container, we also need to map the container port to the Docker. 4444 is the default port for the Selenium server.
+Do mind to use `-v /dev/shm:/dev/shm`, otherwise, it's highly probable that the browser will be crashing. Since our main job will not be run in the container, we also need to map the container port to the host runner machine. _4444_ is the default port for the Selenium server.
 
 ### Create PENDING status
 
@@ -94,7 +97,7 @@ The first step starts with creating a pending status for the head commit of the 
         }'
 ```
 
-In the target url we will set a link to the github actions with the relevant workflow.
+In the target URL we will set a link to the GitHub actions with the relevant workflow.
 
 ### Reference to the pull request
 
@@ -133,7 +136,7 @@ From now on, we will also run the steps only on the 'success' event state, as we
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-All that's left is to extract this number from the JSON data using `jq`. We can refer to the ouput set by a previous step using `${{ steps.&lt;step_id&gt;.outputs.&lt;variable&gt; }}` syntax:
+All that's left is to extract this number from the JSON data using `jq`. We can refer to the output set by a previous step using `${{ steps.&lt;step_id&gt;.outputs.&lt;variable&gt; }}` syntax:
 
 ```yaml
     - name: Extract PR number
@@ -151,7 +154,7 @@ Similarly, we use `echo &quot;::set-output name=&lt;variable_name&gt;::&lt;value
 ### Checkout and run tests
 
 With pull request number we can create a reference to the pull request merge commit. This commit is just a test commit and is in a detached state.
-This again can be simplified through `actions/cehckout@v2` action:
+This again can be simplified through `actions/checkout@v2` action:
 
 ```yml
     - name: Checkout
@@ -161,7 +164,7 @@ This again can be simplified through `actions/cehckout@v2` action:
         ref: refs/pull/${{ steps.extract_data.outputs.pr_number }}/merge
 ```
 
-And the remaining part is to install (check for cache) repository dependencies and run the tests. Netlify saves the deployment url at the `target_url` variable of the status event.
+And the remaining part is to install (check for cache) repository dependencies and run the tests. Netlify saves the deployment URL at the `target_url` variable of the status event.
 
 ```yml
     - run: yarn install
@@ -172,7 +175,7 @@ And the remaining part is to install (check for cache) repository dependencies a
         SITE_URL: ${{ github.event.target_url }}
 ```
 
-For reference, I'm using WebDriverIO and Cucumber frameworks for my tests. During initialization, I'm retrieving the site url using environment variable: `process.env.SITE_URL`.
+For reference, I'm using WebDriverIO and Cucumber frameworks for my tests. During initialization, I'm retrieving the site URL using environment variable: `process.env.SITE_URL`.
 
 ### Create FINISHED status
 
