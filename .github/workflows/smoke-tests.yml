@@ -34,15 +34,8 @@ jobs:
       if: ${{ github.event.state == 'success' }}
       with:
         ref: ${{ github.event.commit.sha }}
-    - name: Use Node.js 10.x
-      if: ${{ github.event.state == 'success' }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10.x
-    - run: npm install -g yarn
-      if: ${{ github.event.state == 'success' }}
     - run: yarn install
-      if: ${{ github.event.state == 'success' }}
+      if: ${{ github.event.state == 'success' && steps.yarn-cache.outputs.cache-hit != 'true' }}
     - run: yarn test-ci
       if: ${{ github.event.state == 'success' }}
       env:
