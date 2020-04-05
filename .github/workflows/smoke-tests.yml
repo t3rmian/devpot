@@ -81,7 +81,7 @@ jobs:
         SITE_URL: ${{ github.event.target_url }}
 
     - name: Create FINISHED status
-      if: ${{ github.event.state == 'success' }}
+      if: ${{ github.event.state == 'success' || failure() }}
       run: >-
         if [ ${{ job.status }} == Success ]; then echo success; else echo failure; fi | xargs -I{status}
         curl --fail --location --request POST
