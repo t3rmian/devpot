@@ -6,7 +6,7 @@ Feature: Search for an article
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: Searching for an article containing any of the words
         When I type some words in the search input

@@ -6,7 +6,7 @@ Feature: Search for articles by tag
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: Listing articles by tag
         When I click on any tag from the tag cloud

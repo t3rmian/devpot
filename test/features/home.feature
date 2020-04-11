@@ -6,7 +6,7 @@ Feature: Open the blog home page
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: Visiting site for the first time
         Then I should see a list of 5 article titles at most

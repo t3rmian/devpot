@@ -1,6 +1,6 @@
 const { Given, When, Then } = require('cucumber');
 
-Given('I am on the blog index page', () => {
+Given('I go to the blog index page', () => {
   browser.url(SITE_URL);
 });
 Then('I should see a list of 5 article titles at most', () => {
@@ -99,11 +99,15 @@ Then('I should see the page in the Polish language', () => {
 When('I click on theme change', () => {
   $('.theme-switcher > img').click();
 });
-Then('The theme css changes and saves as cookie', () => {
+Then('The theme css changes and is saved as cookie', () => {
   browser.waitUntil(() => {
     return $('.theme-dark').isExisting()
   }, 5000, 'Expected loading finish');
   const themeCookies = browser.getCookies(['theme'])
   expect(themeCookies.length).to.be.above(0);
   expect(themeCookies[0].value).to.be.equal('theme-dark');
+});
+
+Then('I visit another website', () => {
+  browser.url("https://google.com");
 });

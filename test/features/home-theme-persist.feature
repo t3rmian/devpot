@@ -10,4 +10,7 @@ Feature: Change theme
 
     Scenario: Changing theme
         When I click on theme change
+        And The theme css changes and is saved as cookie
+        And I visit another website
+        And I go to the blog index page
         Then The theme css changes and is saved as cookie
