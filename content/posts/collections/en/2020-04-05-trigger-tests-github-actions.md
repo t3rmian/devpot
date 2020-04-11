@@ -18,7 +18,7 @@ Recently, after accidentally breaking a search feature on my blog, I've started 
 
 The following diagram shows what we will try to achieve:
 
-<img src="/img/hq/github-actions-netlify.svg" alt="Automating workflow" title="Automating workflow">
+<img src="/img/hq/github-actions-netlify.svg" alt="Automating workflow" title="Automating workflow" style="background:white;">
 
 ## Netlify checks
 
