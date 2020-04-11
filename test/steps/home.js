@@ -95,3 +95,15 @@ Then('I should see the page in the Polish language', () => {
   expect($$('.date-col+td a')[0].getUrl()).to.include("/pl/");
   expect($$('.tag-cloud-container a')[0].getUrl()).to.include("/pl/");
 });
+
+When('I click on theme change', () => {
+  $('.theme-switcher > img').click();
+});
+Then('The theme css changes and saves as cookie', () => {
+  browser.waitUntil(() => {
+    return $('.theme-dark').isExisting()
+  }, 5000, 'Expected loading finish');
+  const themeCookies = browser.getCookies(['theme'])
+  expect(themeCookies.length).to.be.above(0);
+  expect(themeCookies[0].value).to.be.equal('theme-dark');
+});
