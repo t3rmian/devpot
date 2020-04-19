@@ -51,12 +51,16 @@ Two things you must be aware of is that:
 Assuming you're aware of these shortcomings, we can run the script the following way:
 
 ```java
+public void startNodeJsApp(String pathToBinNode, String pathToAppScript,
+        Map&lt;String, String&gt; applicationEnvironmentVariables)
+        throws IOException, InterruptedException {
     ProcessBuilder processBuilder = new ProcessBuilder();
     processBuilder.command(pathToBinNode, pathToAppScript);
-    Map<String, String> environment = processBuilder.environment();
+    Map&lt;String, String&gt; environment = processBuilder.environment();
     environment.putAll(applicationEnvironmentVariables);
     processBuilder.inheritIO();
     processBuilder.start().waitFor();
+}
 ```
 
 The code will start the application script using provided NodeJS runtime with additional environment variables defined by us. Furthermore, the source and destination of the I/O operations will be inherited from the current Java process. This means that any output will be printed on the console by default. 

@@ -51,12 +51,16 @@ Dwie rzeczy, o których należy wiedzieć, to:
 Zdając sobie sprawę z tych dwóch warunków, możemy uruchomić skrypt w następujący sposób:
 
 ```java
+public void startNodeJsApp(String sciezkaDoBinNode, String sciezkaDoSkryptuAplikacji,
+        Map&lt;String, String&gt; zmienneSrodowiskoweAplikacji)
+        throws IOException, InterruptedException {
     ProcessBuilder processBuilder = new ProcessBuilder();
     processBuilder.command(sciezkaDoBinNode, sciezkaDoSkryptuAplikacji);
-    Map<String, String> environment = processBuilder.environment();
+    Map&lt;String, String&gt; environment = processBuilder.environment();
     environment.putAll(zmienneSrodowiskoweAplikacji);
     processBuilder.inheritIO();
     processBuilder.start().waitFor();
+}
 ```
 
 Nasz kod uruchomi aplikację przy użyciu dostarczonego środowiska uruchomieniowego NodeJS, wraz z dodatkowymi, zdefiniowanymi przez nas zmiennymi środowiskowymi. Ponadto źródło i miejsce docelowe operacji we / wy zostaną odziedziczone z bieżącego procesu Javy. Oznacza to, że standardowe wyjście aplikacji zostanie domyślnie wydrukowane na konsoli.
