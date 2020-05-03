@@ -6,6 +6,7 @@ tags:
   - java
   - maven
   - bytecode
+  - classloading
 author: Damian Terlecki
 date: 2019-10-06T20:00:00
 ---
