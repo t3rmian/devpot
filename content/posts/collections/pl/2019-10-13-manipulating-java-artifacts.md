@@ -6,6 +6,7 @@ tags:
   - java
   - maven
   - bajtkod
+  - classloading
 author: Damian Terlecki
 date: 2019-10-13T20:00:00
 ---

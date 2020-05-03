@@ -6,6 +6,7 @@ tags:
   - jee
   - weblogic
   - spring
+  - classloading
 author: Damian Terlecki
 date: 2020-02-23T20:00:00
 ---
