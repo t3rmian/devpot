@@ -104,3 +104,21 @@ pre {
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
+.search-bar-container {
+        ::-webkit-input-placeholder {
+            text-transform: capitalize;
+        }
+
+        :-moz-placeholder {
+            text-transform: capitalize;
+        }
+
+        ::-moz-placeholder {
+            text-transform: capitalize;
+        }
+
+        :-ms-input-placeholder {
+            text-transform: capitalize;
+        }
+}

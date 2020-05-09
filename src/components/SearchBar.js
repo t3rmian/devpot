@@ -24,7 +24,7 @@ export default ({root, lang}) => {
         action={root + t("search", { lng: lang })}
         className="search-bar"
       >
-        <input type="search" name="q"/>
+        <input aria-label={t("search", { lng: lang })} type="search" name="q" placeholder={t("search", { lng: lang }) + "…"}/>
         {/* 'q' name is shorthand for query since it's not translated */}
         <button>⌕</button>
       </form>

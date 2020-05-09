@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import config from "../template.config";
 import { loadComments, loadHighlight } from "../utils";
 
-export default function Theme() {
+export default function Theme({ lang }) {
   const { t } = useTranslation();
   const switchTheme = () => {
     const themeManager = document.getElementById("theme");
@@ -12,7 +12,7 @@ export default function Theme() {
     themeManager.classList.toggle("theme-dark");
     const theme = [].slice
       .call(themeManager.classList)
-      .filter(c => c.indexOf("theme-") >= 0)[0];
+      .filter((c) => c.indexOf("theme-") >= 0)[0];
     const cookies = new Cookies();
     cookies.set("theme", theme, { path: "/", maxAge: 365 * 24 * 60 * 60 });
 
@@ -32,7 +32,8 @@ export default function Theme() {
         onClick={() => switchTheme()}
         src="/img/theme-button.svg"
         width="50"
-        alt="submit"
+        alt={t("Switch theme", {lng: lang})}
+        title={t("Switch theme", {lng: lang})}
       />
     </div>
   );
