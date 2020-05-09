@@ -15,6 +15,7 @@ const resources = {
       "date=post": "{{date, year+month+day}}",
 
       Recent: "Recent",
+      Article: "Article",
       "Posts by tag": "Posts by tag: {{tag}}",
       More: "More…",
       "Search results": "Search results for any of the following query parts: {{parts}}",
@@ -31,6 +32,7 @@ const resources = {
       "Updated": "Updated",
       "Light theme": "Light theme",
       "Dark theme": "Dark theme",
+      "Switch theme": "Switch theme",
       "Tested in Brave": "Check out in Brave",
 
       short: "~ 10 min",
@@ -41,6 +43,7 @@ const resources = {
   pl: {
     translation: {
       Recent: "Najnowsze",
+      Article: "Artykuł",
       "Posts by tag": "Artykuły z etykietą: {{tag}}",
       More: "Więcej…",
       "Search results": "Rezultaty wyszukiwania dla następujących części zapytania: {{parts}}",
@@ -58,6 +61,7 @@ const resources = {
       "Updated": "Aktualizacja",
       "Light theme": "Jasny szablon",
       "Dark theme": "Ciemny szablon",
+      "Switch theme": "Zmień motyw",
       "Tested in Brave": "Sprawdź w Brave",
     }
   }

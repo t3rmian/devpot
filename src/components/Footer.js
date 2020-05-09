@@ -4,7 +4,7 @@ import React from "react";
 import Theme from "./Theme";
 import { useTranslation } from "react-i18next";
 
-export default function Footer({ langRefs }) {
+export default function Footer({ langRefs, lang }) {
   const { t } = useTranslation();
   langRefs.sort((a, b) => t(a.lang).localeCompare(t(b.lang)));
 
@@ -41,7 +41,7 @@ export default function Footer({ langRefs }) {
             }))
         ]}
       />
-      <Theme />
+      <Theme lang={lang} />
     </footer>
   );
 }

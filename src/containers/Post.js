@@ -113,7 +113,7 @@ export function Post() {
           </Link>
           <SearchBar root={root} lang={lang} />
         </header>
-        <main>
+        <main aria-label={t("Article", { lng: lang })}>
           <article>
             <div className="header">
               <h2 className="title">{post.title}</h2>
@@ -178,9 +178,9 @@ export function Post() {
           </article>
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
-        <div id="comments" />
+        <div id="comments" role="complementary"/>
         <SearchBar root={root} lang={lang} />
-        <Footer langRefs={langRefs} />
+        <Footer langRefs={langRefs} lang={lang} />
       </div>
     </div>
   );

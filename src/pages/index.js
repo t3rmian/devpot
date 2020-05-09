@@ -73,7 +73,7 @@ export default () => {
           )}
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
-        <Footer langRefs={langRefs} />
+        <Footer langRefs={langRefs} lang={lang} />
       </div>
     </div>
   );
