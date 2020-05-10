@@ -3,7 +3,7 @@ import React from "react";
 import { useSiteData } from "react-static";
 import { useTranslation } from "react-i18next";
 
-function absoluteUrl(siteRoot, url) {
+export function absoluteUrl(siteRoot, url) {
   const isAbsolute = new RegExp("^(?:[a-z]+:)?//", "i");
   return isAbsolute.test(url) ? url : siteRoot + url;
 }

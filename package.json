@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
+    "@types/react-share": "^3.0.3",
     "axios": "^0.18.1",
     "highlight.js": "^9.15.6",
     "htmr": "^0.7.0",
@@ -22,6 +23,7 @@
     "react-dom": "^16.9.0",
     "react-i18next": "^10.7.0",
     "react-pure-lifecycle": "^3.0.0",
+    "react-share": "^4.1.0",
     "react-static": "~7.0.10",
     "react-static-plugin-reach-router": "~7.0.10",
     "react-static-plugin-sass": "~7.0.10",

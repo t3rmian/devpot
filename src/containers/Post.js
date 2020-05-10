@@ -3,6 +3,7 @@ import { Link } from "components/Router";
 import React from "react";
 import SEOHead from "../components/SEOHead";
 import SearchBar from "../components/SearchBar";
+import Share from "../components/Share";
 import TagCloud from "../components/TagCloud";
 import convert from "htmr";
 import lifecycle from "react-pure-lifecycle";
@@ -178,6 +179,7 @@ export function Post() {
           </article>
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
+        <Share langRefs={langRefs} />
         <div id="comments" role="complementary"/>
         <SearchBar root={root} lang={lang} />
         <Footer langRefs={langRefs} lang={lang} />
