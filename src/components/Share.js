@@ -1,8 +1,6 @@
-import { Head } from "react-static";
 import React from "react";
 import { useSiteData } from "react-static";
-import { useTranslation } from "react-i18next";
-import { absoluteUrl } from "../components/SEOHead";
+import { absoluteUrl, elipsizeDescription } from "../components/SEOHead";
 
 import {
   EmailShareButton,
@@ -19,30 +17,64 @@ import {
   TwitterIcon,
 } from "react-share";
 
-export default ({langRefs}) => {
+export default ({
+  siteTitle,
+  langRefs,
+  description,
+  title,
+  tags,
+  twitterAuthor,
+  twitterContentUsername,
+}) => {
   const { siteRoot } = useSiteData();
-  const { t } = useTranslation();
-
+  const url = absoluteUrl(siteRoot, langRefs.find((ref) => ref.selected).url);
+  const via =
+    twitterContentUsername != null ? `@${twitterContentUsername}` : undefined;
+  const related =
+    twitterAuthor != null
+      ? twitterAuthor !== twitterContentUsername
+        ? [`@${twitterAuthor}`]
+        : undefined
+      : undefined;
   return (
-    <aside>
-        <FacebookShareButton url={absoluteUrl(siteRoot, langRefs.find(ref => ref.selected).url)}>
-            <FacebookIcon size={32} round={true} />
-        </FacebookShareButton>
-        <FacebookMessengerShareButton url={absoluteUrl(siteRoot, langRefs.find(ref => ref.selected).url)}>
-            <FacebookMessengerIcon size={32} round={true} />
-        </FacebookMessengerShareButton>
-        <TwitterShareButton url={absoluteUrl(siteRoot, langRefs.find(ref => ref.selected).url)}>
-            <TwitterIcon size={32} round={true} />
-        </TwitterShareButton>
-        <RedditShareButton url={absoluteUrl(siteRoot, langRefs.find(ref => ref.selected).url)}>
-            <RedditIcon size={32} round={true} />
-        </RedditShareButton>
-        <LinkedinShareButton url={absoluteUrl(siteRoot, langRefs.find(ref => ref.selected).url)}>
-            <LinkedinIcon size={32} round={true} />
-        </LinkedinShareButton>
-        <EmailShareButton url={absoluteUrl(siteRoot, langRefs.find(ref => ref.selected).url)}>
-            <EmailIcon size={32} round={true} />
-        </EmailShareButton>
-    </aside>
+    <div role="region">
+      <FacebookShareButton
+        url={url}
+        quote={elipsizeDescription(description)}
+        hashtag={`#${siteTitle.toLowerCase()}`}
+      >
+        <FacebookIcon size={32} round={true} />
+      </FacebookShareButton>
+      <FacebookMessengerShareButton url={url}>
+        <FacebookMessengerIcon size={32} round={true} />
+      </FacebookMessengerShareButton>
+      <TwitterShareButton
+        url={url}
+        title={title}
+        hashtags={tags}
+        via={via}
+        related={related}
+      >
+        <TwitterIcon size={32} round={true} />
+      </TwitterShareButton>
+      <RedditShareButton url={url} title={title}>
+        <RedditIcon size={32} round={true} />
+      </RedditShareButton>
+      <LinkedinShareButton
+        url={url}
+        title={title}
+        description={elipsizeDescription(description)}
+        source={siteTitle}
+      >
+        <LinkedinIcon size={32} round={true} />
+      </LinkedinShareButton>
+      <EmailShareButton
+        url={url}
+        subject={title}
+        body={elipsizeDescription(description)}
+      >
+        <EmailIcon size={32} round={true} />
+      </EmailShareButton>
+    </div>
   );
 };

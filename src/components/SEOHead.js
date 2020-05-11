@@ -8,6 +8,16 @@ export function absoluteUrl(siteRoot, url) {
   return isAbsolute.test(url) ? url : siteRoot + url;
 }
 
+export function elipsizeDescription(description) {
+  const extractedDescription = description.replace(/<(.|\n)*?>/g, "");
+  description =
+    extractedDescription.length > 160
+      ? extractedDescription.substring(0, 159) + "…"
+      : extractedDescription;
+  return description;
+}
+
+
 export default ({
   title,
   lang,
@@ -20,11 +30,7 @@ export default ({
   twitterCard,
   noindex
 }) => {
-  const extractedDescription = description.replace(/<(.|\n)*?>/g, "");
-  description =
-    extractedDescription.length > 160
-      ? extractedDescription.substring(0, 159) + "…"
-      : extractedDescription;
+  description = elipsizeDescription(description);
   const { siteRoot } = useSiteData();
   const { t } = useTranslation();
   const siteName = t("site title", { lng: lang });
