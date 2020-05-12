@@ -35,6 +35,7 @@ const methods = {
     const throttleTimeout = 25;
     const minOffset = 50;
     let visible = true;
+    let socialVisible = false;
 
     document.addEventListener(
       "scroll",
@@ -58,6 +59,30 @@ const methods = {
                 c.classList.remove("fadeOut");
                 c.classList.add("fadeIn");
               });
+          }
+        }
+        const content = document.querySelector(".content")
+        if (content !== undefined) {
+          if (!socialVisible) {
+            if (e.srcElement.scrollTop > content.clientHeight / 2) {
+              socialVisible = true;
+              document
+                .querySelectorAll(".social")
+                .forEach(c => {
+                  c.classList.remove("fadeOut");
+                  c.classList.add("fadeIn");
+                });
+            }
+          } else {
+            if (e.srcElement.scrollTop <  content.clientHeight / 2) {
+              socialVisible = false;
+              document
+                .querySelectorAll(".social")
+                .forEach(c => {
+                  c.classList.remove("fadeIn");
+                  c.classList.add("fadeOut");
+                });
+            }
           }
         }
       }),

@@ -37,17 +37,7 @@ export default ({
         : undefined
       : undefined;
   return (
-    <div role="region">
-      <FacebookShareButton
-        url={url}
-        quote={elipsizeDescription(description)}
-        hashtag={`#${siteTitle.toLowerCase()}`}
-      >
-        <FacebookIcon size={32} round={true} />
-      </FacebookShareButton>
-      <FacebookMessengerShareButton url={url}>
-        <FacebookMessengerIcon size={32} round={true} />
-      </FacebookMessengerShareButton>
+    <div role="region" className="social">
       <TwitterShareButton
         url={url}
         title={title}
@@ -57,6 +47,9 @@ export default ({
       >
         <TwitterIcon size={32} round={true} />
       </TwitterShareButton>
+      <FacebookMessengerShareButton url={url}>
+        <FacebookMessengerIcon size={32} round={true} />
+      </FacebookMessengerShareButton>
       <RedditShareButton url={url} title={title}>
         <RedditIcon size={32} round={true} />
       </RedditShareButton>
@@ -68,6 +61,13 @@ export default ({
       >
         <LinkedinIcon size={32} round={true} />
       </LinkedinShareButton>
+      <FacebookShareButton
+        url={url}
+        quote={elipsizeDescription(description)}
+        hashtag={`#${siteTitle.toLowerCase()}`}
+      >
+        <FacebookIcon size={32} round={true} />
+      </FacebookShareButton>
       <EmailShareButton
         url={url}
         subject={title}
