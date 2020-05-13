@@ -8,7 +8,8 @@
     "analyze": "react-static build --analyze",
     "serve": "serve dist -p 3000",
     "selenium-install": "node_modules/.bin/selenium-standalone install",
-    "test": "./node_modules/.bin/wdio ./wdio.conf.js",
+    "test": "./node_modules/.bin/wdio ./wdio.dev.conf.js",
+    "test-prod": "./node_modules/.bin/wdio ./wdio.conf.js",
     "test-ci": "./node_modules/.bin/wdio ./wdio.ci.conf.js"
   },
   "dependencies": {
