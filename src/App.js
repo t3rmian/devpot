@@ -33,61 +33,54 @@ const methods = {
       };
     };
     const throttleTimeout = 25;
-    const minOffset = 50;
-    let visible = true;
-    let socialVisible = false;
+    const fadeObjects = [
+      {
+        visible: true,
+        fadeOutSelector: "header .fadeIn, nav.fadeIn",
+        fadeInSelector: "header .fadeOut, nav.fadeOut",
+        minOffset: 50
+      },
+      {
+        inverted: true,
+        visible: false,
+        fadeOutSelector: ".social",
+        fadeInSelector: ".social",
+        get minOffset() {
+          return document.querySelector(".content")?.clientHeight / 2
+        }
+      }
+    ]
 
-    document.addEventListener(
-      "scroll",
-      throttle(throttleTimeout, function(e) {
-        if (visible) {
-          if (e.srcElement.scrollTop > minOffset) {
-            visible = false;
-            document
-              .querySelectorAll("header .fadeIn, nav.fadeIn")
-              .forEach(c => {
-                c.classList.remove("fadeIn");
-                c.classList.add("fadeOut");
-              });
+    function makeVisible(element, visible) {
+      if (visible) {
+        element.classList.remove("fadeOut");
+        element.classList.add("fadeIn");
+      } else {
+        element.classList.remove("fadeIn");
+        element.classList.add("fadeOut");
+      }
+    }
+
+    document.addEventListener("scroll", throttle(throttleTimeout, function (scrolledElement) {
+      fadeObjects.forEach(fadeObject => {
+        const belowOffset = fadeObject.inverted ? !fadeObject.visible : fadeObject.visible;
+        if (belowOffset) {
+          if (scrolledElement.target.scrollTop > fadeObject.minOffset) {
+            fadeObject.visible = !!fadeObject.inverted;
+            document.querySelectorAll(fadeObject.fadeOutSelector).forEach(domElement => {
+              makeVisible(domElement, fadeObject.visible);
+            });
           }
         } else {
-          if (e.srcElement.scrollTop < minOffset) {
-            visible = true;
-            document
-              .querySelectorAll("header .fadeOut, nav.fadeOut")
-              .forEach(c => {
-                c.classList.remove("fadeOut");
-                c.classList.add("fadeIn");
-              });
+          if (scrolledElement.target.scrollTop <= fadeObject.minOffset) {
+            fadeObject.visible = !fadeObject.inverted;
+            document.querySelectorAll(fadeObject.fadeInSelector).forEach(domElement => {
+              makeVisible(domElement, fadeObject.visible);
+            });
           }
         }
-        const content = document.querySelector(".content")
-        if (content !== undefined) {
-          if (!socialVisible) {
-            if (e.srcElement.scrollTop > content.clientHeight / 2) {
-              socialVisible = true;
-              document
-                .querySelectorAll(".social")
-                .forEach(c => {
-                  c.classList.remove("fadeOut");
-                  c.classList.add("fadeIn");
-                });
-            }
-          } else {
-            if (e.srcElement.scrollTop <  content.clientHeight / 2) {
-              socialVisible = false;
-              document
-                .querySelectorAll(".social")
-                .forEach(c => {
-                  c.classList.remove("fadeIn");
-                  c.classList.add("fadeOut");
-                });
-            }
-          }
-        }
-      }),
-      true
-    );
+      })
+    }), true);
   }
 };
 
