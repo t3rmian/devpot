@@ -1,11 +1,11 @@
-Feature: Fade-in-out header and social elements on a long wide page
+Feature: Fade-in-out header and social elements on a short-wide page
 
     Background:
 
-        Given I am on the long-post page
+        Given I am on the short-post page
 
-    Scenario: Fade-in-out header and social elements on scroll on a long-wide page
-        When The browser window is wide
+    Scenario: Fade-in-out header and social elements on scroll on a short-wide page
+        When The browser window is mobile landscape
         When The loading is finished
         Then Logo and search should be visible
         Then Tag cloud should be visible
@@ -14,7 +14,7 @@ Feature: Fade-in-out header and social elements on a long wide page
         Then Logo and search should be invisible
         Then Tag cloud should be invisible
         Then Social buttons are visible
-        Then Social buttons are fixed
+        Then Social buttons are static
         When I scroll to the top
         Then Logo and search should be visible
         Then Tag cloud should be visible
