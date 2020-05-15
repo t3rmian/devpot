@@ -11,6 +11,7 @@ tags:
   - testing
 author: Damian Terlecki
 date: 2020-04-05T20:00:00
+updated: 2020-05-15T20:00:00
 source: https://github.com/t3rmian/devpot/blob/3702a2424b9db457ceec31a29645a32f621ec257/.github/workflows/smoke-tests.yml
 ---
 
@@ -109,7 +110,7 @@ From now on, we will also run the steps only on the 'success' event state, as we
 
 ```yaml
     - name: Get PR number
-      uses: octokit/graphql-action@v2.x
+      uses: octokit/graphql-action@v2.0.0
       if: ${{ github.event.state == 'success' }}
       id: get_pr_number
       with:
@@ -185,7 +186,7 @@ Finally, to update the commit status, so that we can see it at the pull request 
     - name: Create FINISHED status
       if: ${{ github.event.state == 'success' || failure() }}
       run: >-
-        if [ ${{ job.status }} == Success ]; then echo success; else echo failure; fi | xargs -I{status}
+        if [ ${{ job.status }} == success ]; then echo success; else echo failure; fi | xargs -I{status}
         curl --fail --location --request POST
         'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
         --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
@@ -230,3 +231,14 @@ To display the GitHub variables use:
 ```
 
 Lastly, you can test the APIs in the Postman by just switching from the Bearer Token authorization to Basic Auth.
+
+***2020/05/15 Update***: Yesterday there was a release of the new Github Actions runner ([v2.262.1](https://github.blog/changelog/2020-05-14-github-actions-new-runner-release-v2-262-1/)) in which there was the following fix:
+> Sps/token migration fix, job.status/steps.outcome/steps.conclusion case match with GitHub check suites conclusion (#462)
+
+The workflow has been already updated as it resulted in creating a finished status with a failure state. Coincidentally there was a v2.2.0 release of
+`octokit/graphql-action` which with combination with the runner upgrade caused:
+
+> incomplete explicit mapping pair; a key node is missed; or followed by a non-tabulated empty line at line 1, column 40:  
+> &nbsp&nbsp&nbsp&nbsp... etPRMergeSha($sha: String, $repo: String!, $owner: String!) {
+
+Fortunately, downgrading to v2.0.0 fixes the issue.

@@ -11,6 +11,7 @@ tags:
   - testy
 author: Damian Terlecki
 date: 2020-04-05T20:00:00
+updated: 2020-05-15T20:00:00
 source: https://github.com/t3rmian/devpot/blob/3702a2424b9db457ceec31a29645a32f621ec257/.github/workflows/smoke-tests.yml
 ---
 
@@ -105,11 +106,11 @@ Ponieważ nasza akcja jest uruchamiana w kontekście zdarzenia `status`, nie mam
 
 Bawiąc się [GitHubowym Exploratorem API GraphQL](https://developer.github.com/v4/explorer/), dosyć szybko możemy utworzyć zapytanie zwracające numer pull requesta.
 
-Odtąd, kolejne kroki będziemy również wykonywać w przy założeniu, że status zdarzenia to `succes`, ponieważ oczekujemy, że wdrożenie zakończyło się bez problemów i przygotowujemy się do uruchomienia testów.
+Odtąd, kolejne kroki będziemy również wykonywać w przy założeniu, że status zdarzenia to `success`, ponieważ oczekujemy, że wdrożenie zakończyło się bez problemów i przygotowujemy się do uruchomienia testów.
 
 ```yaml
     - name: Pobierz numeru PR
-      uses: octokit/graphql-action@v2.x
+      uses: octokit/graphql-action@v2.0.0
       if: ${{ github.event.state == 'success' }}
       id: get_pr_number
       with:
@@ -184,7 +185,7 @@ Ostatecznie, aby zaktualizować status commita, tak abyśmy mogli go zobaczyć n
     - name: Create FINISHED status
       if: ${{ github.event.state == 'success' || failure() }}
       run: >-
-        if [ ${{ job.status }} == Success ]; then echo success; else echo failure; fi | xargs -I{status}
+        if [ ${{ job.status }} == success ]; then echo success; else echo failure; fi | xargs -I{status}
         curl --fail --location --request POST
         'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
         --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
@@ -229,3 +230,13 @@ Aby wyświetlić zawartość zmiennych GitHuba, użyj:
 ```
 
 Na potrzeby testowania API np. w Postmanie wystarczy przełączyć się z autoryzacji tokenowej na Basic Auth.
+
+***2020/05/15***: Wczoraj pojawiła się nowa wersja runnera akcji Github ([v2.262.1](https://github.blog/changelog/2020-05-14-github-actions-new-runner-release-v2-262-1/)), w której to dodano następującą poprawkę:
+> Sps/token migration fix, job.status/steps.outcome/steps.conclusion case match with GitHub check suites conclusion (#462)
+
+Kod został już zaktualizowany, gdyż poprawka powodowała to, że na koniec testów przy pozytywnym rezultacie wysyłana była aktualizacja statusu ze stanem 'failure'. Zbiegiem okoliczności była też aktualizacja akcji `octokit/graphql-action` do wersji v2.2.0, co w połączeniu z wcześniej wspomnianą poprawką spowodowało błąd:
+
+> incomplete explicit mapping pair; a key node is missed; or followed by a non-tabulated empty line at line 1, column 40:  
+> &nbsp&nbsp&nbsp&nbsp... etPRMergeSha($sha: String, $repo: String!, $owner: String!) {
+  
+Na szczęście przejście na wersję 2.0.0 rozwiązuje problem.
