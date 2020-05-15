@@ -82,7 +82,7 @@ jobs:
     - name: Create FINISHED status
       if: ${{ github.event.state == 'success' || failure() }}
       run: >-
-        if [ ${{ job.status }} == Success ]; then echo success; else echo failure; fi | xargs -I{status}
+        if [ ${{ job.status }} == success ]; then echo success; else echo failure; fi | xargs -I{status}
         curl --fail --location --request POST
         'https://api.github.com/repos/${{ github.repository }}/statuses/${{ github.event.commit.sha }}'
         --header 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'
