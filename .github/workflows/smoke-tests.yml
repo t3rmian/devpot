@@ -31,7 +31,7 @@ jobs:
         }'
 
     - name: Get PR number
-      uses: octokit/graphql-action@v2.x
+      uses: octokit/graphql-action@v2.0.0
       if: ${{ github.event.state == 'success' }}
       id: get_pr_number
       with:
