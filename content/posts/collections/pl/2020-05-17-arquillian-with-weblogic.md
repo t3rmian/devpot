@@ -1,24 +1,24 @@
 ---
-title: Running integration tests with Arquillian on WebLogic
-url: arquillian-with-weblogic
+title: Testy integracyjne z Arquillianem na WebLogicu
+url: arquillian-weblogic
 id: 30
 tags:
   - java
   - weblogic
-  - testing
+  - testy
   - intellij
 author: Damian Terlecki
 date: 2020-05-17T20:00:00
 ---
 
-Setting up and writing your first tests with Arquillian is not that quick as with Spring Boot. Nevertheless, sometimes you've got to use what you can (Java EE). Let's take a look for some common problems when configuring the tests for WebLogic 12.2, which is a JEE 7 application server that has been with us for over 5 years (14.1 with the support for Java EE 8 was just released on March).
+Konfiguracja i pierwsze testy w Arquillianie mogą zająć znacznie więcej czasu niż w przypadku Spring Boot. Niemniej jednak czasami musimy wykorzystać to, co mamy w zasięgu ręki (w przypadku Javy EE). Przyjrzyjmy się, jak wygląda podstawowa konfiguracja takich testów na przykładzie WebLogica 12.2, który jest serwerem aplikacji JEE 7. Jest to wersja towarzysząca nam już ponad 5 lat (wersja 14.1 z obsługą Java EE 8 została właśnie wydana w marcu!).
 
-The first thing we need to know in regards to WebLogic 12.2, is that it's not quite compatible with the current version of Arquillian dependencies. The most recent versions will work fine with WebLogic 12.1. However, we can more-or-less use 12.1 to run our tests and connect to the 12.2 remote container.
+Pierwszą rzeczą, którą musimy wiedzieć w odniesieniu do WebLogica 12.2, jest to, że nie jest on w pełni kompatybilny z obecną wersją Arquilliana. Najnowsze zależności będą działać poprawnie z niższą wersją – 12.1. W pewnym stopniu możemy jednak użyć wersji 12.1 do uruchomienia naszych testów, jak również do połączenia ze zdalnym kontenerem w wersji 12.2.
 
-## Dependencies
+## Zależności
 
-We will use Maven as it is probably most popular build tool for Java EE projects.
-For starters we will need the dependencies to integrate our tests with JUnit4:
+Do naszej konfiguracji użyjemy Mavena, który jest prawdopodobnie najpopularniejszym narzędzie do budowania projektów w przypadku Javy EE.
+Na początek potrzebować będziemy zależności do zintegrowania naszych testów Arquillianowych z JUnitem 4:
 ```xml
 &lt;dependency&gt;
   &lt;groupId&gt;org.jboss.arquillian.junit&lt;/groupId&gt;
@@ -27,10 +27,10 @@ For starters we will need the dependencies to integrate our tests with JUnit4:
 &lt;/dependency&gt;
 ```
 
-Next we need to choose what kind of EJBContainer provider we will use. Will it be:
-- an embedded container that runs in the same JVM (not preferred, may act inconsistently, takes time for startup);
-- a managed container which is like a remote container, but the lifecycle is managed by Arquillian;
-- a remote container that resides in a separate JVM?
+Następnie musimy wybrać, z jakiego rodzaju kontenera (a właściwie połączenia) skorzystamy:
+- kontener osadzony – działa w tej samej maszynie JVM (nie jest preferowany, może działać niespójnie, wymaga czasu na uruchomienie);
+- kontener zarządzany – jest podobny do kontenera zdalnego, ale cyklem jego życia zarządza sam Arquillian;
+- kontener zdalny – znajduje się w oddzielnej maszynie JVM.
 
 ```xml
 &lt;dependency&gt;
@@ -43,13 +43,13 @@ Next we need to choose what kind of EJBContainer provider we will use. Will it b
 &lt;/dependency&gt;
 ```
 
-## Embedded container
+## Kontener osadzony
 
-You might encounter some problems with this approach at a later point. If you are considering testing something more complex, you should know the [danger of embedded containers](http://arquillian.org/blog/2012/04/13/the-danger-of-embedded-containers/).
+Warto nadmienić, że w trybie osadzonym prędzej czy później napotkamy problemy, które nie będą pojawiały się w dwóch pozostałych przypadkach. Jeśli masz zamiar przetestować coś bardziej złożonego, powinieneś wiedzieć o [ryzyku związanym z osadzonymi kontenerami](http://arquillian.org/blog/2012/04/13/the-danger-of-embedded-containers/).
 
 ### Maven
 
-Now if you want to use the embedded container, you will also need to provide the path to the container on the classpath. This can be done through `additionalClasspathElements` property of the maven surefire (unit testing) or failsafe (integration testing) plugin. Put this in your build configuration within plugins section.
+Jeśli chcesz wykorzystać kontener w trybie osadzonym, musimy go obligatoryjnie dołączyć do ścieżki classpath. Można tego dokonać za pomocą właściwości `additionalClasspathElements` w konfiguracji wtyczki mavenowej *surefire* (testy jednostkowe) lub wtyczki *failsafe* (testy integracyjne). Samą wtyczkę standardowo umieszczamy w sekcji `&lt;build&gt` wewnątrz `&lt;plugins&gt`.
 
 ```xml
 &lt;plugin&gt;
@@ -78,12 +78,12 @@ Now if you want to use the embedded container, you will also need to provide the
 &lt;/plugin&gt;
 ```
 
-With this configuration we can run integration tests using `mvn verify` command.
+Przy powyższej konfiguracji testy integracyjne możemy uruchomić za pomocą polecenia `mvn verify`.
 
 ### IntelliJ
 
-Running tests from the IDE can be very handy. In this case, IntelliJ provides great support and seems to also bundle the embedded container.
-All you need to do is to set up the run configuration. Select Arquillian JUnit and in the container menu, add an embedded configuration.
+Możliwość uruchamiania testów z poziomu IDE jest bardzo przydatna. W tym przypadku IntelliJ zapewnia świetne wsparcie również dla kontenera wbudowanego.
+Wszystko, co musimy zrobić, to dodać konfigurację uruchomieniową. Wybieramy Arquillian JUnit, a w menu konfiguracji kontenerów wybieramy tryb osadzony.
 
 <figure style="text-align: center;">
 <img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/arquillian-intellij-configuration.png" alt="Arquillian test run configuration" title="Arquillian test run configuration">
@@ -91,11 +91,11 @@ All you need to do is to set up the run configuration. Select Arquillian JUnit a
 <img loading="lazy" style="margin-top: 0;" src="/img/hq/arquillian-intellij-container.png" alt="Adding Arquillian container" title="Adding Arquillian container">
 </figure>
 
-With almost no effort you should now be able to execute (`CTRL+SHIFT+F10`) a selected test.
+Teraz jednym kliknięciem (`CTRL+SHIFT+F10`) powinniśmy być w stanie wywołać wybrany test.
 
-## Managed and remote containers
+## Kontenery zarządzane i zdalne
 
-These two configurations are managed by `src/test/resources/arquillian.xml` file. An example configuration with `WL_HOME` pointing to the 12.1 version:
+Konfiguracja połączenia z kontenerem w trybie zarządzanym bądź zdalnym odbywa się poprzez plik `src/test/resources/arquillian.xml`. Przykładowa struktura pliku z opcjonalną zmienną środowiskową `WL_HOME` wskazującą na wersję 12.1:
 
 ```xml
 &lt;?xml version=&quot;1.0&quot;?&gt;
@@ -108,9 +108,9 @@ These two configurations are managed by `src/test/resources/arquillian.xml` file
 
   &lt;container qualifier=&quot;wls-managed&quot;&gt;
     &lt;configuration&gt;
-      &lt;!-- optional if env variable WL_HOME is set --&gt;
+      &lt;!-- element opcjonalny jeśli zmienna środowiskowa WL_HOME jest ustawiona --&gt;
       &lt;property name=&quot;wlHome&quot;&gt;C:/Ora/wlserver&lt;/property&gt;
-      &lt;!-- path to your domain --&gt;
+      &lt;!-- ścieżka do domeny --&gt;
       &lt;property name=&quot;domainDirectory&quot;&gt;C:/Ora/wlserver/user_projects/domains/base_domain/&lt;/property&gt;
       &lt;property name=&quot;adminUrl&quot;&gt;t3://localhost:7001&lt;/property&gt;
       &lt;property name=&quot;adminUserName&quot;&gt;weblogic&lt;/property&gt;
@@ -121,7 +121,7 @@ These two configurations are managed by `src/test/resources/arquillian.xml` file
 
   &lt;container qualifier=&quot;wls-remote&quot; default=&quot;true&quot;&gt;
     &lt;configuration&gt;
-      &lt;!-- optional if env variable WL_HOME is set --&gt;
+      &lt;!-- element opcjonalny jeśli zmienna środowiskowa WL_HOME jest ustawiona --&gt;
       &lt;property name=&quot;wlHome&quot;&gt;C:/Ora/wlserver&lt;/property&gt;
       &lt;property name=&quot;adminUrl&quot;&gt;t3://localhost:7001&lt;/property&gt;
       &lt;property name=&quot;adminUserName&quot;&gt;weblogic&lt;/property&gt;
@@ -132,7 +132,7 @@ These two configurations are managed by `src/test/resources/arquillian.xml` file
 &lt;/arquillian&gt;
 ```
 
-The qualifier name can be optionally used to select the container configuration either through the configuration of the maven surefire/failsafe plugin:
+Kwalifikatora można opcjonalnie użyć do wyboru oczekiwanego kontenera poprzez konfigurację mavenowej wtyczki *surefire/failsafe*:
 ```xml
 &lt;configuration&gt;
     &lt;skip&gt;true&lt;/skip&gt;
@@ -141,13 +141,13 @@ The qualifier name can be optionally used to select the container configuration 
     &lt;/systemProperties&gt;
 &lt;/configuration&gt;
 ```
-This can also be defined in the Arquillian Container configuration in the IntelliJ:
+W przypadku IntelliJ wyboru dokonujemy w konfiguracji kontenera Arquillian:
 
-<img loading="lazy" src="/img/hq/arquillian-intellij-qualifier.png" alt="Arquillian container qualifier" title="Arquillian container qualifier">
+<img loading="lazy" src="/img/hq/arquillian-intellij-qualifier.png" alt="Kwalifikator kontenera Arquillian" title="Kwalifikator kontenera Arquillian">
 
-## Simple test case
+## Przypadek testowy
 
-To verify that our configuration is working properly we can create a simplest bean:
+Aby sprawdzić, czy nasza konfiguracja działa poprawnie, możemy stworzyć najprostszego Beana:
 
 ```java
 import javax.ejb.Stateless;
@@ -160,7 +160,7 @@ public class Greeter {
 }
 ```
 
-… and the test case:
+… i przypadek testowy:
 
 ```java
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -201,29 +201,29 @@ public class GreeterIT {
 }
 ```
 
-During startup, the test should print the contents of the deployed archive and after the successful test, `Hello world` should also be printed in the WebLogic logs as it will be run in the container (contrary to `@RunAsClient`).
+Podczas uruchamiania test powinien wypisać zawartość testowanego archiwum. Po pomyślnym jego zakończeniu, w logach WebLogica powinien ukazać się napis `Hello world` – test docelowo zostanie uruchomiony w kontenerze (w przeciwieństwie do sytuacji, gdy użyjemy adnotacji `@RunAsClient`).
 
-## Troubleshooting
+## Typowe problemy
 
-You might encounter some issues during configuration. Here are the most common problems:
+Podczas konfiguracji możesz natknąć się na różnego rodzaju błędy. Najczęstsze z nich to:
 
 > java.io.FileNotFoundException: ...\wlserver\.product.properties (The system cannot find the path specified)
 
-`WL_HOME` variable might be pointing to the wrong directory.
+Zmienna środowiskowa `WL_HOME` może wskazywać na niewłaściwy katalog.
 
 > java.lang.ClassNotFoundException: javax.ejb.embeddable.EJBContainer<br/>
 > javax.ejb.EJBException: No EJBContainer provider available: no provider names had been found.
 
-Usually caused by the wrong path to the `weblogic.jar` or container dependency not provided.
+Zwykle błędy spowodowane niewłaściwą ścieżką do pliku `weblogic.jar` lub brakującymi zależnościami (`org.jboss.arquillian.container`).
 
 > Missing descriptor: weblogic.management.DeploymentException: [J2EE:160177]
 
-This means that relevant descriptors are missing and should be added during ShrinkWrap archive creation.
+Oznacza to, że brakuje odpowiednich deskryptorów i należy je dodać podczas tworzenia archiwum za pomocą ShrinkWrap.
 
 > sun.misc.InvalidJarIndexException: Invalid index
 
-Either `WL_HOME` is pointing to the 12.2 version or VM options `-da -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader` are missing during test execution.
+`WL_HOME` wskazuje na wersję 12.2 bądź brakuje następujących parametrów JVM podczas wykonywania testów `-da -Djava.system.class.loader=com.oracle.classloader.weblogic.LaunchClassLoader`.
 
 > javax.naming.NamingException: Couldn't connect to the specified host
 
-Verify that `adminUrl` is configured properly and the server is running.
+Sprawdź, czy `adminUrl` ma prawidłową wartość i serwer nasłuchuje pod danym adresem.
