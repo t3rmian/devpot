@@ -13,7 +13,6 @@ import config from "../template.config";
 import { lazyLoadImages, loadComments, loadHighlight, countPostMinutes } from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
 import hljs from 'highlight.js/lib/highlight';
-import { Length } from "../model/Length";
 
 const registerLanguage = name => {
   const lang = require(`highlight.js/lib/languages/${name}`);
@@ -87,14 +86,6 @@ export function Post() {
   const author = (post.author === config.author || post.author == null)
       ? (<a href={`${authorSite}`}>{config.author}</a>)
       : post.author;
-  const lengthTags = tags.filter(tag =>
-    Object.values(Length).some(length => tag.value === t(length, { lng: lang }))
-  );
-  let tagNames = tags.filter(
-    tag => !lengthTags.some(lengthTag => lengthTag.value === tag.value)
-  );
-  tagNames.sort((a, b) => b.hits - a.hits);
-  tagNames = tagNames.map(tag => tag.value);
 
   return (
     <div className="container post-container">
@@ -193,7 +184,7 @@ export function Post() {
           langRefs={langRefs}
           description={post.contents}
           title={post.title + " - " + t("site title", { lng: lang })}
-          tags={tagNames}
+          tags={post.tags}
           twitterAuthor={t("twitter author", { lng: lang })}
           twitterContentUsername={post.twitterAuthor}/>
         <div id="comments" role="complementary"/>
