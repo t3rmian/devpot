@@ -5,13 +5,11 @@ import { absoluteUrl, elipsizeDescription } from "../components/SEOHead";
 import {
   EmailShareButton,
   FacebookShareButton,
-  FacebookMessengerShareButton,
   LinkedinShareButton,
   RedditShareButton,
   TwitterShareButton,
   EmailIcon,
   FacebookIcon,
-  FacebookMessengerIcon,
   LinkedinIcon,
   RedditIcon,
   TwitterIcon,
@@ -47,9 +45,6 @@ export default ({
       >
         <TwitterIcon size={32} round={true} />
       </TwitterShareButton>
-      <FacebookMessengerShareButton url={url}>
-        <FacebookMessengerIcon size={32} round={true} />
-      </FacebookMessengerShareButton>
       <RedditShareButton url={url} title={title}>
         <RedditIcon size={32} round={true} />
       </RedditShareButton>
