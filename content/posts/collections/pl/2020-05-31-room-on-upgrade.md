@@ -72,6 +72,10 @@ Właściwa implementacja tej klasy wywołuje wcześniej wspomniany `RoomDatabase
 - ***onPreMigrate*** – przed migracją w trakcie *onUpgrade*;
 - ***onPostMigrate*** – przed migracją w trakcie *onUpgrade*;
 
+Ponieważ natknęliśmy się na trzeci interfejs z prawie identycznymi metodami, spróbujmy zwizualizować hierarchię klas uczesniczących w dostępie do bazy danych. Ogólny obraz wygląda następująco:
+
+<img src="/img/hq/room-upgrade-callback.svg" loading="lazy" alt="Android Room – ogólna hierarchia klas" title="Android Room – ogólna hierarchia klas">
+
 Jeśli więc chcemy dobrać się do zdarzeń takich jak *onUpgrade*, `SupportSQLiteOpenHelper.Callback` będzie tu właściwym wyborem. Ponieważ jednak właściwa implementacja poszczególnych metod odpowiada za całą ważną logikę związaną z otwieraniem i uruchamianiem upgradem/downgradem oraz migracjami, będziemy musieli również skorzystać z delegacji.
 
 ## Przypadek użycia

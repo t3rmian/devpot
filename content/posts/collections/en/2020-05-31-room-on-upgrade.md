@@ -1,5 +1,5 @@
 ---
-title: How to listen on database upgrade with Room
+title: How to listen for database upgrade with Room
 url: room-on-upgrade
 id: 31
 tags:
@@ -72,6 +72,10 @@ The specific implementation of this class executes aforementioned `RoomDatabase.
 - ***onValidateSchema*** – invoked by *onCreate/onUpgrade* and in case when we are using pre-populated database;
 - ***onPreMigrate*** – before migration is run *onUpgrade*;
 - ***onPostMigrate*** – after migration is run *onUpgrade*;
+
+Because we've encountered the 3rd interface with almost similar methods, let's help ourselves visualizing the hierarchy. The general overview looks like this:
+
+<img src="/img/hq/room-on-upgrade.svg" loading="lazy" alt="Android Room - general class hierarchy" title="Android Room - general class hierarchy">
 
 For fine-grained listening, we can listen to the events exposed through `SupportSQLiteOpenHelper.Callback`. However, since the effective implementation of this callback is doing all the important work of the opening and running the upgrades/downgrades and migrations, we also want to use the delegate mechanism.
 
