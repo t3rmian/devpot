@@ -61,9 +61,9 @@ Unfortunately, these are not all events that happen during the database opening.
 - ***onOpen*** – executed after creation/upgrade/downgrade is finished;
 - ***onConfigure*** – run before onCreate/onUpdate/onDowngrade;
 - ***onCorruption*** – invoked on SQLite DB corruption, default implementation deletes the DB file;
-- ***onUpgrade*** – similar to onDowngrade, when the DB version is lower than the requested one.
+- ***onUpgrade*** – similar to *onDowngrade*, when the DB version is lower than the requested one.
 
-The specific implementation of this class executes `RoomDatabase.Callback` through the meaning of `RoomOpenHelper.Delegate` from the `androidx.room` package. If you go to the specific implementation of your RoomDatabase, you will see that it provides an auto-generated implementation of `RoomOpenHelper.Delegate` exposing the methods below:
+The specific implementation of this class executes aforementioned `RoomDatabase.Callback` through the meaning of `RoomOpenHelper.Delegate` from the `androidx.room` package. If you go to the specific implementation of your `RoomDatabase`, you will see that it provides an auto-generated implementation of `RoomOpenHelper.Delegate` exposing the methods below:
 - ***dropAllTables*** – invoked by *SupportSQLiteOpenHelper.onUpgrade/onDowngrade*, in turn invokes *onDestructiveMigration* at the end;
 - ***createAllTables*** – invoked by *onCreate/onUpgrade/onDowngrade*;
 - ***onOpen*** – invoked by *onOpen*;
@@ -73,7 +73,7 @@ The specific implementation of this class executes `RoomDatabase.Callback` throu
 - ***onPreMigrate*** – before migration is run *onUpgrade*;
 - ***onPostMigrate*** – after migration is run *onUpgrade*;
 
-For fine-grained listening, we can listen to the events exposed through `SupportSQLiteOpenHelper.Callback`. However, since the effective implementation of this callback is doing all the important work of the opening and running the upgrades/downgrades and migrations, we also want to use the delegate system.
+For fine-grained listening, we can listen to the events exposed through `SupportSQLiteOpenHelper.Callback`. However, since the effective implementation of this callback is doing all the important work of the opening and running the upgrades/downgrades and migrations, we also want to use the delegate mechanism.
 
 ## Use Case
 
@@ -156,7 +156,7 @@ class BackupOpenHelperFactory(
 }
 ```
 
-In the parameter for `SupportSQLiteOpenHelper` creation, we receive the configuration that contains the context, name and callback. The callback is what's were after. Instead of passing this configuration, we recreate it with a callback decorated with our own implementation. Now we just need to set it:
+In the parameter for `SupportSQLiteOpenHelper` creation, we receive the configuration that contains the context, name and callback. The callback is what's we're after. Instead of passing this configuration, we recreate it with a callback decorated with our own implementation. Now we just need to set it:
 
 ```kotlin
 fun provideDatabase(): RoomDatabase {
