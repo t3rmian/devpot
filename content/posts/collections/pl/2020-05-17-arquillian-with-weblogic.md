@@ -20,11 +20,11 @@ Pierwszą rzeczą, którą musimy wiedzieć w odniesieniu do WebLogica 12.2, jes
 Do naszej konfiguracji użyjemy Mavena, który jest prawdopodobnie najpopularniejszym narzędzie do budowania projektów w przypadku Javy EE.
 Na początek potrzebować będziemy zależności do zintegrowania naszych testów Arquillianowych z JUnitem 4:
 ```xml
-&lt;dependency&gt;
-  &lt;groupId&gt;org.jboss.arquillian.junit&lt;/groupId&gt;
-  &lt;artifactId&gt;arquillian-junit-container&lt;/artifactId&gt;
-  &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;
+<dependency>
+  <groupId>org.jboss.arquillian.junit</groupId>
+  <artifactId>arquillian-junit-container</artifactId>
+  <scope>test</scope>
+</dependency>
 ```
 
 Następnie musimy wybrać, z jakiego rodzaju kontenera (a właściwie połączenia) skorzystamy:
@@ -33,14 +33,14 @@ Następnie musimy wybrać, z jakiego rodzaju kontenera (a właściwie połączen
 - kontener zdalny – znajduje się w oddzielnej maszynie JVM.
 
 ```xml
-&lt;dependency&gt;
-  &lt;groupId&gt;org.jboss.arquillian.container&lt;/groupId&gt;
-&lt;!--  &lt;artifactId&gt;arquillian-wls-embedded-12.1&lt;/artifactId&gt;--&gt;
-&lt;!--  &lt;artifactId&gt;arquillian-wls-managed-12.1&lt;/artifactId&gt;--&gt;
-  &lt;artifactId&gt;arquillian-wls-remote-12.1&lt;/artifactId&gt;
-  &lt;version&gt;1.0.1.Final&lt;/version&gt;
-  &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;
+<dependency>
+  <groupId>org.jboss.arquillian.container</groupId>
+<!--  <artifactId>arquillian-wls-embedded-12.1</artifactId>-->
+<!--  <artifactId>arquillian-wls-managed-12.1</artifactId>-->
+  <artifactId>arquillian-wls-remote-12.1</artifactId>
+  <version>1.0.1.Final</version>
+  <scope>test</scope>
+</dependency>
 ```
 
 ## Kontener osadzony
@@ -49,33 +49,33 @@ Warto nadmienić, że w trybie osadzonym prędzej czy później napotkamy proble
 
 ### Maven
 
-Jeśli chcesz wykorzystać kontener w trybie osadzonym, musimy go obligatoryjnie dołączyć do ścieżki classpath. Można tego dokonać za pomocą właściwości `additionalClasspathElements` w konfiguracji wtyczki mavenowej *surefire* (testy jednostkowe) lub wtyczki *failsafe* (testy integracyjne). Samą wtyczkę standardowo umieszczamy w sekcji `&lt;build&gt` wewnątrz `&lt;plugins&gt`.
+Jeśli chcesz wykorzystać kontener w trybie osadzonym, musimy go obligatoryjnie dołączyć do ścieżki classpath. Można tego dokonać za pomocą właściwości `additionalClasspathElements` w konfiguracji wtyczki mavenowej *surefire* (testy jednostkowe) lub wtyczki *failsafe* (testy integracyjne). Samą wtyczkę standardowo umieszczamy w sekcji `<build&gt` wewnątrz `<plugins&gt`.
 
 ```xml
-&lt;plugin&gt;
-  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
-  &lt;version&gt;2.17&lt;/version&gt;
-  &lt;executions&gt;
-    &lt;execution&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;integration-test&lt;/goal&gt;
-      &lt;/goals&gt;
-    &lt;/execution&gt;
-  &lt;/executions&gt;
-  &lt;configuration&gt;
-    &lt;skip&gt;false&lt;/skip&gt;
-    &lt;!-- Disable assertions otherwise an assertionerror involving the WLS management runtime is thrown --&gt;
-    &lt;enableAssertions&gt;false&lt;/enableAssertions&gt;
-    &lt;classpathDependencyExcludes&gt;
-      &lt;classpathDependencyExcludes&gt;javax:javaee-api&lt;/classpathDependencyExcludes&gt;
-    &lt;/classpathDependencyExcludes&gt;
-    &lt;additionalClasspathElements&gt;
-      &lt;!-- This requires setting WL_HOME environment variable e.g.: C:/Ora/wlserver/ --&gt;
-      &lt;additionalClasspathElement&gt;${env.WL_HOME}/server/lib/weblogic.jar&lt;/additionalClasspathElement&gt;
-    &lt;/additionalClasspathElements&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-failsafe-plugin</artifactId>
+  <version>2.17</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>integration-test</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <skip>false</skip>
+    <!-- Disable assertions otherwise an assertionerror involving the WLS management runtime is thrown -->
+    <enableAssertions>false</enableAssertions>
+    <classpathDependencyExcludes>
+      <classpathDependencyExcludes>javax:javaee-api</classpathDependencyExcludes>
+    </classpathDependencyExcludes>
+    <additionalClasspathElements>
+      <!-- This requires setting WL_HOME environment variable e.g.: C:/Ora/wlserver/ -->
+      <additionalClasspathElement>${env.WL_HOME}/server/lib/weblogic.jar</additionalClasspathElement>
+    </additionalClasspathElements>
+  </configuration>
+</plugin>
 ```
 
 Przy powyższej konfiguracji testy integracyjne możemy uruchomić za pomocą polecenia `mvn verify`.
@@ -98,48 +98,48 @@ Teraz jednym kliknięciem (`CTRL+SHIFT+F10`) powinniśmy być w stanie wywołać
 Konfiguracja połączenia z kontenerem w trybie zarządzanym bądź zdalnym odbywa się poprzez plik `src/test/resources/arquillian.xml`. Przykładowa struktura pliku z opcjonalną zmienną środowiskową `WL_HOME` wskazującą na wersję 12.1:
 
 ```xml
-&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;arquillian xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://jboss.org/schema/arquillian&quot;
-  xsi:schemaLocation=&quot;http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd&quot;&gt;
+<?xml version="1.0"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://jboss.org/schema/arquillian"
+  xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-  &lt;engine&gt;
-    &lt;property name=&quot;deploymentExportPath&quot;&gt;target/&lt;/property&gt;
-  &lt;/engine&gt;
+  <engine>
+    <property name="deploymentExportPath">target/</property>
+  </engine>
 
-  &lt;container qualifier=&quot;wls-managed&quot;&gt;
-    &lt;configuration&gt;
-      &lt;!-- element opcjonalny jeśli zmienna środowiskowa WL_HOME jest ustawiona --&gt;
-      &lt;property name=&quot;wlHome&quot;&gt;C:/Ora/wlserver&lt;/property&gt;
-      &lt;!-- ścieżka do domeny --&gt;
-      &lt;property name=&quot;domainDirectory&quot;&gt;C:/Ora/wlserver/user_projects/domains/base_domain/&lt;/property&gt;
-      &lt;property name=&quot;adminUrl&quot;&gt;t3://localhost:7001&lt;/property&gt;
-      &lt;property name=&quot;adminUserName&quot;&gt;weblogic&lt;/property&gt;
-      &lt;property name=&quot;adminPassword&quot;&gt;weblogic12#&lt;/property&gt;
-      &lt;property name=&quot;target&quot;&gt;AdminServer&lt;/property&gt;
-    &lt;/configuration&gt;
-  &lt;/container&gt;
+  <container qualifier="wls-managed">
+    <configuration>
+      <!-- element opcjonalny jeśli zmienna środowiskowa WL_HOME jest ustawiona -->
+      <property name="wlHome">C:/Ora/wlserver</property>
+      <!-- ścieżka do domeny -->
+      <property name="domainDirectory">C:/Ora/wlserver/user_projects/domains/base_domain/</property>
+      <property name="adminUrl">t3://localhost:7001</property>
+      <property name="adminUserName">weblogic</property>
+      <property name="adminPassword">weblogic12#</property>
+      <property name="target">AdminServer</property>
+    </configuration>
+  </container>
 
-  &lt;container qualifier=&quot;wls-remote&quot; default=&quot;true&quot;&gt;
-    &lt;configuration&gt;
-      &lt;!-- element opcjonalny jeśli zmienna środowiskowa WL_HOME jest ustawiona --&gt;
-      &lt;property name=&quot;wlHome&quot;&gt;C:/Ora/wlserver&lt;/property&gt;
-      &lt;property name=&quot;adminUrl&quot;&gt;t3://localhost:7001&lt;/property&gt;
-      &lt;property name=&quot;adminUserName&quot;&gt;weblogic&lt;/property&gt;
-      &lt;property name=&quot;adminPassword&quot;&gt;weblogic12#&lt;/property&gt;
-      &lt;property name=&quot;target&quot;&gt;AdminServer&lt;/property&gt;
-    &lt;/configuration&gt;
-  &lt;/container&gt;
-&lt;/arquillian&gt;
+  <container qualifier="wls-remote" default="true">
+    <configuration>
+      <!-- element opcjonalny jeśli zmienna środowiskowa WL_HOME jest ustawiona -->
+      <property name="wlHome">C:/Ora/wlserver</property>
+      <property name="adminUrl">t3://localhost:7001</property>
+      <property name="adminUserName">weblogic</property>
+      <property name="adminPassword">weblogic12#</property>
+      <property name="target">AdminServer</property>
+    </configuration>
+  </container>
+</arquillian>
 ```
 
 Kwalifikatora można opcjonalnie użyć do wyboru oczekiwanego kontenera poprzez konfigurację mavenowej wtyczki *surefire/failsafe*:
 ```xml
-&lt;configuration&gt;
-    &lt;skip&gt;true&lt;/skip&gt;
-    &lt;systemProperties&gt;
-        &lt;arquillian.launch&gt;wls-managed&lt;/arquillian.launch&gt;
-    &lt;/systemProperties&gt;
-&lt;/configuration&gt;
+<configuration>
+    <skip>true</skip>
+    <systemProperties>
+        <arquillian.launch>wls-managed</arquillian.launch>
+    </systemProperties>
+</configuration>
 ```
 W przypadku IntelliJ wyboru dokonujemy w konfiguracji kontenera Arquillian:
 

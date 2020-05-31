@@ -17,7 +17,7 @@
     "@types/react-share": "^3.0.3",
     "axios": "^0.18.1",
     "highlight.js": "^9.15.6",
-    "htmr": "^0.7.0",
+    "htmr": "^0.8.7",
     "i18next": "^15.0.9",
     "jdown": "^1.0.1",
     "react": "^16.9.0",

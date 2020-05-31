@@ -105,15 +105,15 @@ Different locations are scanned for different servers:
 
 ### Tomcat
 
-Tomcat has a bit inverted class loader. First, it loads Bootstrap classes of your JVM, then the classes from the web application, and lastly system and common classes. To enable the standard delegation model, a `&lt;Loader delegate=&quot;true&quot;/&gt;` element is required under the `&lt;Context&gt;&lt;/Context&gt;` in the `conf/context.xml` or in the WAR `META-INF/context.xml`:
+Tomcat has a bit inverted class loader. First, it loads Bootstrap classes of your JVM, then the classes from the web application, and lastly system and common classes. To enable the standard delegation model, a `<Loader delegate="true"/>` element is required under the `<Context></Context>` in the `conf/context.xml` or in the WAR `META-INF/context.xml`:
 
 ```xml
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;Context&gt;
-  &lt;Loader delegate=&quot;true&quot;/&gt;
-  &lt;WatchedResource&gt;WEB-INF/web.xml&lt;/WatchedResource&gt;
-  &lt;WatchedResource&gt;${catalina.base}/conf/web.xml&lt;/WatchedResource&gt;
-&lt;/Context&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Loader delegate="true"/>
+  <WatchedResource>WEB-INF/web.xml</WatchedResource>
+  <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+</Context>
 ```
 
 ### Summary

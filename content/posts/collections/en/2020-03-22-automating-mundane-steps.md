@@ -79,7 +79,7 @@ With the above knowledge, all that's left is the implementation.
 ```bash
 #!/bin/bash
 # Use this script after a merge to amend the merge commit with an additional description from GitLab MR title
-GITLAB_PRIVATE_TOKEN=&lt;your_token&gt;
+GITLAB_PRIVATE_TOKEN=<your_token>
 GITLAB_HOST=https://gitlab.com/ # Or your own host
 
 # Get the previous merge commit message i.e. "Merge remote-tracking branch 'origin/feature'"
@@ -105,7 +105,7 @@ git commit --amend --no-edit -m "${MESSAGE}" -m "${DESCRIPTION}"
 VERSION=$(grep version "pom.xml" | head -n 2 | tail -n 1 | cut -d">" -f2 | cut -d"<" -f1 )
 
 # Ask whether to update Jira ticket - you might stop here and continue with additional merges
-read -p "Push and update tracking with git jira-update $VERSION $TITLE? &lt;y/N&gt; " prompt
+read -p "Push and update tracking with git jira-update $VERSION $TITLE? <y/N> " prompt
 if [[ $prompt =~ [yY](es)* ]]; then
   git push && git jira-update $VERSION $TITLE
 figit s
@@ -121,8 +121,8 @@ if [ "$#" -ne 2 ]; then
 	exit 1
 fi
 
-CREDENTIALS=&lt;base_64_credentials&gt;
-JIRA_HOST=&lt;your_jira_url&gt;
+CREDENTIALS=<base_64_credentials>
+JIRA_HOST=<your_jira_url>
 VERSION=$1
 ISSUES=$2
 

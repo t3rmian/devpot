@@ -20,11 +20,11 @@ The first thing we need to know in regards to WebLogic 12.2, is that it's not qu
 We will use Maven as it is probably most popular build tool for Java EE projects.
 For starters we will need the dependencies to integrate our tests with JUnit4:
 ```xml
-&lt;dependency&gt;
-  &lt;groupId&gt;org.jboss.arquillian.junit&lt;/groupId&gt;
-  &lt;artifactId&gt;arquillian-junit-container&lt;/artifactId&gt;
-  &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;
+<dependency>
+  <groupId>org.jboss.arquillian.junit</groupId>
+  <artifactId>arquillian-junit-container</artifactId>
+  <scope>test</scope>
+</dependency>
 ```
 
 Next we need to choose what kind of EJBContainer provider we will use. Will it be:
@@ -33,14 +33,14 @@ Next we need to choose what kind of EJBContainer provider we will use. Will it b
 - a remote container that resides in a separate JVM?
 
 ```xml
-&lt;dependency&gt;
-  &lt;groupId&gt;org.jboss.arquillian.container&lt;/groupId&gt;
-&lt;!--  &lt;artifactId&gt;arquillian-wls-embedded-12.1&lt;/artifactId&gt;--&gt;
-&lt;!--  &lt;artifactId&gt;arquillian-wls-managed-12.1&lt;/artifactId&gt;--&gt;
-  &lt;artifactId&gt;arquillian-wls-remote-12.1&lt;/artifactId&gt;
-  &lt;version&gt;1.0.1.Final&lt;/version&gt;
-  &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;
+<dependency>
+  <groupId>org.jboss.arquillian.container</groupId>
+<!--  <artifactId>arquillian-wls-embedded-12.1</artifactId>-->
+<!--  <artifactId>arquillian-wls-managed-12.1</artifactId>-->
+  <artifactId>arquillian-wls-remote-12.1</artifactId>
+  <version>1.0.1.Final</version>
+  <scope>test</scope>
+</dependency>
 ```
 
 ## Embedded container
@@ -52,30 +52,30 @@ You might encounter some problems with this approach at a later point. If you ar
 Now if you want to use the embedded container, you will also need to provide the path to the container on the classpath. This can be done through `additionalClasspathElements` property of the maven surefire (unit testing) or failsafe (integration testing) plugin. Put this in your build configuration within plugins section.
 
 ```xml
-&lt;plugin&gt;
-  &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-  &lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
-  &lt;version&gt;2.17&lt;/version&gt;
-  &lt;executions&gt;
-    &lt;execution&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;integration-test&lt;/goal&gt;
-      &lt;/goals&gt;
-    &lt;/execution&gt;
-  &lt;/executions&gt;
-  &lt;configuration&gt;
-    &lt;skip&gt;false&lt;/skip&gt;
-    &lt;!-- Disable assertions otherwise an assertionerror involving the WLS management runtime is thrown --&gt;
-    &lt;enableAssertions&gt;false&lt;/enableAssertions&gt;
-    &lt;classpathDependencyExcludes&gt;
-      &lt;classpathDependencyExcludes&gt;javax:javaee-api&lt;/classpathDependencyExcludes&gt;
-    &lt;/classpathDependencyExcludes&gt;
-    &lt;additionalClasspathElements&gt;
-      &lt;!-- This requires setting WL_HOME environment variable e.g.: C:/Ora/wlserver/ --&gt;
-      &lt;additionalClasspathElement&gt;${env.WL_HOME}/server/lib/weblogic.jar&lt;/additionalClasspathElement&gt;
-    &lt;/additionalClasspathElements&gt;
-  &lt;/configuration&gt;
-&lt;/plugin&gt;
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-failsafe-plugin</artifactId>
+  <version>2.17</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>integration-test</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <skip>false</skip>
+    <!-- Disable assertions otherwise an assertionerror involving the WLS management runtime is thrown -->
+    <enableAssertions>false</enableAssertions>
+    <classpathDependencyExcludes>
+      <classpathDependencyExcludes>javax:javaee-api</classpathDependencyExcludes>
+    </classpathDependencyExcludes>
+    <additionalClasspathElements>
+      <!-- This requires setting WL_HOME environment variable e.g.: C:/Ora/wlserver/ -->
+      <additionalClasspathElement>${env.WL_HOME}/server/lib/weblogic.jar</additionalClasspathElement>
+    </additionalClasspathElements>
+  </configuration>
+</plugin>
 ```
 
 With this configuration we can run integration tests using `mvn verify` command.
@@ -98,48 +98,48 @@ With almost no effort you should now be able to execute (`CTRL+SHIFT+F10`) a sel
 These two configurations are managed by `src/test/resources/arquillian.xml` file. An example configuration with `WL_HOME` pointing to the 12.1 version:
 
 ```xml
-&lt;?xml version=&quot;1.0&quot;?&gt;
-&lt;arquillian xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xmlns=&quot;http://jboss.org/schema/arquillian&quot;
-  xsi:schemaLocation=&quot;http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd&quot;&gt;
+<?xml version="1.0"?>
+<arquillian xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://jboss.org/schema/arquillian"
+  xsi:schemaLocation="http://jboss.org/schema/arquillian http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
 
-  &lt;engine&gt;
-    &lt;property name=&quot;deploymentExportPath&quot;&gt;target/&lt;/property&gt;
-  &lt;/engine&gt;
+  <engine>
+    <property name="deploymentExportPath">target/</property>
+  </engine>
 
-  &lt;container qualifier=&quot;wls-managed&quot;&gt;
-    &lt;configuration&gt;
-      &lt;!-- optional if env variable WL_HOME is set --&gt;
-      &lt;property name=&quot;wlHome&quot;&gt;C:/Ora/wlserver&lt;/property&gt;
-      &lt;!-- path to your domain --&gt;
-      &lt;property name=&quot;domainDirectory&quot;&gt;C:/Ora/wlserver/user_projects/domains/base_domain/&lt;/property&gt;
-      &lt;property name=&quot;adminUrl&quot;&gt;t3://localhost:7001&lt;/property&gt;
-      &lt;property name=&quot;adminUserName&quot;&gt;weblogic&lt;/property&gt;
-      &lt;property name=&quot;adminPassword&quot;&gt;weblogic12#&lt;/property&gt;
-      &lt;property name=&quot;target&quot;&gt;AdminServer&lt;/property&gt;
-    &lt;/configuration&gt;
-  &lt;/container&gt;
+  <container qualifier="wls-managed">
+    <configuration>
+      <!-- optional if env variable WL_HOME is set -->
+      <property name="wlHome">C:/Ora/wlserver</property>
+      <!-- path to your domain -->
+      <property name="domainDirectory">C:/Ora/wlserver/user_projects/domains/base_domain/</property>
+      <property name="adminUrl">t3://localhost:7001</property>
+      <property name="adminUserName">weblogic</property>
+      <property name="adminPassword">weblogic12#</property>
+      <property name="target">AdminServer</property>
+    </configuration>
+  </container>
 
-  &lt;container qualifier=&quot;wls-remote&quot; default=&quot;true&quot;&gt;
-    &lt;configuration&gt;
-      &lt;!-- optional if env variable WL_HOME is set --&gt;
-      &lt;property name=&quot;wlHome&quot;&gt;C:/Ora/wlserver&lt;/property&gt;
-      &lt;property name=&quot;adminUrl&quot;&gt;t3://localhost:7001&lt;/property&gt;
-      &lt;property name=&quot;adminUserName&quot;&gt;weblogic&lt;/property&gt;
-      &lt;property name=&quot;adminPassword&quot;&gt;weblogic12#&lt;/property&gt;
-      &lt;property name=&quot;target&quot;&gt;AdminServer&lt;/property&gt;
-    &lt;/configuration&gt;
-  &lt;/container&gt;
-&lt;/arquillian&gt;
+  <container qualifier="wls-remote" default="true">
+    <configuration>
+      <!-- optional if env variable WL_HOME is set -->
+      <property name="wlHome">C:/Ora/wlserver</property>
+      <property name="adminUrl">t3://localhost:7001</property>
+      <property name="adminUserName">weblogic</property>
+      <property name="adminPassword">weblogic12#</property>
+      <property name="target">AdminServer</property>
+    </configuration>
+  </container>
+</arquillian>
 ```
 
 The qualifier name can be optionally used to select the container configuration either through the configuration of the maven surefire/failsafe plugin:
 ```xml
-&lt;configuration&gt;
-    &lt;skip&gt;true&lt;/skip&gt;
-    &lt;systemProperties&gt;
-        &lt;arquillian.launch&gt;wls-managed&lt;/arquillian.launch&gt;
-    &lt;/systemProperties&gt;
-&lt;/configuration&gt;
+<configuration>
+    <skip>true</skip>
+    <systemProperties>
+        <arquillian.launch>wls-managed</arquillian.launch>
+    </systemProperties>
+</configuration>
 ```
 This can also be defined in the Arquillian Container configuration in the IntelliJ:
 

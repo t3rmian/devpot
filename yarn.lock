@@ -5631,7 +5631,7 @@ html-webpack-plugin@^3.2.0:
     toposort "^1.0.0"
     util.promisify "1.0.0"
 
-htmlparser2@^3.3.0, htmlparser2@^3.9.2:
+htmlparser2@^3.10.1, htmlparser2@^3.3.0:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-3.10.1.tgz#bd679dc3f59897b6a34bb10749c855bb53a9392f"
   integrity sha512-IgieNijUMbkDovyoKObU1DUhm1iwNYE/fuifEoEHfd1oZKZDaONBSkal7Y01shxsM49R4XaMdGez3WnF9UfiCQ==
@@ -5643,13 +5643,13 @@ htmlparser2@^3.3.0, htmlparser2@^3.9.2:
     inherits "^2.0.1"
     readable-stream "^3.1.1"
 
-htmr@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/htmr/-/htmr-0.7.0.tgz#ddaf465a27d88582963f4b35495b0153001a51ff"
-  integrity sha512-K3Hzymg6VOyHPdNQIG/wnrZ1LfDSLOl3Zk1YD2W7InDFDxK95AfPF69mnzfnpEIPucfM/LJuNhdawMV6OBQ/oQ==
+htmr@^0.8.7:
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/htmr/-/htmr-0.8.8.tgz#9361db41d266b8ed475843069e79bfa47272114c"
+  integrity sha512-P59irizk8079Ec9yRBk/0NGS0s7soGnrnY4YiT4/RzU2/BPdB6ocMv2GMJZbzkMfiHig4Lk7mDagi1YX3kzL2A==
   dependencies:
     html-entities "^1.2.1"
-    posthtml-parser "^0.4.0"
+    htmlparser2 "^3.10.1"
 
 http-cache-semantics@3.8.1:
   version "3.8.1"
@@ -8674,14 +8674,6 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.5, postcss@^7.0.6:
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
-
-posthtml-parser@^0.4.0:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/posthtml-parser/-/posthtml-parser-0.4.1.tgz#95b78fef766fbbe0a6f861b6e95582bc3d1ff933"
-  integrity sha512-h7vXIQ21Ikz2w5wPClPakNP6mJeJCK6BT0GpqnQrNNABdR7/TchNlFyryL1Bz6Ww53YWCKkr6tdZuHlxY1AVdQ==
-  dependencies:
-    htmlparser2 "^3.9.2"
-    object-assign "^4.1.1"
 
 prelude-ls@~1.1.2:
   version "1.1.2"

@@ -26,7 +26,7 @@ public class Monitor {
 
     public static void main(String[] args) {
         String query = "SELECT PENDING FROM TEMP_CLEANUP_STATUS WHERE PENDING = 0";
-        String connectionUrl = "jdbc:oracle:&lt;drivertype&gt;:&lt;user&gt;/&lt;password&gt;@&lt;database&gt;";
+        String connectionUrl = "jdbc:oracle:<drivertype>:<user>/<password>@<database>";
         try {
             //noinspection InfiniteLoopStatement
             while (true) {
@@ -72,7 +72,7 @@ public class Monitor {
 
     public static void main(String[] args) {
         String query = "SELECT PENDING FROM TEMP_CLEANUP_STATUS WHERE PENDING = 0;";
-        String connectionUrl = "&lt;user&gt;/&lt;password&gt;@//&lt;host&gt;:&lt;port&gt;/&lt;database&gt;";
+        String connectionUrl = "<user>/<password>@//<host>:<port>/<database>";
         String command = "echo " + query + " | " + SQL_PLUS_PATH + " -L " + connectionUrl;
         try {
             //noinspection InfiniteLoopStatement

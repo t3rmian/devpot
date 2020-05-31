@@ -66,58 +66,58 @@ Jeśli chodzi o moją aplikację (MapaPB), dane przechowuję offline, w plikach 
 
 Przykładowa struktura danych mapy może wyglądać następująco:
 ```xml
-&lt;map height=&quot;3072&quot; id=&quot;PB_campus&quot; route_path=&quot;routes/pb_campus.xml&quot; url=&quot;http://pb.edu.pl/&quot;
-    width=&quot;5120&quot;&gt;
-    &lt;tiles_configs&gt;
-        &lt;tiles_config height=&quot;256&quot; path=&quot;tiles/pb_campus/1000/tile-%d_%d.png&quot; width=&quot;256&quot;
-            zoom=&quot;1&quot; /&gt;
-        &lt;tiles_config height=&quot;256&quot; path=&quot;tiles/pb_campus/500/tile-%d_%d.png&quot; width=&quot;256&quot;
-            zoom=&quot;0.5&quot; /&gt;
-        &lt;tiles_config height=&quot;256&quot; path=&quot;tiles/pb_campus/250/tile-%d_%d.png&quot; width=&quot;256&quot;
-            zoom=&quot;0.25&quot; /&gt;
-    &lt;/tiles_configs&gt;
-    &lt;coordinates&gt;
-        &lt;coordinate alt=&quot;150&quot; lat=&quot;53.120405&quot; lng=&quot;23.142700&quot; /&gt;
-        &lt;coordinate alt=&quot;150&quot; lat=&quot;53.115460&quot; lng=&quot;23.156433&quot; /&gt;
-    &lt;/coordinates&gt;
-    &lt;space id=&quot;PB_WI&quot; reference_map_path=&quot;data/pb_wi.xml&quot; url=&quot;https://wi.pb.edu.pl&quot;&gt;
-        &lt;coordinates&gt;
-            &lt;coordinate alt=&quot;150&quot; lat=&quot;53.11696&quot; lng=&quot;23.14564&quot; /&gt;
-            &lt;coordinate alt=&quot;150&quot; lat=&quot;53.11726&quot; lng=&quot;23.14709&quot; /&gt;
-            &lt;coordinate alt=&quot;150&quot; lat=&quot;53.11641&quot; lng=&quot;23.14759&quot; /&gt;
-            &lt;coordinate alt=&quot;150&quot; lat=&quot;53.11611&quot; lng=&quot;23.14614&quot; /&gt;
-        &lt;/coordinates&gt;
-    &lt;/space&gt;
+<map height="3072" id="PB_campus" route_path="routes/pb_campus.xml" url="http://pb.edu.pl/"
+    width="5120">
+    <tiles_configs>
+        <tiles_config height="256" path="tiles/pb_campus/1000/tile-%d_%d.png" width="256"
+            zoom="1" />
+        <tiles_config height="256" path="tiles/pb_campus/500/tile-%d_%d.png" width="256"
+            zoom="0.5" />
+        <tiles_config height="256" path="tiles/pb_campus/250/tile-%d_%d.png" width="256"
+            zoom="0.25" />
+    </tiles_configs>
+    <coordinates>
+        <coordinate alt="150" lat="53.120405" lng="23.142700" />
+        <coordinate alt="150" lat="53.115460" lng="23.156433" />
+    </coordinates>
+    <space id="PB_WI" reference_map_path="data/pb_wi.xml" url="https://wi.pb.edu.pl">
+        <coordinates>
+            <coordinate alt="150" lat="53.11696" lng="23.14564" />
+            <coordinate alt="150" lat="53.11726" lng="23.14709" />
+            <coordinate alt="150" lat="53.11641" lng="23.14759" />
+            <coordinate alt="150" lat="53.11611" lng="23.14614" />
+        </coordinates>
+    </space>
 
-    &lt;spot id=&quot;bkm_529&quot;&gt;
-        &lt;coordinates&gt;
-            &lt;coordinate alt=&quot;150&quot; lat=&quot;53.1162607&quot; lng=&quot;23.1451221&quot; /&gt;
-        &lt;/coordinates&gt;
-    &lt;/spot&gt;
-    &lt;!--...--&gt;
-&lt;/map&gt;
+    <spot id="bkm_529">
+        <coordinates>
+            <coordinate alt="150" lat="53.1162607" lng="23.1451221" />
+        </coordinates>
+    </spot>
+    <!--...-->
+</map>
 ```
 
 W moim przypadku każda mapa jest również powiązana z trasą składającą się z dwukierunkowych krawędzi:
 ```xml
-&lt;route id=&quot;pb_campus&quot;&gt;
-    &lt;edges&gt;
-        &lt;!--CAMPUS BEGIN--&gt;
-        &lt;edge&gt;
-            &lt;start alt=&quot;150&quot; lat=&quot;53.11653&quot; lng=&quot;23.14490&quot; /&gt;
-            &lt;end alt=&quot;150&quot; lat=&quot;53.11669&quot; lng=&quot;23.14553&quot; /&gt;
-        &lt;/edge&gt;
-        &lt;edge&gt;
-            &lt;start alt=&quot;150&quot; lat=&quot;53.11669&quot; lng=&quot;23.14553&quot; /&gt;
-            &lt;end alt=&quot;150&quot; lat=&quot;53.11697&quot; lng=&quot;23.14536&quot; /&gt;
-        &lt;/edge&gt;
-        &lt;edge&gt;
-            &lt;start alt=&quot;150&quot; lat=&quot;53.11697&quot; lng=&quot;23.14536&quot; /&gt;
-            &lt;end alt=&quot;150&quot; lat=&quot;53.11701&quot; lng=&quot;23.14551&quot; /&gt;
-        &lt;/edge&gt;
-        &lt;!--...--&gt;
-    &lt;/edges&gt;
-&lt;/route&gt;
+<route id="pb_campus">
+    <edges>
+        <!--CAMPUS BEGIN-->
+        <edge>
+            <start alt="150" lat="53.11653" lng="23.14490" />
+            <end alt="150" lat="53.11669" lng="23.14553" />
+        </edge>
+        <edge>
+            <start alt="150" lat="53.11669" lng="23.14553" />
+            <end alt="150" lat="53.11697" lng="23.14536" />
+        </edge>
+        <edge>
+            <start alt="150" lat="53.11697" lng="23.14536" />
+            <end alt="150" lat="53.11701" lng="23.14551" />
+        </edge>
+        <!--...-->
+    </edges>
+</route>
 ```
 
 Jeśli chodzi o same kafelki, możesz wykorzystać otwartoźródłowe dane np. z OpenStreetMap. Największą wartość mają jednak własnoręcznie przygotowane mapy. Mając obraz, kafelki mogą być wygenerowane przez dowolny program do generowania kafelków :) O ile pamiętam, sam używałem programu [ImageMagick](https://imagemagick.org/index.php) polecanego przez autora [TileView](https://github.com/moagrius/TileView/wiki/Creating-Tiles) — biblioteki stanowiącej rdzeń MapyPB:

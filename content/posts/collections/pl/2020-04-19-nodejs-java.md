@@ -52,11 +52,11 @@ Zdając sobie sprawę z tych dwóch warunków, możemy uruchomić skrypt w nast�
 
 ```java
 public void startNodeJsApp(String sciezkaDoBinNode, String sciezkaDoSkryptuAplikacji,
-        Map&lt;String, String&gt; zmienneSrodowiskoweAplikacji)
+        Map<String, String> zmienneSrodowiskoweAplikacji)
         throws IOException, InterruptedException {
     ProcessBuilder processBuilder = new ProcessBuilder();
     processBuilder.command(sciezkaDoBinNode, sciezkaDoSkryptuAplikacji);
-    Map&lt;String, String&gt; environment = processBuilder.environment();
+    Map<String, String> environment = processBuilder.environment();
     environment.putAll(zmienneSrodowiskoweAplikacji);
     processBuilder.inheritIO();
     processBuilder.start().waitFor();

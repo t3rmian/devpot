@@ -112,7 +112,7 @@ Istnieje również inny sprytny sposób zabezpieczenia strony statycznej, który
 > Hash hasła jest częścią identyfikatora URI. Konieczne jest wymuszenie komunikacji HTTPS, aby uniknąć ataków typu *man in the middle*.</br>
 > Wykorzystanie bezpośredniego linku spowoduje pominięcie loginu.  
 
-Podlinkowane wcześniej demo to wersja demonstracyjna pojedynczej strony. Rozwiązanie można z łatwością rozszerzyć na wiele stron. Jak widać, nasza strona może też łatwo wyciec, jeśli link zostanie udostępniony. Jeśli nie jest to dla Ciebie problem, ale nadal chcesz zminimalizować widoczność, warto dodatkowo umieścić wpis `&lt;meta name=&quot;robots&quot; content=&quot;noindex&quot; /&gt;` na stronie, aby odwiedzające roboty nie indeksowały naszej strony. Zasadniczo może to być całkiem poprawne rozwiązanie, jeśli jesteśmy jednoosobowym zespołem i znamy powyższe konsekwencje.
+Podlinkowane wcześniej demo to wersja demonstracyjna pojedynczej strony. Rozwiązanie można z łatwością rozszerzyć na wiele stron. Jak widać, nasza strona może też łatwo wyciec, jeśli link zostanie udostępniony. Jeśli nie jest to dla Ciebie problem, ale nadal chcesz zminimalizować widoczność, warto dodatkowo umieścić wpis `<meta name="robots" content="noindex" />` na stronie, aby odwiedzające roboty nie indeksowały naszej strony. Zasadniczo może to być całkiem poprawne rozwiązanie, jeśli jesteśmy jednoosobowym zespołem i znamy powyższe konsekwencje.
 
 ### Szyfrowanie stron
 

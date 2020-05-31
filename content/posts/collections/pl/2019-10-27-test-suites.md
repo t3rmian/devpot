@@ -71,13 +71,13 @@ Znając już możliwości filtrowania oraz zdając sobie sprawę z istnienia mod
 - `./gradlew test` - wywołuje testy jednostkowe na całym projekcie;
 - `./gradlew connectedAndroidTest` - wywołuje testy instrumentacyjne na całym projekcie;
 - `./gradlew app:connectedAndroidTest` - wywołuje testy instrumentacyjne na module *app*;
-- `./gradlew app:testDebug --tests=&lt;package.class&gt;` - wywołuje testy jednostkowe z danej klasy modułu *app* i wariantu *Debug*;
+- `./gradlew app:testDebug --tests=<package.class>` - wywołuje testy jednostkowe z danej klasy modułu *app* i wariantu *Debug*;
 - `./gradlew app:connectedVariantNameAndroidTest` -  wywołuje testy instrumentacyjne na module *app* oraz wariancie *VariantName* np. *Debug*;
 - `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.size=[small|medium|large]` - wywołanie testów z wybraną adnotacją `@SmallTest`, `@MediumTest` bądź `@LargeTest`;
 - `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.size=small,medium` - wywołanie testów z adnotacją `@SmallTest` bądź `@MediumTest`;
 - `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.FlakyTest` - zignorowanie testów adnotowanych `@FlakyTest`;
-- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=&lt;package&gt;` - tylko z wybranego pakietu;
-- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=&lt;package.class&gt;` - tylko z wybranej klasy (np. zestaw testowy).
+- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=<package>` - tylko z wybranego pakietu;
+- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=<package.class>` - tylko z wybranej klasy (np. zestaw testowy).
 
 Jeśli chcesz być bardziej hardcore, mozesz spróbować [wywoływania testów przez adb](https://developer.android.com/studio/test/command-line#RunTestsDevice). Nie jest to jednak koniec miłych rzeczy. Dzięki JUnit4 możemy również grupować testy w zestawy:
 
@@ -127,18 +127,18 @@ public interface SmallTest {
 ```
 Ok, dodaliśmy kategorie do naszych testów, ale w jaki sposób teraz wywołać jedynie małe testy?. Wymaga to pewnej praktycznej wiedzy na temat Mavena, ale na pewno łatwo podłapiesz temat. Po pierwsze, do testów integracyjnych użyjemy wtyczki `maven-failafe-plugin`, do testów jednostkowych z kolei przygotowano `maven-surefire-plugin`. Wspomnianą wtyczkę należy dodać do konfiguracji budowania projektu:
 ```xml
-&lt;build&gt;
-	&lt;plugins&gt;
-		&lt;plugin&gt;
-			&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-			&lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
-			&lt;version&gt;2.22.2&lt;/version&gt;
-			&lt;configuration&gt;
-				&lt;groups&gt;${test.groups}&lt;/groups&gt;
-			&lt;/configuration&gt;
-		&lt;/plugin&gt;
-	&lt;/plugins&gt;
-&lt;/build&gt;
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-failsafe-plugin</artifactId>
+			<version>2.22.2</version>
+			<configuration>
+				<groups>${test.groups}</groups>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
 ```
 
 Jest tu kilka rzeczy, o których warto wspomnieć. Najnowsze wersje wtyczki mają wsparcie dla kategorii JUnit4 (*junit47 provider*).
@@ -146,14 +146,14 @@ Konkretne grupy definiujemy następnie w konfiguracji. Aby zainicjalizować tę 
 Wystarczy, że w ramach projektu zdefiniujemy profil odpowiadający kategorii testów, które chcemy wykonać:
 
 ```xml
-&lt;profiles&gt;
-	&lt;profile&gt;
-		&lt;id&gt;SmallTest&lt;/id&gt;
-		&lt;properties&gt;
-			&lt;test.groups&gt;io.github.t3rmian.jmetersamples.SmallTest&lt;/test.groups&gt;
-		&lt;/properties&gt;
-	&lt;/profile&gt;
-&lt;/profiles&gt;
+<profiles>
+	<profile>
+		<id>SmallTest</id>
+		<properties>
+			<test.groups>io.github.t3rmian.jmetersamples.SmallTest</test.groups>
+		</properties>
+	</profile>
+</profiles>
 ```
 
 Dzięki takiej konfiguracji testy można uruchomić, wykonując fazę weryfikacji z naszym profilem: `mvnw Verify -P SmallTest`.

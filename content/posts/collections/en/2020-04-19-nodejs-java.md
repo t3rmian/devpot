@@ -52,11 +52,11 @@ Assuming you're aware of these shortcomings, we can run the script the following
 
 ```java
 public void startNodeJsApp(String pathToBinNode, String pathToAppScript,
-        Map&lt;String, String&gt; applicationEnvironmentVariables)
+        Map<String, String> applicationEnvironmentVariables)
         throws IOException, InterruptedException {
     ProcessBuilder processBuilder = new ProcessBuilder();
     processBuilder.command(pathToBinNode, pathToAppScript);
-    Map&lt;String, String&gt; environment = processBuilder.environment();
+    Map<String, String> environment = processBuilder.environment();
     environment.putAll(applicationEnvironmentVariables);
     processBuilder.inheritIO();
     processBuilder.start().waitFor();

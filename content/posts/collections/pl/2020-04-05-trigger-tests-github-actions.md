@@ -137,7 +137,7 @@ Odtąd, kolejne kroki będziemy również wykonywać w przy założeniu, że sta
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Pozostało jedynie wyodrębnić tę liczbę z danych w formacie JSON przy użyciu narzędzia `jq`. Możemy odwoływać się do danych pobranych w poprzednim kroku, używając składni: `${{ steps.&lt;step_id&gt;.outputs.&lt;variable&gt; }}`:
+Pozostało jedynie wyodrębnić tę liczbę z danych w formacie JSON przy użyciu narzędzia `jq`. Możemy odwoływać się do danych pobranych w poprzednim kroku, używając składni: `${{ steps.<step_id>.outputs.<variable> }}`:
 
 ```yaml
     - name: Wyodrębnij numer PR
@@ -150,7 +150,7 @@ Pozostało jedynie wyodrębnić tę liczbę z danych w formacie JSON przy użyci
         echo "::set-output name=pr_number::${PR_NUMBER}"
 ```
 
-Odwrotnie, użyjemy `echo &quot;::set-output name=&lt;variable_name&gt;::&lt;value&gt;"` do ustawienia takiej zmiennej.
+Odwrotnie, użyjemy `echo "::set-output name=<variable_name>::<value>"` do ustawienia takiej zmiennej.
 
 ### Zaciągnięcie kodu i wykonanie testów
 
