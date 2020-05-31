@@ -32,30 +32,30 @@ In some specific cases, though, you may get by with removing the bugged class fr
 To remove the class you can unpack the archive remove it and package it again. With Maven it's possible to automate it into the build process with some plugin like [truezip-maven-plugin](https://www.mojohaus.org/truezip/truezip-maven-plugin/):
 
 ```xml
-&lt;plugins&gt;
-  &lt;plugin&gt;
-    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-    &lt;artifactId&gt;truezip-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;1.2&lt;/version&gt;
-    &lt;executions&gt;
-      &lt;execution&gt;
-        &lt;id&gt;remove-a-file&lt;/id&gt;
-        &lt;goals&gt;
-          &lt;goal&gt;remove&lt;/goal&gt;
-        &lt;/goals&gt;
-        &lt;phase&gt;package&lt;/phase&gt;
-        &lt;configuration&gt;
-          &lt;fileset&gt;
-            &lt;directory&gt;${project.build.directory}/com.example.project.ear/lib/com.example.library.jar/&lt;/directory&gt;
-            &lt;includes&gt;
-              &lt;include&gt;com/example/library/Broken.class&lt;/include&gt;
-            &lt;/includes&gt;
-          &lt;/fileset&gt;
-        &lt;/configuration&gt;
-      &lt;/execution&gt;
-    &lt;/executions&gt;
-  &lt;/plugin&gt;
-&lt;/plugins&gt;
+<plugins>
+  <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>truezip-maven-plugin</artifactId>
+    <version>1.2</version>
+    <executions>
+      <execution>
+        <id>remove-a-file</id>
+        <goals>
+          <goal>remove</goal>
+        </goals>
+        <phase>package</phase>
+        <configuration>
+          <fileset>
+            <directory>${project.build.directory}/com.example.project.ear/lib/com.example.library.jar/</directory>
+            <includes>
+              <include>com/example/library/Broken.class</include>
+            </includes>
+          </fileset>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
+</plugins>
 ```
 
 Depending on whether you're deploying an exploded archive or not, you might want to edit the plugin configuration. It's quite a dirty way and not always applicable, so use it as a last resort when hotfixing stuff.

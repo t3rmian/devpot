@@ -106,15 +106,15 @@ W zależności od serwera taką bibliotekę możemy umieścić w:
 
 ### Tomcat
 
-Tomcat ma nieco odwrócony moduł ładowania. Najpierw ładowane są klasy Bootstrap potrzebne do działania JVM, następnie klasy z naszej aplikacji WWW, a na koniec klasy systemowe i wspólne (Common ClassLoader). Aby włączyć standardowy model delegowania, należy dodać element `&lt;Loader delegate=&quot;true&quot;/&gt;` wewnątrz `&lt;Context&gt;&lt;/Context&gt;` w konfiguracji Tomcata `conf/context.xml` bądź w naszej paczce WAR w katalogu `META-INF/context.xml`.
+Tomcat ma nieco odwrócony moduł ładowania. Najpierw ładowane są klasy Bootstrap potrzebne do działania JVM, następnie klasy z naszej aplikacji WWW, a na koniec klasy systemowe i wspólne (Common ClassLoader). Aby włączyć standardowy model delegowania, należy dodać element `<Loader delegate="true"/>` wewnątrz `<Context></Context>` w konfiguracji Tomcata `conf/context.xml` bądź w naszej paczce WAR w katalogu `META-INF/context.xml`.
 
 ```xml
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;Context&gt;
-  &lt;Loader delegate=&quot;true&quot;/&gt;
-  &lt;WatchedResource&gt;WEB-INF/web.xml&lt;/WatchedResource&gt;
-  &lt;WatchedResource&gt;${catalina.base}/conf/web.xml&lt;/WatchedResource&gt;
-&lt;/Context&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+  <Loader delegate="true"/>
+  <WatchedResource>WEB-INF/web.xml</WatchedResource>
+  <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+</Context>
 ```
 
 ### Podsumowanie

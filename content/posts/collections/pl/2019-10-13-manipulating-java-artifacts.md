@@ -32,30 +32,30 @@ W szczególnych przypadkach jedną z możliwych opcji uporania się ze zbugowan�
 Usunięcie klasy jest proste i sprowadza się do rozpakowania archiwum, usunięcia jej i spakowania ponownie. Dzięki Mavenowi możliwe jest zautomatyzowanie tego procesu na etapie przygotowania paczki za pomocą wtyczki, takiej jak np. [truezip-maven-plugin](https://www.mojohaus.org/truezip/truezip-maven-plugin/):
 
 ```xml
-&lt;plugins&gt;
-  &lt;plugin&gt;
-    &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-    &lt;artifactId&gt;truezip-maven-plugin&lt;/artifactId&gt;
-    &lt;version&gt;1.2&lt;/version&gt;
-    &lt;executions&gt;
-      &lt;execution&gt;
-        &lt;id&gt;remove-a-file&lt;/id&gt;
-        &lt;goals&gt;
-          &lt;goal&gt;remove&lt;/goal&gt;
-        &lt;/goals&gt;
-        &lt;phase&gt;package&lt;/phase&gt;
-        &lt;configuration&gt;
-          &lt;fileset&gt;
-            &lt;directory&gt;${project.build.directory}/com.example.project.ear/lib/com.example.library.jar/&lt;/directory&gt;
-            &lt;includes&gt;
-              &lt;include&gt;com/example/library/Broken.class&lt;/include&gt;
-            &lt;/includes&gt;
-          &lt;/fileset&gt;
-        &lt;/configuration&gt;
-      &lt;/execution&gt;
-    &lt;/executions&gt;
-  &lt;/plugin&gt;
-&lt;/plugins&gt;
+<plugins>
+  <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>truezip-maven-plugin</artifactId>
+    <version>1.2</version>
+    <executions>
+      <execution>
+        <id>remove-a-file</id>
+        <goals>
+          <goal>remove</goal>
+        </goals>
+        <phase>package</phase>
+        <configuration>
+          <fileset>
+            <directory>${project.build.directory}/com.example.project.ear/lib/com.example.library.jar/</directory>
+            <includes>
+              <include>com/example/library/Broken.class</include>
+            </includes>
+          </fileset>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
+</plugins>
 ```
 
 W zależności od tego, czy ładować będziesz (serwer) spakowaną paczkę czy też rozpakowane (exploded) archiwum, może zajść potrzeba dodatkowej konfiguracji wtyczki. Ten sposób nie jest zbyt elegancki i nie zawsze można go wykorzystać, warto jednak o nim pamiętać, gdyż w ostateczności może się przydać. Szczególnie gdy hotfix jest potrzebny na wczoraj, a klient z każdą sekundą traci pieniądze.

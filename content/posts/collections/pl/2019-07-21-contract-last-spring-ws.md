@@ -25,54 +25,54 @@ Przy okazji, najprawdopodobniej przydają ci się również moduły `spring-boot
 
 
 ```xml
-&lt;dependency&gt;
-	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-	&lt;artifactId&gt;spring-boot-starter-web-services&lt;/artifactId&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;wsdl4j&lt;/groupId&gt;
-	&lt;artifactId&gt;wsdl4j&lt;/artifactId&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
-	&lt;artifactId&gt;jaxb-runtime&lt;/artifactId&gt;
-	&lt;version&gt;2.3.2&lt;/version&gt;
-	&lt;scope&gt;runtime&lt;/scope&gt;
-&lt;/dependency&gt;
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web-services</artifactId>
+</dependency>
+<dependency>
+	<groupId>wsdl4j</groupId>
+	<artifactId>wsdl4j</artifactId>
+</dependency>
+<dependency>
+	<groupId>org.glassfish.jaxb</groupId>
+	<artifactId>jaxb-runtime</artifactId>
+	<version>2.3.2</version>
+	<scope>runtime</scope>
+</dependency>
 ```
 
 Kolejnym krokiem jest dodanie wtyczki jaxb2 do procesu budowania. Będziemy z niej korzystać w celu wygenerowania schematu `.xsd` (ang. XML Schema Definition). Plik ten zostanie również dodany do dokumentu WSDL. Źródłem informacji potrzebnych do stworzenia schematu będą odpowiednio adnotowane klasy Java.
 
 ```xml
-&lt;plugin&gt;
-	&lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-	&lt;artifactId&gt;jaxb2-maven-plugin&lt;/artifactId&gt;
-	&lt;version&gt;2.4&lt;/version&gt;
-	&lt;executions&gt;
-		&lt;execution&gt;
-			&lt;id&gt;schemagen&lt;/id&gt;
-			&lt;phase&gt;generate-sources&lt;/phase&gt;
-			&lt;goals&gt;
-				&lt;goal&gt;schemagen&lt;/goal&gt;
-			&lt;/goals&gt;
-		&lt;/execution&gt;
-	&lt;/executions&gt;
-	&lt;configuration&gt;
-		&lt;sources&gt;
-			&lt;source&gt;${basedir}/src/main/java/io/github/t3rmian/jmetersamples/data&lt;/source&gt;
-			&lt;source&gt;${basedir}/src/main/java/io/github/t3rmian/jmetersamples/controller/dto&lt;/source&gt;
-			&lt;source&gt;${basedir}/src/main/java/io/github/t3rmian/jmetersamples/controller/ws/dto&lt;/source&gt;
-		&lt;/sources&gt;
-		&lt;outputDirectory&gt;${project.build.directory}/classes&lt;/outputDirectory&gt;
-		&lt;transformSchemas&gt;
-			&lt;transformSchema&gt;
-				&lt;uri&gt;https://github.com/t3rmian/jmeter-samples&lt;/uri&gt;
-				&lt;toPrefix&gt;t3r&lt;/toPrefix&gt;
-				&lt;toFile&gt;users.xsd&lt;/toFile&gt;
-			&lt;/transformSchema&gt;
-		&lt;/transformSchemas&gt;
-	&lt;/configuration&gt;
-&lt;/plugin&gt;
+<plugin>
+	<groupId>org.codehaus.mojo</groupId>
+	<artifactId>jaxb2-maven-plugin</artifactId>
+	<version>2.4</version>
+	<executions>
+		<execution>
+			<id>schemagen</id>
+			<phase>generate-sources</phase>
+			<goals>
+				<goal>schemagen</goal>
+			</goals>
+		</execution>
+	</executions>
+	<configuration>
+		<sources>
+			<source>${basedir}/src/main/java/io/github/t3rmian/jmetersamples/data</source>
+			<source>${basedir}/src/main/java/io/github/t3rmian/jmetersamples/controller/dto</source>
+			<source>${basedir}/src/main/java/io/github/t3rmian/jmetersamples/controller/ws/dto</source>
+		</sources>
+		<outputDirectory>${project.build.directory}/classes</outputDirectory>
+		<transformSchemas>
+			<transformSchema>
+				<uri>https://github.com/t3rmian/jmeter-samples</uri>
+				<toPrefix>t3r</toPrefix>
+				<toFile>users.xsd</toFile>
+			</transformSchema>
+		</transformSchemas>
+	</configuration>
+</plugin>
 ```
 
 Jako ścieżkę w konfiguracji źródeł podaj pakiety z klasami z adnotacjami JAXB (przejdziemy do nich za moment). W przypadku katalog wyjściowego, wygenerowany schemat (podczas fazy generowania kodu źródłowego do dodania przy kompilacji) najlepiej umieścić na ścieżce `target/classes`. W ten sposób Spring Boot (Web) obsłuży go jako zasób. Na koniec możesz również edytować konfiguracje transformacji w zależności od potrzeb. Nie zapomnij nazwy umieszczonej w elemencie 'toFile. Użyjemy jej podczas implementacji generowania pliku WSDL. Jeśli postanowisz nie używać transformacji to wiedz, że nazwy schematów zostaną automatycznie ustawione na wzór `schema1.xsd`.
@@ -392,56 +392,56 @@ public class ReflectionWsdl11Definition extends DefaultWsdl11Definition {
 Na koniec wywołaj `mvn clean install` bądź `mvn jaxb2:schemagen` w celu wygenerowania schematu XSD. W razie braku Mavena, możesz skorzystać z nakładki `mvnw` z przykładowego projektu. Następnie uruchom aplikację (poprzez IDE bądź wywołując `mvn spring-boot:run`). Dokument WSDL powinien zostać wygenerowany podczas startu. Jeśli wszystko zostało skonfigurowane poprawnie, to WSDL dostępny będzie pod adresem (w naszym przypadku)  http://localhost:8080/ws/users.wsdl. Teraz możesz załadować usługę w SoapUI bądź skorzystać z narzędzia *curl*.
 
 ```xml
-&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:t3r=&quot;https://github.com/t3rmian/jmeter-samples&quot;&gt;
-   &lt;soapenv:Header/&gt;
-   &lt;soapenv:Body&gt;
-      &lt;t3r:getUserRequest&gt;
-         &lt;t3r:id&gt;1&lt;/t3r:id&gt;
-      &lt;/t3r:getUserRequest&gt;
-   &lt;/soapenv:Body&gt;
-&lt;/soapenv:Envelope&gt;
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:t3r="https://github.com/t3rmian/jmeter-samples">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <t3r:getUserRequest>
+         <t3r:id>1</t3r:id>
+      </t3r:getUserRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
 ```
 
 ```xml
-&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
-   &lt;SOAP-ENV:Header/&gt;
-   &lt;SOAP-ENV:Body&gt;
-      &lt;ns2:getUserResponse xmlns:ns2=&quot;https://github.com/t3rmian/jmeter-samples&quot;&gt;
-         &lt;ns2:id&gt;1&lt;/ns2:id&gt;
-         &lt;ns2:name&gt;doe&lt;/ns2:name&gt;
-         &lt;ns2:email&gt;doe@example.com&lt;/ns2:email&gt;
-         &lt;ns2:registrationDate&gt;2019-07-11T20:21:56.258+02:00&lt;/ns2:registrationDate&gt;
-         &lt;ns2:profiles&gt;
-            &lt;ns2:id&gt;2&lt;/ns2:id&gt;
-            &lt;ns2:externalId&gt;doeLinkedInId&lt;/ns2:externalId&gt;
-            &lt;ns2:type&gt;LINKEDIN&lt;/ns2:type&gt;
-         &lt;/ns2:profiles&gt;
-         &lt;ns2:profiles&gt;
-            &lt;ns2:id&gt;3&lt;/ns2:id&gt;
-            &lt;ns2:externalId&gt;doeTwitterId&lt;/ns2:externalId&gt;
-            &lt;ns2:type&gt;TWITTER&lt;/ns2:type&gt;
-         &lt;/ns2:profiles&gt;
-      &lt;/ns2:getUserResponse&gt;
-   &lt;/SOAP-ENV:Body&gt;
-&lt;/SOAP-ENV:Envelope&gt;
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header/>
+   <SOAP-ENV:Body>
+      <ns2:getUserResponse xmlns:ns2="https://github.com/t3rmian/jmeter-samples">
+         <ns2:id>1</ns2:id>
+         <ns2:name>doe</ns2:name>
+         <ns2:email>doe@example.com</ns2:email>
+         <ns2:registrationDate>2019-07-11T20:21:56.258+02:00</ns2:registrationDate>
+         <ns2:profiles>
+            <ns2:id>2</ns2:id>
+            <ns2:externalId>doeLinkedInId</ns2:externalId>
+            <ns2:type>LINKEDIN</ns2:type>
+         </ns2:profiles>
+         <ns2:profiles>
+            <ns2:id>3</ns2:id>
+            <ns2:externalId>doeTwitterId</ns2:externalId>
+            <ns2:type>TWITTER</ns2:type>
+         </ns2:profiles>
+      </ns2:getUserResponse>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
 ```
 
 ```xml
-&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
-   &lt;SOAP-ENV:Header/&gt;
-   &lt;SOAP-ENV:Body&gt;
-      &lt;SOAP-ENV:Fault&gt;
-         &lt;faultcode&gt;SOAP-ENV:Client&lt;/faultcode&gt;
-         &lt;faultstring xml:lang=&quot;en&quot;&gt;User with id 2 not found&lt;/faultstring&gt;
-         &lt;detail&gt;
-            &lt;ns2:commonFault xmlns:ns2=&quot;https://github.com/t3rmian/jmeter-samples&quot;&gt;
-               &lt;ns2:error&gt;User with id 2 not found&lt;/ns2:error&gt;
-               &lt;ns2:time&gt;2019-07-11T20:24:02.701+02:00&lt;/ns2:time&gt;
-            &lt;/ns2:commonFault&gt;
-         &lt;/detail&gt;
-      &lt;/SOAP-ENV:Fault&gt;
-   &lt;/SOAP-ENV:Body&gt;
-&lt;/SOAP-ENV:Envelope&gt;
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
+   <SOAP-ENV:Header/>
+   <SOAP-ENV:Body>
+      <SOAP-ENV:Fault>
+         <faultcode>SOAP-ENV:Client</faultcode>
+         <faultstring xml:lang="en">User with id 2 not found</faultstring>
+         <detail>
+            <ns2:commonFault xmlns:ns2="https://github.com/t3rmian/jmeter-samples">
+               <ns2:error>User with id 2 not found</ns2:error>
+               <ns2:time>2019-07-11T20:24:02.701+02:00</ns2:time>
+            </ns2:commonFault>
+         </detail>
+      </SOAP-ENV:Fault>
+   </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
 ```
 
 Nie zapomnij włączyć walidacji podczas testowania interfejsu. W SoapUI możesz to zrobić zaznaczając pola *Validate Requests* oraz *Validate Responses* w menu *-> File -> Preferences -> Editor Setting*. Jeśli natkniesz się na jakiekolwiek problemy, zawsze możesz spojrzeć na przykładowy projekt u góry strony. Z góry uprzedzam, że przy użyciu nowszych wersji JDK możesz napotkać [nieprzewidziane błędy](https://github.com/mojohaus/jaxb2-maven-plugin/issues/129). W celu uzyskania większej kontroli nad definicją schematu XSD polecam [JAXB-Facets](https://github.com/whummer/jaxb-facets).

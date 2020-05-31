@@ -17,7 +17,7 @@ First, add *INTERNET* permissions in manifest element in `AndroidManifest.xml`. 
 You could, of course, implement a solution involving external storage instead and I will hint you later the code would differ.
 
 ```xml
-&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+<uses-permission android:name="android.permission.INTERNET" />
 ```
 
 We will use the *Retrofit2* library to implement a REST interface on the client side. If you're not familiar with this library, it significantly simplifies communication with REST services. Add AndroidX test libraries which including core, runner, rules, and integration with JUnit.

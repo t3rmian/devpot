@@ -137,7 +137,7 @@ From now on, we will also run the steps only on the 'success' event state, as we
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-All that's left is to extract this number from the JSON data using `jq`. We can refer to the output set by a previous step using `${{ steps.&lt;step_id&gt;.outputs.&lt;variable&gt; }}` syntax:
+All that's left is to extract this number from the JSON data using `jq`. We can refer to the output set by a previous step using `${{ steps.<step_id>.outputs.<variable> }}` syntax:
 
 ```yaml
     - name: Extract PR number
@@ -150,7 +150,7 @@ All that's left is to extract this number from the JSON data using `jq`. We can 
         echo "::set-output name=pr_number::${PR_NUMBER}"
 ```
 
-Similarly, we use `echo &quot;::set-output name=&lt;variable_name&gt;::&lt;value&gt;"` to set such variable.
+Similarly, we use `echo "::set-output name=<variable_name>::<value>"` to set such variable.
 
 ### Checkout and run tests
 

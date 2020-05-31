@@ -72,13 +72,13 @@ Having touched the filtering and modules, you can meddle with your test executio
 - `./gradlew test` - run local unit tests for whole project;
 - `./gradlew connectedAndroidTest` - run instrumented tests on a device for whole project;
 - `./gradlew app:connectedAndroidTest` - run instrumented tests on a device for *app* module;
-- `./gradlew app:testDebug --tests=&lt;package.class&gt;` - run local unit tests from given class for the *app* module in *debug* flavor;
+- `./gradlew app:testDebug --tests=<package.class>` - run local unit tests from given class for the *app* module in *debug* flavor;
 - `./gradlew app:connectedVariantNameAndroidTest` - run instrumented tests on a device for app module and *VariantName* e.g. Debug;
 - `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.size=[small|medium|large]` - run tests annotated with `@SmallTest`, `@MediumTest`, `@LargeTest`;
 - `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.size=small,medium` - run only the tests annotated with `@SmallTest` and `@MediumTest`;
 - `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.notAnnotation=androidx.test.filters.FlakyTest` - filter out tests with `@FlakyTest` annotation;
-- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=&lt;package&gt;` - only from the selected package;
-- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=&lt;package.class&gt;` - only for the selected class (usefull for test suites).
+- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.package=<package>` - only from the selected package;
+- `./gradlew app:connectedAndroidTest -Pandroid.testInstrumentationRunnerArguments.class=<package.class>` - only for the selected class (usefull for test suites).
 
 If you're more hardcore, you can even try [running tests with adb](https://developer.android.com/studio/test/command-line#RunTestsDevice). But that's not the end of nice things. With JUnit4 you can group your tests in proper suites:
 ```java
@@ -130,18 +130,18 @@ Ok, so we've got our categorized tests, but how do we run only the small tests? 
 Firstly, for integration tests we will use `maven-failsafe-plugin`, for unit tests, it's recommended to configure `maven-surefire-plugin`. Include the
 mentioned plugin in the build phase:
 ```xml
-&lt;build&gt;
-	&lt;plugins&gt;
-		&lt;plugin&gt;
-			&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-			&lt;artifactId&gt;maven-failsafe-plugin&lt;/artifactId&gt;
-			&lt;version&gt;2.22.2&lt;/version&gt;
-			&lt;configuration&gt;
-				&lt;groups&gt;${test.groups}&lt;/groups&gt;
-			&lt;/configuration&gt;
-		&lt;/plugin&gt;
-	&lt;/plugins&gt;
-&lt;/build&gt;
+<build>
+	<plugins>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-failsafe-plugin</artifactId>
+			<version>2.22.2</version>
+			<configuration>
+				<groups>${test.groups}</groups>
+			</configuration>
+		</plugin>
+	</plugins>
+</build>
 ```
 
 There are a few things worth mentioning here. We use the most recent version to facilitate junit47 provider which supports JUnit4 categories.
@@ -149,14 +149,14 @@ Next, we have a unresolvable symbol in the groups configuration. To initialize t
 profile, under the project, corresponding to the test category which will be executed:
 
 ```xml
-&lt;profiles&gt;
-	&lt;profile&gt;
-		&lt;id&gt;SmallTest&lt;/id&gt;
-		&lt;properties&gt;
-			&lt;test.groups&gt;io.github.t3rmian.jmetersamples.SmallTest&lt;/test.groups&gt;
-		&lt;/properties&gt;
-	&lt;/profile&gt;
-&lt;/profiles&gt;
+<profiles>
+	<profile>
+		<id>SmallTest</id>
+		<properties>
+			<test.groups>io.github.t3rmian.jmetersamples.SmallTest</test.groups>
+		</properties>
+	</profile>
+</profiles>
 ```
 
 With such configuration the tests can be run by executing the verify phase with the corresponding profile: `mvnw verify -P SmallTest`.
