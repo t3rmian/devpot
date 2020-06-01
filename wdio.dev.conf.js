@@ -55,7 +55,7 @@ exports.config = {
         // 5 instances get started at a time.
         maxInstances: 5,
         //
-        browserName: 'chrome',
+        browserName: 'firefox',
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -108,7 +108,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [],
+    services: ['selenium-standalone'],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -193,8 +193,7 @@ exports.config = {
         global.expect   = chai.expect;
         global.assert   = chai.assert;
         global.should   = chai.should();
-        global.SITE_URL = process.env.SITE_URL || "https://blog.termian.dev/";
-        console.log("SITE_URL: " + global.SITE_URL);
+        global.SITE_URL = "http://localhost:3000/";
         global.waitForLoad = (selector) => {
           if (selector == null) throw new Error("No selector provided for waitForLoad()")
           browser.waitUntil(
