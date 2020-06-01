@@ -209,7 +209,7 @@ exports.config = {
             () => {
               return !$(selector).isExisting()
             },
-            5000,
+            10000,
             "Expected loading finish"
           );
         };

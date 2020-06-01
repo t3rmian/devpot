@@ -2,6 +2,7 @@ const { Given, When, Then } = require('cucumber');
 
 Given('I go to the blog index page', () => {
   browser.url(SITE_URL);
+  waitForUnload();
 });
 Then('I should see a list of 5 article titles at most', () => {
   expect($$('.date-col').length).to.be.below(6)
@@ -15,6 +16,7 @@ Then('I should see a list of all blog article titles', () => {
 });
 
 When('I click on any article on home page', () => {
+  waitForUnload();
   const index = Math.floor(Math.random() * 4);
   const article = $$('.date-col+td a')[index];
   this.previousUrl = browser.getUrl();
@@ -62,6 +64,7 @@ Then('I should be presented with a message that nothing has been found', () => {
 });
 
 When('I click on any tag from the tag cloud', () => {
+  waitForUnload();
   browser.setWindowSize(1600, browser.getWindowSize().height);
   const tags = $$('.tag-cloud-container a');
   const index = Math.floor(Math.random() * tags.length);

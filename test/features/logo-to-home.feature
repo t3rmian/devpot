@@ -6,7 +6,7 @@ Feature: Read article
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: Clicking on logo redirects to the index page
         When I click on the most recent article page
