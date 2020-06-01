@@ -17,7 +17,7 @@ Przejdźmy więc do konkretów.
 Na początku dodamy uprawnienie dla aplikacji na korzystanie z internetu wewnątrz elementu manifest w pliku `AndroidManifest.xml`. Będziemy tego potrzebowali w celu wysłania zrzutu ekranu na jakikolwiek serwer. Można oczywiście zaimplementować rozwiązanie w oparciu o zewnętrzną pamięć masową, dlatego też w dalszej części zasygnalizuję miejsce, w którym nasz kod nieco by się różnił.
 
 ```xml
-&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+<uses-permission android:name="android.permission.INTERNET" />
 ```
 
 Skorzystamy z biblioteki *Retrofit2* w celu implementacji interfejsu po stronie klienta. Pozwala ona na znaczne uproszczenie komunikacji z serwisami REST-owymi. Nie zapomnij również dodać paczek — AndroidX — na bazie których zbudujemy nasze testy (core, runner, rules oraz integracja z JUnitem).

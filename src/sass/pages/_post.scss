@@ -265,3 +265,28 @@
         }
     }
 }
+.social {
+    text-align: center;
+    margin-top: 8px;
+}
+
+.social button {
+    padding: 2rem !important;
+}
+
+@media (min-width: 1401px) and (min-height: 600px) {
+    .social {
+        visibility: hidden;
+        opacity: 0;
+        transition:
+            visibility $element-transition-delay $element-transition-timing-function,
+            opacity $element-transition-delay $element-transition-timing-function,
+            color $theme-transition-delay $theme-transition-timing-function !important;
+        margin: 0;
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        right: 16px;
+        bottom: 0;
+    }
+}

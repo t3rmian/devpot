@@ -6,6 +6,7 @@ tags:
   - jee
   - weblogic
   - spring
+  - classloading
 author: Damian Terlecki
 date: 2020-02-23T20:00:00
 ---
@@ -17,26 +18,26 @@ Why would you ever want to have your Spring Boot application deployed on a Java 
 Spring Boot applications are usually built into jars with embedded web servers. This is done thanks to the starter dependencies. For example, the primary web starter `spring-boot-starter-web` by default includes 'spring-boot-starter-tomcat' which in turn includes `tomcat-embed-core`. Of course, Tomcat is not the only viable option for choosing an embedded web server. Spring Boot also provides other starters like Jetty `spring-boot-starter-jetty` and Undertow `spring-boot-starter-undertow`. 
 
 ```xml
-&lt;properties&gt;
-	&lt;servlet-api.version&gt;3.1.0&lt;/servlet-api.version&gt;
-&lt;/properties&gt;
-&lt;!-- Usual initial configuration --&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-	&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
-	&lt;exclusions&gt;
-		&lt;!-- Exclude the Tomcat dependency if you decide to use a different Web Server --&gt;
-		&lt;exclusion&gt;
-			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-			&lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
-		&lt;/exclusion&gt;
-	&lt;/exclusions&gt;
-&lt;/dependency&gt;
-&lt;!-- For an example, you can use Jetty instead --&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-	&lt;artifactId&gt;spring-boot-starter-jetty&lt;/artifactId&gt;
-&lt;/dependency&gt;
+<properties>
+	<servlet-api.version>3.1.0</servlet-api.version>
+</properties>
+<!-- Usual initial configuration -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-web</artifactId>
+	<exclusions>
+		<!-- Exclude the Tomcat dependency if you decide to use a different Web Server -->
+		<exclusion>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+		</exclusion>
+	</exclusions>
+</dependency>
+<!-- For an example, you can use Jetty instead -->
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-jetty</artifactId>
+</dependency>
 ```
 
 The first step on the road to the Application Server is to remove the embedded web server from the JAR and switch to WAR packaging. With web application archive (WAR) we will be able to deploy our web application not only on an application server (WebLogic) but also on a dedicated web server (Tomcat). This is quite easy and requires switching from `<packaging>jar</packaging>` to `<packaging>war</packaging>`.
@@ -44,24 +45,24 @@ The first step on the road to the Application Server is to remove the embedded w
 Secondly, we have to switch the web server starter dependency from the default `compile` scope to `provided`. This way the relevant classes will not be packaged into the WAR, as we will expect the container to provide necessary dependencies at the runtime.
 
 ```xml
-&lt;!-- Replace spring-boot-starter-tomcat with chosen web server starter and set the scope to provided --&gt;
-&lt;dependency&gt;
-   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-   &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;
-   &lt;scope&gt;provided&lt;/scope&gt;
-&lt;/dependency&gt;
+<!-- Replace spring-boot-starter-tomcat with chosen web server starter and set the scope to provided -->
+<dependency>
+   <groupId>org.springframework.boot</groupId>
+   <artifactId>spring-boot-starter-tomcat</artifactId>
+   <scope>provided</scope>
+</dependency>
 ```
 
 Ok, but aren't we missing something? With the JAR method, we specified the main method for the build package phase in the `spring-boot-maven-plugin`:
 
 ```xml
-&lt;plugin&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
-    &lt;configuration&gt;
-        &lt;mainClass&gt;com.example.app.Main&lt;/mainClass&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <mainClass>com.example.app.Main</mainClass>
+    </configuration>
+</plugin>
 ```
 
 To load your Spring application configuration in the container environment, we have to set up the starting point equivalent of the main method (which will configure the dispatcher, filters, servlets and listeners). Keep in mind that this configuration is for Servlet API 3.1+ (Spring Boot 2 + WLS 12.2.1). For legacy versions, [spring-boot-legacy](https://github.com/dsyer/spring-boot-legacy) might be helpful.
@@ -95,46 +96,46 @@ In the case of WebLogic and other application servers, you have basically two op
 To set up this, add a configuration file at `src/main/webapp/WEB-INF/weblogic.xml`. A sample configuration which prefers Jersey libraries packed with the application might look like [this](https://github.com/jersey/jersey/blob/faa809da43538ce31076b50f969b4bd64caa5ac9/tests/mem-leaks/test-cases/bean-param-leak/src/main/webapp/WEB-INF/weblogic.xml):
 
 ```xml
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;wls:weblogic-web-app xmlns:wls=&quot;http://xmlns.oracle.com/weblogic/weblogic-web-app&quot;
-        xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-        xsi:schemaLocation=&quot;http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd&quot;&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd">
 
-    &lt;wls:container-descriptor&gt;
-        &lt;wls:prefer-application-packages&gt;
-            &lt;!-- jsr311 --&gt;
-            &lt;wls:package-name&gt;javax.ws.rs.*&lt;/wls:package-name&gt;
-            &lt;!-- javassist --&gt;
-            &lt;wls:package-name&gt;javassist.*&lt;/wls:package-name&gt;
-            &lt;!-- aop repackaged --&gt;
-            &lt;wls:package-name&gt;org.aopalliance.*&lt;/wls:package-name&gt;
+    <wls:container-descriptor>
+        <wls:prefer-application-packages>
+            <!-- jsr311 -->
+            <wls:package-name>javax.ws.rs.*</wls:package-name>
+            <!-- javassist -->
+            <wls:package-name>javassist.*</wls:package-name>
+            <!-- aop repackaged -->
+            <wls:package-name>org.aopalliance.*</wls:package-name>
 
-            &lt;!-- jersey 2 --&gt;
-            &lt;wls:package-name&gt;jersey.repackaged.*&lt;/wls:package-name&gt;
-            &lt;wls:package-name&gt;org.glassfish.jersey.*&lt;/wls:package-name&gt;
-            &lt;wls:package-name&gt;com.sun.research.ws.wadl.*&lt;/wls:package-name&gt;
+            <!-- jersey 2 -->
+            <wls:package-name>jersey.repackaged.*</wls:package-name>
+            <wls:package-name>org.glassfish.jersey.*</wls:package-name>
+            <wls:package-name>com.sun.research.ws.wadl.*</wls:package-name>
 
-            &lt;!-- hk2 --&gt;
-            &lt;wls:package-name&gt;org.glassfish.hk2.*&lt;/wls:package-name&gt;
-            &lt;wls:package-name&gt;org.jvnet.hk2.*&lt;/wls:package-name&gt;
-            &lt;wls:package-name&gt;org.jvnet.tiger_types.*&lt;/wls:package-name&gt;
-        &lt;/wls:prefer-application-packages&gt;
+            <!-- hk2 -->
+            <wls:package-name>org.glassfish.hk2.*</wls:package-name>
+            <wls:package-name>org.jvnet.hk2.*</wls:package-name>
+            <wls:package-name>org.jvnet.tiger_types.*</wls:package-name>
+        </wls:prefer-application-packages>
 
-        &lt;wls:prefer-application-resources&gt;
-            &lt;wls:resource-name&gt;META-INF/services/javax.servlet.ServletContainerInitializer&lt;/wls:resource-name&gt;
-            &lt;wls:resource-name&gt;META-INF/services/javax.ws.rs.ext.RuntimeDelegate&lt;/wls:resource-name&gt;
+        <wls:prefer-application-resources>
+            <wls:resource-name>META-INF/services/javax.servlet.ServletContainerInitializer</wls:resource-name>
+            <wls:resource-name>META-INF/services/javax.ws.rs.ext.RuntimeDelegate</wls:resource-name>
 
-            &lt;!-- jersey --&gt;
-            &lt;wls:resource-name&gt;META-INF/services/org.glassfish.jersey.*&lt;/wls:resource-name&gt;
-            &lt;wls:resource-name&gt;org.glassfish.jersey.*&lt;/wls:resource-name&gt;
-            &lt;wls:resource-name&gt;jersey.repackaged.*&lt;/wls:resource-name&gt;
+            <!-- jersey -->
+            <wls:resource-name>META-INF/services/org.glassfish.jersey.*</wls:resource-name>
+            <wls:resource-name>org.glassfish.jersey.*</wls:resource-name>
+            <wls:resource-name>jersey.repackaged.*</wls:resource-name>
 
-            &lt;!-- hk2 --&gt;
-            &lt;wls:resource-name&gt;META-INF/services/org.glassfish.hk2.*&lt;/wls:resource-name&gt;
-        &lt;/wls:prefer-application-resources&gt;
-    &lt;/wls:container-descriptor&gt;
+            <!-- hk2 -->
+            <wls:resource-name>META-INF/services/org.glassfish.hk2.*</wls:resource-name>
+        </wls:prefer-application-resources>
+    </wls:container-descriptor>
 
-&lt;/wls:weblogic-web-app&gt;
+</wls:weblogic-web-app>
 ```
 
 But to know which libraries should be preferred in our case some analysis must be done first, otherwise, we are prone to errors like `java.lang.LinkageError`, `java.lang.NoClassDefFoundError` and `java.lang.ClassNotFoundException`. We need to know which packages are provided by the application server and which come with our application. To detect and resolve such conflicts, Oracle provides the **Classloader Analysis Tool (CAT)**. It's a web application that usually resides at `%WL_HOME%/wlserver/server/lib/wls-cat.war`. By default it is deployed at [localhost:port/wls-cat](http://localhost:7001/wls-cat), so you might want to check it first before deploying it manually using the console. A great reference on how to use this application and resolve conflicts is a [guide on the Syscon Middleware blog](https://blog.sysco.no/class/loader/AnalysingClassLoadingConflicts/).
@@ -154,13 +155,13 @@ It might be still quirky to get the `prefer-application-resources` right. It's g
 When deploying Spring application on an application server, the more dependencies you pull (JPA/Bean validation) the more conflicts you will have. It's a good idea to keep this in mind during development if you plan on deploying the WebLogic. Lastly, if you want to configure the context-path of your Spring Boot application deployed on the WebLogic, you can do so using mentioned before `weblogic.xml` configuration file:
 
 ```xml
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;wls:weblogic-web-app xmlns:wls=&quot;http://xmlns.oracle.com/weblogic/weblogic-web-app&quot;
-  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-  xsi:schemaLocation=&quot;http://xmlns.oracle.com/weblogic/weblogic-web-app
-                      http://xmlns.oracle.com/weblogic/weblogic-web-app/1.8/weblogic-web-app.xsd&quot;&gt;
-  &lt;wls:context-root&gt;my-app&lt;/wls:context-root&gt;
-&lt;/wls:weblogic-web-app&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app
+                      http://xmlns.oracle.com/weblogic/weblogic-web-app/1.8/weblogic-web-app.xsd">
+  <wls:context-root>my-app</wls:context-root>
+</wls:weblogic-web-app>
 ```
 
 This value will overwrite `server.servlet.context-path` value from `src/main/resources/application.yml` and the application will be server under correct path on the WebLogic.
@@ -190,29 +191,29 @@ JAX-RS application resources can still be scanned by the WebLogic. This would be
 To do this, just provide a parameter value (empty to disable) for `jersey.config.server.provider.packages` in `src/main/webapp/WEB-INF/web.xml` like so:
 
 ```xml
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;web-app xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-  xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
-  xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd&quot;
-  version=&quot;3.0&quot; metadata-complete=&quot;true&quot;&gt;
-  &lt;servlet&gt;
-    &lt;servlet-name&gt;jersey&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;org.glassfish.jersey.servlet.ServletContainer&lt;/servlet-class&gt;
-    &lt;init-param&gt;
-      &lt;param-name&gt;jersey.config.server.provider.packages&lt;/param-name&gt;
-      &lt;param-value/&gt;
-    &lt;/init-param&gt;
-    &lt;init-param&gt;
-      &lt;param-name&gt;jersey.config.server.resource.validation.ignoreErrors&lt;/param-name&gt;
-      &lt;param-value&gt;1&lt;/param-value&gt;
-    &lt;/init-param&gt;
-    &lt;load-on-startup&gt;-1&lt;/load-on-startup&gt;
-  &lt;/servlet&gt;
-  &lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;jersey&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/jersey/*&lt;/url-pattern&gt;
-  &lt;/servlet-mapping&gt;
-&lt;/web-app&gt;
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0" metadata-complete="true">
+  <servlet>
+    <servlet-name>jersey</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>jersey.config.server.provider.packages</param-name>
+      <param-value/>
+    </init-param>
+    <init-param>
+      <param-name>jersey.config.server.resource.validation.ignoreErrors</param-name>
+      <param-value>1</param-value>
+    </init-param>
+    <load-on-startup>-1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jersey</servlet-name>
+    <url-pattern>/jersey/*</url-pattern>
+  </servlet-mapping>
+</web-app>
 ```
 
 There is a [caveat](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/WebApplicationInitializer.html) that the `web.xml` version must be set to "3.0" or higher. Otherwise, the Spring bootstrapping might get ignored.

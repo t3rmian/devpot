@@ -3,10 +3,20 @@ import React from "react";
 import { useSiteData } from "react-static";
 import { useTranslation } from "react-i18next";
 
-function absoluteUrl(siteRoot, url) {
+export function absoluteUrl(siteRoot, url) {
   const isAbsolute = new RegExp("^(?:[a-z]+:)?//", "i");
   return isAbsolute.test(url) ? url : siteRoot + url;
 }
+
+export function elipsizeDescription(description) {
+  const extractedDescription = description.replace(/<(.|\n)*?>/g, "");
+  description =
+    extractedDescription.length > 160
+      ? extractedDescription.substring(0, 159) + "…"
+      : extractedDescription;
+  return description;
+}
+
 
 export default ({
   title,
@@ -20,11 +30,7 @@ export default ({
   twitterCard,
   noindex
 }) => {
-  const extractedDescription = description.replace(/<(.|\n)*?>/g, "");
-  description =
-    extractedDescription.length > 160
-      ? extractedDescription.substring(0, 159) + "…"
-      : extractedDescription;
+  description = elipsizeDescription(description);
   const { siteRoot } = useSiteData();
   const { t } = useTranslation();
   const siteName = t("site title", { lng: lang });

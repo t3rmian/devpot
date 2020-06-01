@@ -13,14 +13,14 @@ source: https://github.com/t3rmian/jmeter-samples
 
 JMeter is mainly used for load testing, though it is also a viable choice for functional testing. Let's start with REST API testing. Two necessary features required for it are a method for calling the API and a possibility to verify the data through assertions. Both of them are present in the JMeter. What's more, you can even connect, in an almost out-of-the-box sense with database (JDBC driver might be required for less popular vendors). By default, though, you get everything what you need and for its clunkiness (from a developer's point of view), JMeter makes up with its plugin system. It also has fairly low entry point for less programming oriented testers. Since figuring out everything on your own might take some time, I will show you few examples which should make it easier to create your first tests.
 
-Let's take a simple [REST CRUD API with some minimal logic](http://t3rmian.github.io/jmeter-samples) as an example and jump straight into testing. The basic structure of a test in JMeter consists of:
+Let's take a simple [REST CRUD API with some minimal logic](https://jmeter-samples.termian.dev) as an example and jump straight into testing. The basic structure of a test in JMeter consists of:
 1. Test Plan (root element);
 2. Configuration elements (Connection configuration/User Parameters/Requests Defaults);
 3. Thread Group — simulates multiple users or executions;
 4. Sampler (HTTP Request Sampler/JDBC Request Sampler) — an equivalent of a single test;
 5. Assertions (Response and JSON assertions, extractors).
 
-In our first tests we will verify a simple `GET /v1/users/{id}` from previously mentioned API. Ideally we would like the input `id` parameter to be randomized from the database. The method should return correct user data and in case the user has been removed a 404 error should be returned. Imagine you already have your application running, this data is visible somewhere and you want to expose it with REST interface. It's often easy to check which db columns the data comes from, but re-using existing logic might be infeasible due to legacy or spaghetti code. Even if, existing logic might also contain bugs under some specific data state since you might not have any legacy tests, though, if you have large enough data sets, it's possible to run plentiful randomized tests which will detect them. It's also very easy to run them as load tests and detect performance and multithreading problems.
+In our first tests we will verify a simple `GET /v1/users/{id}` from previously mentioned API. Ideally we would like the input `id` parameter to be randomized from the database. The method should return correct user data and in case the user has been removed a 404 error should be returned. Imagine you already have your application running, this data is visible somewhere and you want to expose it with REST interface. It's often easy to check which DB columns the data comes from, but re-using existing logic might be infeasible due to legacy or spaghetti code. Even if, existing logic might also contain bugs under some specific data state since you might not have any legacy tests, though, if you have large enough data sets, it's possible to run plentiful randomized tests which will detect them. It's also very easy to run them as load tests and detect performance and multithreading problems.
 
 Let's now go through each of the 5 steps mentioned above and indicate some useful parts:
 
@@ -118,7 +118,7 @@ One of the JMeter flaws is that it's quite hard to verify collections against da
 
 Due to some known and not resolved issues, undoing and redoing features in JMeter are disabled by default. To enable it, add `undo.history.size=30` line to the end of `jmeter/bin/jmeter.properties`. After that you should be able to see the undo and redo buttons in the toolbar and access the features from the Edit menu.
 
-Check out the source project (link at the top of the page) to see a working example. It's mostly standalone, only requires downloading H2 driver jar (read the repository README) for JMeter. If you're interested in learning more — I have an exercise for you. There is a mistake in the [specification](http://t3rmian.github.io/jmeter-samples), read the description and try to detect the bug using JMeter. If nothing rings the bell, refer to the [commit description](https://github.com/t3rmian/jmeter-samples/commit/332ae86d42d946fc25dcdf29ba3729b2522cd6e2).
+Check out the source project (link at the top of the page) to see a working example. It's mostly standalone, only requires downloading H2 driver jar (read the repository README) for JMeter. If you're interested in learning more — I have an exercise for you. There is a mistake in the [specification](https://jmeter-samples.termian.dev), read the description and try to detect the bug using JMeter. If nothing rings the bell, refer to the [commit description](https://github.com/t3rmian/jmeter-samples/commit/332ae86d42d946fc25dcdf29ba3729b2522cd6e2).
 
 ## Summary
 

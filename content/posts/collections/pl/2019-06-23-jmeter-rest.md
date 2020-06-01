@@ -13,7 +13,7 @@ source: https://github.com/t3rmian/jmeter-samples
 
 Chociaż JMeter jest stosowany głównie do testów obciążeniowych, to może również być uzasadnionym wyborem w dla testów funkcjonalnych. W pierwszej kolejności zacznijmy od usług REST-owych. Dwie niezbędne rzeczy potrzebne do takich testów to oczywiście możliwość wywołania metody API, a więc wysłania podstawowego zapytania HTTP, oraz możliwość weryfikacji zwróconych danych. Obie funkcjonalności dostępne są z poziomu narzędzia. Co więcej JMeter daje również możliwość połączenia się, bez nadmiernej konieczności konfiguracji (oprócz dodania sterownika dla mniej popularnych). Domyślnie, narzędzie zapewnia praktycznie wszystko, czego potrzeba, a kwestie niewygodnej obsługi nadrabia systemem rozszerzeń (ang. plugins). Warto tutaj wspomnieć o dosyć niskim progu wejścia dla mniej zorientowanych programistycznie testerów. Ponieważ jednak samodzielne domyślenie się wszystkiego może zająć trochę czasu, dzisiaj pokażę kilka prostych przykładów, które powinny ułatwić tworzenie pierwszych testów.
 
-Weźmy proste [RESTowe API CRUD z minimalną logiką](http://t3rmian.github.io/jmeter-samples) jako przykład i przejdźmy prosto do testów. Podstawowa struktura testów w JMeterze składa się z:
+Weźmy proste [RESTowe API CRUD z minimalną logiką](https://jmeter-samples.termian.dev) jako przykład i przejdźmy prosto do testów. Podstawowa struktura testów w JMeterze składa się z:
 1. Planu testowego (korzeń główny);
 2. Elementów konfiguracji (konfiguracja połączenia z bazą danych, parametry użytkownika, domyślne ustawienia zapytań);
 3. Grupy wątków — symuluje wielu użytkowników lub wiele wykonań testów;
@@ -117,7 +117,7 @@ Jeśli wolisz nie używać *JSR223* i masz do czynienia ze złożonymi struktura
 
 Ze względu na pewne znane i nierozwiązane problemy, funkcje cofania i ponownego wykonywania w JMeter są domyślnie wyłączone. Aby to włączyć, dodaj linię `undo.history.size=30` na koniec pliku `jmeter/bin/jmeter.properties`. Po tej czynności przyciski cofania i powtórzenia powinny pojawić się na pasku narzędzi i możliwy będzie dostęp do funkcji z menu 'Edit'.
 
-Sprawdź również projekt źródłowy (link u góry strony), aby sprawdzić JMetera na działającym przykład. Projekt jest w zasadzie *standalone*, wymaga jedynie pobrania paczki ze sterownikiem H2 (przeczytaj README) dla JMetera. Jeśli chciałbyś/chciałabyś sprawdzić swoich sił z narzędziem — mam dla Ciebie ćwiczenie. Przynajmniej w jednym miejscu w [specyfikacji](http://t3rmian.github.io/jmeter-samples) celowo wynikła pewna nieścisłość, przeczytaj opis i spróbuj wykryć błąd używając JMetera. Jeśli nie wpadniesz na pomysł, co jest źle, to zapoznaj się z [dodatkową wiadomością commita](https://github.com/t3rmian/jmeter-samples/commit/332ae86d42d946fc25dcdf29ba3729b2522cd6e2).
+Sprawdź również projekt źródłowy (link u góry strony), aby sprawdzić JMetera na działającym przykład. Projekt jest w zasadzie *standalone*, wymaga jedynie pobrania paczki ze sterownikiem H2 (przeczytaj README) dla JMetera. Jeśli chciałbyś/chciałabyś sprawdzić swoich sił z narzędziem — mam dla Ciebie ćwiczenie. Przynajmniej w jednym miejscu w [specyfikacji](https://jmeter-samples.termian.dev) celowo wynikła pewna nieścisłość, przeczytaj opis i spróbuj wykryć błąd używając JMetera. Jeśli nie wpadniesz na pomysł, co jest źle, to zapoznaj się z [dodatkową wiadomością commita](https://github.com/t3rmian/jmeter-samples/commit/332ae86d42d946fc25dcdf29ba3729b2522cd6e2).
 
 ## Podsumowanie
 

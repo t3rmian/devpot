@@ -15,7 +15,7 @@ export default () => {
   return ready ? (
     <div className="loading">
       <h1>404</h1>
-      <Footer
+      <Footer lang={i18n.t("defaultLang")}
         langRefs={[
           ...langs
             .filter(lang => lang !== i18n.t("defaultLang"))

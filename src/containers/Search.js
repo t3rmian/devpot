@@ -77,11 +77,11 @@ export default function Search() {
           }}
         />
         <main>
-        <div className="search-header">{header}</div>
+        <div className="search-header" role="heading" aria-level="1">{header}</div>
         {content}
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
-        <Footer langRefs={langRefs} />
+        <Footer langRefs={langRefs} lang={lang} />
       </div>
     </div>
   );

@@ -26,7 +26,7 @@ export default () => {
 '  '--'\\'  '-'  '|  | \`   ||  | \`   ||  \`---.'  '--'\\   |  |   |  |'  '-'  '|  | \`   | 
  \`-----' \`-----' \`--'  \`--'\`--'  \`--'\`------' \`-----'   \`--'   \`--' \`-----' \`--'  \`--'
                                                                            `}</pre>
-      <Footer
+      <Footer lang={i18n.t("defaultLang")}
         langRefs={[
           ...langs
             .filter(lang => lang !== i18n.t("defaultLang"))

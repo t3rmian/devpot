@@ -40,11 +40,11 @@ export default () => {
           }}
         />
         <main>
-          <h2 className="uppercase">{t("Posts by tag", { tag, lng: lang })}</h2>
+          <h2 className="uppercase" role="heading" aria-level="1">{t("Posts by tag", { tag, lng: lang })}</h2>
           <Posts posts={posts} lang={lang} />
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
-        <Footer langRefs={langRefs} />
+        <Footer langRefs={langRefs} lang={lang} />
       </div>
     </div>
   );

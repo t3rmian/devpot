@@ -77,7 +77,7 @@ Mając powyższą wiedzę pozostało możemy przejść do implementacji.
 ```bash
 #!/bin/bash
 # Użyj tego skryptu po zmergowaniu, aby dodać dodatkowy opis do merga (tytuł i opis z MR z GitLaba) 
-GITLAB_PRIVATE_TOKEN=&lt;your_token&gt;
+GITLAB_PRIVATE_TOKEN=<your_token>
 GITLAB_HOST=https://gitlab.com/ # Or your own host
 
 # Pobranie poprzedniej wiadomości z commita, tj. "Merge remote-tracking branch 'origin/feature'"
@@ -103,7 +103,7 @@ git commit --amend --no-edit -m "${MESSAGE}" -m "${DESCRIPTION}"
 VERSION=$(grep version "pom.xml" | head -n 2 | tail -n 1 | cut -d">" -f2 | cut -d"<" -f1 )
 
 # Potwierdzenie wywołanie kolejnego polecenia - aktualizacji zgłoszenia na Jirze
-read -p "Push and update tracking with git jira-update $VERSION $TITLE? &lt;y/N&gt; " prompt
+read -p "Push and update tracking with git jira-update $VERSION $TITLE? <y/N> " prompt
 if [[ $prompt =~ [yY](es)* ]]; then
   git push && git jira-update $VERSION $TITLE
 fi
@@ -119,8 +119,8 @@ if [ "$#" -ne 2 ]; then
 	exit 1
 fi
 
-CREDENTIALS=&lt;login_i_haslo_base_64&gt;
-JIRA_HOST=&lt;url_do_twojej_jiry&gt;
+CREDENTIALS=<login_i_haslo_base_64>
+JIRA_HOST=<url_do_twojej_jiry>
 VERSION=$1
 ISSUES=$2
 

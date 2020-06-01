@@ -3,6 +3,7 @@ import { Link } from "components/Router";
 import React from "react";
 import SEOHead from "../components/SEOHead";
 import SearchBar from "../components/SearchBar";
+import Share from "../components/Share";
 import TagCloud from "../components/TagCloud";
 import convert from "htmr";
 import lifecycle from "react-pure-lifecycle";
@@ -113,7 +114,7 @@ export function Post() {
           </Link>
           <SearchBar root={root} lang={lang} />
         </header>
-        <main>
+        <main aria-label={t("Article", { lng: lang })}>
           <article>
             <div className="header">
               <h2 className="title">{post.title}</h2>
@@ -178,9 +179,17 @@ export function Post() {
           </article>
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
-        <div id="comments" />
+        <Share
+          siteTitle={t("site title", { lng: lang })}
+          langRefs={langRefs}
+          description={post.contents}
+          title={post.title + " - " + t("site title", { lng: lang })}
+          tags={post.tags}
+          twitterAuthor={t("twitter author", { lng: lang })}
+          twitterContentUsername={post.twitterAuthor}/>
+        <div id="comments" role="complementary"/>
         <SearchBar root={root} lang={lang} />
-        <Footer langRefs={langRefs} />
+        <Footer langRefs={langRefs} lang={lang} />
       </div>
     </div>
   );
