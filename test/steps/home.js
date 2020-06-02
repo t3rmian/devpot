@@ -16,7 +16,6 @@ Then('I should see a list of all blog article titles', () => {
 });
 
 When('I click on any article on home page', () => {
-  waitForUnload();
   const index = Math.floor(Math.random() * 4);
   const article = $$('.date-col+td a')[index];
   this.previousUrl = browser.getUrl();
@@ -24,9 +23,7 @@ When('I click on any article on home page', () => {
   article.click();
 });
 Then('I should be redirected to the article site with its contents', () => {
-  browser.waitUntil(() => {
-    return $('.post-container').isExisting()
-  }, 5000, 'Expected loading finish');
+  waitForLoad(".post-container")
   expect(browser.getUrl()).to.be.not.equal(this.previousUrl);
   expect($('body').getText()).to.include(this.articleTitle);
 });
