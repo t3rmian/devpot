@@ -36,9 +36,7 @@ When('I type some words in the search input', () => {
   searchButton.click()
 });
 Then('I should be presented with the list of clickable articles containing any of the typed words', () => {
-  browser.waitUntil(() => {
-    return $('.search-header').isExisting()
-  }, 5000, 'Expected loading finish');
+  waitForUnload();
   expect($('main').getText()).to.include(this.keyword)
   expect($('main table').getText()).to.include(this.keyword)
   expect($$('main a').length).to.be.above(0);
