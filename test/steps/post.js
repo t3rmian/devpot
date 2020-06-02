@@ -16,5 +16,10 @@ Then("I am redirected to the index page", () => {
     waitForUnload('.post-container');
     waitForLoad('.index-container');
     const roots = ["/", SITE_URL != null ? SITE_URL.replace(/\/?$/, '/') : "/"];
+    console.debug("SITEURL: " + SITE_URL)
+    console.debug("SITEURL: " + roots[0])
+    console.debug("SITEURL: " + roots[1])
+    console.debug("SITEURL: " + $('header a[aria-current="page"]').getAttribute("href"))
+    console.debug("SITEURL: " + roots.includes($('header a[aria-current="page"]').getAttribute("href")))
     expect(roots.includes($('header a[aria-current="page"]').getAttribute("href"))).to.be.equal(true);
 });

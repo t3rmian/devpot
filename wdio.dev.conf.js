@@ -20,7 +20,7 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/features/**/*.feature',
+        './test/features/**/logo-to-home.feature',
     ],
     // Patterns to exclude.
     exclude: [
@@ -193,7 +193,7 @@ exports.config = {
         global.expect   = chai.expect;
         global.assert   = chai.assert;
         global.should   = chai.should();
-        global.SITE_URL = "http://localhost:3000/";
+        global.SITE_URL = "http://localhost:3000";
         global.waitForLoad = (selector) => {
           if (selector == null) throw new Error("No selector provided for waitForLoad()")
           browser.waitUntil(
