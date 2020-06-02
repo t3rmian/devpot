@@ -15,5 +15,6 @@ When("I click on the logo", () => {
 Then("I am redirected to the index page", () => {
     waitForUnload('.post-container');
     waitForLoad('.index-container');
-    expect(["/", SITE_URL].includes($('header a[aria-current="page"]').getAttribute("href"))).to.be.equal(true);
+    const roots = ["/", SITE_URL != null ? SITE_URL.replace(/\/?$/, '/') : "/"];
+    expect(roots.includes($('header a[aria-current="page"]').getAttribute("href"))).to.be.equal(true);
 });

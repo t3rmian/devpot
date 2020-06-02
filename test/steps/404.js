@@ -7,7 +7,7 @@ When('The loading is finished', () => {
   waitForUnload();
 })
 Then('I should see a 404 page', () => {
-  expect($('.loading').getText()).to.include("404");
+  expect($('.error').getText()).to.include("404");
 });
 Then('I should see the language switch', () => {
   expect($('a[hreflang=pl]').getText()).to.include("Polski");
