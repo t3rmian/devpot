@@ -172,6 +172,18 @@ export function Post() {
                       )}
                       {post.author && <td className="author">{author}</td>}
                     </tr>
+                    <tr>
+                      {post.prev && (
+                        <td>
+                          &lt; <Link to={post.prev.url}>{post.prev.title}</Link>
+                        </td>
+                      )}
+                      {post.next && (
+                        <td>
+                          <Link to={post.next.url}>{post.next.title}</Link> &gt;
+                        </td>
+                      )}
+                    </tr>
                   </tbody>
                 </table>
               )}
