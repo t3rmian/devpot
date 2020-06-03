@@ -23,10 +23,10 @@ Then('I should see the comment authors and the contents', () => {
 Then('I should see the comment submit option', () => {
   browser.waitUntil(
     () => {
-      $('main').getText().include("Sign in to comment")
+      $('main').getText().includes("Sign in to comment")
     },
     5000,
     "Expected loading finish"
   );
-  expect($('main').getText()).to.include("Sign in to comment");
+  expect($('main').getText()).to.includes("Sign in to comment");
 });
