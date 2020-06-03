@@ -1,5 +1,5 @@
 import { flatMap } from "../utils";
-import { gradeTags } from "./Index";
+import { gradeTags, mapPost } from "./Index";
 import i18n from "../i18n";
 
 export default function Tags(blog, defaultLang, lang) {
@@ -20,7 +20,7 @@ export default function Tags(blog, defaultLang, lang) {
         posts: blog[lang]
           .filter(post => post.tags != null && post.tags.indexOf(tag) >= 0)
           .map(p => ({
-            ...p,
+            ...mapPost(p),
             path: `${postPath}${p.url}`
           })),
         lang,
