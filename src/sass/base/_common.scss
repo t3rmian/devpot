@@ -17,7 +17,7 @@ div[role=group],
     align-items: center;
 }
 
-.loading {
+.loading, .error {
     position: fixed;
     top: 50%;
     left: 50%;

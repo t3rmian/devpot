@@ -6,7 +6,7 @@ Feature: Read more
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: Clicking on 'Read more' action
         When I click "Read more"

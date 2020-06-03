@@ -194,6 +194,26 @@ exports.config = {
         global.assert   = chai.assert;
         global.should   = chai.should();
         global.SITE_URL = process.env.SITE_URL || "https://blog.termian.dev/";
+        console.log("SITE_URL: " + global.SITE_URL);
+        global.waitForLoad = (selector) => {
+          if (selector == null) throw new Error("No selector provided for waitForLoad()")
+          browser.waitUntil(
+            () => {
+              return $(selector).isExisting()
+            },
+            5000,
+            "Expected element loaded"
+          );
+        };
+        global.waitForUnload = (selector = '.loading') => {
+          browser.waitUntil(
+            () => {
+              return !$(selector).isExisting()
+            },
+            5000,
+            "Expected element unloaded"
+          );
+        };
     },
     /**
      * Runs before a WebdriverIO command gets executed.

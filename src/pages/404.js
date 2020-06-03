@@ -13,7 +13,7 @@ export default () => {
   }, []);
 
   return ready ? (
-    <div className="loading">
+    <div className="error">
       <h1>404</h1>
       <Footer lang={i18n.t("defaultLang")}
         langRefs={[

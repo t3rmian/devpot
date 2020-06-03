@@ -6,7 +6,7 @@ Feature: Open the blog home page
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: I18n of home page
         When I choose the Polish language

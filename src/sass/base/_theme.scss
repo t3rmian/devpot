@@ -67,11 +67,22 @@ $themes: (light: (primary-background-color: white,
     @include themify($themes) {
         background-color: themed('primary-background-color');
 
-        .loading{
+        .loading, .error {
             color: themed('primary-color-more-intense');
             transition: all $theme-transition-short-delay $theme-transition-short-timing-function !important;
         }
 
+        .transition-group {
+            a,
+            button.link {
+                color: themed('secondary-color');
+            }
+    
+            a:hover,
+            button.link:hover {
+                color: themed('secondary-color-less-intense');
+            }
+        }
         .transition-group .container,
         .transition-group .page {
             background-color: themed('primary-background-color');
@@ -93,16 +104,6 @@ $themes: (light: (primary-background-color: white,
             code {
                 background-color: themed('primary-background-color-less-intense');
                 box-shadow: 0 0 1px 2px themed('primary-background-color');
-            }
-    
-            a,
-            button.link {
-                color: themed('secondary-color');
-            }
-    
-            a:hover,
-            button.link:hover {
-                color: themed('secondary-color-less-intense');
             }
     
             .header-container {
@@ -129,12 +130,9 @@ $themes: (light: (primary-background-color: white,
     
             .content {
                 img {
-                    border-width: 1px;
-                    border-style: outset;
-                    border-color: themed('primary-border-color');
-                    -webkit-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
-                    -moz-box-shadow: 10px 10px 5px 0px themed('primary-box-shadow-color');
-                    box-shadow: 4px 4px 5px 0px themed('primary-box-shadow-color');
+                    box-shadow: 0 0 20px 0 themed('primary-box-shadow-color');
+                    -moz-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color');
+                    -webkit-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color');
                 }
     
                 blockquote {
@@ -196,14 +194,33 @@ $themes: (light: (primary-background-color: white,
             }
 
         }
+
         *:not(button):not(input):not(a):not(code):not(pre):not([class^="hljs-"]) {
             color: themed('primary-color');
+        }
+
+        pre {
+            box-shadow: 0 0 5 0px themed('primary-box-shadow-color');
+            -moz-box-shadow: 0 0 5px 0 themed('primary-box-shadow-color');
+            -webkit-box-shadow: 0 0 5px 0 themed('primary-box-shadow-color');
         }
     }
 
     .transition-theme {
         transition: background-color $theme-transition-delay $theme-transition-timing-function;
 
+        .transition-group {
+            a,
+            button.link {
+                transition: color $theme-transition-delay $theme-transition-timing-function;
+            }
+    
+            a:hover,
+            button.link:hover {
+                transition: color $theme-transition-short-delay $theme-transition-short-timing-function;
+            }
+        }
+        
         .transition-group .container,
         .transition-group .page {
             transition: background-color $theme-transition-delay $theme-transition-timing-function;
@@ -220,16 +237,6 @@ $themes: (light: (primary-background-color: white,
     
             .theme-switcher img {
                 transition: filter $theme-transition-delay $theme-transition-timing-function !important;
-            }
-    
-            a,
-            button.link {
-                transition: color $theme-transition-delay $theme-transition-timing-function;
-            }
-    
-            a:hover,
-            button.link:hover {
-                transition: color $theme-transition-short-delay $theme-transition-short-timing-function;
             }
     
             .header-container {

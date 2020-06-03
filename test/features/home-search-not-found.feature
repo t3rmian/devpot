@@ -6,7 +6,7 @@ Feature: Proper search filtering
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: Searching for an article containing gibberish
         When I type some gibberish in the search input

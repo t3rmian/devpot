@@ -193,7 +193,26 @@ exports.config = {
         global.expect   = chai.expect;
         global.assert   = chai.assert;
         global.should   = chai.should();
-        global.SITE_URL = "http://localhost:3000/";
+        global.SITE_URL = "http://localhost:3000";
+        global.waitForLoad = (selector) => {
+          if (selector == null) throw new Error("No selector provided for waitForLoad()")
+          browser.waitUntil(
+            () => {
+              return $(selector).isExisting()
+            },
+            5000,
+            "Expected element loaded"
+          );
+        };
+        global.waitForUnload = (selector = '.loading') => {
+          browser.waitUntil(
+            () => {
+              return !$(selector).isExisting()
+            },
+            10000,
+            "Expected element unloaded"
+          );
+        };
     },
     /**
      * Runs before a WebdriverIO command gets executed.

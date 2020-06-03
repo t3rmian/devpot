@@ -1,7 +1,8 @@
 const { Given, When, Then } = require('cucumber');
 
-Given('I am on the blog index page', () => {
+Given('I go to the blog index page', () => {
   browser.url(SITE_URL);
+  waitForUnload();
 });
 Then('I should see a list of 5 article titles at most', () => {
   expect($$('.date-col').length).to.be.below(6)
@@ -22,9 +23,7 @@ When('I click on any article on home page', () => {
   article.click();
 });
 Then('I should be redirected to the article site with its contents', () => {
-  browser.waitUntil(() => {
-    return $('.post-container').isExisting()
-  }, 5000, 'Expected loading finish');
+  waitForLoad(".post-container")
   expect(browser.getUrl()).to.be.not.equal(this.previousUrl);
   expect($('body').getText()).to.include(this.articleTitle);
 });
@@ -37,9 +36,7 @@ When('I type some words in the search input', () => {
   searchButton.click()
 });
 Then('I should be presented with the list of clickable articles containing any of the typed words', () => {
-  browser.waitUntil(() => {
-    return $('.search-header').isExisting()
-  }, 5000, 'Expected loading finish');
+  waitForUnload();
   expect($('main').getText()).to.include(this.keyword)
   expect($('main table').getText()).to.include(this.keyword)
   expect($$('main a').length).to.be.above(0);
@@ -62,6 +59,7 @@ Then('I should be presented with a message that nothing has been found', () => {
 });
 
 When('I click on any tag from the tag cloud', () => {
+  waitForUnload();
   browser.setWindowSize(1600, browser.getWindowSize().height);
   const tags = $$('.tag-cloud-container a');
   const index = Math.floor(Math.random() * tags.length);
@@ -70,13 +68,9 @@ When('I click on any tag from the tag cloud', () => {
   selectedTag.click()
 });
 Then('I should be presented with the list of clickable articles with selected tag', () => {
-  browser.waitUntil(() => {
-    return $('main').isExisting() && $('main').getText().indexOf(this.selectedTagValue.toUpperCase()) >= 0
-  }, 5000, 'Expected tag loading finish');
+  waitForUnload();
   $$('main a')[0].click();
-  browser.waitUntil(() => {
-    return $('.tags').isExisting()
-  }, 5000, 'Expected article loading finish');
+  waitForUnload();
   expect($('.tags').getText()).to.include(this.selectedTagValue);
 });
 
@@ -94,4 +88,20 @@ Then('I should see the page in the Polish language', () => {
   expect($('body').getText()).to.match(/Sty|Lut|Mar|Kwi|Maj|Cze|Lip|Sie|Wrz|Paz|Lis|Gru/g);
   expect($$('.date-col+td a')[0].getUrl()).to.include("/pl/");
   expect($$('.tag-cloud-container a')[0].getUrl()).to.include("/pl/");
+});
+
+When('I click on theme change', () => {
+  $('.theme-switcher > img').click();
+});
+Then('The theme css changes and is saved as cookie', () => {
+  browser.waitUntil(() => {
+    return $('.theme-dark').isExisting()
+  }, 5000, 'Expected loading finish');
+  const themeCookies = browser.getCookies(['theme'])
+  expect(themeCookies.length).to.be.above(0);
+  expect(themeCookies[0].value).to.be.equal('theme-dark');
+});
+
+Then('I visit another website', () => {
+  browser.url("https://google.com");
 });

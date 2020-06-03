@@ -6,7 +6,7 @@ Feature: Read article
 
     Background:
 
-        Given I am on the blog index page
+        Given I go to the blog index page
 
     Scenario: Clicking on any article title on home page
         When I click on any article on home page
