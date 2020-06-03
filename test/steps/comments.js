@@ -21,12 +21,5 @@ Then('I should see the comment authors and the contents', () => {
   expect($('main').getText()).to.include("Start the TNS Listener service")
 });
 Then('I should see the comment submit option', () => {
-  browser.waitUntil(
-    () => {
-      $('main').getText().includes("Sign in to comment")
-    },
-    5000,
-    "Expected loading finish"
-  );
   expect($('main').getText()).to.include("Sign in to comment");
 });
