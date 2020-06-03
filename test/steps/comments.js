@@ -12,7 +12,7 @@ When('I wait for comments load', () => {
 Then('I should see the comment authors and the contents', () => {
   browser.waitUntil(
     () => {
-      return $('main').getText().include("t3rmian commented")
+      return $('main').getText().includes("t3rmian commented")
     },
     5000,
     "Expected loading finish"
@@ -28,5 +28,5 @@ Then('I should see the comment submit option', () => {
     5000,
     "Expected loading finish"
   );
-  expect($('main').getText()).to.includes("Sign in to comment");
+  expect($('main').getText()).to.include("Sign in to comment");
 });
