@@ -294,3 +294,32 @@
         bottom: 0;
     }
 }
+
+.footer-nav {
+    text-transform: uppercase;
+    font-weight: 700 !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 0;
+    font-size: 0.75em;
+
+    span {
+        overflow-wrap: anywhere;
+        width: 20%;
+        text-align: center;
+    }
+
+    span:first-of-type,
+    span:last-of-type {
+        width: 40%;
+    }
+
+    span:first-of-type {
+        text-align: left;
+    }
+
+    span:last-of-type {
+        text-align: right;
+    }
+}

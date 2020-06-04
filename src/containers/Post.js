@@ -120,11 +120,11 @@ export function Post() {
               <h2 className="title">{post.title}</h2>
               {post.tags && (
                 <div className="tags">
-                  {post.tags.map(tag => (
+                  {post.tags.map((tag) => (
                     <Link
                       className="item"
                       key={tag}
-                      to={`${tags.find(t => t.value === tag).path}`}
+                      to={`${tags.find((t) => t.value === tag).path}`}
                     >
                       {tag}
                     </Link>
@@ -136,7 +136,7 @@ export function Post() {
                   <time dateTime={new Date(post.date).toISOString()}>
                     {t("date=post", {
                       date: new Date(post.date),
-                      lng: lang
+                      lng: lang,
                     })}
                   </time>
                 </span>
@@ -148,14 +148,31 @@ export function Post() {
                 <span className="item">
                   {t("count minutes read", {
                     count: minutesRead,
-                    lng: lang
+                    lng: lang,
                   })}
                 </span>
               </div>
             </div>
             <div className="content">
               {convert(post.contents)}
-              {(post.updated || post.author) && (
+              <div class="footer-nav">
+                {post.prev && (
+                  <span>
+                    <Link to={post.prev.url}>&lt; {post.prev.title}</Link>
+                  </span>
+                )}
+                {post.source && (
+                  <span>
+                    <Link to={post.source}>{t("source", { lng: lang })}</Link>
+                  </span>
+                )}
+                {post.next && (
+                  <span>
+                    <Link to={post.next.url}>{post.next.title} &gt;</Link>
+                  </span>
+                )}
+              </div>
+              {/* {(post.updated || post.author) && (
                 <table className="more">
                   <tbody>
                     <tr>
@@ -172,21 +189,9 @@ export function Post() {
                       )}
                       {post.author && <td className="author">{author}</td>}
                     </tr>
-                    <tr>
-                      {post.prev && (
-                        <td>
-                          &lt; <Link to={post.prev.url}>{post.prev.title}</Link>
-                        </td>
-                      )}
-                      {post.next && (
-                        <td>
-                          <Link to={post.next.url}>{post.next.title}</Link> &gt;
-                        </td>
-                      )}
-                    </tr>
                   </tbody>
                 </table>
-              )}
+              )} */}
             </div>
           </article>
         </main>
@@ -198,8 +203,9 @@ export function Post() {
           title={post.title + " - " + t("site title", { lng: lang })}
           tags={post.tags}
           twitterAuthor={t("twitter author", { lng: lang })}
-          twitterContentUsername={post.twitterAuthor}/>
-        <div id="comments" role="complementary"/>
+          twitterContentUsername={post.twitterAuthor}
+        />
+        <div id="comments" role="complementary" />
         <SearchBar root={root} lang={lang} />
         <Footer langRefs={langRefs} lang={lang} />
       </div>
