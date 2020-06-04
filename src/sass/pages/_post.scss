@@ -271,7 +271,11 @@
 }
 
 .social button {
-    padding: 2rem !important;
+    padding: 2rem 2.5rem 2rem 2.5rem !important;
+}
+
+.social button:last-of-type {
+    padding-bottom: 2.5rem !important;
 }
 
 @media (min-width: 1401px) and (min-height: 600px) {
