@@ -21,11 +21,30 @@
             }
 
             .meta {
+                display: flex;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
                 margin-bottom: 0.5rem;
 
                 .item:not(:first-child):before {
                     content: '\00B7';
                     padding: 0 0.5em;
+                }
+
+                time:nth-of-type(2) {
+                    text-decoration: line-through;
+                }
+
+                .profile {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        height: 36px;
+                        border-radius: 50%;
+                        margin: 0 5px;
+                    }
                 }
             }
 
@@ -265,17 +284,27 @@
         }
     }
 }
+
 .social {
     text-align: center;
     margin-top: 8px;
-}
 
-.social button {
-    padding: 2rem 2.5rem 2rem 2.5rem !important;
-}
-
-.social button:last-of-type {
-    padding-bottom: 2.5rem !important;
+    button {
+        padding: 2rem 2.5rem 2rem 2.5rem !important;
+    }
+    
+    button:last-of-type {
+        padding-bottom: 2.5rem !important;
+    }
+    
+    button:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    
+    svg {
+        border-radius: 50%;
+    }
 }
 
 @media (min-width: 1401px) and (min-height: 600px) {
@@ -295,11 +324,10 @@
     }
 }
 
-.footer-nav {
+.post-footer {
     text-transform: uppercase;
     font-weight: 700 !important;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     padding: 1em 0;
     font-size: 0.75em;
