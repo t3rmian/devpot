@@ -118,7 +118,7 @@ One of the JMeter flaws is that it's quite hard to verify collections against da
 
 Due to some known and not resolved issues, undoing and redoing features in JMeter are disabled by default. To enable it, add `undo.history.size=30` line to the end of `jmeter/bin/jmeter.properties`. After that you should be able to see the undo and redo buttons in the toolbar and access the features from the Edit menu.
 
-Check out the source project (link at the top of the page) to see a working example. It's mostly standalone, only requires downloading H2 driver jar (read the repository README) for JMeter. If you're interested in learning more — I have an exercise for you. There is a mistake in the [specification](https://jmeter-samples.termian.dev), read the description and try to detect the bug using JMeter. If nothing rings the bell, refer to the [commit description](https://github.com/t3rmian/jmeter-samples/commit/332ae86d42d946fc25dcdf29ba3729b2522cd6e2).
+Check out the source project (link at the bottom of the page) to see a working example. It's mostly standalone, only requires downloading H2 driver jar (read the repository README) for JMeter. If you're interested in learning more — I have an exercise for you. There is a mistake in the [specification](https://jmeter-samples.termian.dev), read the description and try to detect the bug using JMeter. If nothing rings the bell, refer to the [commit description](https://github.com/t3rmian/jmeter-samples/commit/332ae86d42d946fc25dcdf29ba3729b2522cd6e2).
 
 ## Summary
 

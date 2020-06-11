@@ -16,7 +16,7 @@ For a quick review contract-first (top-down) naming is used to denote the approa
 
 In general, the top-down approach is the recommended way due to easier maintenance, versioning, reusability and loose coupling. You need to, however, have some base understanding of SOAP specification to write correct WSDL. Sometimes, though, a bottom-up approach can be preferred due to this fact. In such a case, the knowledge of WSDL is not required and the development is usually less time-consuming. Yet, as you might expect, this style does not have the pros of contract-first approach.
 
-JAX-WS is a pretty valid choice for any of the mentioned development styles. How about Spring? Does it only support the top-down approach? I was very curious about this and picked this route for a sample project (link at the top) to check if this is true. It was quite a lesson, but in my opinion, contract-last is also a viable option with *spring-ws*. However, if you stray off from a standard way of defining web services which Spring somewhat imposes it might be quite challenging and hard to maintain later on. Nevertheless, let's see what brings us *spring-ws* and how we can use it for contract-last development style.
+JAX-WS is a pretty valid choice for any of the mentioned development styles. How about Spring? Does it only support the top-down approach? I was very curious about this and picked this route for a sample project (link at the bottom) to check if this is true. It was quite a lesson, but in my opinion, contract-last is also a viable option with *spring-ws*. However, if you stray off from a standard way of defining web services which Spring somewhat imposes it might be quite challenging and hard to maintain later on. Nevertheless, let's see what brings us *spring-ws* and how we can use it for contract-last development style.
 
 ### POM Configuration
 
@@ -76,7 +76,7 @@ Point the paths in the configuration of the sources to your JAXB annotated class
 
 ### Data Transfer Objects
 
-For our response, we will use some simple `User` model. Note that this name will be later a source of some problems and I will show you why. To simplify, I will skip the definition of dependent classes (you can check it at the top, in the project sources). `@XML...` are JAXB annotations. By processing them, the schema will be generated.
+For our response, we will use some simple `User` model. Note that this name will be later a source of some problems and I will show you why. To simplify, I will skip the definition of dependent classes (you can check it at the bottom, in the project sources). `@XML...` are JAXB annotations. By processing them, the schema will be generated.
 
 ```java
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -439,4 +439,4 @@ Finally, run `mvn clean install` or `mvn jaxb2:schemagen` to generate the XSD. I
 </SOAP-ENV:Envelope>
 ```
 
-Don't forget to enable validation when testing the interface. In SoapUI you can do so by ticking *Validate Requests* and *Validate Responses* checkboxes in the menu *-> File -> Preferences -> Editor Setting*. If you stumble upon any problems, you can always compare with the sample project. The link can be found at the top of the page. Note that you may encounter [unforeseen errors](https://github.com/mojohaus/jaxb2-maven-plugin/issues/129) when using (compiling with) newer versions of JDK. For more control over the XSD generation, I recommend [JAXB-Facets](https://github.com/whummer/jaxb-facets).
+Don't forget to enable validation when testing the interface. In SoapUI you can do so by ticking *Validate Requests* and *Validate Responses* checkboxes in the menu *-> File -> Preferences -> Editor Setting*. If you stumble upon any problems, you can always compare with the sample project. The link can be found at the bottom of the page. Note that you may encounter [unforeseen errors](https://github.com/mojohaus/jaxb2-maven-plugin/issues/129) when using (compiling with) newer versions of JDK. For more control over the XSD generation, I recommend [JAXB-Facets](https://github.com/whummer/jaxb-facets).
