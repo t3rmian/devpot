@@ -228,7 +228,7 @@ tmf.init((KeyStore) null); // Default keystore will be used</code>
          <td data-label="Przykład użycia">
             Trzy popularne implementacje można znaleźć w bibliotece Apache HttpComponents:
             <ul>
-            <li><code>org.apache.http.conn.ssl.DefaultHostnameVerifier</code> – weryfikuje nazwę hosta (IPv4/IPv6/DNS) na podstawie RFC 2818 w sposób rygorystyczny (tylko pojedynczy wildcard w nazwie domeny jest dozwolony) poprzez porównanie docelowej nazwy hosta i wartości DNS Name z certyfikatu z pola Subject Alternative Name;</li><li>
+            <li><code>org.apache.http.conn.ssl.DefaultHostnameVerifier</code> – weryfikuje nazwę hosta (IPv4/IPv6/DNS) na podstawie RFC 2818 w sposób rygorystyczny (tylko pojedynczy wildcard w nazwie domeny jest dozwolony) poprzez porównanie docelowej nazwy hosta i wartości DNS Name z certyfikatu z pola Subject Alternative Name (subjectAltName);</li><li>
             <code>org.apache.http.conn.ssl.BrowserCompatHostnameVerifier</code> – podobnie do DefaultHostnameVerifier, ale bez obostrzeń związanych z wildcardem, oznaczony jako przestarzały;</li><li>
             <code>org.apache.http.conn.ssl.NoopHostnameVerifier</code> – podczas weryfikacji zwraca true, tj. weryfikacja nie jest przeprowadzana – nie należy używać tej implementacji, chyba że zawęzimy zakres dopuszczalnych certyfikatów do tego, który przedstawia serwer (<a href="https://tools.ietf.org/search/rfc6125">RFC 6125</a>).</li>
             </ul>
@@ -272,9 +272,9 @@ Na potrzeby zarządzania keystore'ami, tworzenia CSR (Certificate Signing Reques
 W razie wątpliwości, dlaczego standardowa konfiguracja nie działa, zawsze warto sprawdzić ważność certyfikatu witryny, z którą się łączymy, nazwę domeny i łańcuch poświadczeń. No chyba że certyfikat jest self-signed i zaimportowaliśmy go do trust store'a (również to powinniśmy sprawdzić).
 
 <figure style="text-align: center;">
-<img loading="lazy" style="margin-top: 0;" src="/img/hq/https-certificate-browser.png" alt="Wyświetlenie certyfikatu witryny za pomocą przeglądarki" title="Wyświetlenie certyfikatu witryny za pomocą przeglądarki">
+<img loading="lazy" style="margin-top: 0;" src="/img/hq/https-certificate-browser.png" alt="Wyświetlenie certyfikatu witryny za pomocą przeglądarki (ikona kłódki)" title="Wyświetlenie certyfikatu witryny za pomocą przeglądarki (ikona kłódki)">
 <img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-windows.png" alt="Weryfikacja nazwy DNS certyfikatu" title="Weryfikacja nazwy DNS certyfikatu">
-<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-windows.png" alt="Sprawdzanie ścieżki certyfikacji" title="Sprawdzanie ścieżki certyfikacji">
+<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-certification-path.png" alt="Sprawdzanie ścieżki certyfikacji" title="Sprawdzanie ścieżki certyfikacji">
 </figure>
 
 Często jednak sprawdzanie certyfikatu na serwerach za pomocą przeglądarki nie jest wykonalnym scenariuszem, gdyż zazwyczaj nie udostępniają one powłoki graficznej. W takim przypadku możemy skorzystać z narzędzi wiersza polecenia, takich jak [curl lub openssl, w celu wyodrębnienia certyfikatu](https://serverfault.com/questions/661978/displaying-a-remote-ssl-certificate-details-using-cli-tools).

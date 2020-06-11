@@ -228,7 +228,7 @@ tmf.init((KeyStore) null); // Default keystore will be used</code>
          <td data-label="Example use">
             Three popular implementations can be found in Apache HttpComponents library:
             <ul>
-            <li><code>org.apache.http.conn.ssl.DefaultHostnameVerifier</code> – verifies hostname (IPv4/IPv6/DNS name) based on RFC 2818 in a strict manner (only singular wildcard in the domain is legal) by comparing the target hostname and the certificate DNS Name values in the Subject Alternative Name field;</li><li>
+            <li><code>org.apache.http.conn.ssl.DefaultHostnameVerifier</code> – verifies hostname (IPv4/IPv6/DNS name) based on RFC 2818 in a strict manner (only singular wildcard in the domain is legal) by comparing the target hostname and the certificate DNS Name values in the Subject Alternative Name (subjectAltName) field;</li><li>
             <code>org.apache.http.conn.ssl.BrowserCompatHostnameVerifier</code> – similar to DefaultHostnameVerifier but without the strict requirement, deprecated;</li><li>
             <code>org.apache.http.conn.ssl.NoopHostnameVerifier</code> – always returns true i.e. no verification is done – this should not be used, unless we narrow the scope of acceptable certificates to the one that the peer will present (<a href="https://tools.ietf.org/search/rfc6125">RFC 6125</a>).</li>
             </ul>
@@ -272,9 +272,9 @@ To manage key stores, create CSR (Certificate Signing Request – to be signed b
 When in doubt why the standard configuration does not work, it's always a good idea to check the validity of the site certificate, domain name, and trust chain unless the certificate is self-signed and imported into the trust store (if so, verify this too).
 
 <figure style="text-align: center;">
-<img loading="lazy" style="margin-top: 0;" src="/img/hq/https-certificate-browser.png" alt="Getting the site certificate using browser" title="Getting the site certificate using browser">
+<img loading="lazy" style="margin-top: 0;" src="/img/hq/https-certificate-browser.png" alt="Getting the site certificate using browser (lock symbol)" title="Getting the site certificate using browser (lock symbol)">
 <img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-windows.png" alt="Verification of certificate DNS name" title="Verification of certificate DNS name">
-<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-windows.png" alt="Checking the certification path" title="Checking the certification path">
+<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-certification-path.png" alt="Checking the certification path" title="Checking the certification path">
 </figure>
 
 Often though, on the servers, checking the certificate through the browser isn't a feasible scenario as they're usually run in a headless mode. You can still use some command-line tools like [curl or openssl to extract the certificate](https://serverfault.com/questions/661978/displaying-a-remote-ssl-certificate-details-using-cli-tools) in such a situation.
