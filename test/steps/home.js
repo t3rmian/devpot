@@ -72,10 +72,9 @@ Then('I should be presented with the list of clickable articles with selected ta
     return $('main').isExisting() && $('main').getText().indexOf(this.selectedTagValue.toUpperCase()) >= 0
     && $$('main a').length > 0
   }, 5000, 'Expected tag loading finish');
+  waitForUnload();
   $$('main a')[0].click();
-  browser.waitUntil(() => {
-    return $('.tags').isExisting()
-  }, 5000, 'Expected article loading finish');
+  waitForUnload();
   expect($('.tags').getText()).to.include(this.selectedTagValue);
 });
 

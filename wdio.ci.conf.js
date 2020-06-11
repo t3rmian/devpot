@@ -202,7 +202,7 @@ exports.config = {
               return $(selector).isExisting()
             },
             5000,
-            "Expected loading finish"
+            "Expected element loaded"
           );
         };
         global.waitForUnload = (selector = '.loading') => {
@@ -211,7 +211,7 @@ exports.config = {
               return !$(selector).isExisting()
             },
             5000,
-            "Expected loading finish"
+            "Expected element unloaded"
           );
         };
     },

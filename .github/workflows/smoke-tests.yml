@@ -10,7 +10,7 @@ jobs:
     
     services:
       selenium:
-        image: selenium/standalone-chrome
+        image: selenium/standalone-chrome:3.141.59-20200515
         ports:
           - 4444:4444
         options: -v /dev/shm:/dev/shm
