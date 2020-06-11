@@ -69,13 +69,13 @@ When('I click on any tag from the tag cloud', () => {
 });
 Then('I should be presented with the list of clickable articles with selected tag', () => {
   browser.waitUntil(() => {
-    return $('main').isExisting() && $('main').getText().indexOf(this.selectedTagValue.toUpperCase()) >= 0
+    return $('main').isExisting() && $('main').getText().toUpperCase().indexOf(this.selectedTagValue.toUpperCase()) >= 0
     && $$('main a').length > 0
   }, 5000, 'Expected tag loading finish');
   waitForUnload();
   $$('main a')[0].click();
   waitForUnload();
-  expect($('.tags').getText()).to.include(this.selectedTagValue);
+  expect($('.tags'.toUpperCase()).getText()).to.include(this.selectedTagValue.toUpperCase());
 });
 
 When('I choose the Polish language', () => {
