@@ -70,6 +70,7 @@ When('I click on any tag from the tag cloud', () => {
 Then('I should be presented with the list of clickable articles with selected tag', () => {
   browser.waitUntil(() => {
     return $('main').isExisting() && $('main').getText().indexOf(this.selectedTagValue.toUpperCase()) >= 0
+    && $$('main a').length > 0
   }, 5000, 'Expected tag loading finish');
   $$('main a')[0].click();
   browser.waitUntil(() => {
@@ -83,8 +84,9 @@ When('I choose the Polish language', () => {
 });
 Then('I should see the page in the Polish language', () => {
   browser.setWindowSize(1600, browser.getWindowSize().height);
+  waitForUnload();
   browser.waitUntil(() => {
-    return !$('.loading').isExisting()
+    return $('body').getText().includes("Najnowsze".toUpperCase());
   }, 5000, 'Expected loading finish');
   expect($('body').getText()).to.include("Najnowsze".toUpperCase());
   expect($('body').getText()).to.include("Więcej");
