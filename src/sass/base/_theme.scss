@@ -138,7 +138,7 @@ $themes: (light: (primary-background-color: white,
                 -webkit-box-shadow: 0 0 5px 0px themed('primary-border-color');
             }
 
-            .profile img:hover, .social svg:hover, .theme-switcher img:hover {
+            .profile:hover img, .social button:hover svg, .theme-switcher img:hover {
                 box-shadow: 0 0 5 0px themed('primary-box-shadow-color');
                 -moz-box-shadow: 0 0 5px 0 themed('primary-box-shadow-color');
                 -webkit-box-shadow: 0 0 5px 0px themed('primary-box-shadow-color');

@@ -123,3 +123,8 @@ pre {
             text-transform: capitalize;
         }
 }
+
+.meta, .tags, .langs {
+    text-transform: uppercase;
+    font-size: 0.95em;
+}
