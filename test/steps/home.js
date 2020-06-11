@@ -59,8 +59,8 @@ Then('I should be presented with a message that nothing has been found', () => {
 });
 
 When('I click on any tag from the tag cloud', () => {
-  waitForUnload();
   browser.setWindowSize(1600, browser.getWindowSize().height);
+  waitForUnload();
   const tags = $$('.tag-cloud-container a');
   const index = Math.floor(Math.random() * tags.length);
   const selectedTag = tags[index];
@@ -75,7 +75,7 @@ Then('I should be presented with the list of clickable articles with selected ta
   waitForUnload();
   $$('main a')[0].click();
   waitForUnload();
-  expect($('.tags'.toUpperCase()).getText()).to.include(this.selectedTagValue.toUpperCase());
+  expect($('.tags').getText().toUpperCase()).to.include(this.selectedTagValue.toUpperCase());
 });
 
 When('I choose the Polish language', () => {
