@@ -59,8 +59,8 @@ Then('I should be presented with a message that nothing has been found', () => {
 });
 
 When('I click on any tag from the tag cloud', () => {
-  waitForUnload();
   browser.setWindowSize(1600, browser.getWindowSize().height);
+  waitForUnload();
   const tags = $$('.tag-cloud-container a');
   const index = Math.floor(Math.random() * tags.length);
   const selectedTag = tags[index];
@@ -68,10 +68,14 @@ When('I click on any tag from the tag cloud', () => {
   selectedTag.click()
 });
 Then('I should be presented with the list of clickable articles with selected tag', () => {
+  browser.waitUntil(() => {
+    return $('main').isExisting() && $('main').getText().toUpperCase().indexOf(this.selectedTagValue.toUpperCase()) >= 0
+    && $$('main a').length > 0
+  }, 5000, 'Expected tag loading finish');
   waitForUnload();
   $$('main a')[0].click();
   waitForUnload();
-  expect($('.tags').getText()).to.include(this.selectedTagValue);
+  expect($('.tags').getText().toUpperCase()).to.include(this.selectedTagValue.toUpperCase());
 });
 
 When('I choose the Polish language', () => {
@@ -79,8 +83,9 @@ When('I choose the Polish language', () => {
 });
 Then('I should see the page in the Polish language', () => {
   browser.setWindowSize(1600, browser.getWindowSize().height);
+  waitForUnload();
   browser.waitUntil(() => {
-    return !$('.loading').isExisting()
+    return $('body').getText().includes("Najnowsze".toUpperCase());
   }, 5000, 'Expected loading finish');
   expect($('body').getText()).to.include("Najnowsze".toUpperCase());
   expect($('body').getText()).to.include("Więcej");

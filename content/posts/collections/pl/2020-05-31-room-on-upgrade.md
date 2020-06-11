@@ -176,4 +176,4 @@ fun provideDatabase(): RoomDatabase {
 }
 ```
 
-*Voilà!* Teraz kopie zapasowe będą tworzyć się przy każdej reinicjalizacji bazy danych. Podczas ich wywołania możesz zapisać dane w mniej restrykcyjnej bazie danych do dalszego odtworzenia, a następnie ponownie wstawić je do głównej bazy danych w pełnym formacie. Szczegóły takiej implementacji można znaleźć w linku do źródeł u góry artykułu.
+*Voilà!* Teraz kopie zapasowe będą tworzyć się przy każdej reinicjalizacji bazy danych. Podczas ich wywołania możesz zapisać dane w mniej restrykcyjnej bazie danych do dalszego odtworzenia, a następnie ponownie wstawić je do głównej bazy danych w pełnym formacie. Szczegóły takiej implementacji można znaleźć w linku do źródeł na dole artykułu.

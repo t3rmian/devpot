@@ -177,4 +177,4 @@ fun provideDatabase(): RoomDatabase {
 }
 ```
 
-*Voilà!* Now our backups will run on every destructive migration (database upgrade/downgrade). During that time, you can save the data to a more lenient database for further processing and later re-insertion to the main DB. Check the gist source at the top of the article for some more details.
+*Voilà!* Now our backups will run on every destructive migration (database upgrade/downgrade). During that time, you can save the data to a more lenient database for further processing and later re-insertion to the main DB. Check the gist source at the bottom of the article for some more details.

@@ -2,6 +2,7 @@ $themes: (light: (primary-background-color: white,
         primary-background-color-less-intense: #eee,
         primary-border-color: #ddd,
         primary-box-shadow-color: rgba(0, 0, 0, 0.5),
+        primary-box-shadow-color-light: rgba(0, 0, 0, 0.35),
         primary-color: #333,
         primary-color-less-intense: #666,
         primary-color-more-intense: black,
@@ -14,6 +15,7 @@ $themes: (light: (primary-background-color: white,
         primary-background-color-less-intense: #444,
         primary-border-color: #666,
         primary-box-shadow-color: rgba(0, 0, 0, 0.75),
+        primary-box-shadow-color-light: rgba(242, 144, 112, 0.1),
         primary-color: #ccc,
         primary-color-less-intense: #999,
         primary-color-more-intense: white,
@@ -74,13 +76,15 @@ $themes: (light: (primary-background-color: white,
 
         .transition-group {
             a,
-            button.link {
-                color: themed('secondary-color');
+            button.link,
+            a * {
+                color: themed('secondary-color') !important;
             }
-    
+
             a:hover,
-            button.link:hover {
-                color: themed('secondary-color-less-intense');
+            button.link:hover,
+            a:hover * {
+                color: themed('secondary-color-less-intense') !important;
             }
         }
         .transition-group .container,
@@ -119,7 +123,7 @@ $themes: (light: (primary-background-color: white,
             .langs {
                 .lang {
                     a[data-disabled=true] {
-                        color: themed('primary-color-less-intense');
+                        color: themed('primary-color-less-intense') !important;
                     }
                 }
             }
@@ -128,11 +132,23 @@ $themes: (light: (primary-background-color: white,
                 color: themed('primary-color-less-intense');
             }
     
+            .profile img, .social svg, .theme-switcher img {
+                box-shadow: 0 0 5 0px themed('primary-border-color');
+                -moz-box-shadow: 0 0 5px 0 themed('primary-border-color');
+                -webkit-box-shadow: 0 0 5px 0px themed('primary-border-color');
+            }
+
+            .profile:hover img, .social button:hover svg, .theme-switcher img:hover {
+                box-shadow: 0 0 5 0px themed('primary-box-shadow-color');
+                -moz-box-shadow: 0 0 5px 0 themed('primary-box-shadow-color');
+                -webkit-box-shadow: 0 0 5px 0px themed('primary-box-shadow-color');
+            }
+
             .content {
                 img {
-                    box-shadow: 0 0 20px 0 themed('primary-box-shadow-color');
-                    -moz-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color');
-                    -webkit-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color');
+                    box-shadow: 0 0 20px 0 themed('primary-box-shadow-color-light');
+                    -moz-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color-light');
+                    -webkit-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color-light');
                 }
     
                 blockquote {

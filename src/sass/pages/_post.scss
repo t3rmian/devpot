@@ -21,11 +21,30 @@
             }
 
             .meta {
+                display: flex;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
                 margin-bottom: 0.5rem;
 
                 .item:not(:first-child):before {
                     content: '\00B7';
                     padding: 0 0.5em;
+                }
+
+                time:nth-of-type(2) {
+                    text-decoration: line-through;
+                }
+
+                .profile {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        height: 36px;
+                        border-radius: 50%;
+                        margin: 0 5px;
+                    }
                 }
             }
 
@@ -48,6 +67,10 @@
         .content {
             line-height: 1.55em;
             text-align: justify;
+
+            p > code {
+                border-radius: 4px;
+            }
 
             pre, code, pre *, code * {
                 font-family: Consolas, "Liberation Mono", Courier, monospace;
@@ -265,13 +288,27 @@
         }
     }
 }
+
 .social {
     text-align: center;
     margin-top: 8px;
-}
 
-.social button {
-    padding: 2rem !important;
+    button {
+        padding: 2rem 2.5rem 2rem 2.5rem !important;
+    }
+    
+    button:last-of-type {
+        padding-bottom: 2.5rem !important;
+    }
+    
+    button:focus {
+        outline: none;
+        box-shadow: none;
+    }
+    
+    svg {
+        border-radius: 50%;
+    }
 }
 
 @media (min-width: 1401px) and (min-height: 600px) {
@@ -288,5 +325,33 @@
         flex-direction: column;
         right: 16px;
         bottom: 0;
+    }
+}
+
+.post-footer {
+    text-transform: uppercase;
+    font-weight: bold !important;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em 0;
+    font-size: 0.725em;
+
+    span {
+        overflow-wrap: anywhere;
+        width: 20%;
+        text-align: center;
+    }
+
+    span:first-of-type,
+    span:last-of-type {
+        width: 40%;
+    }
+
+    span:first-of-type {
+        text-align: left;
+    }
+
+    span:last-of-type {
+        text-align: right;
     }
 }

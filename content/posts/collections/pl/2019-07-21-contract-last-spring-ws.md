@@ -16,7 +16,7 @@ Pierwsza z nich zakłada właśnie, że na początku tworzymy specyfikację (od 
 
 Ogólnie rzecz biorąc, podejście "od góry do dołu" zalecane jest ze względu na takie cechy jak łatwiejsze utrzymanie, wersjonowanie, możliwość ponownego użycia oraz luźnie powiązanie (ang. loose coupling). Podejście to wymaga jednak pewnej znajomości specyfikacji SOAP w celu stworzenia poprawnego dokumentu WSDL. Czasami jednak preferowane może być podejście oddolne właśnie z tego powodu. W takim przypadku dogłębna znajomość SOAP-a nie jest wymagana i wytworzenie takiego serwisu jest (zazwyczaj) mniej czasochłonne. Jednak, jak można się spodziewać, styl ten nie ma zalet podejścia kontraktowego (od góry do dołu).
 
-JAX-WS to całkiem dobry wybór dla obu stylów implementacji serwisów internetowych. Jak w tym przypadku miewa się Spring? Czy to prawda, że wspiera jedynie podejście odgórne? Ciekaw odpowiedzi na to pytanie postanowiłem sprawdzić podejście oddolne w praktyce (link do projektu na górze strony). Była to dosyć ciekawa lekcja, a wniosek, jaki z niej wyciągnąłem to to, że taka opcja jest również możliwa do zrealizowania. Warto jednak zaznaczyć, że Spring-WS wymusza nieco stosowanie pewnych praktyk. Ich obejście może skutkować późniejszymi niedogodnościami podczas fazy utrzymania projektu. Niemniej jednak zobaczmy, co przynosi nam ten moduł i jak możemy go wykorzystać przy implementacji web serwisów od dołu do góry.
+JAX-WS to całkiem dobry wybór dla obu stylów implementacji serwisów internetowych. Jak w tym przypadku miewa się Spring? Czy to prawda, że wspiera jedynie podejście odgórne? Ciekaw odpowiedzi na to pytanie postanowiłem sprawdzić podejście oddolne w praktyce (link do projektu na dole strony). Była to dosyć ciekawa lekcja, a wniosek, jaki z niej wyciągnąłem to to, że taka opcja jest również możliwa do zrealizowania. Warto jednak zaznaczyć, że Spring-WS wymusza nieco stosowanie pewnych praktyk. Ich obejście może skutkować późniejszymi niedogodnościami podczas fazy utrzymania projektu. Niemniej jednak zobaczmy, co przynosi nam ten moduł i jak możemy go wykorzystać przy implementacji web serwisów od dołu do góry.
 
 ### Konfiguracja POM
 
@@ -79,7 +79,7 @@ Jako ścieżkę w konfiguracji źródeł podaj pakiety z klasami z adnotacjami J
 
 ### DTO (Data Transfer Objects)
 
-Jako przykładowej odpowiedzi web serwisu użyjemy prostego modelu użytkownika. Zauważ, że nazwa przysporzy nam problemów w przyszłości i za chwilę pokażę dlaczego. W celu uproszczenia pominę definicje powiązanych klas (możesz je sprawdzić w projekcie źródłowym, do którego odnośnik znajduje się na górze strony). `@XML...` to adnotacje JAXB. Na ich podstawie stworzony zostanie odpowiedni schemat XSD.
+Jako przykładowej odpowiedzi web serwisu użyjemy prostego modelu użytkownika. Zauważ, że nazwa przysporzy nam problemów w przyszłości i za chwilę pokażę dlaczego. W celu uproszczenia pominę definicje powiązanych klas (możesz je sprawdzić w projekcie źródłowym, do którego odnośnik znajduje się na dole strony). `@XML...` to adnotacje JAXB. Na ich podstawie stworzony zostanie odpowiedni schemat XSD.
 
 ```java
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -444,4 +444,4 @@ Na koniec wywołaj `mvn clean install` bądź `mvn jaxb2:schemagen` w celu wygen
 </SOAP-ENV:Envelope>
 ```
 
-Nie zapomnij włączyć walidacji podczas testowania interfejsu. W SoapUI możesz to zrobić zaznaczając pola *Validate Requests* oraz *Validate Responses* w menu *-> File -> Preferences -> Editor Setting*. Jeśli natkniesz się na jakiekolwiek problemy, zawsze możesz spojrzeć na przykładowy projekt u góry strony. Z góry uprzedzam, że przy użyciu nowszych wersji JDK możesz napotkać [nieprzewidziane błędy](https://github.com/mojohaus/jaxb2-maven-plugin/issues/129). W celu uzyskania większej kontroli nad definicją schematu XSD polecam [JAXB-Facets](https://github.com/whummer/jaxb-facets).
+Nie zapomnij włączyć walidacji podczas testowania interfejsu. W SoapUI możesz to zrobić zaznaczając pola *Validate Requests* oraz *Validate Responses* w menu *-> File -> Preferences -> Editor Setting*. Jeśli natkniesz się na jakiekolwiek problemy, zawsze możesz spojrzeć na przykładowy projekt u dołu strony. Z góry uprzedzam, że przy użyciu nowszych wersji JDK możesz napotkać [nieprzewidziane błędy](https://github.com/mojohaus/jaxb2-maven-plugin/issues/129). W celu uzyskania większej kontroli nad definicją schematu XSD polecam [JAXB-Facets](https://github.com/whummer/jaxb-facets).

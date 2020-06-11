@@ -66,7 +66,7 @@ Note that the simpler the tests are, the faster they will be executed and a bigg
 
 Another issue might occur when you will want to generate a very big load by increasing the number of test plan executions (multiple people/machines). If you don't synchronize the database querying for input data, it's possible that the application will eat all of the database resources (connections). In this case, you might get timeouts during set-up step effectively making the next steps unreliable. So, in such case loading pre-fetched (e.g. a day before) input data is preferred. Though, if you're not pressed on time, you can test things out yourself.
 
-For an exemplary implementation, you can check the sources linked at the top of the page. The project has a REST API implemented in Spring and contains some simple load tests. Please read the README for proper set-up (database driver needs to be downloaded and put in the JMeter classpath).
+For an exemplary implementation, you can check the sources linked at the bottom of the page. The project has a REST API implemented in Spring and contains some simple load tests. Please read the README for proper set-up (database driver needs to be downloaded and put in the JMeter classpath).
 
 #### JMeter variables scope
 

@@ -1,3 +1,5 @@
+import PostFooter from "../components/PostFooter";
+import PostHeader from "../components/PostHeader";
 import Footer from "../components/Footer";
 import { Link } from "components/Router";
 import React from "react";
@@ -10,11 +12,16 @@ import lifecycle from "react-pure-lifecycle";
 import { useRouteData } from "react-static";
 import { useTranslation } from "react-i18next";
 import config from "../template.config";
-import { lazyLoadImages, loadComments, loadHighlight, countPostMinutes } from "../utils";
+import {
+  lazyLoadImages,
+  loadComments,
+  loadHighlight,
+  countPostMinutes,
+} from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
-import hljs from 'highlight.js/lib/highlight';
+import hljs from "highlight.js/lib/highlight";
 
-const registerLanguage = name => {
+const registerLanguage = (name) => {
   const lang = require(`highlight.js/lib/languages/${name}`);
   hljs.registerLanguage(name, lang);
 };
@@ -30,14 +37,14 @@ const registerLanguage = name => {
   "gradle",
   "bash",
   "xml",
-  "java"
+  "java",
 ].forEach(registerLanguage);
 
 const updateCodeSyntaxHighlighting = () => {
-  document.querySelectorAll("pre code").forEach(block => {
+  document.querySelectorAll("pre code").forEach((block) => {
     const languageClass = [].slice
       .call(block.classList)
-      .find(c => c.indexOf("language-") >= 0);
+      .find((c) => c.indexOf("language-") >= 0);
     if (languageClass !== undefined) {
       block.parentElement.classList.add(languageClass.split("-")[1]);
     }
@@ -55,18 +62,18 @@ const methods = {
         config.optional.commentsRepo,
         getCommentsTheme()
       );
-      loadHighlight(getHighlightTheme())
+      loadHighlight(getHighlightTheme());
     }
     [...document.getElementsByTagName("a")]
-      .filter(a => a.hostname !== window.location.hostname)
-      .forEach(a => {
+      .filter((a) => a.hostname !== window.location.hostname)
+      .forEach((a) => {
         a.setAttribute("target", "_blank");
         a.setAttribute("rel", "noopener noreferrer");
       });
   },
   componentDidUpdate() {
     updateCodeSyntaxHighlighting();
-  }
+  },
 };
 
 export function Post() {
@@ -81,11 +88,14 @@ export function Post() {
       : lazyImgRegex.exec(post.contents) != null
       ? RegExp.$1
       : null;
-  const authorLang = isDefaultLang ? "/" : "/" + lang + "/"
-  const authorSite = post.authorSite ? post.authorSite : config.authorSite + authorLang
-  const author = (post.author === config.author || post.author == null)
-      ? (<a href={`${authorSite}`}>{config.author}</a>)
-      : post.author;
+  const authorLang = isDefaultLang ? "/" : "/" + lang + "/";
+  const authorSite = post.authorSite
+    ? post.authorSite
+    : config.authorSite + authorLang;
+  const authorPicture = post.authorPicture
+    ? post.authorPicture
+    : config.authorPicture;
+  const author = post.author ? post.author : config.author;
 
   return (
     <div className="container post-container">
@@ -116,65 +126,39 @@ export function Post() {
         </header>
         <main aria-label={t("Article", { lng: lang })}>
           <article>
-            <div className="header">
-              <h2 className="title">{post.title}</h2>
-              {post.tags && (
-                <div className="tags">
-                  {post.tags.map(tag => (
-                    <Link
-                      className="item"
-                      key={tag}
-                      to={`${tags.find(t => t.value === tag).path}`}
-                    >
-                      {tag}
-                    </Link>
-                  ))}
-                </div>
-              )}
-              <div className="meta">
-                <span className="item">
-                  <time dateTime={new Date(post.date).toISOString()}>
-                    {t("date=post", {
-                      date: new Date(post.date),
-                      lng: lang
-                    })}
-                  </time>
-                </span>
-                {post.source && (
-                  <span className="item">
-                    <a href={post.source}>{t("source", { lng: lang })}</a>
-                  </span>
-                )}
-                <span className="item">
-                  {t("count minutes read", {
-                    count: minutesRead,
-                    lng: lang
-                  })}
-                </span>
-              </div>
-            </div>
+            <PostHeader
+              {...post}
+              routeTags={tags}
+              author={author}
+              authorSite={authorSite}
+              authorPicture={authorPicture}
+              dateFormatted={t("date=post", {
+                date: new Date(post.date),
+                lng: lang,
+              })}
+              updatedFormatted={
+                post.updated &&
+                t("date=post", {
+                  date: new Date(post.updated),
+                  lng: lang,
+                })
+              }
+              minutesRead={t("count minutes read", {
+                count: minutesRead,
+                lng: lang,
+              })}
+            />
             <div className="content">
               {convert(post.contents)}
-              {(post.updated || post.author) && (
-                <table className="more">
-                  <tbody>
-                    <tr>
-                      {post.updated && (
-                        <td className="updated">
-                          {t("Updated", { lng: lang }) + ": "}
-                          <time dateTime={new Date(post.updated).toISOString()}>
-                            {t("date=post", {
-                              date: new Date(post.updated),
-                              lng: lang
-                            })}
-                          </time>
-                        </td>
-                      )}
-                      {post.author && <td className="author">{author}</td>}
-                    </tr>
-                  </tbody>
-                </table>
-              )}
+              <PostFooter
+                prev={post.prev}
+                source={
+                  post.source != undefined
+                    ? { url: post.source, title: t("source", { lng: lang }) }
+                    : undefined
+                }
+                next={post.next}
+              />
             </div>
           </article>
         </main>
@@ -186,8 +170,9 @@ export function Post() {
           title={post.title + " - " + t("site title", { lng: lang })}
           tags={post.tags}
           twitterAuthor={t("twitter author", { lng: lang })}
-          twitterContentUsername={post.twitterAuthor}/>
-        <div id="comments" role="complementary"/>
+          twitterContentUsername={post.twitterAuthor}
+        />
+        <div id="comments" role="complementary" />
         <SearchBar root={root} lang={lang} />
         <Footer langRefs={langRefs} lang={lang} />
       </div>

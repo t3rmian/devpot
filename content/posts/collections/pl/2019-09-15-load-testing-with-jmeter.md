@@ -66,7 +66,7 @@ Wartościową wskazówką jest to, że im prostsze są testy, tym szybciej zosta
 
 Inny problem może wystąpić, gdy będziemy chcieli wygenerować bardzo duże obciążenie, zwiększając liczbę równoległych testerów (maszyn). Jeśli nie zsynchronizujemy zapytań do bazy danych o dane wejściowe, możliwe, że aplikacja szybko zarezerwuje wszystkie zasoby (połączenia). W takim przypadku możemy nie doczekać się odpowiedzi już na samym etapie pozyskiwania danych. Dlatego w takim przypadku preferowane jest wstępne przygotowanie danych wejściowych, np. dzień wcześniej.
 
-Przykładową implementację możesz podejrzeć, odwiedzając źródła, do których odnośnik znajduje się na górze strony. Załączony projekt to aplikacja internetowa (Java/Spring) wystawiająca interfejs REST-owy i zawierająca kilka prostych testów obciążeniowych. Uruchomienie jej jest dosyć proste, jednak wymaga zapoznania się z plikiem README w celu prawidłowej konfiguracji (konieczne jest pobranie JMetera wraz ze sterownikiem bazy danych).
+Przykładową implementację możesz podejrzeć, odwiedzając źródła, do których odnośnik znajduje się na dole strony. Załączony projekt to aplikacja internetowa (Java/Spring) wystawiająca interfejs REST-owy i zawierająca kilka prostych testów obciążeniowych. Uruchomienie jej jest dosyć proste, jednak wymaga zapoznania się z plikiem README w celu prawidłowej konfiguracji (konieczne jest pobranie JMetera wraz ze sterownikiem bazy danych).
 
 #### Zakres zmiennych w JMeterze
 
