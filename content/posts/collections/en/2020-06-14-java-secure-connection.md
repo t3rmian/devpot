@@ -127,11 +127,13 @@ The standard Java package that provides an abstraction over secure network commu
 
 The support for various protocol versions and ciphers in Java is implemented in the form of a pluggable security architecture through the means of security providers. By default, at least one security provider is distributed with JRE/JDK and if needed a third-party provider can be added.
 
-For example, at the moment of writing this, Oracle JRE8/JDK8 does not provide support for TLS 1.3, though it is planned for [2020-07-14](https://java.com/en/jre-jdk-cryptoroadmap.html). Meanwhile, you can enjoy [TLS 1.3 on Java 11](http://openjdk.java.net/jeps/332) and on [Azul's Zing Java 8 JVMs/JDKs](https://www.azul.com/press_release/azul-systems-brings-updated-transport-layer-security-to-java-se-8/).
+For example, at the moment of writing this, Oracle JRE8/JDK8 does not provide support for TLS 1.3, though it is planned for [2020-07-14](https://java.com/en/jre-jdk-cryptoroadmap.html). Meanwhile, you can enjoy [TLS 1.3 on Java 11](http://openjdk.java.net/jeps/332) and on [Azul's Zing/Zulu Java 8 JVMs/JDKs](https://www.azul.com/press_release/azul-systems-brings-updated-transport-layer-security-to-java-se-8/).
 
 ### Customizing the secure connection
 
 A security provider is injected into the SSLContext which is used for initiating the connection. The default supported protocols can be seen by querying SSLContext parameters `SSLContext.getDefault().getSupportedSSLParameters().getProtocols()`. To restrict the list only to the chosen protocols, we can use `setEnabledProtocols(String[] protocols)` method of the `SSLContext`.
+
+Let's check first what elements are there to initialize the context:
 
 <table class="rwd">
    <thead>
@@ -168,7 +170,7 @@ context.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustMan
             Key<wbr>Store
          </td>
          <td data-label="Description">
-            A store containing server identity certificate.
+            A store containing our identity certificate.
          </td>
          <td data-label="Example use">
          <pre>
@@ -185,7 +187,7 @@ try (FileInputStream fis = FileInputStream("path/to/keystore")) {
             Trust<wbr>Manager<wbr>Factory<br/>/<br/>Key<wbr>Manager<wbr>Factory
          </td>
          <td data-label="Description">
-            Factories for initialization of trust/key managers from key stores or managers provided by the runtime. The trust/key managers can be instantiaded without the factories as well like shown above.
+            Factories for initialization of trust/key managers from key stores or managers provided by the runtime. The trust/key managers can also be instantiated using your own implementation.
          </td>
          <td data-label="Example use">
          <pre>
@@ -204,7 +206,7 @@ tmf.init((KeyStore) null); // Default keystore will be used</code>
             Presents a certificate chain with the public key to the client and provides a private key for decryption of the data encrypted by the public key.
          </td>
          <td data-label="Example use">
-            We've seen that passwords are associated with key stores but private keys can also have a password. Since there is no way to provide a password for the private key to the KeyManager, when "SunX509" KeyManagerFactory algorithm is used, it's assumed to be the same as the keystore password.
+            We've seen that passwords are associated with key stores but private keys can also have a password. Since there is no way to provide a password for the private key to the KeyManager, when the default "SunX509" KeyManagerFactory algorithm is used, it's assumed to be the same as the keystore password.
             <br/>However, if we use "NewSunX509" algorithm we can overcome this issue – <a href="https://tersesystems.com/blog/2018/09/08/keymanagers-and-keystores/">a more detailed explanation by Will Argent</a>.
          </td>
       </tr>
@@ -236,7 +238,7 @@ tmf.init((KeyStore) null); // Default keystore will be used</code>
     </tbody>
 </table>
 
-Most of the HTTP clients support customizing the connection through the SSLContext class. In general, the default configuration provided by the JDK/JRE would often suffice when making a secure connection as a client. Unless of course the server also requires a valid certificate from us. In such case, we will have to prove our identity through the KeyManager.
+Most of the HTTP clients support customizing the connection through the SSLContext class. In general, the default configuration provided by the JDK/JRE would often suffice when making a secure connection as a client. Unless of course the server also requires a valid certificate from us. In such a case, we will have to prove our identity through the KeyManager.
 
 Some examples of the final link between the secure connection configuration and client/connection classes:
 
@@ -265,14 +267,14 @@ Client jerseyClient = ClientBuilder.newBuilder()
     .build();
 ```
 
-To manage key stores, create CSR (Certificate Signing Request – to be signing by a Certification Authority) we use the `keytool` command-line program included in JRE/JDK `bin` directory. For some popular commands, refer to [the SSL Shopper's article](https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html).
+To manage key stores, create CSR (Certificate Signing Request – to be signed by a Certification Authority) we use the `keytool` command-line program included in JRE/JDK `bin` directory. For some popular commands, refer to [the SSL Shopper's article](https://www.sslshopper.com/article-most-common-java-keytool-keystore-commands.html).
 
 When in doubt why the standard configuration does not work, it's always a good idea to check the validity of the site certificate, domain name, and trust chain unless the certificate is self-signed and imported into the trust store (if so, verify this too).
 
 <figure style="text-align: center;">
 <img loading="lazy" style="margin-top: 0;" src="/img/hq/https-certificate-browser.png" alt="Getting the site certificate using browser" title="Getting the site certificate using browser">
 <img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-windows.png" alt="Verification of certificate DNS name" title="Verification of certificate DNS name">
-<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-windows.png" alt="Checking the certificaiton path" title="Checking the certificaiton path">
+<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/https-certificate-windows.png" alt="Checking the certification path" title="Checking the certification path">
 </figure>
 
 Often though, on the servers, checking the certificate through the browser isn't a feasible scenario as they're usually run in a headless mode. You can still use some command-line tools like [curl or openssl to extract the certificate](https://serverfault.com/questions/661978/displaying-a-remote-ssl-certificate-details-using-cli-tools) in such a situation.
