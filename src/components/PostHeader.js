@@ -10,6 +10,7 @@ export default ({
   updated,
   updatedFormatted,
   minutesRead,
+  authorAlt,
   authorSite,
   authorPicture,
   author,
@@ -43,7 +44,7 @@ export default ({
       </span>
       <span className="item profile">
         <a href={authorSite} className="profile">
-          {authorPicture && <img crossOrigin="true" src={authorPicture} alt="Author"/>}
+          {authorPicture && <img crossOrigin="true" src={authorPicture} alt={authorAlt}/>}
           <div>{authorName}<br/>{authorSurname}</div>
         </a>
       </span>

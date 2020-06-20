@@ -129,6 +129,7 @@ export function Post() {
             <PostHeader
               {...post}
               routeTags={tags}
+              authorAlt={t("Author", { lng: lang })}
               author={author}
               authorSite={authorSite}
               authorPicture={authorPicture}

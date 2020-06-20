@@ -14,6 +14,7 @@ const resources = {
       "date=month+day": "{{date, month+day}}",
       "date=post": "{{date, year+month+day}}",
 
+      Author: "Author",
       Recent: "Recent",
       Article: "Article",
       "Posts by tag": "Posts by tag: {{tag}}",
@@ -42,6 +43,7 @@ const resources = {
   },
   pl: {
     translation: {
+      Author: "Autor",
       Recent: "Najnowsze",
       Article: "Artykuł",
       "Posts by tag": "Artykuły z etykietą: {{tag}}",
