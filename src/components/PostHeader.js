@@ -43,7 +43,7 @@ export default ({
       </span>
       <span className="item profile">
         <a href={authorSite} className="profile">
-          {authorPicture && <img crossOrigin="true" src={authorPicture} />}
+          {authorPicture && <img crossOrigin="true" src={authorPicture} alt="Author"/>}
           <div>{authorName}<br/>{authorSurname}</div>
         </a>
       </span>
