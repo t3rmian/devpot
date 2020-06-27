@@ -166,7 +166,7 @@ function applyRobotsConfig(DIST) {
   console.log(chalk.green(`[\u2713] ${filename} updated`));
 }
 
-async function generateThumbnails(DIST) {
+function generateThumbnails(DIST) {
   const root = DIST + "/img/hq/";
   const dir = fs.opendirSync(root);
   let entry;
@@ -178,7 +178,7 @@ async function generateThumbnails(DIST) {
       console.debug(
         "Found a SVG image applicable for conversion: " + inputFilePath
       );
-      await sharp(inputFilePath)
+      sharp(inputFilePath)
         .jpeg()
         .toFile(outputFilePath)
         .then(function () {
