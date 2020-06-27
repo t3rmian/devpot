@@ -179,7 +179,10 @@ function generateThumbnails(DIST) {
         "Found a SVG image applicable for conversion: " + inputFilePath
       );
       sharp(inputFilePath)
-        .jpeg()
+        .jpeg({
+          quality: 100,
+          chromaSubsampling: '4:4:4'
+        })
         .toFile(outputFilePath)
         .then(function () {
           console.log("Converted: " + inputFilePath + " -> " + outputFilePath);
