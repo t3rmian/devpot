@@ -1,5 +1,6 @@
 import webpack from "webpack";
 import chalk from "chalk";
+import sharp from "sharp";
 import fs from "fs-extra";
 import nodePath from "path";
 import config from "./src/template.config";
@@ -36,6 +37,7 @@ export default (options = {}) => ({
     applyManifestConfig(DIST);
     applyBraveRewardsConfig(DIST);
     applyRobotsConfig(DIST);
+    generateThumbnails(DIST);
   },
   webpack: (currentWebpackConfig, state) => {
     const { stage } = state
@@ -162,4 +164,36 @@ function applyRobotsConfig(DIST) {
     }
   );
   console.log(chalk.green(`[\u2713] ${filename} updated`));
+}
+
+function generateThumbnails(DIST) {
+  const root = DIST + "/img/hq/";
+  const dir = fs.opendirSync(root);
+  let entry;
+  while ((entry = dir.readSync()) !== null) {
+    const inputFilePath = root + entry.name;
+    if (inputFilePath.endsWith(".svg")) {
+      const outputFilePath =
+        inputFilePath.substring(0, inputFilePath.length - 3) + "jpeg";
+      console.debug(
+        "Found a SVG image applicable for conversion: " + inputFilePath
+      );
+      sharp(inputFilePath)
+        .jpeg()
+        .toFile(outputFilePath)
+        .then(function () {
+          console.log("Converted: " + inputFilePath + " -> " + outputFilePath);
+        })
+        .catch(function (err) {
+          console.error(
+            "Encountered error during conversion of: " +
+              inputFilePath +
+              " -> " +
+              outputFilePath +
+              ": " +
+              err
+          );
+        });
+    }
+  }
 }
