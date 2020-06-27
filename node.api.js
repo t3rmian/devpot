@@ -134,7 +134,7 @@ function applyBraveRewardsConfig(DIST) {
   fs.writeFileSync(
     path,
     allLines
-      .replace("$template.config.js._siteRoot", config.siteRoot.split("//")[1])
+      .replace("$template.config.js.siteRoot", config.siteRoot.split("//")[1])
       .replace(
         "$template.config.js.optional.braveRewardsToken",
         config.optional.braveRewardsToken
