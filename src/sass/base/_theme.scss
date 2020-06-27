@@ -74,6 +74,15 @@ $themes: (light: (primary-background-color: white,
             transition: all $theme-transition-short-delay $theme-transition-short-timing-function !important;
         }
 
+        .search-bar-container {
+            input,
+            button {
+                box-shadow: 0 0 2px 0 themed('primary-box-shadow-color-light');
+                -moz-box-shadow: 0 0 2px 0 themed('primary-box-shadow-color-light');
+                -webkit-box-shadow: 0 0 2px 0 themed('primary-box-shadow-color-light');
+            }
+        }
+
         .transition-group {
             a,
             button.link,

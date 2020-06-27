@@ -48,7 +48,7 @@ header {
                     font-family: $header-font-family;
                 }
             }
-            
+
             .logo-description {
                 line-height: 1.33em;
             }
@@ -67,18 +67,60 @@ header {
 }
 
 .search-bar-container {
-    input {
-        padding-bottom: 2px;
-        padding-left: 5px;
-    }
 
     input,
     button {
+        height: 28px;
         border-width: 1px;
+        vertical-align: top;
+        padding-bottom: 1px !important;
+    }
+
+    input,
+    button,
+    input:focus,
+    button:focus {
+        border: 0px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    ::-webkit-input-placeholder {
+        text-indent: 10px !important;
+    }
+
+    :-moz-placeholder {
+        text-indent: 10px !important;
+    }
+
+    ::-moz-placeholder {
+        text-indent: 10px !important;
+    }
+
+    :-ms-input-placeholder {
+        text-indent: 10px !important;
+    }
+
+    ::-webkit-search-cancel-button {
+        margin: 0 10px 0px 8px !important;
+    }
+
+    ::-ms-clear {
+        margin: 0 10px 0 8px !important;
+    }
+
+    input {
+        text-indent: 10px !important;
+        padding: 0px;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
     }
 
     button {
-        padding-top: 0;
-        padding-bottom: 2px;
+        padding: 0px 12px;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        cursor: pointer;
     }
 }
