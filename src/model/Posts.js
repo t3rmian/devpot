@@ -7,7 +7,7 @@ export default function Posts(blog, defaultLang, lang, tags, root) {
     path: createPath(post),
     template: "src/containers/Post",
     getData: () => ({
-      post: mapToPostInNeighborhood(post, blog[lang]),
+      post: mapToPostInNeighborhood(post, blog[lang], lang),
       lang,
       isDefaultLang,
       langRefs: [
@@ -38,24 +38,24 @@ export default function Posts(blog, defaultLang, lang, tags, root) {
     })
   }));
   
-  function mapToPostInNeighborhood(post, posts) {
+  function mapToPostInNeighborhood(post, posts, lng) {
     post = { ...post };
-    post.prev = mapToNeighborPost(posts.filter((p) => (p.id == post.id - 1))[0]);
-    post.next = mapToNeighborPost(posts.filter((p) => (p.id == post.id + 1))[0]);
+    post.prev = mapToNeighborPost(posts.filter((p) => (p.id == post.id - 1))[0], lng);
+    post.next = mapToNeighborPost(posts.filter((p) => (p.id == post.id + 1))[0], lng);
     return post;
   }
   
-  function mapToNeighborPost(prev) {
+  function mapToNeighborPost(prev, lng) {
     if (prev !== undefined) {
       return {
-        url: (defaultLang === lang ? "/" :  "/${lng}/") + createPath(prev),
+        url: (defaultLang === lang ? "/" : `/${lng}/`) + createPath(prev),
         title: prev.title,
       };
     }
   }
   
   function createPath(post) {
-    return `${i18n.t("posts", { lng: lang })}/${post.url}`;
+    return `${i18n.t("posts", { lng: lang })}/${post.url}/`;
   }
 
 }
