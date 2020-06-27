@@ -82,12 +82,15 @@ export function Post() {
   const minutesRead = countPostMinutes(post);
   const hqImgRegex = /data-src=\"(.*?)\"/gi;
   const lazyImgRegex = /src=\"(.*?)\"/gi;
-  const imageUrl =
+  let imageUrl =
     hqImgRegex.exec(post.contents) != null
       ? RegExp.$1
       : lazyImgRegex.exec(post.contents) != null
       ? RegExp.$1
       : null;
+  if (imageUrl != null && imageUrl.endsWith(".svg")) {
+    imageUrl = imageUrl.substring(0, imageUrl.length - 3) + "jpeg"
+  }
   const authorLang = isDefaultLang ? "/" : "/" + lang + "/";
   const authorSite = post.authorSite
     ? post.authorSite
