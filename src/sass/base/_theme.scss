@@ -110,7 +110,7 @@ $themes: (light: (primary-background-color: white,
                 filter: themed('logo-filter-hover');
             }
     
-            .theme-switcher img {
+            .theme-switcher svg {
                 filter: themed('theme-switch-filter');
             }
     
@@ -141,13 +141,13 @@ $themes: (light: (primary-background-color: white,
                 color: themed('primary-color-less-intense');
             }
     
-            .profile img, .social svg, .theme-switcher img {
+            .profile img, .social svg, .theme-switcher svg {
                 box-shadow: 0 0 5 0px themed('primary-border-color');
                 -moz-box-shadow: 0 0 5px 0 themed('primary-border-color');
                 -webkit-box-shadow: 0 0 5px 0px themed('primary-border-color');
             }
 
-            .profile:hover img, .social button:hover svg, .theme-switcher img:hover {
+            .profile:hover img, .social button:hover svg, .theme-switcher svg:hover {
                 box-shadow: 0 0 5 0px themed('primary-box-shadow-color');
                 -moz-box-shadow: 0 0 5px 0 themed('primary-box-shadow-color');
                 -webkit-box-shadow: 0 0 5px 0px themed('primary-box-shadow-color');
@@ -260,7 +260,7 @@ $themes: (light: (primary-background-color: white,
                 transition: filter $theme-transition-short-delay $theme-transition-short-timing-function !important;
             }
     
-            .theme-switcher img {
+            .theme-switcher svg {
                 transition: filter $theme-transition-delay $theme-transition-timing-function !important;
             }
     

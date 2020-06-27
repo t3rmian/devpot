@@ -99,29 +99,23 @@ pre {
     font-family: monospace;
 }
 
-.ascii {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
 
 .search-bar-container {
-        ::-webkit-input-placeholder {
-            text-transform: capitalize;
-        }
+    ::-webkit-input-placeholder {
+        text-transform: capitalize;
+    }
 
-        :-moz-placeholder {
-            text-transform: capitalize;
-        }
+    :-moz-placeholder {
+        text-transform: capitalize;
+    }
 
-        ::-moz-placeholder {
-            text-transform: capitalize;
-        }
+    ::-moz-placeholder {
+        text-transform: capitalize;
+    }
 
-        :-ms-input-placeholder {
-            text-transform: capitalize;
-        }
+    :-ms-input-placeholder {
+        text-transform: capitalize;
+    }
 }
 
 .meta, .tags, .langs {
