@@ -1,5 +1,6 @@
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
+import { Head } from "react-static";
 import React from "react";
 import i18n from "../i18n";
 
@@ -12,9 +13,16 @@ export default () => {
     setReady(true);
   }, []);
 
+  const reason =
+    typeof document !== "undefined" ? (navigator.onLine ? "404" : "🖧") : "404";
+
   return ready ? (
     <div className="error">
-      <h1>404</h1>
+      <Head>
+        <title>{reason}</title>
+        <meta name="robots" content="noindex" />
+      </Head>
+      <h1>{reason}</h1>
       <Footer lang={i18n.t("defaultLang")}
         langRefs={[
           ...langs

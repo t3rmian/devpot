@@ -44,11 +44,7 @@ export default {
     return [
       ...I18nIndexes(blog, config.defaultLanguage, home),
       ...I18nTags(blog, config.defaultLanguage),
-      ...I18nSearch(blog, config.defaultLanguage, home),
-      {
-        path: "offline",
-        noindex: true
-      }
+      ...I18nSearch(blog, config.defaultLanguage, home)
     ];
   },
   plugins: [
@@ -98,7 +94,6 @@ export default {
       <Html lang="x-default">
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <script src="/pwabuilder-sw-register.js" />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
@@ -123,6 +118,18 @@ export default {
           <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="true" />
           <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Black+Ops+One|Montserrat|Raleway&display=swap" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Black+Ops+One|Montserrat|Raleway&display=swap" />
+          <link rel="preload" as="image" href="/img/logo.png" />
+          <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
+            if ("serviceWorker" in navigator) {
+              window.addEventListener("load", function() {
+                if (!navigator.serviceWorker.controller) {
+                  navigator.serviceWorker.register("/pwabuilder-sw.js", {
+                    scope: "/"
+                  });
+                }
+              });
+            }`}}>
+          </script>
           {config.optional.ga && (
             <script
               async

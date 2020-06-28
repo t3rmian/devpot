@@ -96,7 +96,7 @@ Then('I should see the page in the Polish language', () => {
 });
 
 When('I click on theme change', () => {
-  $('.theme-switcher > img').click();
+  $('.theme-switcher > svg').click();
 });
 Then('The theme css changes and is saved as cookie', () => {
   browser.waitUntil(() => {

@@ -14,5 +14,5 @@ Then('I should see the language switch', () => {
   expect($('a[hreflang=en]').getText().toUpperCase()).to.include("English".toUpperCase());
 });
 Then('I should see the theme switch', () => {
-  expect($('img[alt="Switch theme"]').isExisting()).to.be.equal(true);
+  expect($('svg[alt="Switch theme"]').isExisting()).to.be.equal(true);
 });
