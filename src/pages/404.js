@@ -12,7 +12,9 @@ export default () => {
   React.useEffect(() => {
     setReady(true);
   }, []);
-  const reason = navigator.onLine ? "404" : "🖧";
+
+  const reason =
+    typeof document !== "undefined" ? (navigator.onLine ? "404" : "🖧") : "404";
 
   return ready ? (
     <div className="error">
