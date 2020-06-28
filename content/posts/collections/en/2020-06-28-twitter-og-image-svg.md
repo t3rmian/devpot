@@ -122,15 +122,15 @@ function generateThumbnails(DIST) {
 }
 ```
 
-> (sharp:14808): Pango-WARNING **: 21:25:18.422: couldn't load font "sans-serif Bold Not-Rotated 13", falling back to "Sans Bold Not-Rotated 13", expect ugly output.
-> (sharp:14808): Pango-WARNING **: 21:25:18.424: couldn't load font "Sans Bold Not-Rotated 13", falling back to "Sans Not-Rotated 13", expect ugly output.
+> (sharp:14808): Pango-WARNING **: 21:25:18.422: couldn't load font "sans-serif Bold Not-Rotated 13", falling back to "Sans Bold Not-Rotated 13", expect ugly output.  
+> (sharp:14808): Pango-WARNING **: 21:25:18.424: couldn't load font "Sans Bold Not-Rotated 13", falling back to "Sans Not-Rotated 13", expect ugly output.  
 > (sharp:14808): Pango-WARNING \*\*: 21:25:18.435: All font fallbacks failed!!!!
 
 Hmm, that's not how it was supposed to work. A quick search of the problem in the module repository gave me the answer that the error is specific for [generating text with multiple threads on Windows](https://github.com/lovell/sharp/issues/1162). Unfortunately, I could not solve the problem simply by converting the code into synchronous processing with `async / await`.
 
 Undoubtedly, the process of building a production version on Linux, where the error does not occur, is salvation here. In addition, Netlify hosting allows me to use the functionality of deploying test versions with pull requests. This solution is sufficient to test the display of images on social media, thus the possibility of local conversion is fortunately unnecessary for me.
 
-### NodeJS
+### Build
 
 Finally, the conversion should be connected to the building process itself. In the case of the React-static (v7.x) SSG (Static Site Generator), this can be done using the script `node.api.js` located at the root of the project. All we neet to do is to bind our function to one of the build phases (e.g. *afterExport*):
 

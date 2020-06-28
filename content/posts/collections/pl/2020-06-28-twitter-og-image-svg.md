@@ -119,15 +119,15 @@ function generateThumbnails(DIST) {
 }
 ```
 
-> (sharp:14808): Pango-WARNING **: 21:25:18.422: couldn't load font "sans-serif Bold Not-Rotated 13", falling back to "Sans Bold Not-Rotated 13", expect ugly output.
-> (sharp:14808): Pango-WARNING **: 21:25:18.424: couldn't load font "Sans Bold Not-Rotated 13", falling back to "Sans Not-Rotated 13", expect ugly output.
+> (sharp:14808): Pango-WARNING **: 21:25:18.422: couldn't load font "sans-serif Bold Not-Rotated 13", falling back to "Sans Bold Not-Rotated 13", expect ugly output.  
+> (sharp:14808): Pango-WARNING **: 21:25:18.424: couldn't load font "Sans Bold Not-Rotated 13", falling back to "Sans Not-Rotated 13", expect ugly output.  
 > (sharp:14808): Pango-WARNING \*\*: 21:25:18.435: All font fallbacks failed!!!!
 
 Hmm, chyba nie tak miało to działać? Szybkie wyszukanie problemu w repozytorium modułu dało mi odpowiedź, że [błąd jest specyficzny dla generowania tekstu przy wielu wątkach w systemie Windows](https://github.com/lovell/sharp/issues/1162). Niestety, nie udało mi się rozwiązać problemu poprzez przekształcenie kodu do synchronicznego przetwarzania przy pomocy `async/await`.
 
 Niewątpliwie proces budowania wersji produkcyjnej na Linuxie, gdzie błąd nie występuje, jest tutaj zbawieniem. Dodatkowo hosting Netlify, pozwala mi wykorzystać funkcjonalność deployowania wersji testowych przy pull requestach. Takie rozwiązanie jest wystarczające do przetestowania wyświetlania obrazów w mediach społecznościowych, tym samym możliwość konwersji lokalnie jest mi na szczęście zbędna.
 
-### React-static/NodeJS
+### Build
 
 Ostatecznie konwersję warto podpiąć do samego procesu budowania. W przypadku generator stron statycznych React-static (v7.x), można to zrealizować za pomocą skryptu `node.api.js` umieszczonego w korzeniu projektu, wpinając się do jednej z faz budowania (*afterExport*):
 
