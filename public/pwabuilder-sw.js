@@ -1,5 +1,5 @@
 const CACHE = "pwabuilder-offline";
-const PREFETCH_PAGES = ["404", "main.js"];
+const PREFETCH_PAGES = ["404"];
 
 const self = this;
 self.addEventListener("install", function (event) {
