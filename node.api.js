@@ -69,7 +69,8 @@ export default (options = {}) => ({
           "gradle",
           "bash",
           "xml",
-          "java"
+          "java",
+          "javascript",
         ].join('|')})$`),
       )
     );

@@ -38,6 +38,7 @@ const registerLanguage = (name) => {
   "bash",
   "xml",
   "java",
+  "javascript",
 ].forEach(registerLanguage);
 
 const updateCodeSyntaxHighlighting = () => {
