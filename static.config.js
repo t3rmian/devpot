@@ -44,11 +44,7 @@ export default {
     return [
       ...I18nIndexes(blog, config.defaultLanguage, home),
       ...I18nTags(blog, config.defaultLanguage),
-      ...I18nSearch(blog, config.defaultLanguage, home),
-      {
-        path: "offline",
-        noindex: true
-      }
+      ...I18nSearch(blog, config.defaultLanguage, home)
     ];
   },
   plugins: [

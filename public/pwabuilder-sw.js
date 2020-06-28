@@ -1,11 +1,11 @@
 const CACHE = "pwabuilder-offline";
-const offlineFallbackPage = "offline";
+const PREFETCH_PAGES = ["404", "main.js"];
 
 const self = this;
 self.addEventListener("install", function (event) {
   event.waitUntil(
     caches.open(CACHE).then(function (cache) {
-      return cache.add(offlineFallbackPage);
+      return cache.addAll(PREFETCH_PAGES);
     })
   );
 });
@@ -19,7 +19,7 @@ self.addEventListener("fetch", function (event) {
         event.waitUntil(updateCache(event.request, response.clone()));
         return response;
       })
-      .catch(function (error) {        
+      .catch(function (error) {
         return fromCache(event.request);
       })
   );
@@ -29,7 +29,7 @@ function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
     return cache.match(request).then(function (matching) {
       if (!matching || matching.status === 404) {
-        return Promise.reject("no-match");
+        return cache.match("404")
       }
 
       return matching;
