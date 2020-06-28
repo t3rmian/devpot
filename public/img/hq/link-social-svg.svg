@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="125px" preserveAspectRatio="none" style="width:300px;height:125px;" version="1.1" viewBox="0 0 300 125" width="300px" zoomAndPan="magnify"><defs><filter height="300%" id="fdevw4ad0qc9" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[88918e9ed6f4bcdc5bc768d5f8c972ce]
+cluster Media społecznościowe--><rect fill="#FFFFFF" width="100%" height="100%"/><rect fill="#FFFFFF" filter="url(#fdevw4ad0qc9)" height="101" style="stroke: #000000; stroke-width: 1.5;" width="218" x="65" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacingAndGlyphs" textLength="189" x="79.5" y="21.9951">Media społecznościowe</text><ellipse cx="173.7816" cy="67.2139" fill="#FEFECE" filter="url(#fdevw4ad0qc9)" rx="92.2816" ry="25.2139" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="131" x="108.2816" y="64.9154">Udostępnij artykuł</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="110" x="118.7816" y="81.2123">z obrazem SVG</text><!--MD5=[199378afc145c6f0fdbfce0183743eac]
+entity Autor--><ellipse cx="26" cy="36" fill="#FEFECE" filter="url(#fdevw4ad0qc9)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 1.5;"/><path d="M26,44 L26,71 M13,52 L39,52 M26,71 L13,86 M26,71 L39,86 " fill="none" filter="url(#fdevw4ad0qc9)" style="stroke: #A80036; stroke-width: 1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="40" x="6" y="104.4951">Autor</text><!--MD5=[5ea1e45ab707194bfbf143d25d7585c1]
+link Autor to Share--><path d="M46.2344,67 C56.1511,67 66.0678,67 75.9845,67 " fill="none" id="Autor-&gt;Share" style="stroke: #A80036; stroke-width: 1.0;"/><polygon fill="#A80036" points="81.1703,67,72.1703,63,76.1703,67,72.1703,71,81.1703,67" style="stroke: #A80036; stroke-width: 1.0;"/><!--MD5=[9ed4fe5471b1129ce536ad574641fc34]
+@startuml
+rectangle "Media społecznościowe" {
+  usecase "Udostępnij artykuł\nz obrazem SVG" as Share
+}
+Autor -> (Share)
+@enduml
+
+PlantUML version 1.2020.15beta1(Unknown compile time)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
