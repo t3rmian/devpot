@@ -13,6 +13,14 @@ self.addEventListener("install", function (event) {
 self.addEventListener("fetch", function (event) {
   if (event.request.method !== "GET") return;
 
+  if (/(\.[^.]{8}\.(js|css)|png|jpeg|jpg|webm|gif|svg)$/.test(event.request.url)) {
+    return cacheFirst(event);
+  } else {
+    return networkFirst(event);
+  }
+});
+
+function networkFirst(event) {
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
@@ -20,16 +28,41 @@ self.addEventListener("fetch", function (event) {
         return response;
       })
       .catch(function (error) {
-        return fromCache(event.request);
+        return fromCache404(event.request);
       })
   );
-});
+}
+
+function cacheFirst(event) {
+  event.respondWith(
+    fromCache(event.request)
+      .catch(function (error) {
+        return fetch(event.request)
+        .then(function (response) {
+          event.waitUntil(updateCache(event.request, response.clone()));
+          return response;
+        })
+      })
+  );
+}
+
+function fromCache404(request) {
+  try {
+  return fromCache(request)
+  } catch (error) {
+    if (request.url.indexOf(self.registration.scope) !== -1) {
+      return cache.match("404")
+    } else {
+      throw error;
+    }
+  }
+}
 
 function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
     return cache.match(request).then(function (matching) {
       if (!matching || matching.status === 404) {
-        return cache.match("404")
+        return Promise.reject("no-match");
       }
 
       return matching;
