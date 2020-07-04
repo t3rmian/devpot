@@ -121,13 +121,36 @@ export default {
           <link rel="preload" as="image" href="/img/logo.png" />
           <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
             if ("serviceWorker" in navigator) {
+              console.debug("Deferring service worker registration to page load");
               window.addEventListener("load", function() {
-                if (!navigator.serviceWorker.controller) {
+                if (navigator.serviceWorker.controller) {
+                  console.debug("[Client] This page is already controlled by: " + navigator.serviceWorker.controller.scriptURL);
+                } else {
+                  console.debug("[Client] This page is currently not controlled by a service worker.");
+                  console.debug("[Client] Registering a new service worker");
                   navigator.serviceWorker.register("/pwabuilder-sw.js", {
-                    scope: "/"
+                    scope: "/",
+                  }).then(function() {
+                    console.debug("[Client] Successfully registered service worker");
+                    navigator.serviceWorker.addEventListener("controllerchange", function(event) {
+                      console.debug("[Client] Service worker activated");
+                      console.debug("[Client] Requesting already loaded resources for caching")
+                      performance.getEntriesByType("resource")
+                        .map(function(resource) {
+                          return new Request(resource.name, { mode: "no-cors" });
+                        }).forEach(function(request) {
+                          console.debug("[Client] Fetch -> " + request.url)
+                          fetch(request);
+                        });
+                        fetch(window.location.href);
+                    });
+                  }).catch(function(error) {
+                    console.error(error);
                   });
-                }
-              });
+                };
+              })
+            } else {
+              console.debug("Service workers are not supported");
             }`}}>
           </script>
           {config.optional.ga && (
