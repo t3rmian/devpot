@@ -126,6 +126,15 @@ export default {
                   navigator.serviceWorker.register("/pwabuilder-sw.js", {
                     scope: "/"
                   });
+                  navigator.serviceWorker.ready.then(function(registration) {
+                    console.log("install cache")
+                    setTimeout(function(){
+                      caches.open("pwabuilder-offline").then(function (cache) {
+                        performance.getEntriesByType("resource").forEach(function(it){try{console.log(it.name);cache.add(new Request(it.name, { mode: 'no-cors' }));} catch (e) {console.log(e);}})
+                        return cache.add(window.location.href);
+                      });
+                    }, 1000);
+                  });
                 }
               });
             }`}}>

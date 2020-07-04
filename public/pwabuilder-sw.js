@@ -8,9 +8,15 @@ self.addEventListener("install", function (event) {
       return cache.addAll(PREFETCH_PAGES);
     })
   );
+  event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener('activate', function(event) {
+  event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener("fetch", function (event) {
+  console.log("fetch")
   if (event.request.method !== "GET") return;
 
   event.respondWith(
