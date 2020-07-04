@@ -38,6 +38,7 @@ export default (options = {}) => ({
     applyBraveRewardsConfig(DIST);
     applyRobotsConfig(DIST);
     generateThumbnails(DIST);
+    setCache(DIST);
   },
   webpack: (currentWebpackConfig, state) => {
     const { stage } = state
@@ -198,6 +199,28 @@ function generateThumbnails(DIST) {
               err
           );
         });
+    }
+  }
+}
+
+function setCache(DIST) {
+  console.log("GOGO " + DIST)
+  const dir = fs.opendirSync(DIST + "/templates/src/pages/");
+  let entry;
+  while ((entry = dir.readSync()) !== null) {
+    console.log(entry.name)
+    if (entry.name.startsWith("404")) {
+      const pwaSwFilePath = DIST + "/pwabuilder-sw.js"
+      const allLines = fs.readFileSync(pwaSwFilePath).toString()
+      const splittage = allLines.split('"/404"');
+      if (splittage.length < 2) {
+        console.warn("/404 page not found in pwabuilder-sw.js")
+        return;
+      }
+      splittage[0] += `"/404/routeInfo.json", "/templates/src/pages/${entry.name}", `;
+      fs.writeFileSync(pwaSwFilePath, splittage.join('"/404"'), () => {
+        console.log("Updating pwabuilder-sw.js");
+      });
     }
   }
 }
