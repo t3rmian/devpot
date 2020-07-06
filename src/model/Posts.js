@@ -39,9 +39,11 @@ export default function Posts(blog, defaultLang, lang, tags, root) {
   }));
   
   function mapToPostInNeighborhood(post, posts, lng) {
+    const sortedPosts = posts.sort(p => p.id - p.id);
+    const postIndex = posts.indexOf(post);
     post = { ...post };
-    post.prev = mapToNeighborPost(posts.filter((p) => (p.id == post.id - 1))[0], lng);
-    post.next = mapToNeighborPost(posts.filter((p) => (p.id == post.id + 1))[0], lng);
+    post.prev = mapToNeighborPost(sortedPosts[postIndex - 1], lng);
+    post.next = mapToNeighborPost(sortedPosts[postIndex + 1], lng);
     return post;
   }
   
