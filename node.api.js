@@ -204,11 +204,9 @@ function generateThumbnails(DIST) {
 }
 
 function setCache(DIST) {
-  console.log("GOGO " + DIST)
   const dir = fs.opendirSync(DIST + "/templates/src/pages/");
   let entry;
   while ((entry = dir.readSync()) !== null) {
-    console.log(entry.name)
     if (entry.name.startsWith("404")) {
       const pwaSwFilePath = DIST + "/pwabuilder-sw.js"
       const allLines = fs.readFileSync(pwaSwFilePath).toString()
