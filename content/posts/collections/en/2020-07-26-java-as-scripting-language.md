@@ -1,6 +1,6 @@
 ---
-title: Java as scripting language
-url: java-as-scripting-language
+title: Java as a scripting language
+url: java-as-a-scripting-language
 id: 35
 tags:
   - java
