@@ -41,7 +41,7 @@ wait
 
 W przypadku systemu Windows zalecam skorzystanie z opcji Linuxowej za pomocą dodatkowych narzędzi np. zainstalowanych wraz z Gitem (wybór opcjonalny) lub czegoś w rodzaju Cygwina. Jeśli jednak siły zewnętrzne zmusiły cię do tego, to możesz spróbować szczęścia z poniższym skryptem. Program uruchomi równolegle zadania, ograniczając liczbę procesów na podstawie własnego tytułu zadania *cmd.exe*. Do pozyskania liczby procesorów zainstalowanych na komputerze skorzystamy z wartości zmiennej środowiskowej [%NUMBER_OF_PROCESSORS%](http://environmentvariables.org/Number_Of_Processors).
 
-```shell
+```bash
 @ECHO off
 set PARALLELISM=%NUMBER_OF_PROCESSORS%
 for /R %%f in (..\app\src\main\assets\data\*) do (
