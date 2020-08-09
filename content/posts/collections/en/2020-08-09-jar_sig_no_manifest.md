@@ -18,6 +18,8 @@ The <i>**apksigner**</i> works in a similar way to [*jarsigner*](https://docs.or
 - **.SF* – with a list of files and the hash of the manifest entry as well as the hash of the manifest itself;
 - **.(DSA|RSA|EC)* – public key with CA list and the **.SF* file signature.
 
+<img src="/img/hq/manifest-signature.png" alt="Signature file" title="Signature file">
+
 In the absence of these files (unsigned package, e.g. in the debug flavor), and in particular *MANIFEST.MF*, you will encounter the JAR_SIG_NO_MANIFEST error. The error log might look like this:
 > Google Api Error: forbidden: APK signature is invalid or does not exist.<br/>
 > Error from apksigner: ERROR: JAR_SIG_NO_MANIFEST: Missing META-INF/MANIFEST.MF

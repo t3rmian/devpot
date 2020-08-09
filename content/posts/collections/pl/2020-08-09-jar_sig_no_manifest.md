@@ -22,6 +22,8 @@ W przypadku braku tych plików (niepodpisana paczka, np. w wersji debug), a w sz
 > Google Api Error: forbidden: APK signature is invalid or does not exist.
 > Error from apksigner: ERROR: JAR_SIG_NO_MANIFEST: Missing META-INF/MANIFEST.MF
 
+<img src="/img/hq/manifest-signature.png" alt="Plik sygnatury" title="Plik sygnatury">
+
 Czasami plik *MANIFEST.MF* możesz być wygenerowany, ale nie podpisany. W takiej sytuacji możesz spodziewać się błędu **JAR_SIG_NO_SIGNATURES**. Istnieją również różne błędy dotyczące innych problemów związanych z podpisywaniem APK, ale są one znacznie mniej powszechne, jeśli nie podpisujesz aplikacji ręcznie.
 
 ## Rozwiązanie
