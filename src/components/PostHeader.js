@@ -18,7 +18,7 @@ export default ({
   authorSurname = author.split(" ")[1],
 }) => (
   <div className="header">
-    <h2 className="title">{title}</h2>
+    <h1 className="title">{title}</h1>
     {tags && (
       <div className="tags">
         {tags.map((tag) => (

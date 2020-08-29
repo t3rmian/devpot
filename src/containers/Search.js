@@ -77,7 +77,7 @@ export default function Search() {
           }}
         />
         <main>
-        <div className="search-header" role="heading" aria-level="1">{header}</div>
+        <h1 className="search-header subtitle" role="heading" aria-level="1">{header}</h1>
         {content}
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />

@@ -6,8 +6,7 @@ $themes: (light: (primary-background-color: white,
         primary-color: #333,
         primary-color-less-intense: #666,
         primary-color-more-intense: black,
-        secondary-color: #2cb810,
-        secondary-color-less-intense: #0d8a3d,
+        secondary-color: #148a03,
         logo-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%), //https://codepen.io/sosuke/pen/Pjoqqp
         logo-filter-hover: invert(51%) sepia(32%) saturate(4500%) hue-rotate(77deg) brightness(84%) contrast(87%),
         theme-switch-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(200%) contrast(54%)),
@@ -17,10 +16,9 @@ $themes: (light: (primary-background-color: white,
         primary-box-shadow-color: rgba(0, 0, 0, 0.75),
         primary-box-shadow-color-light: rgba(242, 144, 112, 0.1),
         primary-color: #ccc,
-        primary-color-less-intense: #999,
+        primary-color-less-intense: #9b9b9b,
         primary-color-more-intense: white,
-        secondary-color: #ef7247,
-        secondary-color-less-intense: #f29475,
+        secondary-color: #ef8247,
         logo-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(100%) contrast(104%),
         logo-filter-hover: invert(51%) sepia(51%) saturate(600%) hue-rotate(329deg) brightness(97%) contrast(92%),
         theme-switch-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%)));
@@ -90,11 +88,6 @@ $themes: (light: (primary-background-color: white,
                 color: themed('secondary-color') !important;
             }
 
-            a:hover,
-            button.link:hover,
-            a:hover * {
-                color: themed('secondary-color-less-intense') !important;
-            }
         }
         .transition-group .container,
         .transition-group .page {

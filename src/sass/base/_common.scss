@@ -122,3 +122,9 @@ pre {
     text-transform: uppercase;
     font-size: 0.95em;
 }
+
+a:hover,
+button.link:hover,
+a:hover * {
+    text-decoration: underline;
+}

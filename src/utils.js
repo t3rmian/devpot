@@ -43,23 +43,18 @@ export function loadComments(anchor, repo, theme) {
 export function loadHighlight(theme) {
   const highlightId = "hljs-theme";
   const highlight = document.getElementById(highlightId);
+  const stylesHost = "/styles";
   if (!highlight) {
     const head = document.getElementsByTagName("head")[0];
     const link = document.createElement("link");
     link.id = highlightId;
     link.rel = "stylesheet";
     link.type = "text/css";
-    link.href =
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/" +
-      theme +
-      ".min.css";
+    link.href = `${stylesHost}/${theme}.min.css`;
     link.media = "all";
     head.appendChild(link);
   } else {
-    highlight.href =
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/" +
-      theme +
-      ".min.css";
+    highlight.href = `${stylesHost}/${theme}.min.css`;
   }
 }
 
