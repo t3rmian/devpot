@@ -126,7 +126,7 @@ function applyManifestConfig(DIST) {
   fs.readdirSync("content/posts/collections")
     .map(path => path.split("/").pop())
     .filter(lang => lang !== config.defaultLanguage)
-    .forEach(lang => fs.writeFileSync(`${path.split(".")[0]}-${lang}.webmanifest`, i18nManifest(output, config.defaultLanguage, lang), () => {
+    .forEach(lang => fs.writeFileSync(`${path.split(".")[0]}-${lang}.webmanifest`, i18nManifest(output, config, lang), () => {
       console.log(`Creating ${path.split(".")[0]}-${lang}.manifest file`);
     }))
   console.log(chalk.green(`[\u2713] ${filename} updated`));
@@ -135,7 +135,7 @@ function applyManifestConfig(DIST) {
 function i18nManifest(contents, config, targetLanguage) {
   return contents
     .replace(`"lang": "${config.defaultLanguage}"`, `"lang": "${targetLanguage}"`)
-    .replace(`"start_url" :"${config.siteRootSlash}"`, `"start_url" :"${config.siteRootSlash}/${targetLanguage}"`);
+    .replace(`"start_url" :"${config.siteRoot}"`, `"start_url" :"${config.siteRoot}/${targetLanguage}"`);
 }
 
 function applyBraveRewardsConfig(DIST) {
