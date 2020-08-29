@@ -1,7 +1,7 @@
 {
     "name": "$template.config.js.siteTitle",
     "lang": "$template.config.js.defaultLanguage",
-    "start_url" :"$template.config.js.siteRoot",
+    "start_url" :"$template.config.js.siteRootSlash",
     "orientation": "portrait-primary",
     "icons": [
         {
@@ -15,14 +15,14 @@
             "type": "image/png"
         },
         {
-            "src": "/maskable_icon-393x393.png",
+            "src": "/maskable_icon-409x409.png",
             "sizes": "393x393",
             "type": "image/png",
             "purpose": "any maskable"
         }
     ],
-    "theme_color": "#ffdd00",
-    "background_color": "#ffdd00",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
     "display": "minimal-ui",
     "scope": "/"
 }

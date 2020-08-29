@@ -4,7 +4,7 @@ Feature: Display previous article
 
         Given I go to the blog index page
 
-    Scenario: Open the first article acroll down click on the previous article and read it
+    Scenario: Open the first article scroll down click on the previous article and read it
         When The loading is finished
         When I click "Read more"
         When I open last article

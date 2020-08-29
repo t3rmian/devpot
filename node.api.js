@@ -132,10 +132,10 @@ function applyManifestConfig(DIST) {
   console.log(chalk.green(`[\u2713] ${filename} updated`));
 }
 
-function i18nManifest(contents, defaultLanguage, targetLanguage) {
+function i18nManifest(contents, config, targetLanguage) {
   return contents
-    .replace(`"lang": "${defaultLanguage}"`, `"lang": "${targetLanguage}"`)
-    .replace(`"scope": "/"`, `"scope": "/${targetLanguage}/"`);
+    .replace(`"lang": "${config.defaultLanguage}"`, `"lang": "${targetLanguage}"`)
+    .replace(`"start_url" :"${config.siteRootSlash}"`, `"start_url" :"${config.siteRootSlash}/${targetLanguage}"`);
 }
 
 function applyBraveRewardsConfig(DIST) {

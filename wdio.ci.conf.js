@@ -204,6 +204,7 @@ exports.config = {
             5000,
             "Expected element loaded"
           );
+          browser.pause(10);
         };
         global.waitForUnload = (selector = '.loading') => {
           browser.waitUntil(
@@ -213,6 +214,7 @@ exports.config = {
             5000,
             "Expected element unloaded"
           );
+          browser.pause(10);
         };
     },
     /**
