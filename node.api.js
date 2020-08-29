@@ -126,7 +126,7 @@ function applyManifestConfig(DIST) {
   fs.readdirSync("content/posts/collections")
     .map(path => path.split("/").pop())
     .filter(lang => lang !== config.defaultLanguage)
-    .forEach(lang => fs.writeFileSync(`${path.split(".")[0]}-${lang}.webmanifest`, i18nManifest(output), () => {
+    .forEach(lang => fs.writeFileSync(`${path.split(".")[0]}-${lang}.webmanifest`, i18nManifest(output, config.defaultLanguage, lang), () => {
       console.log(`Creating ${path.split(".")[0]}-${lang}.manifest file`);
     }))
   console.log(chalk.green(`[\u2713] ${filename} updated`));
