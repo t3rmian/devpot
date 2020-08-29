@@ -62,7 +62,6 @@ export default (options = {}) => ({
         new RegExp(`^./(${[
           "kotlin",
           "properties",
-          "shell",
           "plaintext",
           "yaml",
           "groovy",

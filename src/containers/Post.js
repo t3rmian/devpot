@@ -29,7 +29,6 @@ const registerLanguage = (name) => {
 [
   "kotlin",
   "properties",
-  "shell",
   "plaintext",
   "yaml",
   "groovy",
