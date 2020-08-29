@@ -33,12 +33,14 @@ export default ({
   description = elipsizeDescription(description);
   const { siteRoot } = useSiteData();
   const { t } = useTranslation();
+  const manifest = lang === t("defaultLang") ? "/site.webmanifest" : `/site-${lang}.webmanifest`;
   const siteName = t("site title", { lng: lang });
   const twitterSiteUsername = t("twitter author", { lng: lang });
 
   return (
     <Head>
       <html lang={lang} />
+      <link rel="manifest" href={manifest} />
       <title>{title}</title>
       {noindex && <meta name="robots" content="noindex" />}
       <meta name="description" property="description" content={description} />

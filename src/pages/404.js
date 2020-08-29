@@ -21,6 +21,7 @@ export default () => {
       <Head>
         <title>{reason}</title>
         <meta name="robots" content="noindex" />
+        <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <h1>{reason}</h1>
       <Footer lang={i18n.t("defaultLang")}

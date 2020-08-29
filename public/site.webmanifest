@@ -1,6 +1,5 @@
 {
-    "name": "$template.config.js.siteLongTitle",
-    "short_name": "$template.config.js.siteTitle",
+    "name": "$template.config.js.siteTitle",
     "lang": "$template.config.js.defaultLanguage",
     "start_url" :"$template.config.js.siteRoot",
     "orientation": "portrait-primary",
@@ -14,10 +13,16 @@
             "src": "/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "/maskable_icon-393x393.png",
+            "sizes": "393x393",
+            "type": "image/png",
+            "purpose": "any maskable"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#ffdd00",
+    "background_color": "#ffdd00",
     "display": "minimal-ui",
     "scope": "/"
 }

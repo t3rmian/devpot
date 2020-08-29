@@ -122,9 +122,21 @@ function applyManifestConfig(DIST) {
       })
       .join("");
   fs.writeFileSync(path, output, () => {
-    console.log("Updating the file");
+    console.log(`Updating the ${path} file`);
   });
+  fs.readdirSync("content/posts/collections")
+    .map(path => path.split("/").pop())
+    .filter(lang => lang !== config.defaultLanguage)
+    .forEach(lang => fs.writeFileSync(`${path.split(".")[0]}-${lang}.webmanifest`, i18nManifest(output), () => {
+      console.log(`Creating ${path.split(".")[0]}-${lang}.manifest file`);
+    }))
   console.log(chalk.green(`[\u2713] ${filename} updated`));
+}
+
+function i18nManifest(contents, defaultLanguage, targetLanguage) {
+  return contents
+    .replace(`"lang": "${defaultLanguage}"`, `"lang": "${targetLanguage}"`)
+    .replace(`"scope": "/"`, `"scope": "/${targetLanguage}/"`);
 }
 
 function applyBraveRewardsConfig(DIST) {

@@ -105,7 +105,7 @@ export function Post() {
     <div className="container post-container">
       <div className="page">
         <SEOHead
-          title={post.title + " - " + t("site title", { lng: lang })}
+          title={post.title}
           description={post.contents}
           lang={lang}
           type="article"
@@ -172,7 +172,7 @@ export function Post() {
           siteTitle={t("site title", { lng: lang })}
           langRefs={langRefs}
           description={post.contents}
-          title={post.title + " - " + t("site title", { lng: lang })}
+          title={post.title}
           tags={post.tags}
           twitterAuthor={t("twitter author", { lng: lang })}
           twitterContentUsername={post.twitterAuthor}
