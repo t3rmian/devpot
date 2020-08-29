@@ -1,5 +1,6 @@
 {
-    "name": "$template.config.js.siteTitle",
+    "name": "$template.config.js.siteLongTitle",
+    "short_name": "$template.config.js.siteShortTitle",
     "lang": "$template.config.js.defaultLanguage",
     "start_url" :"$template.config.js.siteRootSlash",
     "orientation": "portrait-primary",
@@ -16,7 +17,7 @@
         },
         {
             "src": "/maskable_icon-409x409.png",
-            "sizes": "393x393",
+            "sizes": "409x409",
             "type": "image/png",
             "purpose": "any maskable"
         }
