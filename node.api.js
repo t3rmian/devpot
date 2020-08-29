@@ -121,9 +121,21 @@ function applyManifestConfig(DIST) {
       })
       .join("");
   fs.writeFileSync(path, output, () => {
-    console.log("Updating the file");
+    console.log(`Updating the ${path} file`);
   });
+  fs.readdirSync("content/posts/collections")
+    .map(path => path.split("/").pop())
+    .filter(lang => lang !== config.defaultLanguage)
+    .forEach(lang => fs.writeFileSync(`${path.split(".")[0]}-${lang}.webmanifest`, i18nManifest(output, config, lang), () => {
+      console.log(`Creating ${path.split(".")[0]}-${lang}.manifest file`);
+    }))
   console.log(chalk.green(`[\u2713] ${filename} updated`));
+}
+
+function i18nManifest(contents, config, targetLanguage) {
+  return contents
+    .replace(`"lang": "${config.defaultLanguage}"`, `"lang": "${targetLanguage}"`)
+    .replace(`"start_url" :"${config.siteRoot}"`, `"start_url" :"${config.siteRoot}/${targetLanguage}/"`);
 }
 
 function applyBraveRewardsConfig(DIST) {
@@ -203,11 +215,9 @@ function generateThumbnails(DIST) {
 }
 
 function setCache(DIST) {
-  console.log("GOGO " + DIST)
   const dir = fs.opendirSync(DIST + "/templates/src/pages/");
   let entry;
   while ((entry = dir.readSync()) !== null) {
-    console.log(entry.name)
     if (entry.name.startsWith("404")) {
       const pwaSwFilePath = DIST + "/pwabuilder-sw.js"
       const allLines = fs.readFileSync(pwaSwFilePath).toString()

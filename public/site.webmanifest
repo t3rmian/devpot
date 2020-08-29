@@ -1,6 +1,6 @@
 {
     "name": "$template.config.js.siteLongTitle",
-    "short_name": "$template.config.js.siteTitle",
+    "short_name": "$template.config.js.siteShortTitle",
     "lang": "$template.config.js.defaultLanguage",
     "start_url" :"$template.config.js.siteRoot",
     "orientation": "portrait-primary",
@@ -14,10 +14,16 @@
             "src": "/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "/maskable_icon-450x450.png",
+            "sizes": "450x450",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ],
     "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "background_color": "#f8f8f8",
     "display": "minimal-ui",
     "scope": "/"
 }
