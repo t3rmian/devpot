@@ -135,7 +135,7 @@ function applyManifestConfig(DIST) {
 function i18nManifest(contents, config, targetLanguage) {
   return contents
     .replace(`"lang": "${config.defaultLanguage}"`, `"lang": "${targetLanguage}"`)
-    .replace(`"start_url" :"${config.siteRoot}"`, `"start_url" :"${config.siteRoot}/${targetLanguage}"`);
+    .replace(`"start_url" :"${config.siteRoot}"`, `"start_url" :"${config.siteRoot}/${targetLanguage}/"`);
 }
 
 function applyBraveRewardsConfig(DIST) {
