@@ -35,6 +35,7 @@ const registerLanguage = (name) => {
   "sql",
   "gradle",
   "bash",
+  "dockerfile",
   "xml",
   "java",
   "javascript",
