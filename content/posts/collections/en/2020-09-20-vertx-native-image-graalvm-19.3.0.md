@@ -64,7 +64,7 @@ EXPOSE 8080
 CMD ["./<native_executable>"]
 ```
 
-## Additional tools
+## Additional set-up
 
 I recommend using plugins for your favorite build tool, to prepare a package with all the necessary dependencies.
 
