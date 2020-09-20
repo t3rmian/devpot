@@ -68,6 +68,7 @@ export default (options = {}) => ({
           "sql",
           "gradle",
           "bash",
+          "dockerfile",
           "xml",
           "java",
           "javascript",
