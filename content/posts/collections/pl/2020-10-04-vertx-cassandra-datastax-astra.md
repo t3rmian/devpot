@@ -5,6 +5,7 @@ id: 40
 tags:
   - java
   - bazy danych
+  - vertx
 author: Damian Terlecki
 date: 2020-10-04T20:00:00
 ---
@@ -117,4 +118,16 @@ CassandraClientOptions options = new CassandraClientOptions(Cluster.builder()
 CassandraClient client = CassandraClient.create(vertx, options);
 ```
 
-Podobny zabieg, prawdopodobnie już bez wykluczania Guavy wymagany będzie również w przypadku obecnej wersji 4.x. Zakładając oczywiście, że interfejs najnowszego sterownika 4.3+ jest kompatybilny wstecz ze sterownikiem 4.2.2 wykorzystywanym przez Vert.x w wersji beta (kamień milowy 5). Osobiście jeszcze tego nie testowałem, ale zachęcam do wypróbowania i podzielenia się wynikami.
+W celu sprawdzenia połączenia możemy wywołać proste zapytanie:
+
+```java
+client.execute("SELECT now() FROM system.local;", res -> {
+    if (res.failed()) {
+        logger.error("NOK", res.cause());
+    } else {
+        logger.info("OK " + res.result());
+    }
+});
+```
+
+Podobny zabieg (konfiguracyjny), prawdopodobnie już bez wykluczania Guavy wymagany będzie również w przypadku obecnej wersji 4.x. Zakładając oczywiście, że interfejs najnowszego sterownika 4.3+ jest kompatybilny wstecz ze sterownikiem 4.2.2 wykorzystywanym przez Vert.x w wersji beta (kamień milowy 5). Osobiście jeszcze tego nie testowałem, ale zachęcam do wypróbowania i podzielenia się wynikami.

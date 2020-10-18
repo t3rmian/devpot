@@ -4,19 +4,19 @@ Given('I go to the blog index page', () => {
   browser.url(SITE_URL);
   waitForUnload();
 });
-Then('I should see a list of 5 article titles at most', () => {
-  expect($$('.date-col').length).to.be.below(6)
+Then('I should see a list of 10 article titles at most', () => {
+  expect($$('.date-col').length).to.be.below(11)
 });
 
 When('I click "Read more"', () => {
   $('.more button').click();
 });
 Then('I should see a list of all blog article titles', () => {
-  expect($$('.date-col').length).to.be.above(5)
+  expect($$('.date-col').length).to.be.above(10)
 });
 
 When('I click on any article on home page', () => {
-  const index = Math.floor(Math.random() * 4);
+  const index = Math.floor(Math.random() * 9);
   const article = $$('.date-col+td a')[index];
   this.previousUrl = browser.getUrl();
   this.articleTitle = article.getText();

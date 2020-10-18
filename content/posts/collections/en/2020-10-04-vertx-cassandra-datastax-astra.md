@@ -5,6 +5,7 @@ id: 40
 tags:
   - java
   - database
+  - vertx
 author: Damian Terlecki
 date: 2020-10-04T20:00:00
 ---
@@ -117,4 +118,16 @@ CassandraClientOptions options = new CassandraClientOptions(Cluster.builder()
 CassandraClient client = CassandraClient.create(vertx, options);
 ```
 
-A similar procedure, most likely without excluding Guava, is also required for the current, 4.x version. Of course assuming, that the interface of the latest 4.3+ driver is backward compatible with the 4.2.2 driver used by Vert.x beta milestone 5. I haven't tested this yet for the beta version, but you could give it a try!
+To verify the connection you can run some simple query against the database:
+
+```java
+client.execute("SELECT now() FROM system.local;", res -> {
+    if (res.failed()) {
+        logger.error("NOK", res.cause());
+    } else {
+        logger.info("OK " + res.result());
+    }
+});
+```
+
+A similar procedure (configuration), most likely without excluding Guava, is also required for the current, 4.x version. Of course assuming, that the interface of the latest 4.3+ driver is backward compatible with the 4.2.2 driver used by Vert.x beta milestone 5. I haven't tested this yet for the beta version, but you could give it a try!

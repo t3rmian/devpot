@@ -6,6 +6,7 @@ tags:
   - java
   - jvm
   - oracle
+  - vertx
 author: Damian Terlecki
 date: 2020-09-20T20:00:00
 ---
