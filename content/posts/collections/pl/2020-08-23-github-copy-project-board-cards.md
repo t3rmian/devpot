@@ -4,7 +4,7 @@ url: migracja-kart-projektu-github
 id: 37
 tags:
   - shell
-  - automation
+  - automatyzacja
 author: Damian Terlecki
 date: 2020-08-23T20:00:00
 ---
