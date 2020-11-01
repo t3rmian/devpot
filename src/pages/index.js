@@ -27,9 +27,6 @@ export default () => {
         : posts.length <= expandFromIndex
       : posts.length <= expandFromIndex
   );
-  posts.sort(function(a, b) {
-    return new Date(b.date) - new Date(a.date);
-  });
   if (!expanded) {
     posts = posts.slice(0, expandFromIndex);
   } else {
