@@ -5,7 +5,7 @@ id: 38
 tags:
   - java
   - spring
-  - security
+  - bezpieczeństwo
   - database
 author: Damian Terlecki
 date: 2020-09-06T20:00:00
