@@ -5,7 +5,7 @@ id: 36
 tags:
   - java
   - android
-  - security
+  - bezpieczeństwo
 author: Damian Terlecki
 date: 2020-08-09T20:00:00
 ---
