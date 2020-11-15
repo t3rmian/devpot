@@ -14,9 +14,13 @@ Vert.x w swoim zasobie modułów oferuje wiele różnych komponentów, które zn
 
 Jeśli nie kojarzysz walidacji sygnatury tokenu JWT, to polecam zapoznać się z [artykułem o JWT na blogu angulara](https://blog.angular-university.io/angular-jwt/). Generalnie taką walidację powinniśmy przeprowadzić na tokenie JWT, podając klucz publiczny (np. [z certyfikatu](https://www.googleapis.com/oauth2/v1/certs), [bądź JWKS](https://www.googleapis.com/oauth2/v3/certs)). W wyjątkowych sytuacjach [[1](https://developers.google.com/identity/protocols/oauth2/openid-connect#obtainuserinfo), [2](https://github.com/vert-x3/vertx-auth/issues/168)] i podczas dewelopmentu bądź testowania możemy chcieć pominąć taką weryfikację.
 
-<a href="https://jwt.io/"><img src="/img/hq/jwt.png" alt="Zrzut ekranu rpzedstawiający segmenty tokenu JWT rozdzielone kropką oraz jego postać zdekodowaną (header, payload i signature)" title="Segmenty tokenu JWT i postać zdekodowana"/></a>
+<figure>
+<a href="https://jwt.io/"><img src="/img/hq/jwt.png" alt="Zrzut ekranu przedstawiający segmenty tokenu JWT rozdzielone kropką oraz jego postać zdekodowaną (header, payload i signature)" title="Segmenty tokenu JWT i postać zdekodowana"/></a>
+</figure>
 
-Vert.x udostępnia nam klasę `io.vertx.ext.jwt.JWT` z metodą `JsonObject decode(final String token)` pozwalajacą na zdekodowanie tokenu w celu odczytania danych. Weryfikacja sygnatury jest wbudowana w metodę i nie mamy interfejsu, za pomocą którego moglibyśmy pominąć ten etap. Jeśli pole `alg` w pierwszym z trzech członów (header) oddzielonych kropką ma wartość `none`, to możemy pozbyć się ostatniego członu (sygnatury) i JWT zostanie poprawnie zdekodowany przy inicjalizacji standardowym konstruktorem `new JWT().decode(jwtString)`:
+Vert.x udostępnia nam klasę `io.vertx.ext.jwt.JWT` z metodą `JsonObject decode(final String token)` pozwalajacą na zdekodowanie tokenu w celu odczytania danych. Weryfikacja sygnatury jest wbudowana w metodę i nie mamy interfejsu, za pomocą którego moglibyśmy pominąć ten etap.
+
+Jeśli pole `alg` w pierwszym z trzech członów (header) oddzielonych kropką ma wartość `none`, to możemy pozbyć się ostatniego członu (sygnatury) i JWT zostanie poprawnie zdekodowany przy inicjalizacji standardowym konstruktorem `new JWT().decode(jwtString)`:
 
 ```java
   // Source: io.vertx.ext.jwt.JWT
@@ -64,9 +68,10 @@ Jeśli jednak w tokenie znajduje się już jakiś algorytm, to otrzymamy wyjąte
   }
 ```
 
-Warunkiem na zdekodowanie tokenu JWT z właściwym algorytmem i sygnaturą bez jej weryfikacji, jest więc pozbycie się sygnatury i zapewnienie, że zmienna `cryptoMap` będzie zawierała jeden algorytm, którego wartość będzie zgodna z headerem. Nie mamy dostępu do takiego interfejsu, ale podglądając implementację JWT, zauważymy:
+Warunkiem na zdekodowanie tokenu JWT z właściwym algorytmem i sygnaturą bez jej weryfikacji, jest więc pozbycie się sygnatury i zapewnienie, że zmienna `cryptoMap` będzie zawierała jeden algorytm, którego wartość będzie zgodna z headerem. Nie mamy dostępu do takiego interfejsu, ale podglądając implementację JWT, zauważysz szybko:
 
 ```java
+  // Source: io.vertx.ext.jwt.JWT
   private final Map<String, List<Crypto>> cryptoMap = new ConcurrentHashMap<>();
 
   public Collection<String> availableAlgorithms() {
