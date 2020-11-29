@@ -4,7 +4,7 @@ url: log4j2-mongodb-appender
 id: 44
 tags:
   - java
-  - bazy danych
+  - database
 author: Damian Terlecki
 date: 2020-11-29T20:00:00
 ---
