@@ -34,7 +34,6 @@ const resources = {
       "Light theme": "Light theme",
       "Dark theme": "Dark theme",
       "Switch theme": "Switch theme",
-      "Tested in Brave": "Check out in Brave",
 
       short: "~ 10 min",
       medium: "10 ~ 20 min",
@@ -64,7 +63,6 @@ const resources = {
       "Light theme": "Jasny szablon",
       "Dark theme": "Ciemny szablon",
       "Switch theme": "Zmień motyw",
-      "Tested in Brave": "Sprawdź w Brave",
     }
   }
 };
