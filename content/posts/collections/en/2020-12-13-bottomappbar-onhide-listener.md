@@ -10,15 +10,15 @@ author: Damian Terlecki
 date: 2020-12-13T20:00:00
 ---
 
-*BottomAppBar* z biblioteki `com.google.android.material:material` to bardzo przystępny komponent pozwalający na stworzenie dodatkowego paska u dołu ekranu w Androidzie. Jest to świetna opcja z punktu widzenia UX, gdyż użytkownikowi dużo łatwiej jest sięgnąć przycisku niż w przypadku standardowego menu na samej górze.
+*BottomAppBar* from the `com.google.android.material: material` library is a very handy component that allows you to attach an additional bar at the bottom of the screen in Android. This is a great option from the UX perspective, as it is much easier for the user to reach the button at the bottom than with the standard menu at the top.
 
-<img src="/img/hq/bottomappbar.png" alt="Zrzut ekranu z aplikacji wykorzystującej BottomAppBar" title="BottomAppBar">
+<img src="/img/hq/bottomappbar.png" alt="Screenshot of a BottomAppBar in an application" title="BottomAppBar">
 
-Bardzo ciekawym parametrem komponentu *BottomAppBar* jest *hideOnScroll*. Ustawienie tej wartości na `true` powoduje, że pasek chowa się przy przewijaniu kontenera w dół i pojawia się przy przewijaniu w górę. Takie zachowanie pozwala nieco zwiększyć obszar wyświetlany przez kontener. Oczywiście pod warunkiem, że z punktu widzenia użytkownika, nie potrzebujemy w takim momencie dostępu do przycisków na pasku dolnym.
+A very interesting property of the *BottomAppBar* component is *hideOnScroll*. Setting its value to `true` causes the bar to hide or appear when scrolling down or up. This behavior allows you to slightly increase the area displayed by the container. Of course, provided that the user doesn't need to access the buttons on the bottom bar at all times.
 
-## Podstawowa konfiguracja
+## Basic configuration
 
-Przykładowa konfiguracja layoutu wykorzystującego *BottomAppBar* wygląda następująco (konieczne będzie dopasowanie do własnych potrzeb):
+An exemplary configuration of a layout with *BottomAppBar* looks as follows (you will probably need to adjust it to your needs):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -111,23 +111,23 @@ Przykładowa konfiguracja layoutu wykorzystującego *BottomAppBar* wygląda nast
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
-Podstawowym kontenerem jest tutaj *CoordinatorLayout*, wewnątrz mamy przykładową listę na bazie *RecyclerView*, którą możemy przewijać.
-Następnie *BottomAppBar* z czterema przyciskami i ostatecznie przycisk FAB osadzony na środku paska dolnego.
+The parent container here is *CoordinatorLayout*, inside it we have a sample list based on *RecyclerView*, which we can scroll through.
+Then the *BottomAppBar* with four buttons and finally the FAB button embedded in the center of the bottom bar.
 
-## Implementacja onHide listenera
+## Implementation of an onHide listener
 
-Czasami możemy potrzebować dodatkowego nasłuchiwania stanu paska dolnego. Taki listener przyda się w przypadku, gdybyśmy chcieli przykładowo zmienić ikonę i zachowanie przycisku FAB.
+Sometimes we may need a way to bind to the visibility status change of the bottom bar. For example, such a listener will be useful in the event that we want to change the icon and behavior of the FAB button.
 
-Za ukrywanie i wyświetlanie paska dolnego odpowiedzialna jest klasa *CoordinatorLayout.Behavior* a właściwie subklasa `com.google.android.material.bottomappbar.BottomAppBar.Behavior`. Generalnie, hierarchia klas wygląda następująco:
+The *CoordinatorLayout.Behavior* class, or actually its subclass `com.google.android.material.bottomappbar.BottomAppBar.Behavior`, is responsible for hiding and displaying the bottom bar. The general class hierarchy looks like this:
 
-<img src="/img/hq/bottomappbar-onhide-listener-pl.svg" alt="Diagram UML przedstawiający hierarchię klas BottomAppBar + Behavior" title="Diagram UML">
+<img src="/img/hq/bottomappbar-onhide-listener.svg" alt="UML diagram showing the BottomAppBar and Behavior class hierarchy" title="UML Diagram">
 
-Bez wchodzenia w szczegóły, dwie metody, którymi jesteśmy zainteresowani to:
+Without going much into details, the two methods we are interested in are:
 - *HideBottomViewOnScrollBehavior#slideUp()*;
 - *HideBottomViewOnScrollBehavior#slideDown()*.
 
-To właśnie one odpowiadają za stan oraz chowanie i pokazywanie się paska.
-Co więcej, bez większego problemu jesteśmy w stanie nadpisać te metody. Na podobnej zasadzie co w klasie bazowej, dodamy stan do naszego listenera po to, aby był wywoływany jedynie przy ukryciu bądź pojawieniu się paska dolnego:
+In there you will find the logic for hiding and showing the bar.
+What's more, we are able to override these methods without much problem. Similarly to the base class, we will add a state to our listener so that it is only called when the bottom bar shows up or starts disappearing:
 
 ```kotlin
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -160,11 +160,10 @@ abstract class HideListenableBottomAppBarBehavior : BottomAppBar.Behavior() {
 }
 ```
 
-Teraz wystarczy jedynie zaaplikować nasz nowy listener do layoutu.
-Generalnie *BottomAppBar* ma implementuje interfejs *AttachedBehavior* i tym samym metodę `getBehavior()`, która jednocześnie inicjalizuje standardowe zachowanie. Wskazówki dotyczące nadpisania znajdziemy w javadocu interfejsu. Możemy to zrobić za pomocą `LayoutParams#setBehavior()`.
+Now, all we have to do is apply our new listener to the layout.
+In general, *BottomAppBar* implements the *AttachedBehavior* interface and thus the `getBehavior()`. By default, it's initialized with the standard behavior. Hints for how to overwrite it can be found in the javadocs of the mentioned interface. This can be done through the `LayoutParams#setBehavior()` method.
 
-
-Po zainicjalizowaniu widoku (w przypadku fragmentu), zmieniamy zachowanie paska dolnego (do pozyskania odniesienia do paska używam kotlinx synthetic):
+After initializing the view (in a fragment or activity), we change the behavior of the bottom bar (here I use kotlinx synthetic to get the reference to the view):
 
 ```kotlin
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -184,7 +183,7 @@ Po zainicjalizowaniu widoku (w przypadku fragmentu), zmieniamy zachowanie paska 
     }
 ```
 
-Rezultatem tego jest zmiana ikony przycisku FAB:
+As a result, the icon of the FAB button changes:
 
 <figure>
 <a href="https://play.google.com/store/apps/details?id=dev.termian.nutrieval">
@@ -192,6 +191,6 @@ Rezultatem tego jest zmiana ikony przycisku FAB:
 </a>
 </figure>
 
-## Podsumowanie
+## Final tips
 
-Jeśli chcesz mieć większą kontrolę nad stanem layoutu, możesz następnie zainteresować się metodę *onNestedScroll* jednej z klas nadrzędnych, tj. `com.google.android.material.behavior.HideBottomViewOnScrollBehavior`. Nadpisanie jej pozwoli na uzyskanie referencję nie tylko do paska dolnego, ale również do kontenera, który przewijamy i jego kierunku. W ten sposób będziesz również w stanie zdefiniować dodatkowe zdarzenia w zależności od tego jak daleko zawartość kontenera została przewinięta.
+If you want to have more control over the state of the layout, you can then take a look at *onNestedScroll* method of the `com.google.android.material.behavior.HideBottomViewOnScrollBehavior` class. Overwriting it will allow you to get a reference not only to the bottom bar but also to the container you are scrolling. The parameters will provide more information on the direction of the scrolling. This way, you will be able to define additional events depending on how far the contents of the container have been scrolled.
