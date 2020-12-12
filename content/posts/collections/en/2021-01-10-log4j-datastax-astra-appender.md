@@ -1,24 +1,23 @@
 ---
-title: Jak skonfigurować logowanie do Datastax Astra przy pomocy log4j2
+title: How to configure log4j2 Datastax Astra (Cassandra) appender
 url: log4j2-cassandra-datastax-astra-appender
 id: 47
 tags:
   - java
-  - bazy danych
+  - database
 author: Damian Terlecki
 date: 2021-01-10T20:00:00
 ---
 
-Zapisywanie logów do bazy Cassandra przy pomocy *log4j2* to bułka z masłem. DataStax Astra, czyli rozwiązanie znane jako Cassandra-as-a-Service, pozwala na połączenie się z bazą za pomocą swego rodzaju paczki konfiguracyjnej. Wewnątrz niej znajdują się nie tylko namiary na bazę, ale również niezbędne certyfikaty do bezpiecznego połączenia.
+Saving logs to a Cassandra database with *log4j2* is a piece of cake. DataStax Astra, a solution known as Cassandra-as-a-Service, allows you to connect to the database using an archive called connect bundle. Inside, you will find not only the addresses of the cluster but also the necessary certificates for a secure connection.
 
-<img src="/img/hq/datastax-astra-connect-bundle.png" alt="Obrazek przedstawiajacy zawartość paczki ułatwiającej konfigurację połączenia z Datastax Astra" title="Secure Connect Bundle">
+<img src="/img/hq/datastax-astra-connect-bundle.png" alt="A picture showing the contents of the package containing the configuration of the secure connection with Datastax Astra" title="Secure Connect Bundle">
 
-Ogólnie rzecz biorąc, możemy oczywiście rozpakować tę paczkę i zaimportować certyfikaty do standardowego keystore/truststore. W ten sposób będziemy w stanie użyć standardowego appendera *log4j2* dla Cassandry. Możemy również nieco zmodyfikować appender dostarczany przez *log4j2* i dostosować go do konfiguracji połączenia zainicjalizowanego przy pomocy dostarczonej paczki. Aby jednak nie zaśmiecać standardowej konfiguracji, zobaczmy, jak wygląda opcja druga.
-
+Of course, this bundle can be unpacked and we can import the certificates into the standard keystore/truststore. This way we should be able to use the standard *log4j2* appender for Cassandra. We can also slightly modify the appender provided by *log4j2* and adapt it to accept the secure connect bundle instead. In order not to clutter the standard JVM configuration, let's talk about the latter option.
 
 ## Datastax Astra log4j2 Appender
 
-Naszą implementację zaczniemy od utworzenia podstawowej tabeli z logami. W celu dobrej skalowalności zazwyczaj model w przypadku Cassandy powinien być stworzony po analizie zapytań, jakie będziemy wysyłać do niej wysyłać. Warto również wspomnieć, że baza wspiera konfigurację czasu TTL (DEFAULT_TIME_TO_LIVE) przedawnienia (usunięcia) rekordów. Wracając do tematu, standardowa tabelka z logami wygląda tak:
+We will start our configuration by creating a simple table to store the logs. For good scalability in the case of Cassandra, the model should usually be created after analyzing what queries we will perform. It is also worth mentioning that the database supports the configuration of records TTL (DEFAULT_TIME_TO_LIVE), which might be perfect if you don't need to store the logs forever. Back to the topic, the basic table with logs can look like this:
 
 ```sql
 --DROP TABLE IF EXISTS your_keyspace.logs;
@@ -36,9 +35,9 @@ CREATE TABLE your_keyspace.logs
 );
 ```
 
-### Zależności
+### Dependencies
 
-Standardowo, zaciągniemy API *slf4j* oraz podstawowe zależności *log4j* wraz ze sterownikiem.
+As always, we will be logging through the *slf4j* API. Along with the basic *log4j* dependencies, a Cassandra driver is also required.
 
 Gradle:
 ```xml
@@ -88,16 +87,16 @@ Maven:
   </dependency>
 ```
 
-Implementację standardowego appendera wraz z pozostałymi klasami znajdziemy pod następującymi ścieżkami:
+The logic required for the standard Cassandra appender can be found under the following classes:
 - *org.apache.logging.log4j.cassandra.CassandraAppender*;
 - *org.apache.logging.log4j.cassandra.CassandraManager*;
 - *org.apache.logging.log4j.cassandra.ClockTimestampGenerator*.
 
-### Własny appender
+### Writing your own appender
 
-Podstawowy appender potrzebuje dostarczenia informacji na temat adresów, nazwy klastra i flagi określającej czy połączenie będzie po TLS.
-W naszym przypadku dane te zostaną zasilone z paczki konfigurującej połączenie. Na bazie *CassandraAppender*, tworzymy własnego appendera i usuwamy
-następujące parametry buildera:
+When using the basic appender, we need to provide information about addresses, cluster name, and a flag specifying whether it will be a secure connection.
+In our case, this data will be supplied from the connection bundle. Based on *CassandraAppender*, we will create our own appender and delete
+the following builder parameters from the original source:
 
 ```java
         @PluginElement("ContactPoints")
@@ -112,7 +111,7 @@ następujące parametry buildera:
         private String clusterName;
 ```
 
-Zamiast nich dodajemy własny parametr (opcjonalnie – bo możemy zakodować go na stałe), `connectBundle`, który będzie nazwą paczki konfiguracyjnej dołączonej do ścieżki classpath. Komentarze w poniższych kawałkach kodu oznaczają, że znajdują się tam logika z oryginalnych klas:
+We replace these parameters with a single `connectBundle` (optionally – because we could also hardcode it). It will stand for the name of the configuration package attached to the classpath. The comments in the following code snippets indicate that the logic from the original classes is left intact:
 
 ```java
 @Plugin(name = "ExtendedCassandra", category = Core.CATEGORY_NAME, elementType = ExtendedCassandraAppender.ELEMENT_TYPE, printObject = true)
@@ -140,8 +139,8 @@ public class ExtendedCassandraAppender extends AbstractDatabaseAppender<Extended
 }
 ```
 
+Then we modify the *CassandraManager* class in a similar way, removing unnecessary parameters. At the beginning of the `createManager()` method we initialize the cluster using the secure connect bundle:
 
-Następnie na podobnej zasadzie modyfikujemy klasę *CassandraManager*, usuwając zbędne parametry. Na początku metody `createManager()` inicjalizujemy klaster przy użyciu paczki:
 ```java
 public class ExtendedCassandraManager extends AbstractDatabaseManager {
 
@@ -225,7 +224,7 @@ public class ExtendedCassandraManager extends AbstractDatabaseManager {
     }
 ```
 
-Dla porównania, w standardowej klasie, klaster jest inicjalizowany następująco:
+For comparison, in the original appender, a cluster is initialized in the following way:
 
 ```java
             final Cluster.Builder builder = Cluster.builder()
@@ -243,7 +242,7 @@ Dla porównania, w standardowej klasie, klaster jest inicjalizowany następując
             final Cluster cluster = builder.build();
 ```
 
-Konfigurację kończymy, definiując nasz nowy appender w pliku `log4j2.xml`, umieszczonym w classpath (zazwyczaj wrzucając go w folder `src/main/resources`):
+The configuration can be finished by defining the new appender in the `log4j2.xml` file. This file should be placed in the classpath (usually it's dropped into the `src/main/resources` folder):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -279,7 +278,7 @@ Konfigurację kończymy, definiując nasz nowy appender w pliku `log4j2.xml`, um
 </Configuration>
 ```
 
-Odpalamy aplikację i logi powinny zacząć trafiać do naszej bazy Astra:
+Now all that's left is to run our application, and the logs should appear in the Astra database:
 
 ```java
     try {
@@ -290,4 +289,4 @@ Odpalamy aplikację i logi powinny zacząć trafiać do naszej bazy Astra:
     }
 ```
 
-<img src="/img/hq/datastax-astra-logs.png" alt="Zrzut ekranu przedstawiający logi zapisane w bazie Astra" title="Astra – zapisane logi">
+<img src="/img/hq/datastax-astra-logs.png" alt="Screenshot showing logs saved in Astra database" title="Astra logs">
