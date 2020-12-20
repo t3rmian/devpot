@@ -70,7 +70,7 @@ jobs:
       uses: actions/checkout@v2
       if: ${{ github.event.state == 'success' }}
       with:
-        ref: refs/pull/${{ steps.extract_data.outputs.pr_number }}/merge
+        ref: refs/pull/${{ steps.extract_data.outputs.pr_number }}/head
 
     - run: yarn install
       if: ${{ github.event.state == 'success' && steps.yarn-cache.outputs.cache-hit != 'true' }}
