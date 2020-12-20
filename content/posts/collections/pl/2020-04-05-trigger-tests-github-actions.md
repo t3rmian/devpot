@@ -11,7 +11,7 @@ tags:
   - testy
 author: Damian Terlecki
 date: 2020-04-05T20:00:00
-updated: 2020-05-15T20:00:00
+updated: 2020-12-20T20:00:00
 source: https://github.com/t3rmian/devpot/blob/3702a2424b9db457ceec31a29645a32f621ec257/.github/workflows/smoke-tests.yml
 ---
 
@@ -240,3 +240,5 @@ Kod został już zaktualizowany, gdyż poprawka powodowała to, że na koniec te
 > &nbsp&nbsp&nbsp&nbsp... etPRMergeSha($sha: String, $repo: String!, $owner: String!) {
   
 Na szczęście przejście na wersję 2.0.0 rozwiązuje problem.
+
+***2020/12/20***: Zgodnie z niedawnym [wątkiem na forum społecznościowym Netlify]((https://community.netlify.com/t/docs-say-deploy-previews-say-preview-will-show-result-of-merge-but-it-does-not/26174/9)), deploy wersji podglądowej opiera się jednak na ostatnim commicie gałęzi źródłowej, a nie na merge commicie (co zostało błędnie opisane w dokumentacji). Jeśli chcesz dopasować wersję kodu do testów, musisz zmienić `ref: refs/pull/${{ steps.extract_data.outputs.pr_number }}/merge` na `ref: refs/pull/${{ steps.extract_data.outputs.pr_number }}/head`. Problem można również rozwiązać, wykonując rebase względem gałęzi docelowej – wtedy deploy podglądowy będzie już zawierał połączone zmiany.
