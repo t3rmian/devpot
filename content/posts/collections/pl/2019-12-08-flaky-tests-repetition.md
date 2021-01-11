@@ -16,10 +16,10 @@ Idąc w górę hierarchii testów, często napotykamy, na problem testów niesta
 
 Wraz ze wzrostem liczby testów integracyjnych, UI, sieciowych i współbieżności wzrastają szanse na niepowodzenie integracyjnego procesu budowania (CI). Wyobraź sobie, że 10% twoich testów charakteryzuje się niestabilnością, np.: każdy z nich kończy się niepowodzeniem raz na 1000 przebiegów. 1 na 1000, czyli 0,1%! Nie brzmi to tak źle, prawda? Teraz wyobraź sobie, że mamy 1000 testów, nie za mało, nie za dużo. Zatem dla 100 testów, które są w tym sensie niedeterministyczne, skumulowane prawdopodobieństwo niepowodzenia weryfikacji wyniesie:
 
-<img src="https://latex.codecogs.com/gif.latex?P%28FAILED%5C_TEST%29%20%3D%201%2F1000" alt="P(FAILED_TEST) = 1/1000" class="img-formula">
-<img src="https://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_TEST%29%20%3D%20P%28%5COmega%29%20-%201%2F1000%20%3D%20999%2F1000" alt="P(SUCCESSFUL_TEST) = P(\Omega) - 1/1000 = 999/1000" class="img-formula">
-<img src="https://latex.codecogs.com/gif.latex?P%28SUCCESSFUL%5C_BUILD%29%20%3D%20%5Ccap_1%5EN%20P%28SUCCESSFUL%5C_TEST%5C_N%29%20%5Capprox%2090%5C%25" alt="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" title="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" class="img-formula">
-<img src="https://latex.codecogs.com/gif.latex?P%28FAILED%5C_BUILD%29%20%3D%20P%28%5COmega%29%20-%20P%28SUCCESSFUL%5C_BUILD%29%20%5Capprox%2010%5C%25" alt="P(FAILED_BUILD) = P(\Omega) - P(SUCCESSFUL_BUILD) = 10%" class="img-formula">
+<img src="/img/hq/flaky-tests-probability-failed-test.gif" alt="P(FAILED_TEST) = 1/1000" class="img-formula">
+<img src="/img/hq/flaky-tests-probability-failed-build.gif" alt="P(SUCCESSFUL_TEST) = P(\Omega) - 1/1000 = 999/1000" class="img-formula">
+<img src="/img/hq/flaky-tests-probability-successful-test.gif" alt="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" title="P(SUCCESSFUL_BUILD) = P(SUCCESSFUL_TEST_1) ∩ P(SUCCESSFUL_TEST_2) ∩ P(SUCCESSFUL_TEST_3)  ∩  ...  ∩ P(SUCCESSFUL_TEST_N) = (999/1000)^100 ≈ 90%" class="img-formula">
+<img src="/img/hq/flaky-tests-probability-successful-build.gif" alt="P(FAILED_BUILD) = P(\Omega) - P(SUCCESSFUL_BUILD) = 10%" class="img-formula">
 
 Ok, to zaczyna brzmieć już jak **problem**. Statystycznie co dziesiąty proces zakończy się niepowodzeniem, pomimo praktycznie 100%-owej szansy na powodzenie każdego testu. Proces będziemy musieli analizować, często dochodząc do wniosku, że zarówno test, jak i kod wyglądają poprawnie, a na rezultat miał wpływ jakiś czynnik zewnętrzny. Jednak, aby zobaczyć ogólny obraz prawdopodobieństwa niepowodzenia weryfikacji, warto przeanalizować szerszy zakres parametrów:
 

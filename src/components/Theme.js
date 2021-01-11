@@ -1,8 +1,7 @@
 import Cookies from "universal-cookie";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import config from "../template.config";
-import { loadComments, loadHighlight } from "../utils";
+import { loadHighlight, makeVisible } from "../utils";
 
 export default function Theme({ lang }) {
   const { t } = useTranslation();
@@ -16,12 +15,15 @@ export default function Theme({ lang }) {
     const cookies = new Cookies();
     cookies.set("theme", theme, { path: "/", maxAge: 365 * 24 * 60 * 60 });
 
-    const anchor = document.getElementById("comments");
-    if (anchor != null) {
-      while (anchor.firstChild) {
-        anchor.removeChild(anchor.firstChild);
-      }
-      loadComments(anchor, config.optional.commentsRepo, getCommentsTheme());
+    const commentsFrame = document.querySelector("#comments iframe");
+    if (commentsFrame != null) {
+      makeVisible(commentsFrame.parentElement, false)
+      setTimeout(e => {
+        commentsFrame.contentWindow.postMessage({ type: "set-theme", theme: getCommentsTheme() },  "*")
+      }, 250)
+      setTimeout(e => {
+        makeVisible(commentsFrame.parentElement, true)
+      }, 600)
       loadHighlight(getHighlightTheme());
     }
   };

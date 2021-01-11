@@ -21,5 +21,5 @@ Then('I should see the comment authors and the contents', () => {
   expect($('main').getText()).to.include("Start the TNS Listener service")
 });
 Then('I should see the comment submit option', () => {
-  expect($('main').getText()).to.include("Sign in to comment");
+  expect($('main').getText()).to.include("Sign in");
 });

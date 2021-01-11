@@ -10,6 +10,7 @@ import config from "./template.config";
 import lifecycle from "react-pure-lifecycle";
 import { loadTheme } from "components/Theme";
 import { globalHistory } from '@reach/router';
+import { makeVisible } from "./utils";
 
 const methods = {
   componentDidMount(props) {
@@ -63,16 +64,6 @@ const methods = {
       }
     ]
 
-    function makeVisible(element, visible) {
-      if (visible) {
-        element.classList.remove("fadeOut");
-        element.classList.add("fadeIn");
-      } else {
-        element.classList.remove("fadeIn");
-        element.classList.add("fadeOut");
-      }
-    }
-
     document.addEventListener("scroll", throttle(throttleTimeout, function (scrolledElement) {
       fadeObjects.forEach(fadeObject => {
         const belowOffset = fadeObject.inverted ? !fadeObject.visible : fadeObject.visible;
@@ -113,7 +104,7 @@ function App() {
                     classNames="fade"
                     timeout={500}
                   >
-                    <Router location={location} className="router">
+                    <Router location={location} className="router" style={({ outline: undefined })}>
                       <Routes
                         default
                         routePath={decodeURI(location.pathname)}

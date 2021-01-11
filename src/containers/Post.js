@@ -1,6 +1,7 @@
 import PostHeader from "../components/PostHeader";
 import PostFooter from "../components/PostFooter";
 import PostJsonLd from "../components/PostJsonLd";
+import Comments, { loadComments } from "../components/Comments";
 import Footer from "../components/Footer";
 import { Link } from "components/Router";
 import React from "react";
@@ -15,7 +16,6 @@ import { useTranslation } from "react-i18next";
 import config from "../template.config";
 import {
   lazyLoadImages,
-  loadComments,
   loadHighlight,
 } from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
@@ -57,20 +57,14 @@ const methods = {
   componentDidMount() {
     updateCodeSyntaxHighlighting();
     lazyLoadImages(document.querySelectorAll(".content img[data-src]"));
-    if (config.optional.commentsRepo) {
-      loadComments(
-        document.getElementById("comments"),
-        config.optional.commentsRepo,
-        getCommentsTheme()
-      );
-      loadHighlight(getHighlightTheme());
-    }
+    loadHighlight(getHighlightTheme());
     [...document.getElementsByTagName("a")]
       .filter((a) => a.hostname !== window.location.hostname)
       .forEach((a) => {
         a.setAttribute("target", "_blank");
         a.setAttribute("rel", "noopener noreferrer");
       });
+    loadComments(config.optional.commentsRepo, "pathname", getCommentsTheme());
   },
   componentDidUpdate() {
     updateCodeSyntaxHighlighting();
@@ -169,7 +163,7 @@ export function Post() {
           twitterAuthor={t("twitter author", { lng: lang })}
           twitterContentUsername={post.twitterAuthor}
         />
-        <div id="comments" role="complementary" />
+        <Comments/>
         <SearchBar root={root} lang={lang} />
         <Footer langRefs={langRefs} lang={lang} />
       </div>

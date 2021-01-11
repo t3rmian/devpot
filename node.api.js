@@ -8,7 +8,10 @@ import config from "./src/template.config";
 export default (options = {}) => ({
   beforeDocumentToFile: (html, { meta }) => {
     const divider = "div";
-    const divSplittage = html.split(divider);
+    const divSplittage = html
+        .replace('<div style="outline:none" tabindex="-1" role="group">', "<div tabindex=\"-1\" role=\"group\">")
+        .replace('<div style="outline:none" tabindex="-1" role="group">', "<div tabindex=\"-1\" role=\"group\">")
+        .split(divider);
     if (divSplittage.length > 1) {
       divSplittage[0] = divSplittage[0].replace(
         new RegExp('<script charset="utf-8" ', "g"),
@@ -216,7 +219,7 @@ function generateThumbnails(DIST) {
 }
 
 function setCache(DIST) {
-  const dir = fs.opendirSync(DIST + "/templates/src/pages/");
+  const dir = fs.opendirSync(DIST + "/templates/__react_static_root__/src/pages/");
   let entry;
   while ((entry = dir.readSync()) !== null) {
     if (entry.name.startsWith("404")) {
@@ -227,7 +230,7 @@ function setCache(DIST) {
         console.warn("/404 page not found in pwabuilder-sw.js")
         return;
       }
-      splittage[0] += `"/404/routeInfo.json", "/templates/src/pages/${entry.name}", `;
+      splittage[0] += `"/404/routeInfo.json", "/templates/__react_static_root__/src/pages/${entry.name}", `;
       fs.writeFileSync(pwaSwFilePath, splittage.join('"/404"'), () => {
         console.log("Updating pwabuilder-sw.js");
       });

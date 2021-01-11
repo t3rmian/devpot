@@ -29,15 +29,14 @@ export function capitalize(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-export function loadComments(anchor, repo, theme) {
-  const script = document.createElement("script");
-  script.setAttribute("src", "https://utteranc.es/client.js");
-  script.setAttribute("crossorigin", "anonymous");
-  script.setAttribute("async", true);
-  script.setAttribute("repo", repo);
-  script.setAttribute("issue-term", "pathname");
-  script.setAttribute("theme", theme);
-  anchor.appendChild(script);
+export function makeVisible(element, visible) {
+  if (visible) {
+    element.classList.remove("fadeOut");
+    element.classList.add("fadeIn");
+  } else {
+    element.classList.remove("fadeIn");
+    element.classList.add("fadeOut");
+  }
 }
 
 export function loadHighlight(theme) {

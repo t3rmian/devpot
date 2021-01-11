@@ -8,7 +8,7 @@ export function absoluteUrl(siteRoot, url) {
   return isAbsolute.test(url) ? url : siteRoot + url;
 }
 
-export function elipsizeDescription(description) {
+export function ellipsizeDescription(description) {
   const extractedDescription = description.replace(/<(.|\n)*?>/g, "");
   description =
     extractedDescription.length > 160
@@ -31,7 +31,7 @@ export default ({
   twitterCard,
   jsonLd
 }) => {
-  description = elipsizeDescription(description);
+  description = ellipsizeDescription(description);
   const { siteRoot } = useSiteData();
   const { t } = useTranslation();
   const manifest = lang === t("defaultLang") ? "/site.webmanifest" : `/site-${lang}.webmanifest`;

@@ -151,15 +151,8 @@ export default {
         </Head>
         <Body>
           <noscript>
-            <div
-              style={{
-                position: "absolute",
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)"
-              }}
-            >
-              Please enable JavaScript to view the website
+            <div>
+              Please enable JavaScript to make the website fully functional.
             </div>
           </noscript>
           {children}

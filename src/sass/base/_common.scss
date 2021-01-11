@@ -128,3 +128,16 @@ button.link:hover,
 a:hover * {
     text-decoration: underline;
 }
+
+#root > [tabindex="-1"], .router {
+    outline: none;
+    height: 100%;
+}
+
+noscript div {
+    color: red;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 999;
+}
