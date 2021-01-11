@@ -6,6 +6,7 @@ import Posts from "../components/Posts";
 import TagCloud from "../components/TagCloud";
 import { useRouteData } from "react-static";
 import { useTranslation } from "react-i18next";
+import PostJsonLd from "../components/PostJsonLd";
 
 export default () => {
   const { t } = useTranslation();
@@ -27,6 +28,17 @@ export default () => {
         : posts.length <= expandFromIndex
       : posts.length <= expandFromIndex
   );
+
+  const siteTitleI18n = t("site title", {lng: lang});
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "headline": siteTitleI18n,
+    "image": "/img/logo.png",
+    "text": home.contents.replace(/<[^>]*>?/gm, ''),
+    "blogPost": [...posts.map(post => PostJsonLd(post, "https://avatars.githubusercontent.com/u/20327242"))]
+  }
+
   if (!expanded) {
     posts = posts.slice(0, expandFromIndex);
   } else {
@@ -39,7 +51,7 @@ export default () => {
     <div className="container index-container">
       <div className="page">
         <Header
-          home={{ ...home, siteTitle: t("site title", { lng: lang }) }}
+          home={{ ...home, siteTitleI18n }}
           root={root}
           seo={{
             title: t("site title", { lng: lang }) + ": " + home.title,
@@ -49,7 +61,8 @@ export default () => {
             type: "website",
             langRefs: langRefs,
             twitterContentUsername: t("twitter author", { lng: lang }),
-            twitterCard: "summary"
+            twitterCard: "summary",
+            jsonLd: JSON.stringify(jsonLd)
           }}
         />
         <main>

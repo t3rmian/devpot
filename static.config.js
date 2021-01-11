@@ -35,7 +35,20 @@ export default {
         post.devMode = devMode;
         const minutes = countPostMinutes(post);
         const length = timeToLength(minutes)
+        post.minutesRead = minutes
         post.tags.push(i18n.t(length, {lng: lang}));
+        const hqImgRegex = /data-src=\"(.*?)\"/gi;
+        const lazyImgRegex = /src=\"(.*?)\"/gi;
+        let imageUrl =
+            hqImgRegex.exec(post.contents) != null
+                ? RegExp.$1
+                : lazyImgRegex.exec(post.contents) != null
+                ? RegExp.$1
+                : null;
+        if (imageUrl != null && imageUrl.endsWith(".svg")) {
+          imageUrl = imageUrl.substring(0, imageUrl.length - 3) + "jpeg"
+        }
+        post.imageUrl = imageUrl
       });
       blog[lang].sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);

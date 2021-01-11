@@ -1,5 +1,6 @@
-import PostFooter from "../components/PostFooter";
 import PostHeader from "../components/PostHeader";
+import PostFooter from "../components/PostFooter";
+import PostJsonLd from "../components/PostJsonLd";
 import Footer from "../components/Footer";
 import { Link } from "components/Router";
 import React from "react";
@@ -16,7 +17,6 @@ import {
   lazyLoadImages,
   loadComments,
   loadHighlight,
-  countPostMinutes,
 } from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
 import hljs from "highlight.js/lib/highlight";
@@ -80,18 +80,6 @@ const methods = {
 export function Post() {
   const { post, isDefaultLang, lang, langRefs, tags, root } = useRouteData();
   const { t } = useTranslation();
-  const minutesRead = countPostMinutes(post);
-  const hqImgRegex = /data-src=\"(.*?)\"/gi;
-  const lazyImgRegex = /src=\"(.*?)\"/gi;
-  let imageUrl =
-    hqImgRegex.exec(post.contents) != null
-      ? RegExp.$1
-      : lazyImgRegex.exec(post.contents) != null
-      ? RegExp.$1
-      : null;
-  if (imageUrl != null && imageUrl.endsWith(".svg")) {
-    imageUrl = imageUrl.substring(0, imageUrl.length - 3) + "jpeg"
-  }
   const authorLang = isDefaultLang ? "/" : "/" + lang + "/";
   const authorSite = post.authorSite
     ? post.authorSite
@@ -99,6 +87,9 @@ export function Post() {
   const authorPicture = post.authorPicture
     ? post.authorPicture
     : config.authorPicture;
+  const authorPictureSeo = post.authorPicture
+    ? post.authorPicture
+    : "https://avatars.githubusercontent.com/u/20327242";
   const author = post.author ? post.author : config.author;
 
   return (
@@ -110,7 +101,7 @@ export function Post() {
           lang={lang}
           type="article"
           langRefs={langRefs}
-          image={imageUrl}
+          image={post.imageUrl}
           date={(post.updated
             ? new Date(post.updated)
             : new Date(post.date)
@@ -121,6 +112,7 @@ export function Post() {
               : t("twitter author", { lng: lang })
           }
           twitterCard="summary"
+          jsonLd={JSON.stringify(PostJsonLd(post, authorPictureSeo))}
         />
         <header>
           <Link className="post-logo fadeIn" to={root}>
@@ -149,7 +141,7 @@ export function Post() {
                 })
               }
               minutesRead={t("count minutes read", {
-                count: minutesRead,
+                count: post.minutesRead,
                 lng: lang,
               })}
             />

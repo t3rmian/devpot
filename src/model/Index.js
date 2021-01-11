@@ -26,7 +26,13 @@ export function gradeTags(blog, isDefaultLang, lang) {
 }
 
 export function mapPost(post, loadEagerly) {
-  return loadEagerly ? post : { date: post.date, title: post.title, devMode: post.devMode };
+  return loadEagerly ? post : {
+    date: post.date,
+    title: post.title,
+    devMode: post.devMode,
+    imageUrl: post.imageUrl,
+    minutesRead: post.minutesRead
+  };
 }
 
 export default function Index(content, defaultLang, lang, loadEagerly) {

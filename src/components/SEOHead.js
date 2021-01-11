@@ -27,8 +27,9 @@ export default ({
   date,
   langRefs,
   twitterContentUsername,
+  noindex,
   twitterCard,
-  noindex
+  jsonLd
 }) => {
   description = elipsizeDescription(description);
   const { siteRoot } = useSiteData();
@@ -68,6 +69,7 @@ export default ({
       )}
       {twitterCard && <meta name="twitter:card" content={twitterCard} />}
       {date && <meta name="date" content={date} />}
+      {jsonLd && <script type="application/ld+json">{jsonLd}</script> }
     </Head>
   );
 };
