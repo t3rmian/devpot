@@ -73,7 +73,7 @@ Jest to podstawowe narzędzie, które zapewne znajdziesz również na Windowsie.
 Podczas połączenia konieczne będzie podanie loginu i hasła. Niestety standardowe *ftp* nie wspiera
 połączeń FTPS, dlatego dla kont z wymuszonym FTPSecure otrzymamy błąd:
 
-> 500 Explicit SSL required for user <username>
+> 500 Explicit SSL required for user \<username\>
 
 Sposób wykorzystania:
 

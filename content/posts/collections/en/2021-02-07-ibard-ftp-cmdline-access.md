@@ -69,7 +69,7 @@ This is a basic tool you'll find on Windows as well.
 During the connection, you will need to enter your login and password. Unfortunately, the standard *ftp* does not support
 FTPS connections. For accounts with forced FTPSecure we will get the following error:
 
-> 500 Explicit SSL required for user <username>
+> 500 Explicit SSL required for user \<username\>
 
 Use:
 
@@ -161,7 +161,7 @@ $requestStream.Dispose()
 ```
 
 > Note: For [.NET Framework 4+](https://docs.microsoft.com/en-US/troubleshoot/dotnet/framework/ftpwebrequest-behavior),
-you will need to run the following script ([JamieSee, CC-BY-SA] (https://stackoverflow.com/a/23397942)),
+you will need to run the following script ([JamieSee, CC-BY-SA](https://stackoverflow.com/a/23397942)),
 which will change the the behavior of missing the *CWD* (change directory) command before sending the file, similarily to the previous versions:
 
 ```shell
