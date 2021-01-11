@@ -9,6 +9,7 @@ import React from "react";
 import config from "./template.config";
 import lifecycle from "react-pure-lifecycle";
 import { loadTheme } from "components/Theme";
+import { globalHistory } from '@reach/router';
 
 const methods = {
   componentDidMount(props) {
@@ -19,8 +20,19 @@ const methods = {
       function gtag() {
         window.dataLayer.push(arguments);
       }
+      let gtagConfig = {
+        'allow_ad_personalization_signals': false,
+        'allow_google_signals': false,
+        'anonymize_ip': true,
+        'page_path': window.location.pathname,
+        'send_page_view': true,
+      };
       gtag("js", new Date());
-      gtag("config", config.optional.ga);
+      gtag("config", config.optional.ga, gtagConfig);
+      globalHistory.listen(({ location }) => {
+        gtagConfig.page_path = location.pathname
+        gtag('config', config.optional.ga, gtagConfig);
+      });
     }
 
     const throttle = (ms, fun) => {
