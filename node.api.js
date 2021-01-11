@@ -9,7 +9,7 @@ export default (options = {}) => ({
   beforeDocumentToFile: (html, { meta }) => {
     const divider = "div";
     const divSplittage = html
-        .replace('<div style="outline:none" tabindex="-1" role="group">', "<div tabindex=\"-1\" role=\"group\">")
+        .replace('<div style="outline:none" tabindex="-1">', "<div tabindex=\"-1\">")
         .replace('<div style="outline:none" tabindex="-1" role="group">', "<div tabindex=\"-1\" role=\"group\">")
         .split(divider);
     if (divSplittage.length > 1) {

@@ -27,7 +27,7 @@ export default {
     const blog = await jdown("content/posts", { fileInfo: true });
     const home = await jdown("content/home", { fileInfo: true });
     Object.keys(blog).forEach(lang => {
-      if (blog[lang].filter(post => post.id).length) { 
+      if (blog[lang].filter(post => !post.id).map(p => console.log("Missing post id: " + p.title)).length) {
         console.warn("Some posts have missing ids. Please check.");
       }
       blog[lang] = blog[lang].filter(post => post.id);

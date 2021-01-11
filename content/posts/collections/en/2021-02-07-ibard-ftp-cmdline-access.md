@@ -90,7 +90,7 @@ Additionally, we can use:
 - `binary` – binary file transfer mode.
 
 With a one-liner, we are able to turn off the interactive mode and automate the execution by redirecting the command list to the tool:
-```sh
+```bash
 ftp -nivp ftp.ibard.com <<EOF
 user <username> <password>
 ls
@@ -106,7 +106,7 @@ If we want to automate file transfer on Windows, PowerShell will be the solution
 To connect via FTP(S) we can use the .NET framework classes ([original examples from Thomas Maurer](https://www.thomasmaurer.ch/2010/11/powershell-ftp-upload-and-download/)).
 Importantly, for successful transfer, a double slash character is required after the host name:
 
-```shell
+```bash
 # FTP Download
 $url = "ftp://ftp.ibard.com//<your_ftp_directory>/<file>"
 $filePath = "C:\data\file"
@@ -136,7 +136,7 @@ $file.close()
 ```
 
 And the upload:
-```shell
+```bash
 # FTP Upload
 $url = "ftp://ftp.ibard.com//<your_ftp_directory>/<file>"
 $filePath = "C:\data\file"
@@ -164,7 +164,7 @@ $requestStream.Dispose()
 you will need to run the following script ([JamieSee, CC-BY-SA](https://stackoverflow.com/a/23397942)),
 which will change the the behavior of missing the *CWD* (change directory) command before sending the file, similarily to the previous versions:
 
-```shell
+```bash
 [Type] $requestType = [System.Net.FtpWebRequest]
 [System.Reflection.FieldInfo] $methodInfoField = $requestType.GetField("m_MethodInfo", [System.Reflection.BindingFlags]::NonPublic -bor [System.Reflection.BindingFlags]::Instance)
 
@@ -196,7 +196,7 @@ We can handle the download simply by providing the URL at the end of the *curl*/
 Alternatively, we can use the *Content-Disposition* response header:
 - `curl -O -J https://www.ibard.com/api/download/browser/shared/links/<hash>/files`; 
 - `wget --content-disposition https://www.ibard.com/api/download/browser/shared/links/<hash>/files`;
-- ```shell
+- ```bash
 # PowerShell
 $client = new-object System.Net.WebClient
 $client.DownloadFile("https://www.ibard.com/api/download/browser/shared/links/<hash>/files", "C:\data\file.txt")

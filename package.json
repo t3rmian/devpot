@@ -15,9 +15,9 @@
   "dependencies": {
     "@reach/router": "^1.2.1",
     "@types/react-share": "^3.0.3",
-    "axios": "^0.18.1",
+    "axios": "0.21.1",
     "highlight.js": "^9.15.6",
-    "htmr": "^0.8.7",
+    "htmr": "0.8.7",
     "i18next": "^15.0.9",
     "jdown": "^1.0.1",
     "react": "^16.9.0",
@@ -50,23 +50,24 @@
     "eslint-plugin-import": "2.x",
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
+    "netlify-plugin-csp-generator": "^1.2.2",
     "selenium-standalone": "^6.17.0",
-    "serve": "10.1.2",
-    "sharp": "^0.25.4",
-    "svg2img": "^0.7.0",
-    "netlify-plugin-csp-generator": "^1.2.2"
+    "serve": "11.3.2",
+    "sharp": "0.25.4",
+    "svg2img": "^0.7.0"
   },
   "resolutions": {
     "react-static/webpack-dev-server": "~3.1.10",
     "react-static/react-helmet": "5.2.1",
     "fstream": "^1.0.12",
-    "marked": "^0.6.1",
+    "marked": "0.7.0",
     "lodash": "^4.17.13",
     "react-hot-loader": "^4.12.10",
-    "scheduler": "^0.14.0",
-    "serialize-javascript": "^2.1.1",
+    "serialize-javascript": "^3.1.0",
     "union-value": "^1.0.1",
     "set-value": "^2.0.1",
-    "acorn": "^6.4.1"
+    "acorn": "^6.4.1",
+    "axios": "0.21.1",
+    "yargs-parser": ">=13.1.2 <14.0.0 || >=15.0.1 <16.0.0 || ^18.1.2"
   }
 }

@@ -94,7 +94,7 @@ Dodatkowo możemy użyć:
 - `binary` – tryb przesyłania plików binarnych.
 
 Za pomocą "jednej linii", jesteśmy w stanie wyłączyć interakcję i zautomatyzować mechanizm przekierowując listę poleceń do narzędzia:
-```sh
+```bash
 ftp -nivp ftp.ibard.com <<EOF
 user <username> <password>
 ls
@@ -109,7 +109,7 @@ W przypadku Linuksa i połączeń SSL możesz spróbować nieco bardziej rozwini
 Jeśli przenoszenie plików chcemy zautomatyzować na systemie Windows, to podstawowym narzędziem będzie PowerShell.
 Do połączenia za pomocą FTP(S) możemy skorzystać klas frameworku .NET ([oryginalne przykłady Thomasa Maurera](https://www.thomasmaurer.ch/2010/11/powershell-ftp-upload-and-download/)).
 Co ważne do poprawnego działania, po nazwie hosta konieczny jest podwójny znak *slash*:
-```shell
+```bash
 # FTP Download
 $url = "ftp://ftp.ibard.com//<your_ftp_directory>/<file>"
 $filePath = "C:\data\file"
@@ -139,7 +139,7 @@ $file.close()
 ```
 
 I wrzutka na serwer:
-```shell
+```bash
 # FTP Upload
 $url = "ftp://ftp.ibard.com//<your_ftp_directory>/<file>"
 $filePath = "C:\data\file"
@@ -168,7 +168,7 @@ konieczne będzie uruchomienie poniższego skryptu ([JamieSee, CC-BY-SA](https:/
 który spowoduje wykonanie brakującego polecenia *CWD* (zmiana katalogu) przed wysłaniem pliku, na wzór
 poprzednich wersji:
 
-```shell
+```bash
 [Type] $requestType = [System.Net.FtpWebRequest]
 [System.Reflection.FieldInfo] $methodInfoField = $requestType.GetField("m_MethodInfo", [System.Reflection.BindingFlags]::NonPublic -bor [System.Reflection.BindingFlags]::Instance)
 
@@ -199,7 +199,7 @@ do pliku/folderu poprzez API: `https://www.ibard.com/api/download/browser/shared
 Pobieranie obsłużymy, podając jedynie URL wywołania *curl*/*wget*, ewentualnie korzystając z nagłówka odpowiedzi *Content-Disposition*:
 - `curl -O -J https://www.ibard.com/api/download/browser/shared/links/<hash>/files`; 
 - `wget --content-disposition https://www.ibard.com/api/download/browser/shared/links/<hash>/files`;
-- ```shell
+- ```bash
 # PowerShell
 $client = new-object System.Net.WebClient
 $client.DownloadFile("https://www.ibard.com/api/download/browser/shared/links/<hash>/files", "C:\data\file.txt")

@@ -2,7 +2,7 @@ html,
 body,
 #root,
 #theme,
-div[role=group],
+div[tabindex="-1"],
 .transition-group {
     margin:0;
     padding:0;
@@ -132,6 +132,7 @@ a:hover * {
 #root > [tabindex="-1"], .router {
     outline: none;
     height: 100%;
+    width: 100%;
 }
 
 noscript div {
