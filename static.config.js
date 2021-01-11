@@ -140,7 +140,7 @@ export default {
                   });
                 }
               });
-            }`}}>
+            }`.replace(/\s{2,}/g,'')}}>
           </script>
           {config.optional.ga && (
             <script
