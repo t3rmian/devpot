@@ -16,7 +16,7 @@
     "@reach/router": "^1.2.1",
     "@types/react-share": "^3.0.3",
     "axios": "0.21.1",
-    "highlight.js": "^9.15.6",
+    "highlight.js": "^10.4.1",
     "htmr": "0.8.7",
     "i18next": "^15.0.9",
     "jdown": "^1.0.1",
