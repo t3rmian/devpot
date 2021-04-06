@@ -17,7 +17,8 @@ SUM([ DISTINCT | ALL ] expr) [ OVER (analytic_clause) ]
 
 While JPA is not an ideal tool for this purpose, we may nevertheless have a need of using
 this feature in an existing application framework based on this technology.
-Whereas the JPA specification itself does not provide such methods, its individual implementations give us some powerful extensions.
+Whereas the JPA specification itself does not provide such methods, forcing us to fall back to the native queries,
+its individual implementations give us some powerful extensions.
 
 How to build such a query with a window function using EclipseLink?
 To explain this, I will use a sample from [the MySQL database documentation](https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/window-functions-usage.html).
@@ -222,4 +223,5 @@ FROM sales s
 ```
 
 The `SQL` operator is also available as a method in the EclipseLink *Expression* class. You can use it without the need of registering
-the function as well.
+the function as well (similar to a simpler [`FUNC`/`FUNCTION` operator](https://www.eclipse.org/eclipselink/documentation/3.0/jpa/extensions/jpql.htm#CIHCCHIC)).
+Lastly, check out the `OPERATOR` syntax to use functions registered under the specific name through the `ExpressionOperator.registerOperator(int selector, String name)`.

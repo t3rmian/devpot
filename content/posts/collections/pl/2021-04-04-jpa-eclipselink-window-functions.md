@@ -15,8 +15,9 @@ przedstawiające informacje o pewnych trendach. Przykładem takiej funkcji może
 SUM([ DISTINCT | ALL ] expr) [ OVER (analytic_clause) ] 
 ```
 Mimo że JPA nie jest idealnym narzędziem do tego celu, możemy jednak mieć potrzebę skorzystania z takiej funkcji w już istniejącym szkielecie
-aplikacji opartym na tej technologii. O ile sama specyfikacja JPA nie udostępnia takich metod, to poszczególne jej implementacje, dają
-nam szerokie pole do popisu.
+aplikacji opartym na tej technologii. O ile sama specyfikacja JPA nie udostępnia takich metod,
+zmuszając nas do skorzystania z zapytań natywnych, to poszczególne jej implementacje, dają
+nam już szersze pole do popisu.
 
 Jak zbudować takie zapytanie z użyciem funkcji okienkowej przy użyciu EclipseLinka? Posłużymy się przykładem
 z [dokumentacji bazy danych MySQL](https://docs.oracle.com/cd/E17952_01/mysql-8.0-en/window-functions-usage.html).
@@ -219,4 +220,5 @@ FROM sales s
 ```
 
 Operator `SQL` jest również dostępny pod postacią metody w EclipseLinkowej klasie *Expression*. Możesz skorzystać z niego, jeśli chcesz
-pominąć konieczność rejestracji funkcji.
+pominąć konieczność rejestracji funkcji (podobnie do nieco prostszego operatora [`FUNC`/`FUNCTION`](https://www.eclipse.org/eclipselink/documentation/3.0/jpa/extensions/jpql.htm#CIHCCHIC)).
+Ostatecznie warto też sprawdzić składnię `OPERATOR`, która to już pozwala na odwołanie się do wcześniej zarejestrowanej funkcji, nazwanej przy pomocy `ExpressionOperator.registerOperator(int selector, String name)`.
