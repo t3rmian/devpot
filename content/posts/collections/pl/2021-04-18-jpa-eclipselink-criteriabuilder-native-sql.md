@@ -43,7 +43,7 @@ Wyobraźmy sobie prosty sklep – klientów, zamówienia i produkty. Załóżmy,
 zamówili jeden z trzech najgorzej ocenianych produktów. Być może chcielibyśmy dać im rabat, aby nasz sklep źle się im nie
 kojarzył. Uproszczony diagram klas takiego sklepiku mógłby wyglądać następująco:
 
-<img src="/img/hq/expressionbuilder-eclipselink.svg" alt="Diagram klas dla zapytania TOP N" title="Uproszczony diagram klas">
+<img src="/img/hq/expressionbuilder-eclipselink.svg" alt="Diagram klas dla przykładowego zapytania TOP N" title="Uproszczony diagram klas">
 
 Oczekiwane zapytanie TOP N, które powinien wygenerować nam *CriteriaBuilder* to:
 

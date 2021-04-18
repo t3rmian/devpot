@@ -47,7 +47,7 @@ Suppose you want to find all customers who ordered one of the three lowest-rated
 Perhaps you would like to give them a discount so that your store is not linked with negative thoughts.
 A simplified class diagram of such a shop could look like this:
 
-<img src="/img/hq/expressionbuilder-eclipselink.svg" alt="Diagram klas dla zapytania TOP N" title="Uproszczony diagram klas">
+<img src="/img/hq/expressionbuilder-eclipselink.svg" alt="Class diagram for TOP N query sample" title="Simplified class diagram">
 
 The expected TOP N query that we want the *CriteriaBuilder* to generate is:
 
