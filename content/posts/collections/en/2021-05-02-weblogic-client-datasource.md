@@ -26,7 +26,7 @@ How to build the library is described in [the documentation](https://docs.oracle
 2. Build the library: `java -jar wljarbuilder.jar`.
 3. Add the library to the classpath. Apart from playing with the `-cp` parameters, we can install it in a local repository and add it to Maven dependencies:
 ```bash
-mvn install:install-file -Dfile=wlfullclient.jar -DgroupId=com.oracle -DartifactId=wlfullclient -Dversion=12.2.1.4 -Dpackaging=jar`
+mvn install:install-file -Dfile=wlfullclient.jar -DgroupId=com.oracle -DartifactId=wlfullclient -Dversion=12.2.1.4 -Dpackaging=jar
 ```
 ```xml
 <dependency>

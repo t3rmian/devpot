@@ -25,7 +25,7 @@ Jak zbudować bibliotekę opisuje [ dokumentacja](https://docs.oracle.com/en/mid
 2. Zbudowanie biblioteki: `java -jar wljarbuilder.jar`.
 3. Dodanie biblioteki do classpath. Pomijając zabawę parametrami, możemy zainstalować ją w lokalnym repozytorium i dodać do zależności:
 ```bash
-mvn install:install-file -Dfile=wlfullclient.jar -DgroupId=com.oracle -DartifactId=wlfullclient -Dversion=12.2.1.4 -Dpackaging=jar`
+mvn install:install-file -Dfile=wlfullclient.jar -DgroupId=com.oracle -DartifactId=wlfullclient -Dversion=12.2.1.4 -Dpackaging=jar
 ```
 ```xml
 <dependency>
