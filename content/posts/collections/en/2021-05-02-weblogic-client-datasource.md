@@ -112,7 +112,7 @@ We can use the following command to find the classes we need:
 ```bash
 for f in *.jar; do echo "$f: "; unzip -l $f | grep RmiDataSource; done
 ```
-- the class DataSource class will be found in *WL_HOME/modules/com.bea.core.datasource6.jar*.
+- the DataSource class will be found in *WL_HOME/modules/com.bea.core.datasource6.jar*.
 
 Following the bread crumbs of new stack traces, we will find the missing classes:
 > java.lang.ClassNotFoundException: Failed to load class weblogic.jdbc.rmi.SerialConnection
