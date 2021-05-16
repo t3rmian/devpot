@@ -148,7 +148,7 @@ EclipseLink will process them as different objects.
 
 To solve the problem, we just need to specify the sort order:
 ```sql
-SELECT DISTINCT customer
+SELECT customer
 FROM Customer customer
 JOIN FETCH customer.orders
 ORDER BY customer.id
