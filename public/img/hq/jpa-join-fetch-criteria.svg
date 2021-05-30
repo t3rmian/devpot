@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="308px" preserveAspectRatio="none" style="width:751px;height:308px;background:#FFFFFF;" version="1.1" viewBox="0 0 751 308" width="751px" zoomAndPan="magnify"><defs><filter height="300%" id="f113ynrqqqxvnb" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[2bde869bb97388ce4224191915389e53]
+cluster l1a--><rect fill="#FFFFFF" filter="url(#f113ynrqqqxvnb)" height="105" style="stroke:#000000;stroke-width:1.5;" width="256" x="168" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="240" x="176" y="21.9951">L1 Persistence Context Cache</text><!--MD5=[ab6e14251351068ffebb613fa35730da]
+cluster l1--><rect fill="#FFFFFF" filter="url(#f113ynrqqqxvnb)" height="105" style="stroke:#000000;stroke-width:1.5;" width="256" x="168" y="136"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="240" x="176" y="150.9951">L1 Persistence Context Cache</text><!--MD5=[497d87bb8f00ba3c6c7d842bd6b1cd11]
+cluster l2--><rect fill="#FFFFFF" filter="url(#f113ynrqqqxvnb)" height="105" style="stroke:#000000;stroke-width:1.5;" width="287" x="452" y="72"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="271" x="460" y="86.9951">L2 Persistence Unit Shared Cache</text><!--MD5=[8078bc0e573829807c120e3c773cc586]
+entity em1--><rect fill="#FEFECE" filter="url(#f113ynrqqqxvnb)" height="52.5938" style="stroke:#A80036;stroke-width:1.5;" width="197" x="197" y="42.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="177" x="207" y="65.4951">EntityManager 1 (JPA/EL)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="153" x="219" y="81.792">Session 1 (Hibernate)</text><!--MD5=[26e48876f5fba605203c667b4454d0e2]
+entity em2--><rect fill="#FEFECE" filter="url(#f113ynrqqqxvnb)" height="52.5938" style="stroke:#A80036;stroke-width:1.5;" width="137" x="227" y="171.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="117" x="237" y="194.4951">EntityManager 2</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="66" x="262.5" y="210.792">Session 2</text><!--MD5=[4892c1012537a72e0e66d1e6734184bf]
+entity emf--><rect fill="#FEFECE" filter="url(#f113ynrqqqxvnb)" height="52.5938" style="stroke:#A80036;stroke-width:1.5;" width="238" x="476" y="107.5"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="218" x="486" y="130.4951">EntityManagerFactory (JPA/EL)</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="194" x="498" y="146.792">SessionFactory (Hibernate)</text><!--MD5=[6bbcea2608025d9c7076c7b944bec0dd]
+entity trn1--><rect fill="#FEFECE" filter="url(#f113ynrqqqxvnb)" height="36.2969" style="stroke:#A80036;stroke-width:1.5;" width="117" x="7" y="51"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="97" x="17" y="73.9951">Transaction 1</text><!--MD5=[9ad50862d20ddd9d271b98bb8bc9c945]
+entity trn2--><rect fill="#FEFECE" filter="url(#f113ynrqqqxvnb)" height="36.2969" style="stroke:#A80036;stroke-width:1.5;" width="116" x="7.5" y="180"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="96" x="17.5" y="202.9951">Transaction 2</text><!--MD5=[0ba5ee7700168656dc1b457c6fe9fdac]
+entity Client--><rect fill="#FEFECE" filter="url(#f113ynrqqqxvnb)" height="36.2969" style="stroke:#A80036;stroke-width:1.5;" width="63" x="264" y="260"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="43" x="274" y="282.9951">Client</text><!--MD5=[dc6b2390022262321d99fcff00637dc1]
+link trn1 to em1--><path d="M124.034,69 C146.065,69 171.859,69 196.619,69 " fill="none" id="trn1-em1" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[eacab14af5e248d95fec95fd5dedb774]
+link trn2 to em2--><path d="M123.74,198 C155.002,198 193.911,198 226.689,198 " fill="none" id="trn2-em2" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[ce4823eedc82b08224c310b7e3dc6964]
+link em1 to emf--><path d="M394.325,90.373 C420.405,96.072 448.861,102.289 475.904,108.198 " fill="none" id="em1-emf" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d6e683e5baa74b36f5e28006bc1eb2af]
+link em2 to emf--><path d="M364.007,183.477 C397.094,176.36 437.917,167.577 475.943,159.397 " fill="none" id="em2-emf" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[03becaa66493f8f43b91fc8c71338d0b]
+link Client to em2--><path d="M295.5,259.875 C295.5,248.1123 295.5,236.3496 295.5,224.5869 " fill="none" id="Client-em2" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[d3a6d8078687668a9c4688b07d55490d]
+@startuml
+skinparam componentStyle rectangle
+skinparam defaultTextAlignment center
+left to right direction
+
+
+component "Transaction 1" as trn1
+component "Transaction 2" as trn2
+component "L1 Persistence Context Cache" as l1a {
+component "EntityManager 1 (JPA/EL)\nSession 1 (Hibernate)" as em1
+}
+component "L1 Persistence Context Cache" as l1 {
+component "EntityManager 2\nSession 2" as em2
+}
+component "L2 Persistence Unit Shared Cache" as l2 {
+component "EntityManagerFactory (JPA/EL)\nSessionFactory (Hibernate)" as emf
+}
+component Client
+
+trn1 - - em1
+trn2 - - em2
+em1 - - emf
+em2 - - emf
+Client -right- em2
+@enduml
+
+PlantUML version 1.2021.7(Sun May 23 12:40:07 UTC 2021)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
