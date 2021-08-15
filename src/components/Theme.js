@@ -1,7 +1,7 @@
 import Cookies from "universal-cookie";
 import React from "react";
-import { useTranslation } from "react-i18next";
-import { loadHighlight, makeVisible } from "../utils";
+import {useTranslation} from "react-i18next";
+import {loadHighlight, makeVisible} from "../utils";
 
 export default function Theme({ lang }) {
   const { t } = useTranslation();
@@ -59,22 +59,30 @@ export default function Theme({ lang }) {
   );
 }
 
+function getTheme() {
+  const cookieTheme = new Cookies().get("theme");
+  if (cookieTheme) {
+    return cookieTheme;
+  }
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return "theme-dark";
+  }
+}
+
+
 export const getCommentsTheme = () => {
-  const theme = new Cookies().get("theme");
-  const commentsTheme =
-    theme === undefined
+  const theme = getTheme();
+  return theme === undefined
       ? "github-light"
       : theme.indexOf("light") >= 0
-      ? "github-light"
-      : "photon-dark";
-  return commentsTheme;
+          ? "github-light"
+          : "photon-dark";
 };
 
 export const loadTheme = () => {
-  const cookies = new Cookies();
   const themeManager = document.getElementById("theme");
-  if (cookies.get("theme")) {
-    const theme = cookies.get("theme");
+  const theme = getTheme();
+  if (theme) {
     if (!themeManager.classList.contains(theme)) {
       [].slice
         .call(themeManager.classList)
@@ -87,12 +95,10 @@ export const loadTheme = () => {
 };
 
 export const getHighlightTheme = () => {
-  const theme = new Cookies().get("theme");
-  const highlightTheme =
-    theme === undefined
+  const theme = getTheme();
+  return theme === undefined
       ? "idea"
       : theme.indexOf("light") >= 0
-      ? "idea"
-      : "dark";
-  return highlightTheme;
+          ? "idea"
+          : "dark";
 };
