@@ -17,8 +17,6 @@ import config from "../template.config";
 import {
   lazyLoadImages,
   loadHighlight,
-  loadAds,
-  injectPostAds,
 } from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
 import hljs from "highlight.js/lib/highlight";
@@ -67,7 +65,6 @@ const methods = {
         a.setAttribute("rel", "noopener noreferrer");
       });
     loadComments(config.optional.commentsRepo, "pathname", getCommentsTheme());
-    loadAds()
   },
   componentDidUpdate() {
     updateCodeSyntaxHighlighting();
@@ -88,7 +85,6 @@ export function Post() {
     ? post.authorPicture
     : "https://avatars.githubusercontent.com/u/20327242";
   const author = post.author ? post.author : config.author;
-  injectPostAds(post);
 
   return (
     <div className="container post-container">
