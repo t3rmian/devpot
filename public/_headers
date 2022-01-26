@@ -1,0 +1,3 @@
+/test/stale-while-revalidate*
+  X-Robots-Tag: noindex
+  Cache-Control: max-age=1, stale-while-revalidate=60
