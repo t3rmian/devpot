@@ -1,3 +1,4 @@
 https://418.netlify.com/* https://blog.termian.dev/:splat 301!
 /test/stale-while-revalidate.html /test/stale-while-revalidate-pl.html 200! Language=pl
+/test/stale-while-revalidate.html /test/stale-while-revalidate-de.html 200! Language=de
 /test/stale-while-revalidate.html /test/stale-while-revalidate-en.html 200!
