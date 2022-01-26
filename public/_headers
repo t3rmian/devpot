@@ -1,6 +1,0 @@
-/test/stale-while-revalidate*
-  Access-Control-Allow-Origin: *
-  Cache-Control: max-age=1, stale-while-revalidate=60
-  Etag: ""
-  X-Robots-Tag: noindex
-  X-Custom-Tag: test
