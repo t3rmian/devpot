@@ -9,7 +9,7 @@ exports.handler = async function (event) {
             "Access-Control-Allow-Origin": "*",
             "X-Robots-Tag": "noindex",
         },
-        body: (lang.includes("de") ? "Hallo Welt!" : lang.includes("pl") ? "Witaj Świecie!" : "Hello World!" ) + " " + new Date().getTime(),
+        body: (lang === "de" ? "Hallo Welt!" : lang === "pl" ? "Witaj Świecie!" : "Hello World!" ) + " " + new Date().getTime(),
     };
     if (vary) {
         response.headers["Vary"] = "Accept-Language";
