@@ -50,7 +50,7 @@
     "eslint-plugin-import": "2.x",
     "eslint-plugin-jsx-a11y": "6.x",
     "eslint-plugin-react": "7.x",
-    "netlify-plugin-csp-generator": "~1.5.0",
+    "netlify-plugin-csp-generator": "^1.2.2",
     "selenium-standalone": "^6.17.0",
     "serve": "11.3.2",
     "sharp": "0.25.4",
