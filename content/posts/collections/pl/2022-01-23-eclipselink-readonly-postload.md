@@ -236,7 +236,7 @@ Własność `eclipselink.session.customizer` powinna wskazywać na nazwę pakiet
 
 ## DescriptorCustomizer
 
-Podobne rozszerzenie zaimplementować możemy na poziomie właściwej encji. W momencie konfiguracji standardowy `EntityListener``
+Podobne rozszerzenie zaimplementować możemy na poziomie właściwej encji. W momencie konfiguracji standardowy `EntityListener`
 nie będzie w tym przypadku zainicjalizowany (#9). Nic nie stoi jednak na przeszkodzie, żeby przenieść potrzebną część kodu (#2, #7, #9)
 do momentu obsługi zdarzenia. Właściwie w ten sam sposób moglibyśmy zrefaktorować przykład w punkcie 8.
 

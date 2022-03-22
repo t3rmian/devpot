@@ -287,8 +287,8 @@ Basically, it prevents you from removing and adding collection items for a manag
 ### EclipseLink
 
 In the case of EclipseLink, you can modify the mapping information using a type-level
-*org.eclipse.persistence.annotations.Customizer* annotation.
-This annotation is an entry point for the implementation of *org.eclipse.persistence.config.DescriptorCustomizer* interface.
+`org.eclipse.persistence.annotations.Customizer` annotation.
+This annotation is an entry point for the implementation of `org.eclipse.persistence.config.DescriptorCustomizer` interface.
 To obtain a similar result in the context of managing the intermediate table, we can use the read-only
 feature. Although you cannot add *@ReadOnly* annotation on a field, you can put the relationship into the
 expected mode during the descriptor configuration.
