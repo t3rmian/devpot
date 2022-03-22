@@ -7993,7 +7993,7 @@ neo-async@^2.5.0, neo-async@^2.6.1:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
-netlify-plugin-csp-generator@^1.2.2:
+netlify-plugin-csp-generator@1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/netlify-plugin-csp-generator/-/netlify-plugin-csp-generator-1.2.2.tgz#c159faf3069fa323c6c90954e934f248c8ad7448"
   integrity sha512-O8dX3URvOXBlNyIsXSy2Ajk+gAX5jfi6sZL7PwLTBGOpGkriiAnw1O4qmcu5f595Bx0/kwlhTb0qxwAvu51PNA==
