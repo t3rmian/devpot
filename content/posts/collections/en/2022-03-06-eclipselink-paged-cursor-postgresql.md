@@ -1,6 +1,6 @@
 ---
-title: Rozmiar strony kursora PostgreSQL (EclipeLink JPA)
-url: eclipselink-jpa-rozmiar-kursora-postgresql
+title: PostgreSQL cursor fetch size (EclipeLink JPA)
+url: eclipselink-jpa-cursor-fetch-postgresql
 id: 81
 tags:
   - java
