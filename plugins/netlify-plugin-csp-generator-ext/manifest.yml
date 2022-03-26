@@ -1,0 +1,27 @@
+name: netlify-plugin-csp-generator-ext
+inputs:
+  - name: buildDir
+    description: Publish directory. Defaults to Netlify's publish directory.
+  - name: exclude
+    default: []
+  - name: policies
+    description: Content-Security-Policy separated by keys. Possible options are defaultSrc, childSrc, connectSrc, fontSrc, frameSrc, imgSrc, manifestSrc, mediaSrc, objectSrc, scriptSrc, scriptSrcElem, scriptSrcAttr, styleSrc, styleSrcElem, styleSrcAttr, workerSrc, baseUri, formAction, frameAncestors
+    default: {}
+  - name: disablePolicies
+    description: Array of policy keys that shouldn't ever be set.
+    default: []
+  - name: disableGeneratedPolicies
+    description: Array of policy keys that shouldn't ever be computed.  Useful for disabling script-src or style-src generation.
+    default: []
+  - name: reportOnly
+    description: Boolean value for whether policy should be set to report only, instead of blocking violations.
+    default: false
+  - name: reportURI
+    description: URL to report violations to.
+    default: ''
+  - name: reportTo
+    description: Reporting-Endpoints group name to report violations to.
+    default: ''
+  - name: generateForAllFiles
+    description: Generate Content-Security-Policy headers for all file extensions.  The alternative is to only generate for HTML files.
+    default: false
