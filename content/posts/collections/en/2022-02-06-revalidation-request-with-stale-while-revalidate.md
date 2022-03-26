@@ -77,9 +77,9 @@ srcdoc="
 <div>
     <h4 style='text-align: center;'>'stale-while-revalidate' test<br/>with custom 'Accept-Language' header value</h4>
     <div style='text-align: center; margin-bottom: 1em;'>
-        <button id='fetchButton' style='width: 110px'>Fetch<span id='fetch'></span></button>
-        <button id='fetchButton2' style='width: 150px'>Fetch (Vary)<span id='fetch2'></span></button>
-        <button id='clearButton'>Clear</button>
+        <button style='width: 110px' onclick='load()'>Fetch<span id='fetch'></span></button>
+        <button style='width: 150px' onclick='load(true)'>Fetch (Vary)<span id='fetch2'></span></button>
+        <button onclick='clearCache()'>Clear</button>
     </div>
     <div style='margin-bottom: 0.5em;'>
         <div>Fetch time: <span id='debug'></span></div>
@@ -130,15 +130,6 @@ function load(vary) {
             }, 2000);
         });
 }
-document.getElementById('fetchButton').addEventListener('click', () => {
-    load();
-});
-document.getElementById('fetchButton2').addEventListener('click', () => {
-    load(true);
-});
-document.getElementById('clearButton').addEventListener('click', () => {
-    clearCache();
-});
 </script>
 " > 
 </iframe>
