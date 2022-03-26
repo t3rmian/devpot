@@ -16,6 +16,6 @@
     formAction = "'self'"
     manifestSrc = "'self'"
     imgSrc = "'self' data: https://www.googletagmanager.com https://www.google-analytics.com"
-    frameSrc = "https://utteranc.es"
+    frameSrc = "'self' https://utteranc.es"
     fontSrc = "https://fonts.gstatic.com"
     workerSrc = "'self'"

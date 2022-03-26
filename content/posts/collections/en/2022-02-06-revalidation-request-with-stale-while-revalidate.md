@@ -66,82 +66,13 @@ exports.handler = async function (event) {
             + " " + new Date().getTime(),
     };
     if (vary) {
-        response.headers["Vary"] = "Accept-Language";
+        response.headers["Vary"] = "Accept-Languag``e";
     }
     return response;
 }
 ```
 
-<iframe height="280px" width="400px" sandbox="allow-scripts" class="white-iframe"
-srcdoc="
-<style>
-h4 {text-align: center;}
-.iframe-buttons {text-align: center; margin-bottom: 1em;}
-.iframe-timestamps {margin-bottom: 0.5em;}
-ol {margin-top: 0.5em;}
-button:nth-of-type(1) {width: 110px;}
-button:nth-of-type(2) {width: 150px;}
-button:nth-of-type(3) {width: 90px;}
-</style>
-<div>
-    <h4>'stale-while-revalidate' test<br/>with custom 'Accept-Language' header value</h4>
-    <div class='iframe-buttons'>
-        <button onclick='load()'>Fetch<span id='fetch'></span></button>
-        <button onclick='load(true)'>Fetch (Vary)<span id='fetch2'></span></button>
-        <button onclick='clearCache()'>Clear</button>
-    </div>
-    <div class='iframe-timestamps'>
-        <div>Fetch time: <span id='debug'></span></div>
-        <div>Response: <span id='result'></span></div>
-    </div>
-    <div>Expecting the following responses:
-    <ol>
-        <li>Hallo Welt! (timestamp 1)</li>
-        <li>Hallo Welt! (timestamp 1)</li>
-        <li>Hallo Welt! (timestamp 2)</li>
-        <li>Hallo Welt! (timestamp 3)</li>
-    </ol>
-    </div>
-</div>
-<script>
-let cacheKey = new Date().getTime().toString();
-let lastTimeout;
-function clearCache() {
-    document.getElementById('debug').innerText = null;
-    document.getElementById('result').innerText = null;
-    document.getElementById('fetch').innerText = null;
-    document.getElementById('fetch2').innerText = null;
-    clearTimeout(lastTimeout);
-    cacheKey = new Date().getTime().toString();
-}
-function load(vary) {
-    let queryParams = '?cacheKey=' + cacheKey;
-    if (vary) {
-        queryParams += '&vary=true';
-    }
-    fetch('https://blog.termian.dev/test/stale-while-revalidate' + queryParams, {
-        headers: {
-          'Accept-Language': 'de'
-        }
-    })
-        .then(response => response.text())
-        .then(data => { 
-            console.log('Received: ' + data);
-            console.log(document);
-            document.getElementById('result').innerText = data; 
-            document.getElementById('debug').innerText = new Date().getTime().toString();
-            document.getElementById('fetch').innerText = ' (wait 2s)';
-            document.getElementById('fetch2').innerText = ' (wait 2s)';
-            clearTimeout(lastTimeout);
-            lastTimeout = setTimeout(()=>{
-                    document.getElementById('fetch').innerText = null;
-                    document.getElementById('fetch2').innerText = null;
-            }, 2000);
-        });
-}
-</script>
-" > 
-</iframe>
+<iframe height="280px" width="400px" sandbox="allow-scripts" class="white-iframe" src="/resources/revalidation-request-with-stale-while-revalidate.html"></iframe>
 
 
 From my point of view, the revalidation query in the case of Firefox does not seem to comply with the general

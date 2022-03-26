@@ -76,76 +76,7 @@ exports.handler = async function (event) {
 }
 ```
 
-<iframe height="280px" width="440px" sandbox="allow-scripts" class="white-iframe"
-srcdoc="
-<style>
-h4 {text-align: center;}
-.iframe-buttons {text-align: center; margin-bottom: 1em;}
-.iframe-timestamps {margin-bottom: 0.5em;}
-ol {margin-top: 0.5em;}
-button:nth-of-type(1) {width: 140px;}
-button:nth-of-type(2) {width: 180px;}
-button:nth-of-type(3) {width: 70px;}
-</style>
-<div>
-    <h4>Test atrybutu 'stale-while-revalidate'<br/>z wybraną wartością 'Accept-Language'</h4>
-    <div class='iframe-buttons'>
-        <button onclick='load()'>Fetch<span id='fetch'></span></button>
-        <button onclick='load(true)'>Fetch (Vary)<span id='fetch2'></span></button>
-        <button onclick='clearCache()'>Reset</button>
-    </div>
-    <div class='iframe-timestamps'>
-        <div>Czas nadejścia: <span id='debug'></span></div>
-        <div>Odpowiedź: <span id='result'></span></div>
-    </div>
-    <div>Oczekujemy poniższych odpowiedzi:
-    <ol>
-        <li>Witaj Świecie! (timestamp 1)</li>
-        <li>Witaj Świecie! (timestamp 1)</li>
-        <li>Witaj Świecie! (timestamp 2)</li>
-        <li>Witaj Świecie! (timestamp 3)</li>
-    </ol>
-    </div>
-</div>
-<script>
-let cacheKey = new Date().getTime().toString();
-let lastTimeout;
-function clearCache() {
-    document.getElementById('debug').innerText = null;
-    document.getElementById('result').innerText = null;
-    document.getElementById('fetch').innerText = null;
-    document.getElementById('fetch2').innerText = null;
-    clearTimeout(lastTimeout);
-    cacheKey = new Date().getTime().toString();
-}
-function load(vary) {
-    let queryParams = '?cacheKey=' + cacheKey;
-    if (vary) {
-        queryParams += '&vary=true';
-    }
-    fetch('https://blog.termian.dev/test/stale-while-revalidate' + queryParams, {
-        headers: {
-          'Accept-Language': 'pl'
-        }
-    })
-        .then(response => response.text())
-        .then(data => { 
-            console.log('Received: ' + data);
-            console.log(document);
-            document.getElementById('result').innerText = data; 
-            document.getElementById('debug').innerText = new Date().getTime().toString();
-            document.getElementById('fetch').innerText = ' (zaczekaj 2s)';
-            document.getElementById('fetch2').innerText = ' (zaczekaj 2s)';
-            clearTimeout(lastTimeout);
-            lastTimeout = setTimeout(()=>{
-                    document.getElementById('fetch').innerText = null;
-                    document.getElementById('fetch2').innerText = null;
-            }, 2000);
-        });
-}
-</script>
-" > 
-</iframe>
+<iframe height="280px" width="440px" sandbox="allow-scripts" class="white-iframe" src="/resources/stale-while-revalidate-brakujące-nagłówki.html"></iframe>
 
 
 Z mojego punktu widzenia zapytanie w tle w przypadku Firefoxa nie wygląda na zgodne z ogólną specyfikacją,

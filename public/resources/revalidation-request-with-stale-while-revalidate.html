@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h4 {
+            text-align: center;
+        }
+
+        .iframe-buttons {
+            text-align: center;
+            margin-bottom: 1em;
+        }
+
+        .iframe-timestamps {
+            margin-bottom: 0.5em;
+        }
+
+        ol {
+            margin-top: 0.5em;
+        }
+
+        button:nth-of-type(1) {
+            width: 110px;
+        }
+
+        button:nth-of-type(2) {
+            width: 150px;
+        }
+
+        button:nth-of-type(3) {
+            width: 90px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h4>'stale-while-revalidate' test<br/>with custom 'Accept-Language' header value</h4>
+    <div class='iframe-buttons'>
+        <button id='fetchButton'>Fetch<span id='fetch'></span></button>
+        <button id='fetchButton2'>Fetch (Vary)<span id='fetch2'></span></button>
+        <button id='clearButton'>Clear</button>
+    </div>
+    <div class='iframe-timestamps'>
+        <div>Fetch time: <span id='debug'></span></div>
+        <div>Response: <span id='result'></span></div>
+    </div>
+    <div>Expecting the following responses:
+        <ol>
+            <li>Hallo Welt! (timestamp 1)</li>
+            <li>Hallo Welt! (timestamp 1)</li>
+            <li>Hallo Welt! (timestamp 2)</li>
+            <li>Hallo Welt! (timestamp 3)</li>
+        </ol>
+    </div>
+</div>
+<script>
+    let cacheKey = new Date().getTime().toString();
+    let lastTimeout;
+
+    function clearCache() {
+        document.getElementById('debug').innerText = null;
+        document.getElementById('result').innerText = null;
+        document.getElementById('fetch').innerText = null;
+        document.getElementById('fetch2').innerText = null;
+        clearTimeout(lastTimeout);
+        cacheKey = new Date().getTime().toString();
+    }
+
+    function load(vary) {
+        let queryParams = '?cacheKey=' + cacheKey;
+        if (vary) {
+            queryParams += '&vary=true';
+        }
+        fetch('https://blog.termian.dev/test/stale-while-revalidate' + queryParams, {
+            headers: {
+                'Accept-Language': 'de'
+            }
+        })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Received: ' + data);
+                document.getElementById('result').innerText = data;
+                document.getElementById('debug').innerText = new Date().getTime().toString();
+                document.getElementById('fetch').innerText = ' (wait 2s)';
+                document.getElementById('fetch2').innerText = ' (wait 2s)';
+                clearTimeout(lastTimeout);
+                lastTimeout = setTimeout(() => {
+                    document.getElementById('fetch').innerText = null;
+                    document.getElementById('fetch2').innerText = null;
+                }, 2000);
+            });
+    }
+
+    document.getElementById('fetchButton').addEventListener('click', () => {
+        load();
+    });
+    document.getElementById('fetchButton2').addEventListener('click', () => {
+        load(true);
+    });
+    document.getElementById('clearButton').addEventListener('click', () => {
+        clearCache();
+    });
+</script>
+</body>
+</html>
