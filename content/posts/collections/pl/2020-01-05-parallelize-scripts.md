@@ -20,7 +20,7 @@ T = S + (T - S)
 T(N) = S + (T(1) - S) / N
 ```
 
-<img style="background: white" src="/img/hq/prawo-amdahla.svg" alt="Prawo Amdahla – Przyspieszenie" title="Prawo Amdahla – Przyspieszenie">
+<img class="uml-bg" src="/img/hq/prawo-amdahla.svg" alt="Prawo Amdahla – Przyspieszenie" title="Prawo Amdahla – Przyspieszenie">
 
 
 ### Linux

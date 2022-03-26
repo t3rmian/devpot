@@ -15,7 +15,7 @@ JMeter to otwartoźródłowe narzędzie napisane w Javie, dosyć często używan
 - testy obciążeniowe i stabilności;
 - testy skalowalności.
 
-<img style="background: white" src="/img/hq/testy-systemowe.png" alt="Rodzaje testów" title="Typy testów">
+<img class="uml-bg" src="/img/hq/testy-systemowe.png" alt="Rodzaje testów" title="Typy testów">
 
 Testy systemowe przeprowadzane są po fazie testów integracyjnych, a przed fazą testów akceptacyjnych. Są one zazwyczaj ostatnim krokiem wykonywanym przez zespół deweloperski/testerski. Można się spierać, czy na pewno potrzebujemy oddzielnego narzędzia do testów systemowych. Nie ma przecież przeszkód, aby testy takie zaimplementować naszym ulubionym frameworku, na poziomie testów integracyjnych — przy zintegrowanych wszystkich modułach. O ile takie rozwiązanie sprawdzi się w wielu przypadkach, to jest drugie tyle sytuacji, gdzie podejście to nie będzie takie łatwe i szybkie.
 

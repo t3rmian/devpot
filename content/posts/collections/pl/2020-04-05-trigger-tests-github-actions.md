@@ -19,7 +19,7 @@ Ostatnio, po przypadkowym uszkodzeniu funkcji wyszukiwania na moim blogu, postan
 
 Poniższy schemat pokazuje, co dokładnie mam na myśli:
 
-<img src="/img/hq/github-akcje-netlify.svg" alt="Automatyzacja przepływu pracy" title="Automatyzacja przepływu pracy" style="background:white;">
+<img src="/img/hq/github-akcje-netlify.svg" alt="Automatyzacja przepływu pracy" title="Automatyzacja przepływu pracy" class="uml-bg">
 
 ## Statusy i notyfikacje Netlify
 

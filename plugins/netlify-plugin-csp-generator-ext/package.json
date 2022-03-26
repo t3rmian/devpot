@@ -1,0 +1,24 @@
+{
+  "name": "netlify-plugin-csp-generator-ext",
+  "version": "1.5.0",
+  "description": "Generate CSP headers from inline script hashes (with utf8 urls and iframe srcdoc)",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "marcellothearcane, t3rmian",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "netlify-plugin-csp-generator": "1.5.0"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html",
+      "lcov"
+    ]
+  }
+}

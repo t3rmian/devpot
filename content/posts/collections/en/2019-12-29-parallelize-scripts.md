@@ -20,7 +20,7 @@ T = S + (T - S)
 T(N) = S + (T(1) - S) / N
 ```
 
-<img style="background: white" src="/img/hq/amadahls-law.svg" alt="Amdahl's Law – Speedup" title="Amdahl's Law – Speedup">
+<img class="uml-bg" src="/img/hq/amadahls-law.svg" alt="Amdahl's Law – Speedup" title="Amdahl's Law – Speedup">
 
 
 ### Linux

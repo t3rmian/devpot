@@ -1,6 +1,32 @@
 .post-container {
+    .content > figure.center-text {
+        text-align: center !important;
+    }
     .content > figure {
         margin: 0;
+
+        img.inline {
+            margin-bottom: 0 !important;
+        }
+
+        img.inline-end {
+            margin-top: 0 !important;
+        }
+    }
+    .content .inline {
+        display: inline !important;
+    }
+    .content .inline-block {
+        display: inline-block !important;
+    }
+    .content img.uml-bg {
+        background: white !important;
+    }
+    .color-ok {
+        color: limegreen !important;
+    }
+    .table-padding {
+        padding: 1rem !important;;
     }
     
     .page {

@@ -85,10 +85,10 @@ With this configuration we can run integration tests using `mvn verify` command.
 Running tests from the IDE can be very handy. In this case, IntelliJ provides great support and seems to also bundle the embedded container.
 All you need to do is to set up the run configuration. Select Arquillian JUnit and in the container menu, add an embedded configuration.
 
-<figure style="text-align: center;">
-<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/arquillian-intellij-configuration.png" alt="Arquillian test run configuration" title="Arquillian test run configuration">
-<img loading="lazy" style="display: inline; margin-bottom: 0;" src="/img/hq/arquillian-intellij-configure.png" alt="Arquillian container configuration" title="Arquillian container configuration">
-<img loading="lazy" style="margin-top: 0;" src="/img/hq/arquillian-intellij-container.png" alt="Adding Arquillian container" title="Adding Arquillian container">
+<figure class="center-text">
+<img loading="lazy" class="inline" src="/img/hq/arquillian-intellij-configuration.png" alt="Arquillian test run configuration" title="Arquillian test run configuration">
+<img loading="lazy" class="inline" src="/img/hq/arquillian-intellij-configure.png" alt="Arquillian container configuration" title="Arquillian container configuration">
+<img loading="lazy" class="inline-end" src="/img/hq/arquillian-intellij-container.png" alt="Adding Arquillian container" title="Adding Arquillian container">
 </figure>
 
 With almost no effort you should now be able to execute (`CTRL+SHIFT+F10`) a selected test.

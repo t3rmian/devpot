@@ -130,7 +130,7 @@ Możesz także wziąć pod uwagę inne sposoby generowania liczb losowych. Przep
             org.apache.commons.lang3.RandomUtils
          </td>
          <td data-label="Wydajność [wyw./s]">
-            <span style="color:limegreen">11704</span>
+            <span class="color-ok">11704</span>
          </td>
          <td data-label="Uwagi">
             Minimalnie najszybszy (1%)
@@ -141,7 +141,7 @@ Możesz także wziąć pod uwagę inne sposoby generowania liczb losowych. Przep
             <a href="https://jmeter.apache.org/usermanual/functions.html#__Random">__Random</a>
          </td>
          <td data-label="Wydajność [wyw./s]">
-            <span style="color:crimson">5065</span>
+            <span class="err">5065</span>
          </td>
          <td data-label="Uwagi">
             Najwolniejszy, dwukrotnie
@@ -158,11 +158,11 @@ Podczas parametryzacji obciążenia i definiowania docelowej liczby żądań na 
 
 Jak wspomniano wcześniej, zwiększenie obciążenia jest proste i sprowadza się do zwiększenia liczby użytkowników. W zależności od specyfikacji maszyny i złożoności testu będziesz w stanie skonfigurować około 5000 równoległych wątków. W pewnym momencie jednak narzut związany z tworzeniem dodatkowych wątków skutecznie obniży wydajność samych testów. Jeśli masz wysokowydajny system z wieloma węzłami, możesz nie być w stanie wygenerować maksymalnego limitu obciążenia. Zauważ również, że trudno jest oszacować liczbę wywołań interfejsu w czasie na podstawie liczby użytkowników. Domyślnie każdy wątek musi wysłać zapytanie do interfejsu i poczekać na odpowiedź.
 
-<img style="background: white" src="/img/hq/testy-obciazeniowe-klient-serwer-klient.svg" alt="Standardowa komunikacja klient - serwer" title="Standardowa komunikacja klient - serwer">
+<img class="uml-bg" src="/img/hq/testy-obciazeniowe-klient-serwer-klient.svg" alt="Standardowa komunikacja klient - serwer" title="Standardowa komunikacja klient - serwer">
 
 Ustawiając limit czasu odpowiedzi, możemy skutecznie pominąć oczekiwanie na odpowiedź i znacznie szybciej wysłać kolejne żądanie. Wadą tego rozwiązania jest to, że tracimy możliwość monitorowania odpowiedzi i ich statusów. Jest to realna opcja, jeśli mamy dodatkowe narzędzia do monitorowania obciążenia. Przy ustawieniu naprawdę niskiego limitu czasu odpowiedzi polecam jednak dodanie jednej nieskonfigurowanej (oczekującej na odpowiedź) grupy wątków w celu sprawdzenia statusu. W praktyce możliwe jest bowiem zatrzymanie się na jakiejś nieznanej zaporze/systemie bezpieczeństwa czy też sytuacji, gdy mamy błędną konfigurację połączenia. W takim przypadku możemy stracić cenny czas (szczególnie gdy mamy na testy mamy przeznaczone sztywne okno czasowe), zwłaszcza jeśli narzędzia monitorowania nie wyświetlają danych online.
 
-<img style="background: white" src="/img/hq/testy-obciazeniowe-klient-serwer.svg" alt="Komunikacja klient - serwer z bardzo niskim czasem oczekiwania na odpowiedź" title="Komunikacja klient - serwer z bardzo niskim czasem oczekiwania na odpowiedź">
+<img class="uml-bg" src="/img/hq/testy-obciazeniowe-klient-serwer.svg" alt="Komunikacja klient - serwer z bardzo niskim czasem oczekiwania na odpowiedź" title="Komunikacja klient - serwer z bardzo niskim czasem oczekiwania na odpowiedź">
 
 Ostatnią rzeczą do wzięcia pod uwagę jest połączenie. W sieci lokalnej czas transportu pakietów do serwera jest bardzo krótki. Natomiast, jeśli środowisko docelowe znajduje się w internecie lub jest dostępne tylko przez VPN, testy będą przebiegały wolniej, skutecznie generując mniejsze obciążenia. Ostatecznie jednak to nie czas transportu, a przepustowość jest czynnikiem ograniczającym.
 

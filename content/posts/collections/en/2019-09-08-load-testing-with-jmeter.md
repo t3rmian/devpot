@@ -130,7 +130,7 @@ You might also want to compare other ways to generate random numbers. I've run s
             org.apache.commons.lang3.RandomUtils
          </td>
          <td data-label="Throughput [execs/sec]">
-            <span style="color:limegreen">11704</span>
+            <span class="color-ok">11704</span>
          </td>
          <td data-label="Note">
             The fastest by a very small margin (1%)
@@ -158,11 +158,11 @@ When parametrizing the load, and the target amount of requests per second you mi
 
 As mentioned before, increasing the load is as simple as increasing the number of users. Depending on your machine specification and test implementation, you will be able to set-up around 5000 parallel threads. However, at some point, the overhead of creating additional threads will effectively decrease the performance possibly even freezing the test executing machine. If you have a high-performing multi-node system, it might be not enough to achieve the maximum load limit. Note that it's also hard to estimate the number of interface executions per unit of time, based on the number of users. By default, each thread has to send a request to the interface and wait for a response.
 
-<img style="background: white" src="/img/hq/load-tests-client-server-client.svg" alt="Default client - server communication" title="Default client - server communication">
+<img class="uml-bg" src="/img/hq/load-tests-client-server-client.svg" alt="Default client - server communication" title="Default client - server communication">
 
 By setting up a response timeout we can effectively skip waiting for a response, and start the next request faster. The flaw of this is that you will lose the possibility of monitoring the responses and their statuses. It's a valid option if you have different tools for monitoring the load. When setting a really low response timeout, I recommend to also leave out one unconfigured thread group for a status check. You might get blocked by some unknown firewall and won't realize it, especially if the monitoring tools don't display online data.
 
-<img style="background: white" src="/img/hq/load-tests-client-server.svg" alt="Client - server communication with quick response timeout" title="Client - server communication with quick response timeout">
+<img class="uml-bg" src="/img/hq/load-tests-client-server.svg" alt="Client - server communication with quick response timeout" title="Client - server communication with quick response timeout">
 
 The last thing to consider is the connection. In the local network, you will usually get pretty low times to reach the server. If the target environment is in the internet or is accessible only through VPN, the tests will be slower, effectively generating lower loads. Finally, don't forget the bandwidth, which is often the limiting factor.
 

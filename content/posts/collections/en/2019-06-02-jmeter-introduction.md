@@ -16,7 +16,7 @@ JMeter is an open source Java tool that is often used for performance testing to
 - scalability tests;
 - regression tests.
 
-<img style="background: white" src="/img/hq/system-testing.png" alt="Testing phases" title="Testing levels">
+<img class="uml-bg" src="/img/hq/system-testing.png" alt="Testing phases" title="Testing levels">
 
 System testing is done after unit and integration testing, but before acceptance tests. It is usually the last step carried out by the development/testing team. You could argue, that you don't need an extra tool for system testing — and that might bet true in your case. You could just write some tests during development in the integration level with fully integrated modules — and this might work too. However, there are a lot of cases, when it would be hard to check every requirement without any tricks.
 
