@@ -1,4 +1,7 @@
 [[plugins]]
+  package = "@netlify/plugin-local-install-core"
+
+[[plugins]]
   package = "./plugins/netlify-plugin-csp-generator-ext"
 
   [plugins.inputs]
