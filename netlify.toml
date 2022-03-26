@@ -6,7 +6,7 @@
 
   [plugins.inputs.policies]
     defaultSrc = "'none'"
-    scriptSrc = "'self' 'unsafe-inline' 'sha256-fNermfjwi1X28IW/JtOOhREaXCHb+jeaZKBaOalg6Hc=' https://www.googletagmanager.com https://ssl.google-analytics.com https://www.google-analytics.com"
+    scriptSrc = "'self' 'unsafe-inline' 'sha256-piLB37L5b4J10UONJEev/t4UApgd9sCS5bozyDOd0EE=' 'sha256-gqzXenpKzr3O5bJrzpok53/0HRakwHq6ZXD7bn3aPeI=' 'sha256-fNermfjwi1X28IW/JtOOhREaXCHb+jeaZKBaOalg6Hc=' https://www.googletagmanager.com https://ssl.google-analytics.com https://www.google-analytics.com"
     connectSrc = "'self' https://fonts.googleapis.com https://fonts.gstatic.com https://www.googletagmanager.com https://ssl.google-analytics.com https://www.google-analytics.com"
     styleSrc = "'self' 'unsafe-inline' https://fonts.googleapis.com"
     baseUri = "'self'"

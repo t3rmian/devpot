@@ -81,9 +81,9 @@ srcdoc="
 <div>
     <h4 style='text-align: center;'>Test atrybutu 'stale-while-revalidate'<br/>z wybraną wartością 'Accept-Language'</h4>
     <div style='text-align: center; margin-bottom: 1em;'>
-        <button style='width: 130px' onclick='load()'>Fetch<span id='fetch'></span></button>
-        <button style='width: 170px' onclick='load(true)'>Fetch (Vary)<span id='fetch2'></span></button>
-        <button onclick='clearCache()'>Reset</button>
+        <button id='fetchButton' style='width: 130px'>Fetch<span id='fetch'></span></button>
+        <button id='fetchButton2' style='width: 170px'>Fetch (Vary)<span id='fetch2'></span></button>
+        <button id='clearButton'>Reset</button>
     </div>
     <div style='margin-bottom: 0.5em;'>
         <div>Czas nadejścia: <span id='debug'></span></div>
@@ -134,6 +134,15 @@ function load(vary) {
             }, 2000);
         });
 }
+document.getElementById('fetchButton').addEventListener('click', () => {
+    load();
+});
+document.getElementById('fetchButton2').addEventListener('click', () => {
+    load(true);
+});
+document.getElementById('clearButton').addEventListener('click', () => {
+    clearCache();
+});
 </script>
 " > 
 </iframe>
