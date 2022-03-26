@@ -76,21 +76,30 @@ exports.handler = async function (event) {
 }
 ```
 
-<iframe height="280px" width="440px" sandbox="allow-scripts" style="display:block; margin: 0 auto 0 auto; background:white;"
+<iframe height="280px" width="440px" sandbox="allow-scripts" class="white-iframe"
 srcdoc="
+<style>
+h4 {text-align: center;}
+.iframe-buttons {text-align: center; margin-bottom: 1em;}
+.iframe-timestamps {margin-bottom: 0.5em;}
+ol {margin-top: 0.5em;}
+button:nth-of-type(1) {width: 140px;}
+button:nth-of-type(2) {width: 180px;}
+button:nth-of-type(3) {width: 70px;}
+</style>
 <div>
-    <h4 style='text-align: center;'>Test atrybutu 'stale-while-revalidate'<br/>z wybraną wartością 'Accept-Language'</h4>
-    <div style='text-align: center; margin-bottom: 1em;'>
-        <button style='width: 130px' onclick='load()'>Fetch<span id='fetch'></span></button>
-        <button style='width: 170px' onclick='load(true)'>Fetch (Vary)<span id='fetch2'></span></button>
+    <h4>Test atrybutu 'stale-while-revalidate'<br/>z wybraną wartością 'Accept-Language'</h4>
+    <div class='iframe-buttons'>
+        <button onclick='load()'>Fetch<span id='fetch'></span></button>
+        <button onclick='load(true)'>Fetch (Vary)<span id='fetch2'></span></button>
         <button onclick='clearCache()'>Reset</button>
     </div>
-    <div style='margin-bottom: 0.5em;'>
+    <div class='iframe-timestamps'>
         <div>Czas nadejścia: <span id='debug'></span></div>
         <div>Odpowiedź: <span id='result'></span></div>
     </div>
-    <div>Oczekujemy:
-    <ol style='margin-top: 0.5em;'>
+    <div>Oczekujemy poniższych odpowiedzi:
+    <ol>
         <li>Witaj Świecie! (timestamp 1)</li>
         <li>Witaj Świecie! (timestamp 1)</li>
         <li>Witaj Świecie! (timestamp 2)</li>
