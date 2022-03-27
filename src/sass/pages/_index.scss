@@ -1,3 +1,30 @@
 .index-container {
     height: 100%;
 }
+
+.category:first-of-type {
+    padding-left: 0;
+    padding-right: 10px;
+}
+.category:last-of-type {
+    padding-left: 10px;
+    padding-right: 0;
+}
+
+.category {
+    font-family: $header-font-family;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.categories {
+    display: flex;
+    justify-content: space-between;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: gray;
+    opacity: .15;
+}

@@ -19,7 +19,8 @@ export default () => {
     isDefaultLang,
     langRefs,
     tags,
-    root
+    root,
+    categories,
   } = useRouteData();
   const [expanded, setExpanded] = useState(
     typeof window !== "undefined"
@@ -53,6 +54,7 @@ export default () => {
         <Header
           home={{ ...home, siteTitleI18n }}
           root={root}
+          categories={categories}
           seo={{
             title: t("site title", { lng: lang }) + ": " + home.title,
             description: home.contents,

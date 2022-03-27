@@ -34,10 +34,20 @@ export default function Posts(blog, defaultLang, lang, tags, root) {
           : [])
       ],
       tags,
-      root
+      root,
+      categories: post.category == null ? null : [...post.category]
+          .map(categoryLevel => ({key: getCategoryKey(categoryLevel), path: getCategoryPath(getCategoryValue(categoryLevel))})),
     })
   }));
-  
+
+  function getCategoryKey(category) {
+    return Object.keys(category)[0];
+  }
+
+  function getCategoryValue(category) {
+    return category[Object.keys(category)[0]].toLowerCase();
+  }
+
   function mapToPostInNeighborhood(post, posts, lng) {
     const sortedPosts = [...posts].sort((a, b) => a.id - b.id);
     const postIndex = sortedPosts.indexOf(post);
@@ -60,4 +70,9 @@ export default function Posts(blog, defaultLang, lang, tags, root) {
     return `${i18n.t("posts", { lng: lang })}/${post.url}/`;
   }
 
+  function getCategoryPath(category) {
+    return isDefaultLang
+        ? `/${i18n.t("category", {lng: lang})}/${category}/`
+        : `/${lang}/${i18n.t("category", {lng: lang})}/${category}/`;
+  }
 }

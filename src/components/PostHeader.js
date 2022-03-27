@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "components/Router";
 
 export default ({
-  tags,
-  routeTags,
+  routeCategories,
+  category,
   title,
   date,
   dateFormatted,
@@ -19,19 +19,6 @@ export default ({
 }) => (
   <div className="header">
     <h1 className="title">{title}</h1>
-    {tags && (
-      <div className="tags">
-        {tags.map((tag) => (
-          <Link
-            className="item"
-            key={tag}
-            to={`${routeTags.find((t) => t.value === tag).path}`}
-          >
-            {tag}
-          </Link>
-        ))}
-      </div>
-    )}
     <div className="meta">
       <span className="item">
         {updated && (
@@ -49,7 +36,21 @@ export default ({
         </a>
       </span>
 
-      <span className="item">{minutesRead}</span>
+      <div className="item">
+        {minutesRead}
+      </div>
+      {category && (
+          <span className="item">
+        {category.map((tag) => (
+            <Link
+                key={Object.keys(tag)[0]}
+                to={`${routeCategories.find((t) => t.key === Object.keys(tag)[0]).path}`}
+            >
+              {tag[Object.keys(tag)[0]]}
+            </Link>
+        ))}
+      </span>
+      )}
     </div>
   </div>
 );

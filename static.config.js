@@ -1,6 +1,7 @@
 import I18nIndexes from "./src/model/I18nIndexes";
 import I18nSearch from "./src/model/I18nSearch";
 import I18nTags from "./src/model/I18nTags";
+import I18nCategory from "./src/model/I18nCategory";
 import React from "react";
 import config, { isPreview } from "./src/template.config";
 import jdown from "jdown";
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV === "development") {
 }
 
 export default {
+  disablePreload: true,
   siteRoot: config.siteRoot,
   getSiteData: () => ({
     siteRoot: config.siteRoot
@@ -57,6 +59,7 @@ export default {
     return [
       ...I18nIndexes(blog, config.defaultLanguage, home),
       ...I18nTags(blog, config.defaultLanguage),
+      ...I18nCategory(blog, config.defaultLanguage),
       ...I18nSearch(blog, config.defaultLanguage, home)
     ];
   },

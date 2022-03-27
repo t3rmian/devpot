@@ -1,7 +1,7 @@
 import "./app.scss";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Head, Root, Routes } from "react-static";
+import { Head, Root, Routes, prefetch } from "react-static";
 import { Location, Router } from "components/Router";
 
 import Loader from "./components/Loader";
@@ -14,6 +14,7 @@ import { makeVisible } from "./utils";
 
 const methods = {
   componentDidMount(props) {
+    startPreloader();
     loadTheme();
 
     if (config.optional.ga) {
@@ -119,6 +120,73 @@ function App() {
       </div>
     </Root>
   );
+}
+
+
+if (typeof document !== 'undefined') {
+  // Polyfill that shiz!
+  require('intersection-observer')
+
+  // Do manual polling for intersections every second. This isn't very fast
+  // but should handle most edge cases for now
+  IntersectionObserver.POLL_INTERVAL = 1000
+}
+
+const list = new Map()
+
+const onVisible = (element, callback) => {
+  if (list.get(element)) {
+    return
+  }
+  const io = new window.IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      // Edge doesn't support isIntersecting. intersectionRatio > 0 works as a fallback
+      if (
+          element === entry.target &&
+          (entry.isIntersecting || entry.intersectionRatio > 0)
+      ) {
+        io.unobserve(element)
+        io.disconnect()
+
+        callback()
+      }
+    })
+  })
+  io.observe(element)
+  list.set(element, true)
+}
+
+
+
+function startPreloader() {
+  const mobile = "ontouchstart" in document.documentElement;
+  const prefetchCallback = mobile ? (el, href) => {
+    prefetch(href);
+  } : (el, href) => {
+    if (!el.classList.contains("nofetch")) {
+      prefetch(href);
+      return;
+    }
+    const onHover = function() {
+      el.removeEventListener("pointerenter", onHover)
+      prefetch(href);
+    };
+    el.addEventListener("pointerenter", onHover)
+  };
+
+  if (typeof document !== 'undefined') {
+    const run = () => {
+      const els = [].slice.call(document.getElementsByTagName('a'))
+      els.forEach(el => {
+        const href = el.getAttribute('href')
+        if (href) {
+          onVisible(el, prefetchCallback.bind(null, el, href));
+        }
+      })
+    }
+
+    setInterval(run, Number(process.env.REACT_STATIC_PRELOAD_POLL_INTERVAL))
+  }
 }
 
 export default lifecycle(methods)(App);

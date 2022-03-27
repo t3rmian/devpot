@@ -1,5 +1,6 @@
 import Posts from "../model/Posts";
 import i18n from "../i18n";
+import {flatMap} from "../utils";
 
 export function gradeTags(blog, isDefaultLang, lang) {
   const tags = [];
@@ -40,6 +41,14 @@ export default function Index(content, defaultLang, lang, loadEagerly) {
   const isDefaultLang = defaultLang === lang;
   const path = isDefaultLang ? "/" : `/${lang}/`;
   const tags = gradeTags(blog, defaultLang === lang, lang);
+  const categories = uniq(flatMap(blog[lang], post => post.category)
+      .filter(c => c)
+      .map(categoryLevel => ({
+        value: getCategoryValue(categoryLevel),
+        key: getCategoryKey(categoryLevel),
+        path: getCategoryPath(getCategoryValue(categoryLevel)).toLowerCase()
+      })))
+      .sort((a, b) => a.value.localeCompare(b.value));
 
   return {
     path,
@@ -63,9 +72,29 @@ export default function Index(content, defaultLang, lang, loadEagerly) {
         { lang: defaultLang, url: "/", selected: defaultLang === lang }
       ],
       tags,
+      categories,
       root: path,
       date: new Date().toISOString()
     }),
     children: Posts(blog, defaultLang, lang, tags, path)
   };
+
+
+  function getCategoryKey(category) {
+    return Object.keys(category)[0];
+  }
+
+  function getCategoryValue(category) {
+    return category[Object.keys(category)[0]];
+  }
+
+  function uniq(array) {
+    return [...new Set(array.map(i => JSON.stringify(i)))].map(i => JSON.parse(i));
+  }
+
+  function getCategoryPath(category) {
+    return isDefaultLang
+        ? `/${i18n.t("category", {lng: lang})}/${category}/`
+        : `/${lang}/${i18n.t("category", {lng: lang})}/${category}/`;
+  }
 }

@@ -19,17 +19,19 @@ export default function TagCloud({ tags, lang }) {
       {t("Tag cloud", { lng: lang })}
       <div className="tag-cloud-container">
         {tags.map(tag => (
-          <Link key={tag.value} to={tag.path}>{` #${tag.value}`}</Link>
+          <Link className={"nofetch"} key={tag.value} to={tag.path}>{` #${tag.value}`}</Link>
         ))}
       </div>
-      <br />
-      <div>
-        {lengthTags.map(tag => (
-          <div key={tag.value}>
-            <Link to={tag.path}>{`${tag.value}`}</Link>
-          </div>
-        ))}
-      </div>
+        {lengthTags && (
+            <div>
+                <br />
+                {lengthTags.map(tag => (
+                    <div key={tag.value}>
+                        <Link className={"nofetch"} to={tag.path}>{`${tag.value}`}</Link>
+                    </div>
+                ))}
+            </div>
+        )}
     </nav>
   );
 }

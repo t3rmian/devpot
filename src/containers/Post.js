@@ -72,7 +72,7 @@ const methods = {
 };
 
 export function Post() {
-  const { post, isDefaultLang, lang, langRefs, tags, root } = useRouteData();
+  const { post, isDefaultLang, lang, langRefs, tags, root, categories } = useRouteData();
   const { t } = useTranslation();
   const authorLang = isDefaultLang ? "/" : "/" + lang + "/";
   const authorSite = post.authorSite
@@ -118,7 +118,7 @@ export function Post() {
           <article>
             <PostHeader
               {...post}
-              routeTags={tags}
+              routeCategories={categories}
               authorAlt={t("Author", { lng: lang })}
               author={author}
               authorSite={authorSite}
@@ -153,7 +153,8 @@ export function Post() {
             </div>
           </article>
         </main>
-        <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} />
+        <TagCloud isDefaultLang={isDefaultLang} lang={lang}
+                  tags={tags.filter(t => (post.tags.some(pt => pt === t.value) || t.value.indexOf("~") >= 0) && t.hits > 1)}/>
         <Share
           siteTitle={t("site title", { lng: lang })}
           langRefs={langRefs}
