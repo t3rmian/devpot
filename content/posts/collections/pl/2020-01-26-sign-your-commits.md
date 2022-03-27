@@ -2,6 +2,8 @@
 title: Podpisywanie commitów
 url: podpisywanie-commitów
 id: 22
+category:
+- other: Inne
 tags:
   - git
   - bezpieczeństwo

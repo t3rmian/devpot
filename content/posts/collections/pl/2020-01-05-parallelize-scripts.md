@@ -2,8 +2,9 @@
 title: Zrównoleglanie skryptów powłoki
 url: zrównoleglanie-skryptów-powłoki
 id: 20
+category:
+- other: Inne
 tags:
-  - skrypty
   - shell
 author: Damian Terlecki
 date: 2020-01-04T20:00:00

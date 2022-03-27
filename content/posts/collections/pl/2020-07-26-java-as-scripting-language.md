@@ -2,8 +2,9 @@
 title: Java jako język skryptowy
 url: java-jako-język-skryptowy
 id: 35
+category:
+- java: Java
 tags:
-  - java
   - shell
 author: Damian Terlecki
 date: 2020-07-26T20:00:00

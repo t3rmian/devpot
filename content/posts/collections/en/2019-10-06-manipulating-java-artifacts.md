@@ -2,8 +2,9 @@
 title: Manipulating Java artifacts
 url: manipulating-java-artifacts
 id: 14
+category:
+  - java: Java
 tags:
-  - java
   - maven
   - bytecode
   - classloading

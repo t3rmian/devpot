@@ -2,9 +2,10 @@
 title: Database archiving
 url: database-archiving
 id: 11
+category:
+  - databases: Databases
 tags:
   - oracle
-  - database
 author: Damian Terlecki
 date: 2019-08-25T20:00:00
 ---

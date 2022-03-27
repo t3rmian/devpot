@@ -2,10 +2,10 @@
 title: Testy integracyjne z Arquillianem na WebLogicu
 url: arquillian-weblogic
 id: 30
+category:
+- testing: Testy
 tags:
-  - java
   - weblogic
-  - testy
   - intellij
 author: Damian Terlecki
 date: 2020-05-17T20:00:00

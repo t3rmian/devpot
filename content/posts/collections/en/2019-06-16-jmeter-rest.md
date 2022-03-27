@@ -2,10 +2,13 @@
 title: JMeter — functional REST API tests
 url: jmeter-rest-tests
 id: 6
+category:
+  - testing: Testing
 tags:
   - jmeter
-  - testing
   - rest
+  - web services
+  - json
 author: Damian Terlecki
 date: 2019-06-16T20:00:00
 source: https://github.com/t3rmian/jmeter-samples

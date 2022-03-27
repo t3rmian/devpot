@@ -2,8 +2,9 @@
 title: Enkodowanie stron JSP
 url: jsp-encoding
 id: 62
+category:
+- jee: JEE
 tags:
-  - java
   - weblogic
   - tomcat
 author: Damian Terlecki

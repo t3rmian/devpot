@@ -2,6 +2,8 @@
 title: Automating mundane steps in Git/GitLab/Jira
 url: automating-mundane-steps
 id: 26
+category:
+  - other: Misc
 tags:
   - git
   - jira
@@ -9,7 +11,6 @@ tags:
   - web services
   - linux
   - shell
-  - scripts
 author: Damian Terlecki
 date: 2020-03-22T20:00:00
 ---

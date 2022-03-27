@@ -2,6 +2,8 @@
 title: Brakujące nagłówki przy 'stale-while-revalidate' HTTP Cache
 url: stale-while-revalidate-brakujące-nagłówki
 id: 79
+category:
+- other: Inne
 tags:
   - web services
   - cache

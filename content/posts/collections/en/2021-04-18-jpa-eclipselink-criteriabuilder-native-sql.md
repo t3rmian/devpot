@@ -2,9 +2,10 @@
 title: Native SQL in JPA (EclipseLink) CriteriaBuilder
 url: jpa-criteriabuilder-native-sql-eclipselink
 id: 64
+category:
+- jpa: JPA
 tags:
-  - java
-  - database
+  - sql
 author: Damian Terlecki
 date: 2021-04-18T20:00:00
 ---

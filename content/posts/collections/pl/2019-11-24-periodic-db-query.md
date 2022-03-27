@@ -2,9 +2,10 @@
 title: Cykliczne zapytanie do bazy
 url: cykliczne-zapytanie-do-bazy
 id: 17
+category:
+- java: Java
 tags:
-  - java
-  - bazy danych
+  - oracle
   - sql
 author: Damian Terlecki
 date: 2019-11-24T20:00:00

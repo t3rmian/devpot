@@ -2,10 +2,10 @@
 title: WebLogic referencja do Data Source z poziomu klienta
 url: weblogic-referencja-do-data-source-z-poziomu-klienta
 id: 65
+category:
+- jee: JEE
 tags:
-  - java
   - weblogic
-  - bazy danych
 author: Damian Terlecki
 date: 2021-05-02T20:00:00
 ---

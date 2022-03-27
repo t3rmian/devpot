@@ -2,6 +2,8 @@
 title: Netlify redirects using serverless functions
 url: netlify-serverless-redirect
 id: 68
+category:
+- other: Misc
 tags:
   - serverless
 author: Damian Terlecki

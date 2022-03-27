@@ -2,9 +2,12 @@
 title: Rozmiar strony kursora PostgreSQL (EclipeLink JPA)
 url: eclipselink-jpa-rozmiar-kursora-postgresql
 id: 81
+category:
+  - jpa: JPA
 tags:
-  - java
-  - bazy danych
+  - sql
+  - postgresql
+  - wydajność
 author: Damian Terlecki
 date: 2022-03-06T20:00:00
 ---

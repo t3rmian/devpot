@@ -2,9 +2,10 @@
 title: JPA @PostLoad during readOnly (EclipseLink) queries
 url: jpa-postload-readonly-eclipselink
 id: 78
+category:
+- jpa: JPA
 tags:
-  - java
-  - database
+  - sql
 author: Damian Terlecki
 date: 2022-01-23T20:00:00
 ---

@@ -2,13 +2,14 @@
 title: Trigger smoke tests using GitHub actions
 url: trigger-tests-github-actions
 id: 27
+category:
+  - other: Misc
 tags:
   - git
   - automation
   - web services
   - graphql
   - ci
-  - testing
 author: Damian Terlecki
 date: 2020-04-05T20:00:00
 updated: 2020-12-20T20:00:00

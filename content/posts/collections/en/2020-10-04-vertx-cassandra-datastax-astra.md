@@ -2,10 +2,11 @@
 title: Vert.x Cassandra Client and DataStax Astra
 url: vertx-cassandra-client-datastax-astra
 id: 40
+category:
+  - java: Java
 tags:
-  - java
-  - database
   - vertx
+  - cassandra
 author: Damian Terlecki
 date: 2020-10-04T20:00:00
 ---

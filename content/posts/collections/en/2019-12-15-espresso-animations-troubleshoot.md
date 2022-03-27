@@ -2,9 +2,10 @@
 title: Espresso — animations troubleshoot
 url: espresso-animations-troubleshoot
 id: 19
+category:
+  - testing: Testing
 tags:
   - android
-  - testing
 author: Damian Terlecki
 date: 2019-12-15T20:00:00
 ---

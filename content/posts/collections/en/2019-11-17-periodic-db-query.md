@@ -2,9 +2,10 @@
 title: Snippet for a periodic DB query
 url: periodic-db-query-snippet
 id: 17
+category:
+  - java: Java
 tags:
-  - java
-  - database
+  - oracle
   - sql
 author: Damian Terlecki
 date: 2019-11-17T20:00:00

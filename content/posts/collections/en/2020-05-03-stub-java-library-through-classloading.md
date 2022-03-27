@@ -2,8 +2,9 @@
 title: Stubbing Java library with the help of ClassLoader
 url: stub-java-library-through-classloading
 id: 29
+category:
+  - java: Java
 tags:
-  - java
   - tomcat
   - weblogic
   - classloading

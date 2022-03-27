@@ -2,8 +2,12 @@
 title: JBoss/WildFly EJB Client Logger
 url: wildfly-jboss-ejb-client-logger
 id: 71
+category:
+- jee: JEE
 tags:
-  - java
+  - wildfly
+  - jboss
+  - logs
 author: Damian Terlecki
 date: 2021-07-25T20:00:00
 ---

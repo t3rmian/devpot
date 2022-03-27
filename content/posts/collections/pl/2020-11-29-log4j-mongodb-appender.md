@@ -2,9 +2,11 @@
 title: Jak skonfigurować logowanie do MongoDB przy pomocy log4j2
 url: log4j2-mongodb-appender
 id: 44
+category:
+- java: Java
 tags:
-  - java
-  - bazy danych
+  - mongodb
+  - logi
 author: Damian Terlecki
 date: 2020-11-29T20:00:00
 ---

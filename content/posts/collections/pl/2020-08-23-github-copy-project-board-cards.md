@@ -2,6 +2,8 @@
 title: Jak zmigrować karty projektu na GitHubie
 url: migracja-kart-projektu-github
 id: 37
+category:
+- other: Inne
 tags:
   - shell
   - automatyzacja

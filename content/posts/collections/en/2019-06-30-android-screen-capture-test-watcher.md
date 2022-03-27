@@ -2,9 +2,10 @@
 title: Android test watcher with screen capture
 url: android-screen-capture-test-watcher
 id: 7
+category:
+  - testing: Testing
 tags:
   - android
-  - testing
 author: Damian Terlecki
 date: 2019-06-30T20:00:00
 source: https://github.com/t3rmian/travis-android-demo

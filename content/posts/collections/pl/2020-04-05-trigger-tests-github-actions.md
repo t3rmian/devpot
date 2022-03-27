@@ -2,13 +2,14 @@
 title: Wywoływanie smoke testów za pomocą akcji GitHub
 url: testy-github-akcje
 id: 27
+category:
+- other: Inne
 tags:
   - git
   - automatyzacja
   - web services
   - graphql
   - ci
-  - testy
 author: Damian Terlecki
 date: 2020-04-05T20:00:00
 updated: 2020-12-20T20:00:00

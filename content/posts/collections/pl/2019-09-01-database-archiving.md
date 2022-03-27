@@ -2,9 +2,10 @@
 title: Archiwizacja bazy danych
 url: archiwizacja-bazy-danych
 id: 11
+category:
+- databases: Bazy danych
 tags:
   - oracle
-  - bazy danych
 author: Damian Terlecki
 date: 2019-09-01T20:00:00
 ---

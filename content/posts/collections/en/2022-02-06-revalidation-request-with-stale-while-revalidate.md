@@ -2,6 +2,8 @@
 title: The story of 'stale-while-revalidate' HTTP Cache and missing headers
 url: revalidation-request-with-stale-while-revalidate
 id: 79
+category:
+- other: Misc
 tags:
   - web services
   - cache

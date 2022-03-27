@@ -2,8 +2,9 @@
 title: Mapy natywne na przykładzie MapyPB
 url: mobilne-mapy-natywne
 id: 16
+category:
+- mobile: Mobile
 tags:
-  - aplikacje mobilne
   - android
   - geo-mapowanie
 author: Damian Terlecki

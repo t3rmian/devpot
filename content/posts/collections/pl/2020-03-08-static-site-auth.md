@@ -2,6 +2,8 @@
 title: Uwierzytelnianie na stronie statycznej
 url: uwierzytelnianie-strony-statycznej
 id: 25
+category:
+- other: Inne
 tags:
   - strony statyczne
   - bezpieczeństwo

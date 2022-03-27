@@ -2,10 +2,10 @@
 title: Running integration tests with Arquillian on WebLogic
 url: arquillian-with-weblogic
 id: 30
+category:
+  - testing: Testing
 tags:
-  - java
   - weblogic
-  - testing
   - intellij
 author: Damian Terlecki
 date: 2020-05-17T20:00:00

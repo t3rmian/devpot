@@ -2,9 +2,12 @@
 title: Dodatkowe opcje blokowania wierszy w JPQL EclipseLink
 url: eclipselink-dodatkowe-opcje-blokowanie-wierszy
 id: 82
+category:
+  - jpa: JPA
 tags:
-  - java
-  - bazy danych
+  - sql
+  - oracle
+  - wydajność
 author: Damian Terlecki
 date: 2022-03-20T20:00:00
 ---

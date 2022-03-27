@@ -2,9 +2,9 @@
 title: Test suites, categorization and parallelism
 url: test-suites-categorization-and-parallelism
 id: 15
+category:
+  - testing: Testing
 tags:
-  - testing
-  - java
   - android
   - maven
   - gradle

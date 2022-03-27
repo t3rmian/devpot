@@ -2,8 +2,11 @@
 title: JRE font loading
 url: jre-font-loading
 id: 74
+category:
+- java: Java
 tags:
-  - java
+  - jvm
+  - native
 author: Damian Terlecki
 date: 2021-09-05T20:00:00
 ---

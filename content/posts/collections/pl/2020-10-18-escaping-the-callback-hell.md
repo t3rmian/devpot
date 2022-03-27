@@ -2,8 +2,9 @@
 title: Piekło wywołań zwrotnych na przykładzie Vert.x
 url: piekło-wywołań-zwrotnych-vertx
 id: 41
+category:
+- java: Java
 tags:
-  - java
   - vertx
 author: Damian Terlecki
 date: 2020-10-18T20:00:00

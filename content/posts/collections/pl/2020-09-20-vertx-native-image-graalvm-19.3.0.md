@@ -2,8 +2,9 @@
 title: Vert.x obraz natywny GraalVM 19.3.0+
 url: vertx-obraz-natywny-graalvm
 id: 39
+category:
+- java: Java
 tags:
-  - java
   - jvm
   - oracle
   - vertx

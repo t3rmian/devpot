@@ -2,6 +2,8 @@
 title: Performance aspect of KAE Synthetics to Android View Binding migration 
 url: kae-synthethics-view-binding-performance
 id: 60
+category:
+  - mobile: Mobile
 tags:
   - android
   - kotlin

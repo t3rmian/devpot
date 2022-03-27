@@ -2,6 +2,8 @@
 title: Przekierowania w Netlify za pomocą funkcji serverless
 url: netlify-przekierowania-serverless
 id: 68
+category:
+- other: Inne
 tags:
   - serverless
 author: Damian Terlecki

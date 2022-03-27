@@ -2,6 +2,8 @@
 title: Komunikacja z EJB w JMeterze
 url: ejb-w-jmeterze
 id: 9
+category:
+- testing: Testy
 tags:
   - jmeter
   - ejb

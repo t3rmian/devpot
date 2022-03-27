@@ -2,9 +2,10 @@
 title: Espresso — problemy z animacjami
 url: espresso-problemy-z-animacjami
 id: 19
+category:
+- testing: Testy
 tags:
   - android
-  - testy
 author: Damian Terlecki
 date: 2019-12-22T20:00:00
 ---

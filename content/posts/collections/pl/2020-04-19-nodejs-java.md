@@ -2,8 +2,10 @@
 title: Jak (nie) uruchomić NodeJS na Javie
 url: nodejs-java
 id: 28
+category:
+- java: Java
+- javascript: JS
 tags:
-  - java
   - nodejs
 author: Damian Terlecki
 date: 2020-04-19T20:00:00

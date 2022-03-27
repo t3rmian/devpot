@@ -2,8 +2,9 @@
 title: Modyfikacja artefaktów Java
 url: modyfikacja-artefaktów-java
 id: 14
+category:
+- java: Java
 tags:
-  - java
   - maven
   - bajtkod
   - classloading

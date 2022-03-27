@@ -2,9 +2,11 @@
 title: JMeter — testy obciążeniowe
 url: testy-obciążeniowe-jmeter
 id: 12
+category:
+- testing: Testy
 tags:
   - jmeter
-  - testy
+  - wydajność
 author: Damian Terlecki
 date: 2019-09-15T20:00:00
 source: https://github.com/t3rmian/jmeter-samples

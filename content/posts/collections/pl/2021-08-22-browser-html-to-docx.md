@@ -2,8 +2,10 @@
 title: Konwersja HTML na DOCX w przeglądarce
 url: konwersja-html-na-docx-w-przeglądarce
 id: 73
+category:
+- javascript: JS
 tags:
-  - javascript
+  - dokumentacja
 author: Damian Terlecki
 date: 2021-08-22T20:00:00
 ---

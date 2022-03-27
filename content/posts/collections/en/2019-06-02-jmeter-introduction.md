@@ -2,9 +2,10 @@
 title: JMeter — introduction
 url: jmeter-introduction
 id: 4
+category:
+  - testing: Testing
 tags:
   - jmeter
-  - testing
 author: Damian Terlecki
 date: 2019-06-02T20:00:00
 ---

@@ -2,10 +2,10 @@
 title: WebLogic client Data Source lookup
 url: weblogic-client-data-source-lookup
 id: 65
+category:
+- jee: JEE
 tags:
-  - java
   - weblogic
-  - database
 author: Damian Terlecki
 date: 2021-05-02T20:00:00
 ---

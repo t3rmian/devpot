@@ -2,9 +2,11 @@
 title: JPA relacja tylko do odczytu poprzez tabelę pośrednią (join table)
 url: jpa-readonly-jointable
 id: 80
+category:
+- jpa: JPA
 tags:
-  - java
-  - bazy danych
+  - sql
+  - wydajność
 author: Damian Terlecki
 date: 2022-02-20T20:00:00
 ---

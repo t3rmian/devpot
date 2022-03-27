@@ -2,9 +2,10 @@
 title: JMeter — wprowadzenie
 url: jmeter-wprowadzenie
 id: 4
+category:
+  - testing: Testy
 tags:
   - jmeter
-  - testy
 author: Damian Terlecki
 date: 2019-06-02T20:00:00
 ---

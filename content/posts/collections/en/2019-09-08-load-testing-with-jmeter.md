@@ -2,9 +2,11 @@
 title: Load testing with JMeter
 url: load-testing-with-jmeter
 id: 12
+category:
+  - testing: Testing
 tags:
   - jmeter
-  - testing
+  - performance
 author: Damian Terlecki
 date: 2019-09-08T20:00:00
 source: https://github.com/t3rmian/jmeter-samples

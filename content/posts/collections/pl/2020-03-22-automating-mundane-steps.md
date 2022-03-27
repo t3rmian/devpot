@@ -2,6 +2,8 @@
 title: Automatyzacja powtarzalnych kroków – Git/GitLab/Jira
 url: automatyzacja-powtarzalnych-kroków
 id: 26
+category:
+- other: Inne
 tags:
   - git
   - jira
@@ -9,7 +11,6 @@ tags:
   - web services
   - linux
   - shell
-  - skrypty
 author: Damian Terlecki
 date: 2020-03-22T20:00:00
 ---

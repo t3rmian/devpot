@@ -2,11 +2,12 @@
 title: Dostęp do wewnętrznego API przy pomocy Proxy HTTP – konfiguracja
 url: konfiguracja-proxy-http-api-sieci-wewnetrznej
 id: 76
+category:
+- testing: Testy
 tags:
   - api
-  - rest
+  - web services
   - android
-  - testy
 author: Damian Terlecki
 date: 2021-11-07T20:00:00
 ---

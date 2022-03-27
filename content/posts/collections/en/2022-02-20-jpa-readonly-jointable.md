@@ -2,9 +2,11 @@
 title: JPA read-only join table
 url: jpa-readonly-jointable
 id: 80
+category:
+- jpa: JPA
 tags:
-  - java
-  - database
+  - sql
+  - performance
 author: Damian Terlecki
 date: 2022-02-20T20:00:00
 ---

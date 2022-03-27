@@ -2,6 +2,8 @@
 title: Spring Web Services — od dołu do góry
 url: spring-ws-od-dołu-do-góry
 id: 8
+category:
+- java: Java
 tags:
   - spring
   - soap

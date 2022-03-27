@@ -2,8 +2,9 @@
 title: BottomAppBar onHide listener
 url: bottomappbar-onhide-listener
 id: 45
+category:
+- mobile: Mobile
 tags:
-  - java
   - kotlin
   - android
 author: Damian Terlecki

@@ -2,6 +2,8 @@
 title: How to copy project cards on GitHub
 url: project-cards-copy-github
 id: 37
+category:
+  - other: Misc
 tags:
   - shell
   - automation

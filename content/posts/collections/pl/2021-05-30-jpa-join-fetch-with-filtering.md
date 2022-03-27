@@ -2,9 +2,10 @@
 title: JPQL JOIN FETCH z warunkiem
 url: jpql-join-fetch-z-warunkiem
 id: 67
+category:
+- jpa: JPA
 tags:
-  - java
-  - bazy danych
+  - sql
 author: Damian Terlecki
 date: 2021-05-30T20:00:00
 ---

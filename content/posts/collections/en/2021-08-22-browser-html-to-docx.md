@@ -2,8 +2,10 @@
 title: How to convert HTML to DOCX in the browser
 url: html-na-docx-w-przeglądarce
 id: 73
+category:
+- javascript: JS
 tags:
-  - javascript
+  - documentation
 author: Damian Terlecki
 date: 2021-08-22T20:00:00
 ---

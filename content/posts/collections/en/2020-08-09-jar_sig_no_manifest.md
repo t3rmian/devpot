@@ -2,8 +2,9 @@
 title: Fastlane JAR_SIG_NO_MANIFEST
 url: jar_sig_no_manifest
 id: 36
+category:
+  - mobile: Mobile
 tags:
-  - java
   - android
   - security
 author: Damian Terlecki

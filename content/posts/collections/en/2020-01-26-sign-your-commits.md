@@ -2,6 +2,8 @@
 title: Signing your commits
 url: sign-your-commits
 id: 22
+category:
+  - other: Misc
 tags:
   - git
   - security

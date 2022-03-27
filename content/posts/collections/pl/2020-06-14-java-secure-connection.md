@@ -2,8 +2,9 @@
 title: Konfiguracja bezpiecznego połączenia w Javie
 url: java-konfiguracja-https
 id: 32
+category:
+- java: Java
 tags:
-  - java
   - bezpieczeństwo
 author: Damian Terlecki
 date: 2020-06-14T20:00:00

@@ -2,8 +2,9 @@
 title: Cheat sheet for secure connection in Java
 url: java-secure-connection
 id: 32
+category:
+  - java: Java
 tags:
-  - java
   - security
 author: Damian Terlecki
 date: 2020-06-14T20:00:00

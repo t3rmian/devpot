@@ -2,9 +2,12 @@
 title: PostgreSQL cursor fetch size (EclipeLink JPA)
 url: eclipselink-jpa-cursor-fetch-postgresql
 id: 81
+category:
+  - jpa: JPA
 tags:
-  - java
-  - database
+  - sql
+  - postgresql
+  - performance
 author: Damian Terlecki
 date: 2022-03-06T20:00:00
 ---

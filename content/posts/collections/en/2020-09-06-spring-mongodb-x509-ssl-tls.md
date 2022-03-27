@@ -2,11 +2,12 @@
 title: Spring – X.509 authentication with MongoDB and SSL/TLS configuration
 url: spring-mongodb-x509-ssl-tls
 id: 38
+category:
+  - java: Java
 tags:
-  - java
   - spring
   - security
-  - database
+  - mongodb
 author: Damian Terlecki
 date: 2020-09-06T20:00:00
 ---

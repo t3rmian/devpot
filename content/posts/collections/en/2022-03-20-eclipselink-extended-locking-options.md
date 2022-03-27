@@ -2,9 +2,12 @@
 title: Extending locking options with EclipseLink JPQL
 url: eclipselink-extended-locking-options
 id: 82
+category:
+  - jpa: JPA
 tags:
-  - java
-  - database
+  - sql
+  - oracle
+  - performance
 author: Damian Terlecki
 date: 2022-03-20T20:00:00
 ---

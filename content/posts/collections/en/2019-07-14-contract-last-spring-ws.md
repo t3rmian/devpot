@@ -2,6 +2,8 @@
 title: Contract-last Spring Web Services
 url: contract-last-spring-ws
 id: 8
+category:
+  - java: Java
 tags:
   - spring
   - soap

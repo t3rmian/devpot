@@ -2,8 +2,10 @@
 title: How to get all currency symbols in Java
 url: java-local-currency-symbols
 id: 46
+category:
+  - java: Java
 tags:
-  - java
+  - jvm
 author: Damian Terlecki
 date: 2020-12-27T20:00:00
 ---

@@ -2,8 +2,10 @@
 title: Java Foreign Linker API in action
 url: java-foreign-linker-api-setsockopt
 id: 72
+category:
+- java: Java
 tags:
-  - java
+  - native
 author: Damian Terlecki
 date: 2021-08-08T20:00:00
 source: https://github.com/t3rmian/setsockopt-java-demo

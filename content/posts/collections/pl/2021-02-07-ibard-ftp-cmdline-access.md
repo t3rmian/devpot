@@ -2,9 +2,10 @@
 title: Dostęp FTP(S) poprzez wiersz poleceń na przykładzie IBARDa
 url: ibard-ftp-cli
 id: 49
+category:
+- other: Inne
 tags:
   - shell
-  - skrypty
 author: Damian Terlecki
 date: 2021-02-07T20:00:00
 ---

@@ -2,6 +2,8 @@
 title: Migracja z KAE Synthetics do Android View Binding – wydajność 
 url: kae-synthethics-view-binding-performance
 id: 60
+category:
+- mobile: Mobile
 tags:
   - android
   - kotlin

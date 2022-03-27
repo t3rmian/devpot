@@ -2,10 +2,11 @@
 title: Niestabilne testy w procesie CI/CD
 url: analiza-testów-niedeterministycznych
 id: 18
+category:
+- testing: Testy
 tags:
-  - java
   - android
-  - testy
+  - ci
 author: Damian Terlecki
 date: 2019-12-08T20:00:00
 ---

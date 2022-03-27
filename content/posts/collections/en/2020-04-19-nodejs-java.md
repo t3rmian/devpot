@@ -2,8 +2,10 @@
 title: How (not) to run NodeJS in Java
 url: nodejs-in-java
 id: 28
+category:
+  - java: Java
+  - javascript: JS
 tags:
-  - java
   - nodejs
 author: Damian Terlecki
 date: 2020-04-19T20:00:00

@@ -2,6 +2,8 @@
 title: Jak Android Lint weryfikuje dostępność metod API SDK?
 url: android-lint-newapi
 id: 61
+category:
+- mobile: Mobile
 tags:
   - android
 author: Damian Terlecki

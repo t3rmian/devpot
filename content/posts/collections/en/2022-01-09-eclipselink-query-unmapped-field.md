@@ -2,9 +2,10 @@
 title: JPA (EclipseLink) queries with an unmapped database column
 url: jpa-eclipselink-queries-with-unmapped-db-column
 id: 77
+category:
+- jpa: JPA
 tags:
-  - java
-  - database
+  - sql
 author: Damian Terlecki
 date: 2022-01-09T20:00:00
 ---

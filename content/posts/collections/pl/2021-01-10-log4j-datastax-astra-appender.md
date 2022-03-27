@@ -2,9 +2,11 @@
 title: Jak skonfigurować logowanie do Datastax Astra przy pomocy log4j2
 url: log4j2-cassandra-datastax-astra-appender
 id: 47
+category:
+- java: Java
 tags:
-  - java
-  - bazy danych
+  - cassandra
+  - logi
 author: Damian Terlecki
 date: 2021-01-10T20:00:00
 ---

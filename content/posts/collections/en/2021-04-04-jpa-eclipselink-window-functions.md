@@ -2,9 +2,10 @@
 title: JPA (EclipseLink) window functions
 url: jpa-eclipselink-window-functions
 id: 63
+category:
+- jpa: JPA
 tags:
-  - java
-  - database
+  - sql
 author: Damian Terlecki
 date: 2021-04-04T20:00:00
 ---

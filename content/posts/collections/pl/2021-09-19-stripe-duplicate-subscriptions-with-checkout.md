@@ -2,9 +2,13 @@
 title: Stripe Checkout – deduplikacja subskrypcji
 url: stripe-checkout-deduplikacja-subskrypcji
 id: 75
+category:
+- other: Inne
 tags:
   - api
   - rest
+  - stripe
+  - web services
 author: Damian Terlecki
 date: 2021-09-19T20:00:00
 ---

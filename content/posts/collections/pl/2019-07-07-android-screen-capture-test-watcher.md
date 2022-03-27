@@ -2,9 +2,10 @@
 title: Android test watcher i zrzut ekranu
 url: android-test-watcher-zrzut-ekranu
 id: 7
+category:
+- testing: Testy
 tags:
   - android
-  - testy
 author: Damian Terlecki
 date: 2019-07-07T20:00:00
 source: https://github.com/t3rmian/travis-android-demo

@@ -2,9 +2,13 @@
 title: Stripe Checkout – subscription deduplication
 url: stripe-checkout-subscription-deduplication
 id: 75
+category:
+- other: Misc
 tags:
   - api
   - rest
+  - web services
+  - stripe
 author: Damian Terlecki
 date: 2021-09-19T20:00:00
 ---

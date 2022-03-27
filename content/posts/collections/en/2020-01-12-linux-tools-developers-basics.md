@@ -2,6 +2,8 @@
 title: Linux tools – developer's basics
 url: linux-tools-basics
 id: 21
+category:
+  - other: Misc
 tags:
   - linux
   - shell

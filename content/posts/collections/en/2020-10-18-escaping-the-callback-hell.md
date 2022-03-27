@@ -2,8 +2,9 @@
 title: Escaping the callback hell in Vert.x
 url: escaping-the-callback-hell-in-vertx
 id: 41
+category:
+  - java: Java
 tags:
-  - java
   - vertx
 author: Damian Terlecki
 date: 2020-10-18T20:00:00

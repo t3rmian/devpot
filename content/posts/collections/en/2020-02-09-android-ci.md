@@ -2,6 +2,8 @@
 title: Android – Continous Integration
 url: android-ci
 id: 23
+category:
+  - mobile: Mobile
 tags:
   - android
   - ci

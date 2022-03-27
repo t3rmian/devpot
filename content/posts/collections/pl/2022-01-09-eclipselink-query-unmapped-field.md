@@ -2,9 +2,10 @@
 title: Zapytania JPA (EclipseLink) zawierające niezmapowaną kolumnę
 url: jpa-eclipselink-zapytania-z-niezmapowaną-kolumna
 id: 77
+category:
+- jpa: JPA
 tags:
-  - java
-  - bazy danych
+  - sql
 author: Damian Terlecki
 date: 2022-01-09T20:00:00
 ---

@@ -2,8 +2,9 @@
 title: On the working of native maps on mobiles
 url: mobile-native-maps
 id: 16
+category:
+  - mobile: Mobile
 tags:
-  - mobile
   - android
   - geo-mapping
 author: Damian Terlecki

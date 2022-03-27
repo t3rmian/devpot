@@ -2,9 +2,10 @@
 title: Command line access to FTP(S) (IBARD)
 url: ibard-ftp-cli
 id: 49
+category:
+  - other: Misc
 tags:
   - shell
-  - scripts
 author: Damian Terlecki
 date: 2021-02-07T20:00:00
 ---

@@ -2,8 +2,10 @@
 title: Java Socket with tcpNoDelay
 url: java-socket-tcpnodelay
 id: 69
+category:
+- java: Java
 tags:
-  - java
+  - native
 author: Damian Terlecki
 date: 2021-06-27T20:00:00
 ---

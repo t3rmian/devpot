@@ -2,10 +2,12 @@
 title: Vert.x – decoding unsecure JWT
 url: vertx-unsecure-jwt
 id: 43
+category:
+  - java: Java
 tags:
-  - java
   - vertx
   - security
+  - json
 author: Damian Terlecki
 date: 2020-11-15T20:00:00
 ---

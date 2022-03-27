@@ -2,9 +2,10 @@
 title: Implementacja wsparcia SVG dla og:image
 url: twitter-og-image-svg
 id: 33
+category:
+- javascript: JS
 tags:
-  - javascript
-  - react
+  - reactjs
   - nodejs
 author: Damian Terlecki
 date: 2020-06-28T20:00:00

@@ -2,11 +2,11 @@
 title: How to listen for database upgrade with Room
 url: room-on-upgrade
 id: 31
+category:
+  - mobile: Mobile
 tags:
   - kotlin
-  - java
   - android
-  - database
 author: Damian Terlecki
 date: 2020-05-31T20:00:00
 source: https://gist.github.com/t3rmian/8ffe844882d4c009abd730cb98f75dac

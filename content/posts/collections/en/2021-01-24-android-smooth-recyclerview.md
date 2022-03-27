@@ -2,9 +2,12 @@
 title: Achieving smooth scrolling with RecyclerView in Android
 url: android-recyclerview-smooth-scroll
 id: 48
+category:
+  - mobile: Mobile
 tags:
   - android
   - kotlin
+  - performance
 author: Damian Terlecki
 date: 2021-01-24T20:00:00
 ---

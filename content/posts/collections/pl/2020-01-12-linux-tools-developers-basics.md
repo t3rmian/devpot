@@ -2,6 +2,8 @@
 title: Narzędzia linuxowe – podstawy programisty
 url: narzędzia-linux-podstawy
 id: 21
+category:
+- other: Inne
 tags:
   - linux
   - shell

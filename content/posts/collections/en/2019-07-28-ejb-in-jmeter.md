@@ -2,10 +2,10 @@
 title: Calling EJB in JMeter
 url: ejb-in-jmeter
 id: 9
+category:
+  - testing: Testing
 tags:
   - jmeter
-  - ejb
-  - jee
 author: Damian Terlecki
 date: 2019-07-28T20:00:00
 ---

@@ -2,13 +2,13 @@
 title: Stubowanie biblioteki Java z pomocą ClassLoadera
 url: stubowanie-biblioteki-java-classloading
 id: 29
+category:
+- java: Java
 tags:
-  - java
   - tomcat
   - weblogic
   - classloading
   - jvm
-  - testy
 author: Damian Terlecki
 date: 2020-05-03T20:00:00
 ---

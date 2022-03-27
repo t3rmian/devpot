@@ -2,11 +2,12 @@
 title: HTTP Proxy for accessing internal API – quick setup
 url: internal-api-http-proxy-setup
 id: 76
+category:
+- testing: Testing
 tags:
   - api
-  - rest
+  - web services
   - android
-  - testing
 author: Damian Terlecki
 date: 2021-11-07T20:00:00
 ---

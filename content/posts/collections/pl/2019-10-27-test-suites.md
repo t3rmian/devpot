@@ -2,9 +2,9 @@
 title: Kategoryzacja testów, tworzenie zestawów i zrównoleglanie
 url: kategoryzacja-testów-zestawy-zrównoleglanie
 id: 15
+category:
+- testing: Testy
 tags:
-  - testy
-  - java
   - android
   - maven
   - gradle

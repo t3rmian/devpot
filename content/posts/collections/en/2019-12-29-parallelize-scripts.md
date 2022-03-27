@@ -2,8 +2,9 @@
 title: Parallelize shell scripts
 url: parallelize-shell-scripts
 id: 20
+category:
+  - other: Misc
 tags:
-  - scripts
   - shell
 author: Damian Terlecki
 date: 2019-12-29T20:00:00

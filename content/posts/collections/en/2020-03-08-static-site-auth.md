@@ -2,6 +2,8 @@
 title: Static site auth
 url: static-site-auth
 id: 25
+category:
+  - other: Misc
 tags:
   - static site
   - security

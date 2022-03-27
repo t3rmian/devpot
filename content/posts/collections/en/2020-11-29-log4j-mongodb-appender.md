@@ -2,9 +2,11 @@
 title: How to configure log4j2 MongoDB appender
 url: log4j2-mongodb-appender
 id: 44
+category:
+  - java: Java
 tags:
-  - java
-  - database
+  - logs
+  - mongodb
 author: Damian Terlecki
 date: 2020-11-29T20:00:00
 ---

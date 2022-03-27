@@ -2,6 +2,8 @@
 title: How does Android Lint verify the use of SDK methods?
 url: android-lint-newapi
 id: 61
+category:
+  - mobile: Mobile
 tags:
   - android
 author: Damian Terlecki

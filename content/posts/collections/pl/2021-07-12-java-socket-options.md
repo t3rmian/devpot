@@ -2,8 +2,10 @@
 title: Opcje natywne socketu w Javie
 url: java-opcje-natywne-socketu
 id: 70
+category:
+- java: Java
 tags:
-  - java
+  - native
 author: Damian Terlecki
 date: 2021-07-12T20:00:00
 source: https://github.com/t3rmian/setsockopt-java-demo

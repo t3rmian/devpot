@@ -2,10 +2,11 @@
 title: Repetition of flaky tests
 url: flaky-tests-repetition
 id: 18
+category:
+  - testing: Testing
 tags:
-  - java
   - android
-  - testing
+  - ci
 author: Damian Terlecki
 date: 2019-12-01T20:00:00
 ---

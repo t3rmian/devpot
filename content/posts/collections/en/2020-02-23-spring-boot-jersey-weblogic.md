@@ -2,8 +2,9 @@
 title: Deploying Spring Boot with Jersey on WebLogic
 url: spring-boot-jersey-weblogic
 id: 24
+category:
+  - jee: JEE
 tags:
-  - jee
   - weblogic
   - spring
   - classloading

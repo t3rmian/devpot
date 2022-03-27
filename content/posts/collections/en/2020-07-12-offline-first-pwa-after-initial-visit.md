@@ -2,8 +2,9 @@
 title: Offline-first PWA after initial visit
 url: offline-first-pwa-after-initial-visit
 id: 34
+category:
+  - javascript: JS
 tags:
-  - javascript
   - service workers
   - pwa
   - cache

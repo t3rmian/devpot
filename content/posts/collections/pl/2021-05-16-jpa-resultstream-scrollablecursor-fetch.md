@@ -2,9 +2,10 @@
 title: JPQL JOIN FETCH i CursoredStream/ScrollableCursor
 url: jpql-join-fetch-distinct-cursoredstream-scrollablecursor
 id: 66
+category:
+- jpa: JPA
 tags:
-  - java
-  - bazy danych
+  - sql
 author: Damian Terlecki
 date: 2021-05-16T20:00:00
 ---
