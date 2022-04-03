@@ -13,12 +13,12 @@
 
 .category {
     font-family: $header-font-family;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 4px 10px;
 }
 
 .categories {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
@@ -27,4 +27,12 @@ hr {
     height: 1px;
     background: gray;
     opacity: .15;
+}
+
+hr:first-of-type {
+    margin-bottom: 4px;
+}
+
+hr:last-of-type {
+    margin-top: 4px;
 }
