@@ -1,8 +1,9 @@
-import Index from "./Index";
+import {Index} from "./I18nIndexes";
 import i18n from "../i18n";
+import {I18nPage} from "./utils";
 
 export default function Search(content, defaultLang, lang) {
-  const search = Index(content, defaultLang, lang, true);
+  const search = Index(new I18nPage(content.blog, defaultLang, lang), content.home, true);
   const { blog } = content;
   const isDefaultLang = defaultLang === lang;
   const path = isDefaultLang

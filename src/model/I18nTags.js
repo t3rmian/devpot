@@ -1,7 +1,33 @@
-import { flatMap } from '../utils';
-import Tags from './Tags';
-import {I18nPage} from "./utils";
+import i18n from "../i18n";
+import {I18nPage, RefLang} from "./utils";
+import {flatMap} from "../utils";
 
 export default function I18nTags(blog, defaultLang) {
-  return flatMap(Object.keys(blog), lang => Tags(new I18nPage(blog, defaultLang, lang)));
+    return flatMap(Object.keys(blog), lang => Tags(new I18nPage(blog, defaultLang, lang)));
+}
+
+export function Tags(i18nPage) {
+  const path = i18nPage.getPath("tags");
+  const noindex = true;
+
+  return i18nPage.getFlatPostProperties("tags")
+    .map(tag => ({
+      path: `${path}${tag}`,
+      template: "src/containers/Tags",
+      getData: () => ({
+        ...i18nPage.getCommonData(post => post.tags != null && post.tags.indexOf(tag) >= 0),
+        langRefs: RefLang.explode(tag, i18nPage, filterMatchingTag, tagToPath),
+        tag,
+        noindex
+      }),
+      noindex
+    }));
+
+    function filterMatchingTag(tag, lang) {
+        return [i18nPage.getPosts(lang).filter(p => p.tags).flatMap(p => p.tags).find(t => t === tag)].filter(a => a);
+    }
+
+    function tagToPath(tag, lng) {
+        return `/${i18n.t("tags", { lng })}/${tag}/`;
+    }
 }

@@ -1,5 +1,4 @@
 import i18n from "../i18n";
-import {gradeTags, mapPost} from "./Index";
 import {flatMap} from "../utils";
 
 export const Category = {
@@ -77,33 +76,61 @@ export class I18nPage {
     }
 
     getPath(pathPart) {
-        return`${this.getRoot()}${i18n.t(pathPart, { lng: this.lang })}/`
+        return `${this.getRoot()}${i18n.t(pathPart, {lng: this.lang})}/`
     }
 
     getPosts(lang = this.lang) {
         return this.blog[lang];
     }
 
-    getExplodedPosts(filter) {
+    mapPost(post, loadEagerly) {
+        return loadEagerly ? post : {
+            date: post.date,
+            title: post.title,
+            devMode: post.devMode,
+            imageUrl: post.imageUrl,
+            minutesRead: post.minutesRead
+        };
+    }
+
+    getExplodedPosts(filter, loadEagerly) {
         return this.getPosts()
             .filter(filter)
             .map(p => ({
-                ...mapPost(p),
+                ...this.mapPost(p, loadEagerly),
                 path: `${this.getPath("posts")}${p.url}`
             }));
     }
 
     getGradedTags() {
-        return gradeTags(this.blog, this.isDefaultLang(), this.lang);
+        const tags = [];
+        const posts = this.getPosts();
+        posts.forEach(post => {
+            if (post.tags != null) {
+                post.tags.forEach(tag => {
+                    if (tag === undefined) return;
+                    if (tags.some(t => t.value === tag)) {
+                        tags.find(t => t.value === tag).hits++;
+                    } else {
+                        tags.push({
+                            value: tag,
+                            hits: 1,
+                            path: `${this.getPath("tags")}${tag}/`
+                        });
+                    }
+                });
+            }
+        });
+        return tags;
     }
 
     getFlatPostProperties(property) {
         return uniq([...new Set(flatMap(this.getPosts(), post => post[property]))].filter(a => a));
     }
 
-    getCommonData(postFilter) {
+    getCommonData(postFilter, loadEagerly) {
         return {
-            posts: this.getExplodedPosts(postFilter),
+            posts: postFilter ? this.getExplodedPosts(postFilter) : this.getExplodedPosts(() => true, loadEagerly),
             lang: this.lang,
             isDefaultLang: this.isDefaultLang(),
             root: this.getRoot(),

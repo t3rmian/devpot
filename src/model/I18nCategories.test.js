@@ -21,29 +21,35 @@ describe("Categories model", () => {
         }
     }
 
-    test('is correct template [en]', async () => {
+    async function createCategories(defaultLanguage) {
         const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nCategories(blog, 'en');
+        const categories = I18nCategories(blog, defaultLanguage);
+        categories.forEach(category => category._data = category.getData());
+        return categories;
+    }
+
+    test('is correct template [en]', async () => {
+        const categories = await createCategories('en');
         expect(categories).toEqual(expect.arrayContaining([
             expect.objectContaining(miscEn),
+        ]));
+        expect(categories).toEqual(expect.arrayContaining([
             expect.objectContaining(miscPl),
         ]));
     })
 
     test('is correct template [pl]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const category = I18nCategories(blog, 'pl');
+        const category = await createCategories('pl');
         expect(category).toEqual(expect.arrayContaining([
             expect.objectContaining({...miscEn, path: "/en/category/misc"}),
+        ]));
+        expect(category).toEqual(expect.arrayContaining([
             expect.objectContaining({...miscPl, path: "/kategoria/inne"}),
         ]));
     })
 
     test('contains route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nCategories(blog, 'en');
-
-        categories.forEach(category => category._data = category.getData());
+        const categories = await createCategories('en');
 
         expect(categories).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(miscEn, {
@@ -66,10 +72,7 @@ describe("Categories model", () => {
     })
 
     test('contains posts route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nCategories(blog, 'en');
-
-        categories.forEach(category => category._data = category.getData());
+        const categories = await createCategories('en');
 
         expect(categories).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(miscEn, {
@@ -92,10 +95,7 @@ describe("Categories model", () => {
     })
 
     test('contains langRefs route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nCategories(blog, 'en');
-
-        categories.forEach(category => category._data = category.getData());
+        const categories = await createCategories('en');
 
         expect(categories).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(miscEn, {
@@ -124,10 +124,7 @@ describe("Categories model", () => {
     })
 
     test('contains tags route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nCategories(blog, 'en');
-
-        categories.forEach(category => category._data = category.getData());
+        const categories = await createCategories('en');
 
         expect(categories).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(miscEn, {

@@ -7,6 +7,7 @@ describe("Tags model", () => {
         noindex: true,
         template: "src/containers/Tags",
     };
+
     const umlPl = {
         path: "/pl/tagi/uml",
         noindex: true,
@@ -20,31 +21,37 @@ describe("Tags model", () => {
         }
     }
 
-    test('is correct template [en]', async () => {
+    async function createTags(defaultLanguage) {
         const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nTags(blog, 'en');
-        expect(categories).toEqual(expect.arrayContaining([
+        const tags = I18nTags(blog, defaultLanguage);
+        tags.forEach(category => category._data = category.getData());
+        return tags;
+    }
+
+    test('is correct template [en]', async () => {
+        const tags = await createTags('en');
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(umlEn),
+        ]));
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(umlPl),
         ]));
     })
 
     test('is correct template [pl]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const category = I18nTags(blog, 'pl');
-        expect(category).toEqual(expect.arrayContaining([
+        const tags = await createTags('pl');
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining({...umlEn, path: "/en/tags/uml"}),
+        ]));
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining({...umlPl, path: "/tagi/uml"}),
         ]));
     })
 
     test('contains route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nTags(blog, 'en');
+        const tags = await createTags('en');
 
-        categories.forEach(category => category._data = category.getData());
-
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlEn, {
                 lang: "en",
                 noindex: true,
@@ -53,7 +60,7 @@ describe("Tags model", () => {
                 root: "/",
             })),
         ]));
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlPl, {
                 lang: "pl",
                 noindex: true,
@@ -65,12 +72,9 @@ describe("Tags model", () => {
     })
 
     test('contains posts route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nTags(blog, 'en');
+        const tags = await createTags('en');
 
-        categories.forEach(category => category._data = category.getData());
-
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlEn, {
                 posts: expect.arrayContaining([
                     expect.objectContaining({
@@ -79,7 +83,7 @@ describe("Tags model", () => {
                 ])
             })),
         ]));
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlPl, {
                 posts: expect.arrayContaining([
                     expect.objectContaining({
@@ -91,12 +95,9 @@ describe("Tags model", () => {
     })
 
     test('contains langRefs route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nTags(blog, 'en');
+        const tags = await createTags('en');
 
-        categories.forEach(category => category._data = category.getData());
-
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlEn, {
                 langRefs: expect.arrayContaining([
                     expect.objectContaining({
@@ -108,7 +109,7 @@ describe("Tags model", () => {
                 ])
             })),
         ]));
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlPl, {
                 langRefs: expect.arrayContaining([
                     expect.objectContaining({
@@ -123,12 +124,9 @@ describe("Tags model", () => {
     })
 
     test('contains tags route data [en]', async () => {
-        const blog = await jdown("content/posts", {fileInfo: true});
-        const categories = I18nTags(blog, 'en');
+        const tags = await createTags('en');
 
-        categories.forEach(category => category._data = category.getData());
-
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlEn, {
                 tags: expect.arrayContaining([
                     expect.objectContaining({
@@ -137,7 +135,7 @@ describe("Tags model", () => {
                 ])
             })),
         ]));
-        expect(categories).toEqual(expect.arrayContaining([
+        expect(tags).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(umlPl, {
                 tags: expect.arrayContaining([
                     expect.objectContaining({
