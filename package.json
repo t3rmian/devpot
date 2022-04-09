@@ -8,6 +8,7 @@
     "analyze": "react-static build --analyze",
     "serve": "serve dist -p 3000",
     "selenium-install": "node_modules/.bin/selenium-standalone install",
+    "unit-test": "jest",
     "test": "./node_modules/.bin/wdio ./wdio.dev.conf.js",
     "test-prod": "./node_modules/.bin/wdio ./wdio.conf.js",
     "test-ci": "./node_modules/.bin/wdio ./wdio.ci.conf.js"
@@ -53,7 +54,8 @@
     "selenium-standalone": "^6.17.0",
     "serve": "11.3.2",
     "sharp": "0.25.4",
-    "svg2img": "^0.7.0"
+    "svg2img": "^0.7.0",
+    "jest": "^27.5.1"
   },
   "resolutions": {
     "react-static/webpack-dev-server": "~3.1.10",
@@ -68,6 +70,14 @@
     "acorn": "^6.4.1",
     "axios": "0.21.1",
     "canvas": "2.6.1",
-    "yargs-parser": ">=13.1.2 <14.0.0 || >=15.0.1 <16.0.0 || ^18.1.2"
+    "yargs-parser": ">=13.1.2 <14.0.0 || >=15.0.1 <16.0.0 || ^18.1.2",
+    "yargs": "^13.3.2"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": [
+      "html",
+      "lcov"
+    ]
   }
 }

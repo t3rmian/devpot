@@ -19,7 +19,7 @@ export default () => {
     root,
     noindex
   } = useRouteData();
-console.log(langRefs)
+
   return (
     <div className="container tags-container">
       <div className="page">
