@@ -1,78 +1,48 @@
 import i18n from "../i18n";
+import {Category, RefLang} from "./utils";
 
-export default function Posts(blog, defaultLang, lang, tags, root) {
-  const isDefaultLang = defaultLang === lang;
+export default function Posts(i18nPage) {
 
-  return blog[lang].map(post => ({
-    path: createPath(post),
+  return i18nPage.getPosts().map(post => ({
+    path: createRelativePath(post),
     template: "src/containers/Post",
     getData: () => ({
-      post: mapToPostInNeighborhood(post, blog[lang], lang),
-      lang,
-      isDefaultLang,
-      langRefs: [
-        ...Object.keys(blog)
-          .filter(lng => lng !== defaultLang)
-          .filter(lng => blog[lng].some(p => p.id === post.id))
-          .map(lng => ({
-            lang: lng,
-            url: `/${lng}/${i18n.t("posts", { lng: lng })}/${
-              blog[lng].find(p => p.id === post.id).url
-            }/`,
-            selected: lng === lang
-          })),
-        ...(blog[defaultLang].some(p => p.id === post.id)
-          ? [
-              {
-                lang: defaultLang,
-                url: `/${i18n.t("posts", { lng: defaultLang })}/${
-                  blog[defaultLang].find(p => p.id === post.id).url
-                }/`,
-                selected: defaultLang === lang
-              }
-            ]
-          : [])
-      ],
-      tags,
-      root,
+      ...i18nPage.getCommonData(() => false),
+      post: mapToPostInNeighborhood(post, i18nPage.getPosts(), i18nPage.lang),
+      langRefs: RefLang.explode(post, i18nPage, filterMatchingPost, createPath),
       categories: post.category == null ? null : [...post.category]
-          .map(categoryLevel => ({key: getCategoryKey(categoryLevel), path: getCategoryPath(getCategoryValue(categoryLevel))})),
+          .map(categoryLevel => Category.createFromPage(categoryLevel, i18nPage)),
     })
   }));
 
-  function getCategoryKey(category) {
-    return Object.keys(category)[0];
+  function filterMatchingPost(post, lang) {
+    return [i18nPage.getPosts(lang).find(p => p.id === post.id)].filter(a => a);
   }
 
-  function getCategoryValue(category) {
-    return category[Object.keys(category)[0]].toLowerCase();
-  }
-
-  function mapToPostInNeighborhood(post, posts, lng) {
+  function mapToPostInNeighborhood(post, posts) {
     const sortedPosts = [...posts].sort((a, b) => a.id - b.id);
     const postIndex = sortedPosts.indexOf(post);
     post = { ...post };
-    post.prev = mapToNeighborPost(sortedPosts[postIndex - 1], lng);
-    post.next = mapToNeighborPost(sortedPosts[postIndex + 1], lng);
+    post.prev = mapToNeighborPost(sortedPosts[postIndex - 1]);
+    post.next = mapToNeighborPost(sortedPosts[postIndex + 1]);
     return post;
   }
-  
-  function mapToNeighborPost(prev, lng) {
+
+  function mapToNeighborPost(prev) {
     if (prev !== undefined) {
       return {
-        url: (defaultLang === lang ? "/" : `/${lng}/`) + createPath(prev),
+        url: i18nPage.getRoot() + createRelativePath(prev),
         title: prev.title,
       };
     }
   }
-  
-  function createPath(post) {
-    return `${i18n.t("posts", { lng: lang })}/${post.url}/`;
+
+  function createRelativePath(post, lng = i18nPage.lang) {
+    return `${i18n.t("posts", { lng })}/${post.url}/`
   }
 
-  function getCategoryPath(category) {
-    return isDefaultLang
-        ? `/${i18n.t("category", {lng: lang})}/${category}/`
-        : `/${lang}/${i18n.t("category", {lng: lang})}/${category}/`;
+  function createPath(post, lng = i18nPage.lang) {
+    return `/${createRelativePath(post, lng)}`;
   }
+
 }

@@ -18,6 +18,14 @@ export const Category = {
         return item.category == null ? false
             : [...item.category].some(c => Category.equals(c, flatCategory));
     },
+    createFromPage: (categoryLevel, i18nPage) => ({
+        key: Category.getKey(categoryLevel),
+        path: `${i18nPage.getPath("category")}${Category.getNormalizedValue(categoryLevel)}/`,
+    }),
+    createFromPageWithValue: (categoryLevel, i18nPage) => ({
+        ...Category.createFromPage(categoryLevel, i18nPage),
+        value: Category.getValue(categoryLevel),
+    })
 }
 
 export const Blog = {

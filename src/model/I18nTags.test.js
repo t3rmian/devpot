@@ -14,9 +14,9 @@ describe("Tags model", () => {
         template: "src/containers/Tags",
     };
 
-    function withData(category, data) {
+    function withData(templateWrapper, data) {
         return {
-            ...category,
+            ...templateWrapper,
             _data: expect.objectContaining({...data,})
         }
     }

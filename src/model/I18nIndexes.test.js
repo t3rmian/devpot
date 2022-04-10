@@ -24,9 +24,9 @@ describe("Indexes model", () => {
         ])
     };
 
-    function withData(category, data) {
+    function withData(templateWrapper, data) {
         return {
-            ...category,
+            ...templateWrapper,
             _data: expect.objectContaining({...data,})
         }
     }
