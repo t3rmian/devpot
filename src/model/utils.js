@@ -83,8 +83,8 @@ export class I18nPage {
         return this.isDefaultLang() ? "/" : `/${this.lang}/`;
     }
 
-    getPath(pathPart) {
-        return `${this.getRoot()}${i18n.t(pathPart, {lng: this.lang})}/`
+    getPath(pathPart, suffix = "/") {
+        return `${this.getRoot()}${i18n.t(pathPart, {lng: this.lang})}${suffix}`
     }
 
     getPosts(lang = this.lang) {
