@@ -60,6 +60,7 @@ describe("Search model", () => {
 
     expect(indexes).toEqual(expect.arrayContaining([
       expect.objectContaining(withData(indexEn, {
+        path: indexEn.path,
         lang: "en",
         isDefaultLang: true,
         date: expect.any(String),
@@ -69,6 +70,7 @@ describe("Search model", () => {
     ]));
     expect(indexes).toEqual(expect.arrayContaining([
       expect.objectContaining(withData(indexPl, {
+        path: indexPl.path,
         lang: "pl",
         isDefaultLang: false,
         date: expect.any(String),

@@ -19,6 +19,7 @@ export function Search(i18nPage, home) {
   search.noindex = noindex;
   search.getData = () => ({
     ...data,
+    path: i18nPage.getPath("search", ''),
     langRefs: RefLang.explode(null, i18nPage, (_, lang) => [lang],
         (_, lng) => `/${i18n.t("search", {lng})}`),
     noindex
