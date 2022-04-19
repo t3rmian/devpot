@@ -52,11 +52,15 @@
             }
 
             .meta {
+                flex-wrap: wrap;
                 display: flex;
                 text-align: center;
                 align-items: center;
                 justify-content: center;
-                margin-bottom: 0.5rem;
+
+                .item {
+                    margin-bottom: 0.5rem;
+                }
 
                 .item:not(:first-child):before {
                     content: '\00B7';
@@ -255,6 +259,13 @@
                 max-height: 100px;
             }
         }
+
+        .title {
+            @media (min-width: 640px) {
+                margin-left: 100px;
+                margin-right: 100px;
+            }
+        }
     }
 
     .utterances {
@@ -290,7 +301,7 @@
     }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 639px) {
     .post-container {
         .page {
             min-width: 100px;

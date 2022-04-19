@@ -104,7 +104,17 @@ $themes: (light: (primary-background-color: white,
             }
     
             .theme-switcher svg {
-                filter: themed('theme-switch-filter');
+                filter: themed('theme-switch-filter') drop-shadow(themed('primary-border-color') 0 0 5px);
+            }
+            .theme-switcher svg:hover {
+                filter: themed('theme-switch-filter') drop-shadow(themed('primary-box-shadow-color') 0 0 5px);
+            }
+            .social svg {
+                filter: drop-shadow(themed('primary-border-color') 0 0 3px);
+                transition: all $theme-transition-short-delay $theme-transition-short-timing-function;
+            }
+            .social button:hover svg {
+                filter: drop-shadow(themed('primary-box-shadow-color') 0 0 3px);
             }
     
             code {
@@ -134,13 +144,13 @@ $themes: (light: (primary-background-color: white,
                 color: themed('primary-color-less-intense');
             }
     
-            .profile img, .social svg, .theme-switcher svg {
+            .profile img {
                 box-shadow: 0 0 5 0px themed('primary-border-color');
                 -moz-box-shadow: 0 0 5px 0 themed('primary-border-color');
                 -webkit-box-shadow: 0 0 5px 0px themed('primary-border-color');
             }
 
-            .profile:hover img, .social button:hover svg, .theme-switcher svg:hover {
+            .profile:hover img {
                 box-shadow: 0 0 5 0px themed('primary-box-shadow-color');
                 -moz-box-shadow: 0 0 5px 0 themed('primary-box-shadow-color');
                 -webkit-box-shadow: 0 0 5px 0px themed('primary-box-shadow-color');
