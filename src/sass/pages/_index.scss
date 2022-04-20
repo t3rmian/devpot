@@ -22,16 +22,6 @@
     justify-content: space-between;
 }
 
-@media (min-width: 640px) and (max-width: 840px), (max-width: 600px) {
-    .categories {
-        justify-content: center;
-        .category {
-            padding-left: 16px;
-            padding-right: 16px;
-        }
-    }
-}
-
 hr {
     border: 0;
     height: 1px;
@@ -45,4 +35,17 @@ hr:first-of-type {
 
 hr:last-of-type {
     margin-top: 4px;
+}
+
+@media (min-width: 640px) and (max-width: 840px), (max-width: 600px) {
+    .categories {
+        justify-content: center;
+        .category {
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+    }
+    hr {
+        background: linear-gradient(to right, transparent, gray, gray, transparent);
+    }
 }
