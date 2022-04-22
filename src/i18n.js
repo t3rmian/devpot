@@ -40,6 +40,9 @@ const resources = {
       short: "~ 10 min",
       medium: "10 ~ 20 min",
       long: "20 min ~",
+      Mentioned: "Mentioned",
+      Related: "Related",
+      Relevant: "Relevant",
     }
   },
   pl: {
@@ -67,6 +70,9 @@ const resources = {
       "Light theme": "Jasny szablon",
       "Dark theme": "Ciemny szablon",
       "Switch theme": "Zmień motyw",
+      Mentioned: "Wspomniane",
+      Related: "Powiązane",
+      Relevant: "Istotne",
     }
   }
 };

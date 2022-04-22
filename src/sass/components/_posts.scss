@@ -13,6 +13,9 @@
 .date-col+* {
     padding-left: 1em;
 }
+.date-col+*+* {
+    padding-left: 1em;
+}
 
 @media (max-width: 480px) {
     .date-head {

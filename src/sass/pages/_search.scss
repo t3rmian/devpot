@@ -12,5 +12,22 @@
             text-transform: uppercase;
             font-weight: normal;
         }
+        .date-col {
+            div {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+
+                time {
+                    padding-right: 4px;
+                    align-self: start;
+                    display: block;
+                }
+                time + * {
+                    align-self: end;
+                    display: block;
+                }
+            }
+        }
     }
 }

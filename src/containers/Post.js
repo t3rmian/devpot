@@ -83,7 +83,7 @@ export function Post() {
     : config.authorPicture;
   const authorPictureSeo = post.authorPicture
     ? post.authorPicture
-    : "https://avatars.githubusercontent.com/u/20327242";
+    : config.authorPictureSeo;
   const author = post.author ? post.author : config.author;
 
   return (
@@ -144,7 +144,7 @@ export function Post() {
               <PostFooter
                 prev={post.prev}
                 source={
-                  post.source != undefined
+                  post.source !== undefined
                     ? { url: post.source, title: t("source", { lng: lang }) }
                     : undefined
                 }
