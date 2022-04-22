@@ -154,7 +154,7 @@ export function Post() {
           </article>
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang}
-                  tags={tags.filter(t => (post.tags.some(pt => pt === t.value) || t.value.indexOf("~") >= 0) && t.hits > 1)}/>
+                  tags={tags}/>
         <Share
           siteTitle={t("site title", { lng: lang })}
           langRefs={langRefs}

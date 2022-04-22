@@ -15,8 +15,9 @@ export function Tags(i18nPage) {
       path: `${path}${tag}`,
       template: "src/containers/Tags",
       getData: () => ({
-        ...i18nPage.getCommonData(post => post.tags != null && post.tags.indexOf(tag) >= 0),
+        ...i18nPage.getExplodedCommonData(post => post.tags != null && post.tags.indexOf(tag) >= 0),
         langRefs: RefLang.explode(tag, i18nPage, filterMatchingTag, tagToPath),
+        categories: i18nPage.getCategories(),
         tag,
         noindex
       }),

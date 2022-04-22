@@ -101,7 +101,7 @@ export class I18nPage {
         };
     }
 
-    getExplodedPosts(filter, loadEagerly) {
+    getExplodedPosts(filter = () => true, loadEagerly) {
         return this.getPosts()
             .filter(filter)
             .map(p => ({
@@ -110,25 +110,21 @@ export class I18nPage {
             }));
     }
 
-    getGradedTags() {
+    getGradedTags(postFilter = () => true) {
         const tags = [];
-        const posts = this.getPosts();
-        posts.forEach(post => {
-            if (post.tags != null) {
-                post.tags.forEach(tag => {
-                    if (tag === undefined) return;
-                    if (tags.some(t => t.value === tag)) {
-                        tags.find(t => t.value === tag).hits++;
-                    } else {
-                        tags.push({
-                            value: tag,
-                            hits: 1,
-                            path: `${this.getPath("tags")}${tag}/`
-                        });
-                    }
-                });
-            }
-        });
+        flatMap(this.getPosts().filter(postFilter), p => p.tags)
+            .forEach(tag => {
+                if (tag === undefined) return;
+                if (tags.some(t => t.value === tag)) {
+                    tags.find(t => t.value === tag).hits++;
+                } else {
+                    tags.push({
+                        value: tag,
+                        hits: 1,
+                        path: `${this.getPath("tags")}${tag}/`
+                    });
+                }
+            });
         return tags;
     }
 
@@ -136,14 +132,27 @@ export class I18nPage {
         return uniq([...new Set(flatMap(this.getPosts(), post => post[property]))].filter(a => a));
     }
 
-    getCommonData(postFilter, loadEagerly) {
-        return {
-            posts: postFilter ? this.getExplodedPosts(postFilter) : this.getExplodedPosts(() => true, loadEagerly),
+    getCategories() {
+        return this.getFlatPostProperties("category")
+            .map(categoryLevel => Category.createFromPageWithValue(categoryLevel, this))
+            .sort((a, b) => a.value.localeCompare(b.value));
+    }
+
+    getCommonData(postFilter) {
+        return  {
             lang: this.lang,
             isDefaultLang: this.isDefaultLang(),
             root: this.getRoot(),
-            tags: this.getGradedTags(),
+            tags: this.getGradedTags(postFilter),
+        };
+    }
+
+    getExplodedCommonData(postFilter, loadEagerly) {
+        const commonData = this.getCommonData(postFilter, loadEagerly);
+        if (postFilter !== undefined || loadEagerly !== undefined) {
+            commonData.posts = this.getExplodedPosts(postFilter, loadEagerly);
         }
+        return commonData;
     }
 
 }

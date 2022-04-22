@@ -15,9 +15,10 @@ export function Categories(i18nPage) {
             path: `${path}${Category.getNormalizedValue(categoryLevel)}`,
             template: "src/containers/Category",
             getData: () => ({
-                ...i18nPage.getCommonData(p => Category.containsCategory(p, categoryLevel)),
+                ...i18nPage.getExplodedCommonData(p => Category.containsCategory(p, categoryLevel)),
                 langRefs: RefLang.explode(categoryLevel, i18nPage, filterMatchingCategory, categoryToPath),
                 category: Category.getValue(categoryLevel),
+                categories: i18nPage.getCategories(),
                 noindex
             }),
             noindex

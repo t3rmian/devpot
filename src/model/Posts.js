@@ -7,7 +7,7 @@ export default function Posts(i18nPage) {
     path: createRelativePath(post),
     template: "src/containers/Post",
     getData: () => ({
-      ...i18nPage.getCommonData(() => false),
+      ...i18nPage.getCommonData(p => p === post),
       post: mapToPostInNeighborhood(post, i18nPage.getPosts(), i18nPage.lang),
       langRefs: RefLang.explode(post, i18nPage, filterMatchingPost, createPath),
       categories: post.category == null ? null : [...post.category]

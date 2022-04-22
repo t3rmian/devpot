@@ -6,6 +6,7 @@ import TagCloud from "../components/TagCloud";
 import { capitalize } from "../utils.js";
 import { useRouteData } from "react-static";
 import { useTranslation } from "react-i18next";
+import Categories from "../components/Categories";
 
 export default () => {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ export default () => {
     isDefaultLang,
     langRefs,
     category,
+    categories,
     tags,
     root,
     noindex
@@ -39,6 +41,7 @@ export default () => {
             noindex
           }}
         />
+        <Categories categories={categories}/>
         <main>
           <h1 className="uppercase subtitle" role="heading" aria-level="1">{t("Posts by category", { category, lng: lang })}</h1>
           <Posts posts={posts} lang={lang} />

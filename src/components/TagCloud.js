@@ -15,8 +15,7 @@ export default function TagCloud({ tags, lang }) {
   tags.sort((a, b) => b.hits - a.hits);
 
   return (
-    <nav className="tag-cloud fadeIn">
-      {t("Tag cloud", { lng: lang })}
+    <nav className="tag-cloud fadeIn" aria-label={t("Tag cloud", { lng: lang })}>
       <div className="tag-cloud-container">
         {tags.map(tag => (
           <Link className={"nofetch"} key={tag.value} to={tag.path}>{` #${tag.value}`}</Link>

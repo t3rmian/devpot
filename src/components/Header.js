@@ -3,6 +3,7 @@ import React from "react";
 import SEOHead from "../components/SEOHead";
 import SearchBar from "./SearchBar";
 import convert from "htmr";
+import Categories from "./Categories";
 
 export default props => {
   const { home, root, seo, categories } = props;
@@ -18,20 +19,13 @@ export default props => {
         </Link>
         {home && (
           <div className="title-row">
-            <div className="logo-title">
-              <h1>{home.siteTitle}</h1>
-            </div>
-              <hr/>
-              {categories && (
-                  <div className={"categories"}>
-                      {categories.map(tag => (
-                          <Link className={"category"} key={tag.key} to={tag.path}>{`${tag.value}`}</Link>
-                      ))}
-                  </div>)}
-              <hr/>
-            {home && (
-              <div className="logo-description">{convert(home.contents)}</div>
-            )}
+              <div className="logo-title">
+                  <h1>{home.siteTitle}</h1>
+              </div>
+              <Categories categories={categories}/>
+              {home && (
+                  <div className="logo-description">{convert(home.contents)}</div>
+              )}
           </div>
         )}
       </div>
