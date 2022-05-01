@@ -85,11 +85,10 @@ Przy powyższej konfiguracji testy integracyjne możemy uruchomić za pomocą po
 Możliwość uruchamiania testów z poziomu IDE jest bardzo przydatna. W tym przypadku IntelliJ zapewnia świetne wsparcie również dla kontenera wbudowanego.
 Wszystko, co musimy zrobić, to dodać konfigurację uruchomieniową. Wybieramy Arquillian JUnit, a w menu konfiguracji kontenerów wybieramy tryb osadzony.
 
-<figure class="center-text">
-<img loading="lazy" class="inline" src="/img/hq/arquillian-intellij-configuration.png" alt="Arquillian test run configuration" title="Arquillian test run configuration">
-<img loading="lazy" class="inline" src="/img/hq/arquillian-intellij-configure.png" alt="Arquillian container configuration" title="Arquillian container configuration">
-<br/>
-<img loading="lazy" class="inline-end" src="/img/hq/arquillian-intellij-container.png" alt="Adding Arquillian container" title="Adding Arquillian container">
+<figure class="flex">
+<img loading="lazy" src="/img/hq/arquillian-intellij-configuration.png" alt="Arquillian test run configuration" title="Arquillian test run configuration">
+<img loading="lazy" src="/img/hq/arquillian-intellij-configure.png" alt="Arquillian container configuration" title="Arquillian container configuration">
+<img loading="lazy" src="/img/hq/arquillian-intellij-container.png" alt="Adding Arquillian container" title="Adding Arquillian container">
 </figure>
 
 Teraz jednym kliknięciem (`CTRL+SHIFT+F10`) powinniśmy być w stanie wywołać wybrany test.

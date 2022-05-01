@@ -1,17 +1,17 @@
 .post-container {
-    .content > figure.center-text {
+    .content > figure.flex {
         text-align: center !important;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-flow: row wrap;
+        img {
+            align-content: space-around;
+            margin: 0.5em !important;
+        }
     }
     .content > figure {
         margin: 0;
-
-        img.inline {
-            margin-bottom: 0 !important;
-        }
-
-        img.inline-end {
-            margin-top: 0 !important;
-        }
     }
     .content .inline {
         display: inline !important;

@@ -272,11 +272,10 @@ To manage key stores, create CSR (Certificate Signing Request – to be signed b
 
 When in doubt why the standard configuration does not work, it's always a good idea to check the validity of the site certificate, domain name, and trust chain unless the certificate is self-signed and imported into the trust store (if so, verify this too).
 
-<figure class="center-text">
-<img loading="lazy" class="inline inline-end" src="/img/hq/https-certificate-browser.png" alt="Getting the site certificate using browser (lock symbol)" title="Getting the site certificate using browser (lock symbol)">
-<br/>
-<img loading="lazy" class="inline inline-end" src="/img/hq/https-certificate-windows.png" alt="Verification of certificate DNS name" title="Verification of certificate DNS name">
-<img loading="lazy" class="inline inline-end" src="/img/hq/https-certificate-certification-path.png" alt="Checking the certification path" title="Checking the certification path">
+<figure class="flex">
+<img loading="lazy" src="/img/hq/https-certificate-browser.png" alt="Getting the site certificate using browser (lock symbol)" title="Getting the site certificate using browser (lock symbol)">
+<img loading="lazy" src="/img/hq/https-certificate-windows.png" alt="Verification of certificate DNS name" title="Verification of certificate DNS name">
+<img loading="lazy" src="/img/hq/https-certificate-certification-path.png" alt="Checking the certification path" title="Checking the certification path">
 </figure>
 
 Often though, on the servers, checking the certificate through the browser isn't a feasible scenario as they're usually run in a headless mode. You can still use some command-line tools like [curl or openssl to extract the certificate](https://serverfault.com/questions/661978/displaying-a-remote-ssl-certificate-details-using-cli-tools) in such a situation.

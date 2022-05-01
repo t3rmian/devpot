@@ -272,11 +272,10 @@ Na potrzeby zarządzania keystore'ami, tworzenia CSR (Certificate Signing Reques
 
 W razie wątpliwości, dlaczego standardowa konfiguracja nie działa, zawsze warto sprawdzić ważność certyfikatu witryny, z którą się łączymy, nazwę domeny i łańcuch poświadczeń. No chyba że certyfikat jest self-signed i zaimportowaliśmy go do trust store'a (również to powinniśmy sprawdzić).
 
-<figure class="center-text">
-<img loading="lazy" class="inline inline-end" src="/img/hq/https-certificate-browser.png" alt="Wyświetlenie certyfikatu witryny za pomocą przeglądarki (ikona kłódki)" title="Wyświetlenie certyfikatu witryny za pomocą przeglądarki (ikona kłódki)">
-<br/>
-<img loading="lazy" class="inline inline-end" src="/img/hq/https-certificate-windows.png" alt="Weryfikacja nazwy DNS certyfikatu" title="Weryfikacja nazwy DNS certyfikatu">
-<img loading="lazy" class="inline inline-end" src="/img/hq/https-certificate-certification-path.png" alt="Sprawdzanie ścieżki certyfikacji" title="Sprawdzanie ścieżki certyfikacji">
+<figure class="flex">
+<img loading="lazy" src="/img/hq/https-certificate-browser.png" alt="Wyświetlenie certyfikatu witryny za pomocą przeglądarki (ikona kłódki)" title="Wyświetlenie certyfikatu witryny za pomocą przeglądarki (ikona kłódki)">
+<img loading="lazy" src="/img/hq/https-certificate-windows.png" alt="Weryfikacja nazwy DNS certyfikatu" title="Weryfikacja nazwy DNS certyfikatu">
+<img loading="lazy" src="/img/hq/https-certificate-certification-path.png" alt="Sprawdzanie ścieżki certyfikacji" title="Sprawdzanie ścieżki certyfikacji">
 </figure>
 
 Często jednak sprawdzanie certyfikatu na serwerach za pomocą przeglądarki nie jest wykonalnym scenariuszem, gdyż zazwyczaj nie udostępniają one powłoki graficznej. W takim przypadku możemy skorzystać z narzędzi wiersza polecenia, takich jak [curl lub openssl, w celu wyodrębnienia certyfikatu](https://serverfault.com/questions/661978/displaying-a-remote-ssl-certificate-details-using-cli-tools).
