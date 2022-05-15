@@ -39,18 +39,15 @@ export default ({
       <div className="item">
         {minutesRead}
       </div>
-      {category && (
-          <span className="item">
-        {category.map((tag) => (
+      {category && category.map((tag) => (
+        <span className="item" key={Object.keys(tag)[0]}>
             <Link
-                key={Object.keys(tag)[0]}
                 to={`${routeCategories.find((t) => t.key === Object.keys(tag)[0]).path}`}
             >
               {tag[Object.keys(tag)[0]]}
             </Link>
-        ))}
-      </span>
-      )}
+        </span>
+      ))}
     </div>
   </div>
 );
