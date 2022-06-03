@@ -24,7 +24,7 @@ export default () => {
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <h1>{reason}</h1>
-      <Footer lang={i18n.t("defaultLang")}
+      <Footer lang={i18n.t("defaultLang")} is404={true}
         langRefs={[
           ...langs
             .filter(lang => lang !== i18n.t("defaultLang"))

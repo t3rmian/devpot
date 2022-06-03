@@ -4,7 +4,7 @@ import React from "react";
 import Theme from "./Theme";
 import { useTranslation } from "react-i18next";
 
-export default function Footer({ langRefs, lang }) {
+export default function Footer({ langRefs, lang, is404 }) {
   const { t } = useTranslation();
   langRefs.sort((a, b) => t(a.lang).localeCompare(t(b.lang)));
 
@@ -18,7 +18,7 @@ export default function Footer({ langRefs, lang }) {
             data-disabled={ref.selected === true}
             hrefLang={ref.lang}
           >
-            {t(ref.lang)}
+            {is404 ? t(ref.lang + '404') : t(ref.lang)}
           </Link>
         </span>
       ))}
