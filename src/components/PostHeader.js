@@ -22,30 +22,38 @@ export default ({
     <div className="meta">
       <span className="item">
         {updated && (
+          <span>
           <time dateTime={new Date(updated).toISOString()}>
             {updatedFormatted}
             <br />
           </time>
+          </span>
         )}
         <time dateTime={new Date(date).toISOString()}>{dateFormatted}</time>
       </span>
       <span className="item profile">
+        <span>
         <a href={authorSite} className="profile">
           {authorPicture && <img crossOrigin="true" src={authorPicture} alt={authorAlt}/>}
           <div>{authorName}<br/>{authorSurname}</div>
         </a>
+        </span>
       </span>
 
       <div className="item">
+        <span>
         {minutesRead}
+        </span>
       </div>
       {category && category.map((tag) => (
         <span className="item" key={Object.keys(tag)[0]}>
+          <span>
             <Link
                 to={`${routeCategories.find((t) => t.key === Object.keys(tag)[0]).path}`}
             >
               {tag[Object.keys(tag)[0]]}
             </Link>
+          </span>
         </span>
       ))}
     </div>
