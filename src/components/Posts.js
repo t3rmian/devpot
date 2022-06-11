@@ -50,7 +50,7 @@ function Month({month, posts}) {
 
 function Title({month}) {
   return (<tr>
-    <th colSpan="2" className="date-head">
+    <th colSpan="2" className="date-head uppercase">
       <div>
         <span>
           {month}

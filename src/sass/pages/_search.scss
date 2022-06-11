@@ -29,5 +29,8 @@
                 }
             }
         }
+        tbody tr:last-child td {
+            padding-bottom: 1em;
+        }
     }
 }

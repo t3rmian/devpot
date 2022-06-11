@@ -27,7 +27,7 @@ wiązanych z rozmiarem obszaru.
 ```
 
 Modyfikacja wyżej wymienionych właściwości pozwala również na emulację różnych rozdzielczości w przeglądarce mobilnej.
-Jeśli masz już sesję debugowania zdalnego.USB, wystarczy, że wywołasz poniższą funkcję w konsoli przeglądarki:
+Jeśli masz już sesję debugowania zdalnego/USB, wystarczy, że wywołasz poniższą funkcję w konsoli przeglądarki:
 
 ```javascript
 function changeViewportWidth(width = "device-width") {

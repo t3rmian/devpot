@@ -31,7 +31,7 @@
     "react-static-plugin-sass": "^7.3.0",
     "react-static-plugin-sitemap": "7.4.2",
     "react-static-plugin-source-filesystem": "7.4.2",
-    "react-transition-group": "^4.0.1",
+    "react-transition-group": "^4.4.2",
     "universal-cookie": "^4.0.2"
   },
   "devDependencies": {

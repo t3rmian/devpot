@@ -2,6 +2,8 @@ import React from "react";
 
 export default () => (
   <div className="loading">
-    <em>∞</em>
+      <span></span>
+      <span></span>
+      <span></span>
   </div>
 );
