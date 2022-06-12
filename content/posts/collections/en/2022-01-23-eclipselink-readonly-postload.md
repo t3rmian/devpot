@@ -6,6 +6,7 @@ category:
 - jpa: JPA
 tags:
   - sql
+  - eclipselink
 author: Damian Terlecki
 date: 2022-01-23T20:00:00
 ---

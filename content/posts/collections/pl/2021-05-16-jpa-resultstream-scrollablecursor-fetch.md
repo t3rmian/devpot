@@ -6,6 +6,8 @@ category:
 - jpa: JPA
 tags:
   - sql
+  - eclipselink
+  - hibernate
 author: Damian Terlecki
 date: 2021-05-16T20:00:00
 ---

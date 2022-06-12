@@ -7,6 +7,8 @@ category:
 tags:
   - sql
   - performance
+  - eclipselink
+  - hibernate
 author: Damian Terlecki
 date: 2022-02-20T20:00:00
 ---

@@ -8,6 +8,7 @@ tags:
   - sql
   - oracle
   - performance
+  - eclipselink
 author: Damian Terlecki
 date: 2022-03-20T20:00:00
 ---

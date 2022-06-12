@@ -8,6 +8,7 @@ tags:
   - sql
   - postgresql
   - wydajność
+  - eclipselink
 author: Damian Terlecki
 date: 2022-03-06T20:00:00
 ---
