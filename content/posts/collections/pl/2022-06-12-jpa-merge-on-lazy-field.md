@@ -52,6 +52,8 @@ import java.io.ObjectOutputStream;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -107,7 +109,9 @@ public class LazyMergeTest {
         });
 
         product = deserialize(serialize(product));
-        assertThrows(ValidationException.class, () -> product.getStocks().isEmpty());
+        var exception = assertThrows(ValidationException.class, () -> product.getStocks().isEmpty());
+        var message = "An attempt was made to traverse a relationship using indirection that had a null Session";
+        assertThat(exception.getMessage(), containsString(message));
         product.setName("Test");
         invokeInTransaction((em) -> product = em.merge(product));
 
