@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
-    "axios": "0.27.2",
+    "axios": "link:src/axios",
     "browserslist": "^4.6.6",
     "highlight.js": "^11.6.0",
     "htmr": "0.8.7",
@@ -57,7 +57,7 @@
     "webpack": "^4.36.0"
   },
   "resolutions": {
-    "axios": "0.27.2",
+    "axios": "link:src/axios",
     "selfsigned": "^2.0.0",
     "jpeg-js": "^0.4.4",
     "semver-regex": "^4.0.5",
