@@ -1,7 +1,7 @@
 import "./app.scss";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Head, Root, Routes, prefetch as reactPrefetch } from "react-static";
+import { Head, Routes, prefetch as reactPrefetch } from "react-static";
 import { Location, Router } from "components/Router";
 
 import Loader from "./components/Loader";
@@ -89,6 +89,7 @@ const methods = {
 };
 
 function App() {
+  let lastLocation; // workaround for duplicate key content caused by CSSTransition
   return (
     <div tabIndex={-1}>
       <Head>
@@ -98,12 +99,17 @@ function App() {
         <React.Suspense fallback={Loader()}>
           <Location>
             {({ location }) => {
+              if (lastLocation === location.pathname) {
+                lastLocation = location.pathname + Math.random();
+              } else {
+                lastLocation = location.pathname;
+              }
               return (
                 <TransitionGroup className="transition-group">
                   <CSSTransition
-                    key={location.pathname}
+                    key={lastLocation}
                     classNames="fade"
-                    timeout={500}
+                    timeout={{enter: 500, exit: 0}}
                   >
                     <Router location={location} className="router" style={({ outline: undefined })}>
                       <Routes
