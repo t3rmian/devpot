@@ -25,6 +25,7 @@ import hljs from 'highlight.js/lib/core'
 const registerLanguage = (name) => {
   const lang = require(`highlight.js/lib/languages/${name}`);
   hljs.registerLanguage(name, lang);
+  hljs.configure({ignoreUnescapedHTML : true});
 };
 
 [
@@ -55,19 +56,20 @@ const updateCodeSyntaxHighlighting = () => {
 };
 
 const secureRoutes = () => {
-  const isRelativeNonAnchorUrl = /^(?:\/|[a-z]+:\/\/)/;
+  const isAbsolutePath = /^(?:\/|[a-z]+:\/\/)/;
   [...document.getElementsByTagName("a")]
       .forEach((a) => {
         const hrefAttr = a.getAttribute("href");
         if (a.hostname !== window.location.hostname) {
           a.setAttribute("target", "_blank");
           a.setAttribute("rel", "noopener noreferrer");
-        } else if (!isRelativeNonAnchorUrl.test(hrefAttr)) {
-          // eslint-disable-next-line no-self-assign
-          a.href = a["href"]; // a.href converts relative path to absolute required for prefetch
+        } else if (!isAbsolutePath.test(hrefAttr)) {
           if (hrefAttr.startsWith("#")) {
             return;
           }
+          a.href = window.location.href.split("/")
+              .slice(0, window.location.href.endsWith("/") ? -2 : -1)
+              .join("/") + "/" + hrefAttr
           a.addEventListener("click", (e) => {
             e.preventDefault();
             navigate(a.href);
