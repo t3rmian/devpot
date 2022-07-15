@@ -70,6 +70,7 @@ export default {
         location: path.resolve("./src/pages").replace(/\\/g, "/")
       }
     ],
+    require.resolve("react-static-plugin-preact"),
     require.resolve("react-static-plugin-reach-router"),
     [
       require.resolve("react-static-plugin-sitemap"),

@@ -45,9 +45,11 @@ export default (options = {}) => ({
   },
   webpack: (currentWebpackConfig, state) => {
     const { stage } = state
+    console.log(`Webpack stage ${stage}...`);
     if (stage === 'dev') {
       return currentWebpackConfig;
     }
+    fixPreactSuspense(stage);
     const newConfig = { ...currentWebpackConfig };
     newConfig.optimization.splitChunks.cacheGroups.vendors = {
       test: /[\\/]node_modules[\\/]/,
@@ -81,6 +83,22 @@ export default (options = {}) => ({
     return newConfig;
   }
 });
+
+function fixPreactSuspense() {
+  const path = "node_modules/react-static/lib/bootstrapApp.js";
+  console.log(`Reading ${path}...`);
+  const allLines = fs.readFileSync(path).toString();
+  fs.writeFileSync(
+      path,
+      allLines
+          .replace("React.Suspense = _Suspense[\"default\"];", '//React.Suspense=_Suspense[\"default\"];')
+          .replace("React[\"default\"].Suspense = _Suspense[\"default\"];", '//React[\"default\"].Suspense=_Suspense[\"default\"];'),
+      () => {
+        console.log("Updating the file");
+      }
+  );
+  console.log(chalk.green(`[\u2713] ${path} updated`));
+}
 
 function fixMultilingualSitemap(DIST, staging) {
   const filename = staging ? "sitemap.staging.xml" : "sitemap.xml";

@@ -1,6 +1,6 @@
 import Cookies from "universal-cookie";
 import React from "react";
-import {useTranslation} from "react-i18next";
+import {useTranslation} from "../i18n";
 import {loadHighlight, makeVisible} from "../utils";
 
 export default function Theme({ lang }) {

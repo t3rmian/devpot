@@ -11,7 +11,7 @@ date: 2021-08-08T20:00:00
 source: https://github.com/t3rmian/setsockopt-java-demo
 ---
 
-W [jednym z poprzednich artykułów](/pl/posty/java-opcje-natywne-socketu) pokazałem, w jaki sposób możemy wykorzystać deskryptor socketu w Javie, aby ustawić natywne opcje TCP/IP przy wykorzystaniu JNA
+W [jednym z poprzednich artykułów](java-opcje-natywne-socketu) pokazałem, w jaki sposób możemy wykorzystać deskryptor socketu w Javie, aby ustawić natywne opcje TCP/IP przy wykorzystaniu JNA
 (Java Native Access). Propozycja ulepszenia JDK [JEP 389: Foreign Linker API (Incubator)](https://openjdk.java.net/jeps/389) zaimplementowana w wersji
 JDK 16 jako dopełnienie Foreign-Memory Access API (JEP-370<wbr>/<wbr>JEP 383<wbr>/<wbr>JEP 393),
 wprowadza potężny interfejs pozwalający na interoperacyjność z bibliotekami C.

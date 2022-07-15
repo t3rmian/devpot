@@ -5,7 +5,7 @@ import React from "react";
 import TagCloud from "../components/TagCloud";
 import { capitalize } from "../utils.js";
 import { useRouteData } from "react-static";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 import Categories from "../components/Categories";
 
 export default () => {

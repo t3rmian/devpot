@@ -1,7 +1,7 @@
 import "./app.scss";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Head, Root, Routes, prefetch } from "react-static";
+import { Head, Root, Routes, prefetch as reactPrefetch } from "react-static";
 import { Location, Router } from "components/Router";
 
 import Loader from "./components/Loader";
@@ -13,7 +13,7 @@ import { globalHistory } from '@reach/router';
 import { makeVisible } from "./utils";
 
 const methods = {
-  componentDidMount(props) {
+  componentDidMount() {
     startPreloader();
     loadTheme();
 
@@ -90,7 +90,7 @@ const methods = {
 
 function App() {
   return (
-    <Root>
+    <div tabIndex={-1}>
       <Head>
         <meta charSet="UTF-8" />
       </Head>
@@ -118,18 +118,8 @@ function App() {
           </Location>
         </React.Suspense>
       </div>
-    </Root>
+    </div>
   );
-}
-
-
-if (typeof document !== 'undefined') {
-  // Polyfill that shiz!
-  require('intersection-observer')
-
-  // Do manual polling for intersections every second. This isn't very fast
-  // but should handle most edge cases for now
-  IntersectionObserver.POLL_INTERVAL = 1000
 }
 
 const list = new Map()
@@ -160,6 +150,9 @@ const onVisible = (element, callback) => {
 
 function startPreloader() {
   const mobile = "ontouchstart" in document.documentElement;
+  const prefetch = href => {
+      reactPrefetch(href);
+  }
   const prefetchCallback = mobile ? (el, href) => {
     prefetch(href);
   } : (el, href) => {

@@ -1,7 +1,7 @@
 import { Head } from "react-static";
 import React from "react";
 import { useSiteData } from "react-static";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 
 export function absoluteUrl(siteRoot, url) {
   const isAbsolute = new RegExp("^(?:[a-z]+:)?//", "i");

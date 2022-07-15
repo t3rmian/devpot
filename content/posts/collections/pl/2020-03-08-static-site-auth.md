@@ -34,7 +34,7 @@ Niestety [prywatne strony GitHub](https://github.com/isaacs/github/issues/699) n
 
 > Upgrade to GitHub Pro or make this repository public to enable Pages.
 
-Z tego powodu polecam zapoznać się z [innymi rozwiązaniami](#other), w szczególności haszowaniem katalogów i szyfrowaniem stron. Rozwiązania te być może będą pasować do Twoich celów, niezależnie od usługi hostingowej. Inną dosyć bezbolesną opcją jest integracja z GitLabem.
+Z tego powodu polecam zapoznać się z [innymi rozwiązaniami](#inne-rozwiązania), w szczególności haszowaniem katalogów i szyfrowaniem stron. Rozwiązania te być może będą pasować do Twoich celów, niezależnie od usługi hostingowej. Inną dosyć bezbolesną opcją jest integracja z GitLabem.
 
 ## GitLab
 

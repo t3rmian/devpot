@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Posts from "../components/Posts";
 import TagCloud from "../components/TagCloud";
 import { useRouteData } from "react-static";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 import PostJsonLd from "../components/PostJsonLd";
 
 export default () => {

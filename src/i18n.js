@@ -1,5 +1,3 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
 import config from './template.config';
 
 const resources = {
@@ -30,8 +28,9 @@ const resources = {
       category: "category",
       search: "search",
       source: "source",
-      "count minutes read": "{{count}} minute read",
-      "count minutes read_plural": "{{count}} minutes read",
+      "count minutes read_0": "{{count}} minute read",
+      "count minutes read_1": "{{count}} minutes read",
+      "count minutes read_2": "{{count}} minutes read",
       "Not found": "404 - Oh no's! We couldn't find that page :(",
       "Tag cloud": "Tag cloud",
       "Updated": "Updated",
@@ -79,34 +78,72 @@ const resources = {
   }
 };
 
-i18n.use(initReactI18next).init({
-  resources,
-  lng: "en",
-  fallbackLng: "en",
-
-  keySeparator: false,
-
-  interpolation: {
-    escapeValue: false,
-    format: function(value, format, lng) {
-      if (value instanceof Date) {
-        let options = {};
-        if (format === "year+month") {
-          options = { year: "numeric", month: "short" };
-        } else if (format === "month+day") {
-          options = { month: "long", day: "numeric" };
-        } else if (format === "year+month+day") {
-          options = { year: "numeric", month: "long", day: "numeric" };
-        }
-        return new Intl.DateTimeFormat(lng, options).format(value);
-      }
-      return value;
-    }
-  },
-
-  react: {
-    bindI18n: ''
+function getTranslationValue(lng, key) {
+  let value;
+  try {
+    value = resources[lng]["translation"][key];
+  } catch (error) {
+    return {value, error};
   }
+  if (!value) {
+    try {
+      return {value: resources[config.defaultLanguage]["translation"][key]};
+    } catch (error) {
+      return {value, error};
+    }
+  }
+  return {value};
+}
+
+function dli(count) {
+  if (count === 1) {
+    return "0";
+  }
+  if (count % 10 > 1 && count % 10 < 5 && !(count % 100 >= 10 && count % 100 <= 21)) {
+    return "1";
+  }
+
+  return "2";
+}
+
+const i18n = {
+  t: (key, options = {lng: config.defaultLanguage}) => {
+    const {lng, date, count} = options;
+    let {value, error} = getTranslationValue(lng, key);
+    if (count !== undefined) {
+      const numeral = getTranslationValue(lng, key + "_" + dli(count));
+      if (numeral.value !== undefined) {
+        value = numeral.value;
+      }
+    }
+    if (!value) {
+      return key;
+    }
+    if (date instanceof Date) {
+      const format = value.split(",")[1].split("}")[0].trim();
+      let options = {};
+      if (format === "year+month") {
+        options = { year: "numeric", month: "short" };
+      } else if (format === "month+day") {
+        options = { month: "long", day: "numeric" };
+      } else if (format === "year+month+day") {
+        options = { year: "numeric", month: "long", day: "numeric" };
+      }
+      return new Intl.DateTimeFormat(lng, options).format(date);
+    }
+    Object.keys(options).forEach(key => {
+      value = value.replace(`{{${key}}}`, options[key]);
+    });
+    return value;
+  },
+  services: {
+    resourceStore: {
+      data: resources
+    }
+  }
+}
+export const useTranslation = () => ({
+  ...i18n
 });
 
 export default i18n;

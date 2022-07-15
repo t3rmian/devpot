@@ -8,7 +8,7 @@
     .tag-cloud-container {
         @for $i from 1 through 10 {
             a:nth-child(#{$i}) {
-                font-size: #{(11 - $i)/10 * 0.25 + 1}rem;
+                font-size: #{calc((11 - $i)/10) * 0.25 + 1}rem;
             }
         }
     }

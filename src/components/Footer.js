@@ -1,8 +1,9 @@
 import { Head } from "react-static";
-import { Link } from "components/Router";
+// noinspection ES6PreferShortImport
+import { Link } from "../components/Router";
 import React from "react";
 import Theme from "./Theme";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 
 export default function Footer({ langRefs, lang, is404 }) {
   const { t } = useTranslation();

@@ -1,7 +1,8 @@
-import { Link } from "components/Router";
+// noinspection ES6PreferShortImport
+import { Link } from "../components/Router";
 import React from "react";
 import { capitalize, groupBy } from "../utils.js";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 import {scoreToRelevance} from "../model/Relevance";
 
 export default function Posts({ posts, lang }) {

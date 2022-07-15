@@ -19,3 +19,10 @@
     frameSrc = "'self' https://utteranc.es"
     fontSrc = "https://fonts.gstatic.com"
     workerSrc = "'self'"
+
+[build.environment]
+  NPM_FLAGS="--version"
+  NODE_VERSION="16"
+
+[build]
+  command = "npx pnpm install --store=node_modules/.pnpm-store && npx pnpm build"

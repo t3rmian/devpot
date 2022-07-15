@@ -1,6 +1,6 @@
 import React from "react";
 import { navigate } from "components/Router";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 
 export default ({root, lang}) => {
   const { t } = useTranslation();

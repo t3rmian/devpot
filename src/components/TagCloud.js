@@ -1,6 +1,7 @@
-import { Link } from "components/Router";
+// noinspection ES6PreferShortImport
+import { Link } from "../components/Router";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 import { Length } from "../model/Length";
 
 export default function TagCloud({ tags, lang }) {

@@ -3,7 +3,8 @@ import PostFooter from "../components/PostFooter";
 import PostJsonLd from "../components/PostJsonLd";
 import Comments, { loadComments } from "../components/Comments";
 import Footer from "../components/Footer";
-import { Link } from "components/Router";
+// noinspection ES6PreferShortImport
+import { Link, navigate } from "../components/Router";
 import React from "react";
 import SEOHead from "../components/SEOHead";
 import SearchBar from "../components/SearchBar";
@@ -12,14 +13,14 @@ import TagCloud from "../components/TagCloud";
 import convert from "htmr";
 import lifecycle from "react-pure-lifecycle";
 import { useRouteData } from "react-static";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 import config from "../template.config";
 import {
   lazyLoadImages,
   loadHighlight,
 } from "../utils";
 import { getCommentsTheme, getHighlightTheme } from "../components/Theme";
-import hljs from "highlight.js/lib/highlight";
+import hljs from 'highlight.js/lib/core'
 
 const registerLanguage = (name) => {
   const lang = require(`highlight.js/lib/languages/${name}`);
@@ -49,21 +50,38 @@ const updateCodeSyntaxHighlighting = () => {
     if (languageClass !== undefined) {
       block.parentElement.classList.add(languageClass.split("-")[1]);
     }
-    hljs.highlightBlock(block);
+    hljs.highlightElement(block);
   });
 };
+
+const secureRoutes = () => {
+  const isRelativeNonAnchorUrl = /^(?:\/|[a-z]+:\/\/)/;
+  [...document.getElementsByTagName("a")]
+      .forEach((a) => {
+        const hrefAttr = a.getAttribute("href");
+        if (a.hostname !== window.location.hostname) {
+          a.setAttribute("target", "_blank");
+          a.setAttribute("rel", "noopener noreferrer");
+        } else if (!isRelativeNonAnchorUrl.test(hrefAttr)) {
+          // eslint-disable-next-line no-self-assign
+          a.href = a["href"]; // a.href converts relative path to absolute required for prefetch
+          if (hrefAttr.startsWith("#")) {
+            return;
+          }
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            navigate(a.href);
+          });
+        }
+      });
+}
 
 const methods = {
   componentDidMount() {
     updateCodeSyntaxHighlighting();
     lazyLoadImages(document.querySelectorAll(".content img[data-src]"));
     loadHighlight(getHighlightTheme());
-    [...document.getElementsByTagName("a")]
-      .filter((a) => a.hostname !== window.location.hostname)
-      .forEach((a) => {
-        a.setAttribute("target", "_blank");
-        a.setAttribute("rel", "noopener noreferrer");
-      });
+    secureRoutes();
     loadComments(config.optional.commentsRepo, "pathname", getCommentsTheme());
   },
   componentDidUpdate() {

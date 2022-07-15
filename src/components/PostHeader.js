@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "components/Router";
+// noinspection ES6PreferShortImport
+import { Link } from "../components/Router";
 
 export default ({
   routeCategories,

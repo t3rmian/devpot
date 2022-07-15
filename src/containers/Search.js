@@ -6,7 +6,7 @@ import Posts from "../components/Posts";
 import React from "react";
 import TagCloud from "../components/TagCloud";
 import { useRouteData } from "react-static";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "../i18n";
 
 export default function Search() {
   const { t } = useTranslation();
