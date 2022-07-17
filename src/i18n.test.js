@@ -39,6 +39,12 @@ describe("i18n", () => {
         expect(translation).toEqual("20 grudnia");
     })
 
+    test('date formatted [pl][date=year+month]', async () => {
+        const lng = "pl";
+        const translation = t("date=year+month", {date: new Date(Date.UTC(2012, 11, 20, 3, 0, 0)), lng});
+        expect(translation).toEqual("gru 2012");
+    })
+
     test('no translation found, return key [pl][sdasdasdasd]', async () => {
         const lng = "pl";
         const translation = t("sdasdasdasd", {lng});

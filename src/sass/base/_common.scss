@@ -86,7 +86,11 @@ button.link {
 
 .more {
     text-align: right;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    * {
+        padding-top: 0.75em;
+        padding-bottom: 0.75em;
+    }
 }
 
 .langs {
