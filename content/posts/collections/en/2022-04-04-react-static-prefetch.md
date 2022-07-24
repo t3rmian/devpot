@@ -7,6 +7,7 @@ category:
 tags:
   - performance
   - reactjs
+  - react-static
 author: Damian Terlecki
 date: 2022-04-03T20:00:00
 ---
