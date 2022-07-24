@@ -81,7 +81,8 @@
     "core-js": "^3.0.0",
     "chokidar": "^3.0.0",
     "cwebp-bin": "6.0.0",
-    "jpegtran-bin": "5.0.0"
+    "jpegtran-bin": "5.0.0",
+    "file-type": "16.5.4"
   },
   "jest": {
     "collectCoverage": true,
