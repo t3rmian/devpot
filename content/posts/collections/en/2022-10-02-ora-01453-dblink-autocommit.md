@@ -168,3 +168,6 @@ WHERE p.SPID = 2411;
 Unfortunately, such low-level logging can generate tens of MBs of logs per second, so it's best to configure it
 only for the relevant packages. You can then identify a specific function by shared thread logs or some correlation ID.
 Alternatively, you can add tracking information to the database session through the `DBMS_APPLICATION_INFO` package.
+
+> `connection.setClientInfo("OCSID.MODULE", "My application");`  
+> `connection.setClientInfo("OCSID.ACTION", "Generate a report");`

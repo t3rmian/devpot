@@ -169,3 +169,6 @@ WHERE p.SPID = 2411;
 Niestety niskopoziomowe logowanie może wygenerować kilkadziesiąt MB logów w ciągu sekundy, dlatego ważne jest ustawienie poziomu
 jedynie dla najważniejszych pakietów. Identyfikację konkretnej funkcji możesz następnie wykonać, wiążąc logi przykładowo poprzez wspólny wątek/unikalny identyfikator
 bądź odwrotnie – dodając takie informacje już do samej sesji (pakiet `DBMS_APPLICATION_INFO`). 
+
+> `connection.setClientInfo("OCSID.MODULE", "My application");`  
+> `connection.setClientInfo("OCSID.ACTION", "Generate a report");`
