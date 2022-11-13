@@ -8,6 +8,8 @@ tags:
   - api
   - web services
   - android
+  - firefox
+  - chrome
 author: Damian Terlecki
 date: 2021-11-07T20:00:00
 ---

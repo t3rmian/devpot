@@ -7,6 +7,8 @@ category:
 tags:
   - web services
   - cache
+  - firefox
+  - chrome
 author: Damian Terlecki
 date: 2022-02-06T20:00:00
 ---

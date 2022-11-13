@@ -1,0 +1,47 @@
+<style>
+    body {
+        background: white;
+    }
+    .saturate {
+        width:100px;
+        height:100px;
+        display:inline-block;
+        background-image: url("data:image/svg+xml,%3Csvg version='1.0' xmlns='http://www.w3.org/2000/svg' width='100pt' height='130pt' viewBox='0 0 100 100' preserveAspectRatio='xMidYMid meet'%3E%3Cg transform='translate(-8,65) scale(0.09,-0.09)'%0Afill='%23523' stroke='none'%3E%3Cpath d='M201 846 c-69 -87 -93 -290 -50 -419 54 -163 196 -287 330 -287 l39%0A0 -53 72 c-67 91 -87 141 -87 221 0 67 22 126 67 185 33 44 63 123 63 166 l0%0A33 -87 7 c-49 4 -116 12 -151 20 -44 9 -65 10 -71 2z'/%3E%3Cpath d='M750 840 c-19 -4 -61 -11 -92 -15 -57 -6 -58 -7 -58 -38 0 -53 -16%0A-93 -74 -185 -30 -48 -60 -107 -66 -131 -21 -80 5 -171 76 -269 36 -49 42 -53%0A71 -48 48 7 139 72 183 130 115 152 129 355 36 534 -17 34 -21 35 -76 22z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .translate {
+        transform: translate3d(0, 0, 0);
+    }
+    .saturate:nth-of-type(1) {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(39%)  saturate(50%) invert(25%);
+    }
+    .saturate:nth-of-type(3) {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(39%)  saturate(200%) invert(25%);
+    }
+    .saturate:nth-of-type(4) {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(39%)  saturate(1000%) invert(25%);
+    }
+    .saturate:nth-of-type(5) {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(39%)  saturate(10000%) invert(25%);
+    }
+    .saturate:nth-of-type(6) {
+        filter: brightness(0) saturate(100%) invert(96%) sepia(39%) saturate(100000%) invert(25%);
+    }
+</style>
+<div>
+<div class="saturate"></div>
+<div class="saturate"></div>
+<div class="saturate"></div>
+<div class="saturate"></div>
+<div class="saturate"></div>
+<div class="saturate"></div>
+</div>
+<div>
+<div class="saturate translate"></div>
+<div class="saturate translate"></div>
+<div class="saturate translate"></div>
+<div class="saturate translate"></div>
+<div class="saturate translate"></div>
+<div class="saturate translate"></div>
+</div>
+
+
