@@ -197,11 +197,11 @@ We can handle the download simply by providing the URL at the end of the *curl*/
 Alternatively, we can use the *Content-Disposition* response header:
 - `curl -O -J https://www.ibard.com/api/download/browser/shared/links/<hash>/files`; 
 - `wget --content-disposition https://www.ibard.com/api/download/browser/shared/links/<hash>/files`;
-- ```bash
-# PowerShell
-$client = new-object System.Net.WebClient
-$client.DownloadFile("https://www.ibard.com/api/download/browser/shared/links/<hash>/files", "C:\data\file.txt")
-```
+- ```
+  # PowerShell
+  $client = new-object System.Net.WebClient
+  $client.DownloadFile("https://www.ibard.com/api/download/browser/shared/links/<hash>/files", "C:\data\file.txt")
+  ```
 
 The public access can also be secured with a password at the application level, but after such a change, we lose unauthorized access via the HTTP API.
 When looking for an alternative, you might consider file encryption.

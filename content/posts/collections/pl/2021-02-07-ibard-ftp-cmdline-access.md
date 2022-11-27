@@ -200,11 +200,11 @@ do pliku/folderu poprzez API: `https://www.ibard.com/api/download/browser/shared
 Pobieranie obsłużymy, podając jedynie URL wywołania *curl*/*wget*, ewentualnie korzystając z nagłówka odpowiedzi *Content-Disposition*:
 - `curl -O -J https://www.ibard.com/api/download/browser/shared/links/<hash>/files`; 
 - `wget --content-disposition https://www.ibard.com/api/download/browser/shared/links/<hash>/files`;
-- ```bash
-# PowerShell
-$client = new-object System.Net.WebClient
-$client.DownloadFile("https://www.ibard.com/api/download/browser/shared/links/<hash>/files", "C:\data\file.txt")
-```
+- ```
+  # PowerShell
+  $client = new-object System.Net.WebClient
+  $client.DownloadFile("https://www.ibard.com/api/download/browser/shared/links/<hash>/files", "C:\data\file.txt")
+  ```
 
 Publiczny dostęp możemy również zabezpieczyć hasłem na poziomie aplikacji, jednak po takiej zmianie tracimy nieautoryzowany dostęp przez API HTTP.
 W poszukiwaniu alternatywy warto rozważyć szyfrowanie plików.
