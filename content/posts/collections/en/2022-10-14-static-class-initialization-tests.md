@@ -4,7 +4,7 @@ url: static-block-class-initialization-tests
 id: 97
 category:
   - java: Java
-  - testing: Tests
+  - testing: Testing
 tags:
   - classloading
   - junit
