@@ -49,8 +49,8 @@ Jeśli napotkasz na przeszkodę, którą ciężko Ci pokonać, dobrym pomysłem 
 
 Konfiguracja ciągłej integracji dla projektu Androidowego to nie koniec przygody. Warto rozważyć następujące usprawnienia:
 
-1. [Stworzenie pakiety testowych i zrównoleglenie testów](/en/posts/test-suites-categorization-and-parallelism), jeśli mamy dużo testów UI i zajmują one zbyt dużo czasu.
-2. [Implementacja powtarzania nieudanych testów](/en/posts/flaky-tests-repetition) w celu rozwiązania problemu testów niedeterministycznych i ustabilizowania buildów.
-3. [Przechwytywanie i przesyłanie zrzutów ekranu przy niepowodzeniu testu](/en/posts/android-screen-capture-test-watcher), aby uzyskać dodatkowe informacje z serwera o tym, jak wyglądał interfejs użytkownika i co mogło być powodem błędu.
+1. [Kategoryzacja testów, tworzenie zestawów i zrównoleglanie](/pl/posty/kategoryzacja-testów-zestawy-zrównoleglanie), jeśli mamy dużo testów UI i zajmują one zbyt dużo czasu.
+2. [Implementacja powtarzania nieudanych testów](/pl/posty/analiza-testów-niedeterministycznych) w celu rozwiązania problemu testów niedeterministycznych i ustabilizowania buildów.
+3. [Przechwytywanie i przesyłanie zrzutów ekranu przy niepowodzeniu testu](/pl/posty/android-test-watcher-zrzut-ekranu), aby uzyskać dodatkowe informacje z serwera o tym, jak wyglądał interfejs użytkownika i co mogło być powodem błędu.
 
 Ostatnim krokiem może być ustawienie ciągłego wdrażania (CD), np. automatycznego wrzucania aplikacji do testów wewnętrznych na Google Play. W tym przypadku narzędzie Fastlane może znacząco ułatwić ten proces.

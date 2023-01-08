@@ -13,7 +13,7 @@ date: 2023-01-08T20:00:00
 ---
 
 In the [previous article](/posts/oracle-clob-intellij-data-extractor), I've shown how to
-quickly prepare a CLOB export using the IntelliJ IDE and bypass the typical ORA-01704 and SP2-0027 errors.
+prepare a lengthy CLOB export using the IntelliJ IDE and work around the typical ORA-01704 and SP2-0027 errors.
 This time, let's see how to handle the BLOB type. Regardless of whether a column contains text data or not,
 you can always output binary  contents in hexadecimal format.
 

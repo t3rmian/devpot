@@ -48,8 +48,8 @@ One of the examples is a quite popular app [AnkiDroid](https://github.com/ankidr
 
 After the initial configuration of Android CI you can further improve your setup:
 
-1. [Create test suites and parallelize tests](/en/posts/test-suites-categorization-and-parallelism) if you have a lot of UI tests and they take a lot of time.
-2. [Implement test repetition](/en/posts/flaky-tests-repetition) to overcome test flakiness and stabilize the build.
-3. [Capture and upload screenshots during test failure](/en/posts/android-screen-capture-test-watcher) to get additional information from the server on what needs to be fixed.
+1. [Create test suites and parallelize tests](/posts/test-suites-categorization-and-parallelism) if you have a lot of UI tests and they take a lot of time.
+2. [Implement test repetition](/posts/flaky-tests-repetition) to overcome test flakiness and stabilize the build.
+3. [Capture and upload screenshots during test failure](/posts/android-screen-capture-test-watcher) to get additional information from the server on what needs to be fixed.
 
 The last step may be setting Continuous Deployment (CD), e.g. automatic uploading of the application for internal testing on Google Play. In this case, Fastlane is the tool which can significantly facilitate this process.
