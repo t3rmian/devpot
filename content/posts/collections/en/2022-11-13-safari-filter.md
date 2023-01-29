@@ -3,7 +3,7 @@ title: Target color using CSS filter
 url: target-color-css-filter
 id: 99
 category:
-  - other: Other
+  - other: Misc
 tags:
   - css
   - safari

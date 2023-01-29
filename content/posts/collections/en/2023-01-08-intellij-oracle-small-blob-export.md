@@ -1,9 +1,9 @@
 ---
-title: IntelliJ Data Exporter for ~32 KB Oracle BLOBs 
+title: IntelliJ Data Exporter for up to 32 KB Oracle BLOBs 
 url: oracle-32kb-blob-intellij-data-extractor
 id: 102
 category:
-  - other: Inne
+  - other: Misc
 tags:
   - oracle
   - intellij
@@ -15,7 +15,7 @@ date: 2023-01-08T20:00:00
 In the [previous article](/posts/oracle-clob-intellij-data-extractor), I've shown how to
 prepare a lengthy CLOB export using the IntelliJ IDE and work around the typical ORA-01704 and SP2-0027 errors.
 This time, let's see how to handle the BLOB type. Regardless of whether a column contains text data or not,
-you can always output binary  contents in hexadecimal format.
+you can always output binary contents in hexadecimal format.
 
 ![Console screenshot showing an example of importing (SQL INSERT) binary data using UTL_RAW.CONCAT/HEXTORAW](/img/hq/intellij-32kb-blob-extractor.png "An example of binary data import (SQL INSERT) using UTL_RAW.CONCAT/HEXTORAW")
 
@@ -105,7 +105,7 @@ insert into DEMO.FOO (ID, BAR) values (7,
 
 ## Summary
 
-The final implementation of the extractor can look as follows:
+The final implementation of the small BLOB data extractor can look as follows:
 
 ```groovy
 /*

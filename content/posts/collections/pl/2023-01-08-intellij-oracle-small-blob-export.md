@@ -103,7 +103,7 @@ insert into DEMO.FOO (ID, BAR) values (7,
 
 ## Podsumowanie
 
-Ostateczna implementacja ekstraktora wygląda następująco:
+Ostateczna implementacja ekstraktora małych BLOBów wygląda następująco:
 
 ```groovy
 /*

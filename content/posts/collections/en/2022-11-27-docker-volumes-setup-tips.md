@@ -3,7 +3,7 @@ title: Docker volume permissions
 url: docker-volume-permissions
 id: 100
 category:
-  - other: Other
+  - other: Misc
 tags:
   - docker
   - podman
