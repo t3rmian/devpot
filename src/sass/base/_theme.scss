@@ -186,7 +186,7 @@ $themes: (light: (primary-background-color: white,
             }
 
             .content {
-                img {
+                img:not(.no-shadow) {
                     box-shadow: 0 0 20px 0 themed('primary-box-shadow-color-light');
                     -moz-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color-light');
                     -webkit-box-shadow: 0 0 20px 0 themed('primary-box-shadow-color-light');
