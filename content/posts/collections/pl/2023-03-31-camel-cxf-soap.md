@@ -245,6 +245,7 @@ public class CamelSoapClientIT {
                 public void configure() {
                     from("direct:getUser")
                             .log("Body before cxf route: ${body}")
+                            .setHeader(CxfConstants.OPERATION_NAME, constant("getUser"))
                             .to(getCxfUriWithVerboseLoggingOfDataFormat(DataFormat.RAW))
                             .log("Body after cxf route: ${body}");
                 }
@@ -267,26 +268,20 @@ public class CamelSoapClientIT {
         return "cxf://{{wsEndpointAddress}}"
                 + "?wsdlURL=users.wsdl"
                 + "&serviceClass=https.github_com.t3rmian.jmeter_samples.Users"
-                + "&serviceName={https://github.com/t3rmian/jmeter-samples}UsersService"
-                + "&portName={https://github.com/t3rmian/jmeter-samples}UsersSoap11"
                 + "&dataFormat=" + dataFormat;
     }
 }
 ```
 
 Używamy tu zarejestrowanego komponentu `cxf`. Wyrażenie `{{wsEndpointAddress}}` pozwala na załadowanie zmiennej środowiskowej bądź
-będącej parametrem Javy np. `http://localhost:8080/ws/users`. Pod ścieżką `wsdlURL` znajduje się plik z *classpath* opisujący usługę SOAPową.
-Kolejno poprzez:
-- `serviceClass` (klasa adnotowana `@WebServiceClient`),
-- `serviceName` (nazwa przestrzeni + nazwa z adnotacji `@WebServiceClient`),
-- `portName` (metoda z adnotacją `@WebEndpoint`),
-
-połączymy elementy wygenerowane przez `cxf-codegen-plugin`.
-O `cxfConfigurer` opowiem natomiast w jednej z kolejnych sekcji.
+będącej parametrem Javy np. `http://localhost:8080/ws/users`. Do parametru `cxfConfigurer` wrócimy za chwilę.
+Na razie zanotujmy, że jest to konfiguracja generycznego trybu wysyłki CXF,
+przydatna do wysyłania dowolnych struktur niezwiązanych z określonym schematem.
 
 ### POJO
 
-Format `POJO` w swej prostocie pozwala na wykorzystanie klas wygenerowanych przez wtyczkę `cxf-codegen-plugin`:
+Format `POJO` w swej prostocie pozwala na wykorzystanie klas wygenerowanych przez wtyczkę `cxf-codegen-plugin`.
+Przed tym musimy jednak dostosować konfigurację URI, aby Camel powiązał interfejs z odpowiednim serwisem.
 
 ```java
 import https.github_com.t3rmian.jmeter_samples.UserPayload;
@@ -300,15 +295,30 @@ public class CamelSoapClientIT {
         UserPayload userPayload = new ObjectFactory().createUserPayload();
         userPayload.setId(EXISTING_USER_ID);
 
-        //...
+        //... .setHeader(CxfConstants.OPERATION_NAME, constant("getUser"))
         User user = camelContext.createProducerTemplate()
                 .requestBody("direct:getUser", userPayload, User.class);
 
         assertEquals(EXISTING_USER_NAME, user.getName());
         assertEquals(EXISTING_USER_ID, user.getId());
     }
+
+    static String getCxfUri(DataFormat dataFormat) {
+        return "cxf://{{wsEndpointAddress}}"
+                + "?wsdlURL=classpath:users.wsdl"
+                + "&serviceClass=https.github_com.t3rmian.jmeter_samples.Users"
+                + "&dataFormat=" + dataFormat;
+    }
 }
 ```
+
+Ścieżka `wsdlURL` wskazuje na plik classpath opisujący usługę SOAP.
+Do tego parametr `serviceClass` określa implementację klienta i jest obowiązkowy dla formatu `POJO`.
+
+Na podstawie nagłówka `CxfConstants.OPERATION_NAME` oraz `CxfConstants.OPERATION_NAMESPACE` Camel/CXF powiąże wiadomość z odpowiadnią operacją.
+Podobnie możemy ustawić
+nagłówek HTTP `SOAPAction` (SOAP 1.1) przy pomocy `SoapBindingConstants.SOAP_ACTION` jeśli potrzebuje tego serwer (w przypadku wielu operacji na jednej usłudze).
+Odpowiednikiem akcji dla SOAP 1.2 jest `SoapBindingConstants.PARAMETER_ACTION`.
 
 ### PAYLOAD
 
@@ -440,7 +450,6 @@ import org.apache.cxf.frontend.AbstractWSDLBasedEndpointFactory;
 import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
-@SuppressWarnings("unused") // used in tests
 public class CxfTimeoutConfigurer implements CxfConfigurer {
 
     @Override
