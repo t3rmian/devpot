@@ -7,13 +7,12 @@
         justify-content: center;
         align-items: flex-start;
         flex-flow: row wrap;
-        img {
-            align-content: space-around;
-            margin: 0.5em !important;
-        }
     }
     .content > figure {
         margin: 0;
+    }
+    .content > img {
+        white-space: pre;
     }
     .content .inline {
         display: inline !important;
@@ -133,6 +132,7 @@
 
             code, pre {
                 hyphens: none;
+                font-size: 0.9rem;
             }
 
             h1, h2, h3, h4, h5, h6, li, i, em {
