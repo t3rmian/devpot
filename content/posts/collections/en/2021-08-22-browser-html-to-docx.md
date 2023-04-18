@@ -1,6 +1,6 @@
 ---
 title: How to convert HTML to DOCX in the browser
-url: html-na-docx-w-przeglądarce
+url: html-to-docx-js-client
 id: 73
 category:
 - javascript: JS
@@ -8,6 +8,8 @@ tags:
   - documentation
 author: Damian Terlecki
 date: 2021-08-22T20:00:00
+updated: 2023-04-18T20:00:00
+source: https://html-to-docx-js-client-demo.termian.dev/
 ---
 
 DOCX is a file format commonly associated with Microsoft Word. However, not everyone might be aware that this is a standardized open format,
@@ -190,8 +192,9 @@ HTMLtoDOCX(document.documentElement.outerHTML)
     })
 ```
 
-Next add the polyfills for necessary features that are not implemented in browsers: `npm i util url buffer`.
-Finally, build the code bundle with the `npx webpack` command. The HTML file will look like this:
+Next add the polyfills for necessary features that are not implemented in browsers: `npm i util url buffer ...`.
+The configuration for `webpack.config.js` and the number of polyfills can differ depending on the dependency/Webpack version (see [the demo](https://github.com/t3rmian/html-to-docx-js-client-demo) for Webpack 5).
+Finally, build the code bundle with the `npx webpack` command verifying any missing dependencies. The HTML file will look like this:
 
 ```html
 <!DOCTYPE html>
@@ -265,3 +268,5 @@ resources e.g. for complex SVG references you can consider the [canvg](https://g
 For other maybe unsupported elements, quite an interesting approach is to try to render as an image using
 [html2canvas](https://html2canvas.hertzen.com/). Do also consider contributing to the above-mentioned projects in case you find a fix to any of the
 encountered problems.
+
+***2023/04/18***: Added a source link to a minimal working example.

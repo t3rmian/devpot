@@ -1,2 +1,6 @@
 /test/stale-while-revalidate /.netlify/functions/stale-while-revalidate 200
 https://418.netlify.com/* https://blog.termian.dev/:splat 301!
+/posts/html-na-docx-w-przeglądarce /posts/html-to-docx-js-client 301!
+/posts/html-na-docx-w-przeglądarce/ /posts/html-to-docx-js-client 301!
+/posts/html-na-docx-w-przegl%C4%85darce /posts/html-to-docx-js-client 301!
+/posts/html-na-docx-w-przegl%C4%85darce/ /posts/html-to-docx-js-client 301!

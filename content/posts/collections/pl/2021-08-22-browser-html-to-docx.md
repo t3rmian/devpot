@@ -8,6 +8,8 @@ tags:
   - dokumentacja
 author: Damian Terlecki
 date: 2021-08-22T20:00:00
+updated: 2023-04-18T20:00:00
+source: https://html-to-docx-js-client-demo.termian.dev/
 ---
 
 DOCX to format plików kojarzony z Microsoft Wordem. Nie każdy zdaje sobie jednak sprawę, że jest to ustandaryzowany format otwarty,
@@ -185,7 +187,8 @@ HTMLtoDOCX(document.documentElement.outerHTML)
     })
 ```
 Kolejnym krokiem będzie dodanie polyfilli dla części funkcjonalności, które nie są implementowane w przeglądarkach: `npm i util url buffer`.
-Ostatecznie naszą paczkę z kodem zbudujemy poleceniem `npx webpack`. Plik HTML będzie wyglądał następująco:
+Konfiguracja `webpack.config.js` i liczba polyfilli może się nieco różnić w zależności od wersji biblioteki/Webpacka (zobacz [demo](https://github.com/t3rmian/html-to-docx-js-client-demo) dla Webpack 5).
+Finalnie naszą paczkę z kodem zbudujemy poleceniem `npx webpack` weryfikując brakujące zależności. Plik HTML będzie wyglądał następująco:
 
 ```html
 <!DOCTYPE html>
@@ -256,3 +259,5 @@ Przede wszystkim nasze obrazki będziemy musieli przekształcić do formatu *bas
 zasobów np. w przypadku skomplikowanych obrazów SVG można rozważyć bibliotekę [canvg](https://github.com/canvg/canvg). Inne niewspierane elementy możemy również 
 spróbować wyrenderować w postaci obrazu dzięki [html2canvas](https://html2canvas.hertzen.com/), bądź zastanowić się nad kontrybucją
 do wyżej wymienionych projektów.
+
+***2023/04/18***: Aktualizacja – dodanie odnośnika do repozytorium z demem.
