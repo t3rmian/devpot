@@ -19,7 +19,7 @@ Some EJB 3+ compliant containers, like WebLogic, provide an automatic weaving. F
 Another option besides disabling the weaving is static (at build-time) weaving. You can do this by running the `eclipelink.jar` through a Maven
 Ant task or a designated plugin. You will find a sufficient explanation of such configuration in [the documentation](https://wiki.eclipse.org/EclipseLink/UserGuide/JPA/Advanced_JPA_Development/Performance/Weaving/Static_Weaving).
 
-## Multi-module weaving with a mapped superclass
+## Multi-module static weaving with a mapped superclass
 
 The unobtrusive nature of the weaving makes it easy to forget after the initial setup. Otherwise, it will remind
 itself when transitioning to a multi-module project configuration. If unaddressed early, your app may start crashing with an OOM.
@@ -105,8 +105,9 @@ For proper bytecode generation, you need a complete set of classes from all modu
 The perfect place for this is an aggregator module. It can be the WAR/EAR module or the main module with all necessary dependencies.
 
 At this point, you can unpack all dependencies (`maven-dependency-plugin`) and weave them combined. Then either use them in a post-processed fat jar or deploy them under a different classifier.
+
 This static solution is quite flexible as you can enhance it with filtering. It is useful late in the development process for incremental adjustments when some code
-relies on eager initialization. You can do this by defining specific classes in a build-time `persistence.xml`.
+relies on eager initialization (to limit occurrences of `LazyInitializationException`). You can do this by defining specific classes in a build-time `persistence.xml` together with `exclude-unlisted-classes` property.
 
 Otherwise, I recommend the dynamic weaving. Simply add the `-javaagent:/path/to/eclipselink.jar` parameter to the Java runtime (or to the `JAVA_TOOL_OPTIONS` environment variable) and be done with it.
-You will need this for your application, as well as the tests (if run from IDE) and plugins (if delegated to Maven – `maven-surefire-plugin`, `maven-failsafe-plugin`).
+You will need this for your application, as well as the tests (if run from IDE) and plugins (if delegated to Maven – `maven-surefire-plugin`, `maven-failsafe-plugin`: `configuration` > `argLine`).
