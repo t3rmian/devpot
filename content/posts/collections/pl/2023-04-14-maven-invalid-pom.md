@@ -1,5 +1,5 @@
 ---
-title: "Invalid POM" a zmienne mavenowe
+title: „Invalid POM” a zmienne mavenowe
 url: maven-invalid-pom
 id: 108
 category:
