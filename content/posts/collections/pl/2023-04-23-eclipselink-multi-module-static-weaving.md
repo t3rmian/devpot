@@ -21,7 +21,7 @@ Klasa startowa tego procesu znajduje się w artefakcie
 `eclipelink.jar`, a krok taki dopniemy do procesu budowania np. przy pomocy zadania Ant lub dedykowanej wtyczki mavenowej.
 W [dokumentacji]((https://wiki.eclipse.org/EclipseLink/UserGuide/JPA/Advanced_JPA_Development/Performance/Weaving/Static_Weaving)) znajdziesz obszerne wyjaśnienie takiej konfiguracji.
 
-## Wielomodułowy weaving statyczny a dziedziczenie
+## Wielomodułowy *weaving* statyczny a dziedziczenie
 
 Dyskretny charakter agenta/*weavingu* sprawia, że łatwo zapomnieć o tym kroku konfiguracyjnym.
 Jednakże pominięcie go niechybnie prowadzi do pogorszenia wydajności a w najgorszym przypadku do błędów braku pamięci.
