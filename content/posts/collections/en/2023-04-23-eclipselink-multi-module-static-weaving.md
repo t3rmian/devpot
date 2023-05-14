@@ -111,3 +111,6 @@ relies on eager initialization (to limit occurrences of `LazyInitializationExcep
 
 Otherwise, I recommend the dynamic weaving. Simply add the `-javaagent:/path/to/eclipselink.jar` parameter to the Java runtime (or to the `JAVA_TOOL_OPTIONS` environment variable) and be done with it.
 You will need this for your application, as well as the tests (if run from IDE) and plugins (if delegated to Maven – `maven-surefire-plugin`, `maven-failsafe-plugin`: `configuration` > `argLine`).
+
+For Spring-based JPA configuration, take a look at the `LoadTimeWeaver` and `LoadTimeWeaverAware` interfaces.
+Use whichever suits your environment the most, e.g, an auto-detectable `InstrumentationLoadTimeWeaver` when the agent is `spring-instrument`.

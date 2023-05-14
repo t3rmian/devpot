@@ -124,3 +124,6 @@ Zbiór klas ograniczysz odrębnym plikiem `persistence.xml` z opcją `exclude-un
 W każdym innym przypadku polecam *weaving* dynamiczny. Skonfigurujesz go dodając parametr `-javaagent:/path/to/eclipselink.jar` do środowiska wykonawczego (aplikacji) Java (lub do zmiennej środowiskowej `JAVA_TOOL_OPTIONS`).
 Dodany w ten sposób agent wykona praktycznie tą samą pracę, tym razem podczas ładowania konkretnych klas.
 Parametr dodaj do swojej aplikacji, a także testów (jeśli są uruchamiane z IDE) i wtyczek (jeśli korzystasz z delegacji do Mavena – `maven-surefire-plugin`, `maven-failsafe-plugin`: `configuration` > `argLine`).
+
+W przypadku konfiguracji JPA opartej na Springu wybierz jedną z interfejsów `LoadTimeWeaver`/`LoadTimeWeaverAware`.
+Może to być automatycznie wykrywana implementacja `InstrumentationLoadTimeWeaver`, gdy w miejsce agenta załadujemy artefakt `spring-instrument`.
