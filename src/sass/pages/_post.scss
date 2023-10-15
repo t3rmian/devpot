@@ -7,6 +7,11 @@
         justify-content: center;
         align-items: flex-start;
         flex-flow: row wrap;
+
+        img {
+            margin-left: 1em;
+            margin-right: 1em;
+        }
     }
     .content > figure {
         margin: 0;
