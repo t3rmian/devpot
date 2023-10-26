@@ -3,7 +3,7 @@ title: Testowanie RWD bazującego na rozmiarze ekranu
 url: testowanie-device-width-rwd
 id: 117
 category:
-  - testing: Testing
+  - testing: Testy
 tags:
   - iframe
   - rwd
