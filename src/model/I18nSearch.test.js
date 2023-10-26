@@ -1,5 +1,6 @@
 import jdown from "jdown";
 import I18nSearch from "./I18nSearch";
+import {getPages} from "../../static.config";
 
 describe("Search model", () => {
   const indexEn = {
@@ -23,7 +24,7 @@ describe("Search model", () => {
 
   async function createSearch(defaultLanguage) {
     const blog = await jdown("content/posts", {fileInfo: true});
-    const home = await jdown("content/home", {fileInfo: true});
+    const home = await getPages("content/pages");
     const indexes = I18nSearch(blog, defaultLanguage, home);
     indexes.forEach(category => category._data = category.getData());
     return indexes;

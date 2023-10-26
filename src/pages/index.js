@@ -13,6 +13,7 @@ export default () => {
   const expandFromIndex = 10;
   let {
     home,
+    privacyPolicy,
     posts,
     lang,
     date,
@@ -85,7 +86,7 @@ export default () => {
           )}
         </main>
         <TagCloud isDefaultLang={isDefaultLang} lang={lang} tags={tags} limited={true} />
-        <Footer langRefs={langRefs} lang={lang} />
+        <Footer langRefs={langRefs} lang={lang} privacyPolicy={privacyPolicy} />
       </div>
     </div>
   );

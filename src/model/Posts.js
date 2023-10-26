@@ -1,22 +1,22 @@
 import i18n from "../i18n";
 import {Category, RefLang} from "./utils";
 
-export default function Posts(i18nPage) {
+export default function Posts(siteVariant) {
 
-  return i18nPage.getPosts().map(post => ({
+  return siteVariant.getPosts().map(post => ({
     path: createRelativePath(post),
     template: "src/containers/Post",
     getData: () => ({
-      ...i18nPage.getCommonData(p => p === post),
-      post: mapToPostInNeighborhood(post, i18nPage.getPosts(), i18nPage.lang),
-      langRefs: RefLang.explode(post, i18nPage, filterMatchingPost, createPath),
+      ...siteVariant.getCommonData(p => p === post),
+      post: mapToPostInNeighborhood(post, siteVariant.getPosts(), siteVariant.lang),
+      langRefs: RefLang.explode(post, siteVariant, filterMatchingPost, createPath),
       categories: post.category == null ? null : [...post.category]
-          .map(categoryLevel => Category.createFromPage(categoryLevel, i18nPage)),
+          .map(categoryLevel => Category.createFromPage(categoryLevel, siteVariant)),
     })
   }));
 
   function filterMatchingPost(post, lang) {
-    return [i18nPage.getPosts(lang).find(p => p.id === post.id)].filter(a => a);
+    return [siteVariant.getPosts(lang).find(p => p.id === post.id)].filter(a => a);
   }
 
   function mapToPostInNeighborhood(post, posts) {
@@ -31,18 +31,18 @@ export default function Posts(i18nPage) {
   function mapToNeighborPost(prev) {
     if (prev !== undefined) {
       return {
-        url: i18nPage.getRoot() + createRelativePath(prev),
+        url: siteVariant.getRoot() + createRelativePath(prev),
         title: prev.title,
       };
     }
   }
 
-  function createRelativePath(post, lng = i18nPage.lang) {
-    return `${i18n.t("posts", { lng })}/${post.url}/`
+  function createPath(post, lng = siteVariant.lang) {
+    return `/${createRelativePath(post, lng)}`;
   }
 
-  function createPath(post, lng = i18nPage.lang) {
-    return `/${createRelativePath(post, lng)}`;
+  function createRelativePath(post, lng = siteVariant.lang) {
+    return `${i18n.t("posts", { lng })}/${post.url}/`
   }
 
 }

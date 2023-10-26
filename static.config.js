@@ -26,42 +26,10 @@ export default {
     siteRoot: config.siteRoot
   }),
   getRoutes: async () => {
-    const blog = await jdown("content/posts", { fileInfo: true });
-    const home = await jdown("content/home", { fileInfo: true });
-    Object.keys(blog).forEach(lang => {
-      if (blog[lang].filter(post => !post.id).map(p => console.log("Missing post id: " + p.title)).length) {
-        console.warn("Some posts have missing ids. Please check.");
-      }
-      blog[lang] = blog[lang].filter(post => post.id);
-      blog[lang].forEach(post => {
-        post.devMode = devMode;
-        const minutes = countPostMinutes(post);
-        const length = timeToLength(minutes)
-        post.minutesRead = minutes
-        post.tags.push(i18n.t(length, {lng: lang}));
-        const hqImgRegex = /data-src=\"(.*?)\"/gi;
-        const lazyImgRegex = /src=\"(.*?)\"/gi;
-        let imageUrl =
-            hqImgRegex.exec(post.contents) != null
-                ? RegExp.$1
-                : lazyImgRegex.exec(post.contents) != null
-                ? RegExp.$1
-                : null;
-        if (imageUrl != null && imageUrl.endsWith(".svg")) {
-          imageUrl = imageUrl.substring(0, imageUrl.length - 3) + "jpeg"
-        }
-        post.imageUrl = imageUrl
-      });
-      blog[lang].sort(function(a, b) {
-        return new Date(b.date) - new Date(a.date);
-      })
-    });
-    return [
-      ...I18nIndexes(blog, config.defaultLanguage, home),
-      ...I18nTags(blog, config.defaultLanguage),
-      ...I18nCategories(blog, config.defaultLanguage),
-      ...I18nSearch(blog, config.defaultLanguage, home)
-    ];
+    const blog = await getBlog();
+    const pages = await getPages();
+    return [I18nIndexes, I18nTags, I18nCategories, I18nSearch]
+        .flatMap(i => i(blog, config.defaultLanguage, pages))
   },
   plugins: [
     [
@@ -165,3 +133,54 @@ export default {
     );
   }
 };
+
+export async function getBlog(dir = "content/posts") {
+  const blog = await jdown(dir, { fileInfo: true });
+  Object.keys(blog).forEach(lang => sortFillBlogPosts(blog, lang));
+  return blog;
+}
+
+function sortFillBlogPosts(blog, lang) {
+  if (blog[lang].filter(post => !post.id).map(p => console.log("Missing post id: " + p.title)).length) {
+    console.warn("Some posts have missing ids. Please check.");
+  }
+  blog[lang] = blog[lang].filter(post => post.id);
+  blog[lang].forEach(post => fillPostMeta(post, lang));
+  blog[lang].sort(function (a, b) {
+    return new Date(b.date) - new Date(a.date);
+  })
+}
+
+function fillPostMeta(post, lang) {
+  post.devMode = devMode;
+  const minutes = countPostMinutes(post);
+  const length = timeToLength(minutes)
+  post.minutesRead = minutes
+  post.tags.push(i18n.t(length, {lng: lang}));
+  const hqImgRegex = /data-src=\"(.*?)\"/gi;
+  const lazyImgRegex = /src=\"(.*?)\"/gi;
+  let imageUrl =
+      hqImgRegex.exec(post.contents) != null
+          ? RegExp.$1
+          : lazyImgRegex.exec(post.contents) != null
+              ? RegExp.$1
+              : null;
+  if (imageUrl != null && imageUrl.endsWith(".svg")) {
+    imageUrl = imageUrl.substring(0, imageUrl.length - 3) + "jpeg"
+  }
+  post.imageUrl = imageUrl
+}
+
+
+export async function getPages(dir = "content/pages") {
+  const pages = await jdown(dir, {fileInfo: true});
+  Object.keys(pages).forEach(lang => restructurePagesByName(pages, lang));
+  return pages;
+}
+
+function restructurePagesByName(pages, lang) {
+  pages[lang] = pages[lang].filter(page => page.url).reduce((obj, page) => {
+    obj[page.fileInfo.name] = page;
+    return obj;
+  }, {});
+}

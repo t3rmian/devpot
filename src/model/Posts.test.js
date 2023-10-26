@@ -1,6 +1,6 @@
 import jdown from "jdown";
 import Posts from "./Posts";
-import {I18nPage} from "./utils";
+import {SiteLanguageVariant} from "./utils";
 
 describe("Posts model", () => {
     const umlEn = {
@@ -22,7 +22,7 @@ describe("Posts model", () => {
 
     async function createPosts(language) {
         const blog = await jdown("content/posts", {fileInfo: true});
-        const posts = Posts(new I18nPage(blog, 'en', language));
+        const posts = Posts(new SiteLanguageVariant(blog, 'en', language));
         posts.forEach(category => category._data = category.getData());
         return posts;
     }

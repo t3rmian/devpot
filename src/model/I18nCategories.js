@@ -1,9 +1,9 @@
-import {Blog, Category, I18nPage, RefLang} from "./utils";
+import {Blog, Category, SiteLanguageVariant, RefLang} from "./utils";
 import i18n from "../i18n";
 import {flatMap} from "../utils";
 
 export default function I18nCategories(blog, defaultLang) {
-    return flatMap(Object.keys(blog), lang => Categories(new I18nPage(blog, defaultLang, lang)));
+    return flatMap(Object.keys(blog), lang => Categories(new SiteLanguageVariant(blog, defaultLang, lang)));
 }
 
 export function Categories(i18nPage) {

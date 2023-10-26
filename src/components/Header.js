@@ -6,12 +6,12 @@ import convert from "htmr";
 import Categories from "./Categories";
 
 export default props => {
-  const { home, root, seo, categories } = props;
+  const { home, root, seo, categories, disableSearch } = props;
   const logo = (seo.image = "/img/logo.png");
 
   return (
     <header className="header-container">
-      <SearchBar root={root} lang={seo.lang} />
+      { !disableSearch && <SearchBar root={root} lang={seo.lang} />}
       <SEOHead {...seo} />
       <div className="header-row">
         <Link className="logo" to={root}>

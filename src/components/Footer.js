@@ -5,7 +5,7 @@ import React from "react";
 import Theme from "./Theme";
 import { useTranslation } from "../i18n";
 
-export default function Footer({ langRefs, lang, is404 }) {
+export default function Footer({ langRefs, lang, is404, privacyPolicy }) {
   const { t } = useTranslation();
   langRefs.sort((a, b) => t(a.lang).localeCompare(t(b.lang)));
 
@@ -26,6 +26,14 @@ export default function Footer({ langRefs, lang, is404 }) {
       <span className="lang">
         <a href="https://github.com/t3rmian/react-static-teapot">©</a>
       </span>
+        <br/>
+        {!is404 && privacyPolicy &&
+            <span>
+        <Link
+            to={privacyPolicy.url}>
+          {privacyPolicy.title}
+        </Link>
+      </span>}
       <Head
         link={[
           ...langRefs.map(ref => ({

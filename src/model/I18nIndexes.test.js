@@ -1,5 +1,6 @@
 import jdown from "jdown";
 import I18nIndexes from "./I18nIndexes";
+import {getPages} from "../../static.config";
 
 describe("Indexes model", () => {
     const indexEn = {
@@ -9,6 +10,10 @@ describe("Indexes model", () => {
             expect.objectContaining({
                 "path": "posts/plantuml/",
                 "template": "src/containers/Post",
+            }),
+            expect.objectContaining({
+                "path": "privacy-policy/",
+                "template": "src/containers/Page",
             }),
         ])
     };
@@ -20,6 +25,10 @@ describe("Indexes model", () => {
             expect.objectContaining({
                 "path": "posty/plantuml/",
                 "template": "src/containers/Post",
+            }),
+            expect.objectContaining({
+                "path": "polityka-prywatności/",
+                "template": "src/containers/Page",
             }),
         ])
     };
@@ -33,8 +42,8 @@ describe("Indexes model", () => {
 
     async function createIndexes(defaultLanguage) {
         const blog = await jdown("content/posts", {fileInfo: true});
-        const home = await jdown("content/home", {fileInfo: true});
-        const indexes = I18nIndexes(blog, defaultLanguage, home);
+        const pages = await getPages("content/pages");
+        const indexes = I18nIndexes(blog, defaultLanguage, pages);
         indexes.forEach(category => category._data = category.getData());
         return indexes;
     }
@@ -189,12 +198,35 @@ describe("Indexes model", () => {
         ]));
     })
 
+    test('contains privacyPolicy route data [en]', async () => {
+        const indexes = await createIndexes('en');
+
+        expect(indexes).toEqual(expect.arrayContaining([
+            expect.objectContaining(withData(indexEn, {
+                privacyPolicy: expect.objectContaining({
+                    contents: expect.any(String), title: expect.any(String), fileInfo: expect.objectContaining({
+                        path: expect.stringContaining("en")
+                    })
+                }),
+            })),
+        ]));
+        expect(indexes).toEqual(expect.arrayContaining([
+            expect.objectContaining(withData(indexPl, {
+                privacyPolicy: expect.objectContaining({
+                    contents: expect.any(String), title: expect.any(String), fileInfo: expect.objectContaining({
+                        path: expect.stringContaining("pl")
+                    })
+                }),
+            })),
+        ]));
+    })
+
     test('contains posts route data [en]', async () => {
         const indexes = await createIndexes('en');
 
         expect(indexes).toEqual(expect.arrayContaining([
             expect.objectContaining(withData(indexEn, {
-                posts: expect.objectContaining([expect.objectContaining({
+                posts: expect.arrayContaining([expect.objectContaining({
                     date: expect.any(Date),
                     path: "/posts/plantuml",
                     title: "PlantUML as go-to UML CASE tool"

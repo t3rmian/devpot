@@ -68,7 +68,7 @@ export const Path = {
     i18n: (lang, defaultLang, path) => lang === defaultLang ? path : `/${lang}${path}`,
 }
 
-export class I18nPage {
+export class SiteLanguageVariant {
     constructor(blog, defaultLang, lang) {
         this.blog = blog;
         this.defaultLang = defaultLang;
@@ -138,21 +138,27 @@ export class I18nPage {
             .sort((a, b) => a.value.localeCompare(b.value));
     }
 
-    getCommonData(postFilter) {
-        return  {
-            lang: this.lang,
-            isDefaultLang: this.isDefaultLang(),
-            root: this.getRoot(),
-            tags: this.getGradedTags(postFilter),
-        };
-    }
-
     getExplodedCommonData(postFilter, loadEagerly) {
         const commonData = this.getCommonData(postFilter, loadEagerly);
         if (postFilter !== undefined || loadEagerly !== undefined) {
             commonData.posts = this.getExplodedPosts(postFilter, loadEagerly);
         }
         return commonData;
+    }
+
+    getCommonData(postFilter) {
+        return  {
+            ...this.getPageData(),
+            tags: this.getGradedTags(postFilter),
+        };
+    }
+
+    getPageData() {
+        return  {
+            lang: this.lang,
+            isDefaultLang: this.isDefaultLang(),
+            root: this.getRoot(),
+        };
     }
 
 }

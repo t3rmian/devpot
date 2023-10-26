@@ -12,10 +12,15 @@
             pointer-events: none;
         }
     }
+
+    > span {
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
 }
 
 .theme-switcher {
-    padding-top: 1.25rem;
+    padding-top: 0.5rem;
 
     svg {
         border-radius: 50%;

@@ -1,23 +1,23 @@
 import i18n from "../i18n";
-import {I18nPage, RefLang} from "./utils";
+import {SiteLanguageVariant, RefLang} from "./utils";
 import {flatMap} from "../utils";
 
 export default function I18nTags(blog, defaultLang) {
-    return flatMap(Object.keys(blog), lang => Tags(new I18nPage(blog, defaultLang, lang)));
+    return flatMap(Object.keys(blog), lang => Tags(new SiteLanguageVariant(blog, defaultLang, lang)));
 }
 
-export function Tags(i18nPage) {
-  const path = i18nPage.getPath("tags");
+export function Tags(siteVariant) {
+  const path = siteVariant.getPath("tags");
   const noindex = true;
 
-  return i18nPage.getFlatPostProperties("tags")
+  return siteVariant.getFlatPostProperties("tags")
     .map(tag => ({
       path: `${path}${tag}`,
       template: "src/containers/Tags",
       getData: () => ({
-        ...i18nPage.getExplodedCommonData(post => post.tags != null && post.tags.indexOf(tag) >= 0),
-        langRefs: RefLang.explode(tag, i18nPage, filterMatchingTag, tagToPath),
-        categories: i18nPage.getCategories(),
+        ...siteVariant.getExplodedCommonData(post => post.tags != null && post.tags.indexOf(tag) >= 0),
+        langRefs: RefLang.explode(tag, siteVariant, filterMatchingTag, tagToPath),
+        categories: siteVariant.getCategories(),
         tag,
         noindex
       }),
@@ -25,7 +25,7 @@ export function Tags(i18nPage) {
     }));
 
     function filterMatchingTag(tag, lang) {
-        return [i18nPage.getPosts(lang).filter(p => p.tags).flatMap(p => p.tags).find(t => t === tag)].filter(a => a);
+        return [siteVariant.getPosts(lang).filter(p => p.tags).flatMap(p => p.tags).find(t => t === tag)].filter(a => a);
     }
 
     function tagToPath(tag, lng) {
