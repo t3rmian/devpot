@@ -8,35 +8,14 @@ import Loader from "./components/Loader";
 import React from "react";
 import config from "./template.config";
 import lifecycle from "react-pure-lifecycle";
-import { loadTheme } from "components/Theme";
+import { loadSiteTheme } from "components/Theme";
 import { globalHistory } from '@reach/router';
 import { makeVisible } from "./utils";
 
 const methods = {
   componentDidMount() {
     startPreloader();
-    loadTheme();
-
-    if (config.optional.ga) {
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        window.dataLayer.push(arguments);
-      }
-      let gtagConfig = {
-        'allow_ad_personalization_signals': false,
-        'allow_google_signals': false,
-        'anonymize_ip': true,
-        'page_path': window.location.pathname,
-        'send_page_view': true,
-      };
-      gtag("js", new Date());
-      gtag("config", config.optional.ga, gtagConfig);
-      globalHistory.listen(({ location }) => {
-        gtagConfig.page_path = location.pathname
-        gtag('config', config.optional.ga, gtagConfig);
-      });
-    }
-
+    loadSiteTheme();
     const throttle = (ms, fun) => {
       let isThrottled;
       return (...args) => {
@@ -89,6 +68,32 @@ const methods = {
 };
 
 function App() {
+  if (config.optional.ga) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    let gtagConfig = {
+      'allow_ad_personalization_signals': false,
+      'allow_google_signals': false,
+      'anonymize_ip': true,
+      'page_path': window.location.pathname,
+      'send_page_view': true,
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied',
+      'functionality_storage': 'denied',
+      'personalization_storage': 'denied',
+      'security_storage': 'denied',
+      'storage': 'none',
+      'client_storage': 'none',
+    };
+    gtag("js", new Date());
+    gtag("config", config.optional.ga, gtagConfig);
+    globalHistory.listen(({ location }) => {
+      gtagConfig.page_path = location.pathname
+      gtag('config', config.optional.ga, gtagConfig);
+    });
+  }
   let lastLocation; // workaround for duplicate key content caused by CSSTransition
   return (
     <div tabIndex={-1}>

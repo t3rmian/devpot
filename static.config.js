@@ -3,7 +3,7 @@ import I18nSearch from "./src/model/I18nSearch";
 import I18nTags from "./src/model/I18nTags";
 import I18nCategories from "./src/model/I18nCategories";
 import React from "react";
-import config, { isPreview } from "./src/template.config";
+import config, {getGACode, isPreview} from "./src/template.config";
 import jdown from "jdown";
 import path from "path";
 import chokidar from "chokidar";
@@ -100,10 +100,12 @@ export default {
           <meta name="msapplication-TileColor" content="#b91d47" />
           <meta name="theme-color" content="#ffffff" />
           <link rel="preconnect" href="https://fonts.gstatic.com/" crossOrigin="true" />
+          <link rel="preconnect" href="https://fonts.googleapis.com/" crossOrigin="true" />
           <link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Black+Ops+One|Montserrat|Raleway&display=swap" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Black+Ops+One|Montserrat|Raleway&display=swap" />
           <link rel="preload" as="image" href="/img/logo.png" />
           <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
+            (${getGACode.toString().replaceAll('config.optional.ga', `"${config.optional.ga}"`)})();
             if ("serviceWorker" in navigator) {
               window.addEventListener("load", function() {
                 if (!navigator.serviceWorker.controller) {
@@ -179,7 +181,7 @@ export async function getPages(dir = "content/pages") {
 }
 
 function restructurePagesByName(pages, lang) {
-  pages[lang] = pages[lang].filter(page => page.url).reduce((obj, page) => {
+  pages[lang] = pages[lang].reduce((obj, page) => {
     obj[page.fileInfo.name] = page;
     return obj;
   }, {});

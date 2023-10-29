@@ -9,8 +9,7 @@ $themes: (light: (primary-background-color: white,
         primary-color-more-intense: black,
         secondary-color: #148a03,
         logo-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%), //https://codepen.io/sosuke/pen/Pjoqqp
-        logo-filter-hover: invert(51%) sepia(32%) saturate(4500%) hue-rotate(77deg) brightness(84%) contrast(87%),
-        theme-switch-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(200%) contrast(54%)),
+        logo-filter-hover: invert(51%) sepia(32%) saturate(4500%) hue-rotate(77deg) brightness(84%) contrast(87%)),
     dark: (primary-background-color: #333,
         primary-background-color-less-intense: #444,
         primary-border-color: #666,
@@ -21,8 +20,7 @@ $themes: (light: (primary-background-color: white,
         primary-color-more-intense: white,
         secondary-color: #ef8247,
         logo-filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(92deg) brightness(100%) contrast(104%),
-        logo-filter-hover: invert(51%) sepia(51%) saturate(600%) hue-rotate(329deg) brightness(97%) contrast(92%),
-        theme-switch-filter: invert(0%) sepia(0%) saturate(7489%) hue-rotate(302deg) brightness(96%) contrast(102%)));
+        logo-filter-hover: invert(51%) sepia(51%) saturate(600%) hue-rotate(329deg) brightness(97%) contrast(92%)));
 
 @function themed($key) {
     @return map-get($theme-map, $key);
@@ -40,10 +38,10 @@ $themes: (light: (primary-background-color: white,
             $theme-map: map-merge($theme-map, ($key: $value)) !global;
         }
 
-        $selector: '.theme-#{$theme}';
-
-        @at-root #{&} #{$selector} {
-            @content;
+        @media (prefers-color-scheme: #{$theme}) {
+            @at-root #{&} {
+                @content;
+            }
         }
 
         $theme-map: null !global;
@@ -132,12 +130,6 @@ $themes: (light: (primary-background-color: white,
                 filter: themed('logo-filter-hover');
             }
     
-            .theme-switcher svg {
-                filter: themed('theme-switch-filter') drop-shadow(themed('primary-border-color') 0 0 5px);
-            }
-            .theme-switcher svg:hover {
-                filter: themed('theme-switch-filter') drop-shadow(themed('primary-box-shadow-color') 0 0 5px);
-            }
             .social svg {
                 filter: drop-shadow(themed('primary-border-color') 0 0 3px);
                 transition: all $theme-transition-short-delay $theme-transition-short-timing-function;
@@ -291,11 +283,7 @@ $themes: (light: (primary-background-color: white,
             a:hover img.logo {
                 transition: filter $theme-transition-short-delay $theme-transition-short-timing-function !important;
             }
-    
-            .theme-switcher svg {
-                transition: filter $theme-transition-delay $theme-transition-timing-function !important;
-            }
-    
+
             .header-container {
                 *:not(button):not(input):not(a) {
                     transition: color $theme-transition-delay $theme-transition-timing-function;

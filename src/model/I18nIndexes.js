@@ -25,21 +25,23 @@ export function Index(siteVariant, pages, loadEagerly) {
 }
 
 function Pages(siteVariant, pages, pagesVariant) {
-  return pagesVariant.map(page => {
-    return ({
-      path: `${page.url}/`,
-      template: "src/containers/Page",
-      getData: () => ({
-        ...siteVariant.getPageData(),
-        page: page,
-        langRefs: RefLang.explode(page, {
-          blog: pages,
-          lang: siteVariant.lang,
-          defaultLang: siteVariant.defaultLang
-        }, filterMatchingPage, createPath),
-      })
-    });
-  });
+  return pagesVariant
+      .filter(page => page.url)
+      .map(page => {
+        return ({
+          path: `${page.url}/`,
+          template: "src/containers/Page",
+          getData: () => ({
+            ...siteVariant.getPageData(),
+            page: page,
+            langRefs: RefLang.explode(page, {
+              blog: pages,
+              lang: siteVariant.lang,
+              defaultLang: siteVariant.defaultLang
+            }, filterMatchingPage, createPath),
+          })
+        });
+      });
 
   function filterMatchingPage(page, lang) {
     return [Object.values(pages[lang]).find(p => p.fileInfo.name === page.fileInfo.name)].filter(a => a);

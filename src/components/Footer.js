@@ -2,7 +2,6 @@ import { Head } from "react-static";
 // noinspection ES6PreferShortImport
 import { Link } from "../components/Router";
 import React from "react";
-import Theme from "./Theme";
 import { useTranslation } from "../i18n";
 
 export default function Footer({ langRefs, lang, is404, privacyPolicy }) {
@@ -50,7 +49,6 @@ export default function Footer({ langRefs, lang, is404, privacyPolicy }) {
             }))
         ]}
       />
-      <Theme lang={lang} />
     </footer>
   );
 }
