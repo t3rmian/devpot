@@ -12,7 +12,6 @@ export default () => {
         langRefs,
         root
     } = useRouteData();
-    console.log(langRefs)
     const {t} = useTranslation();
 
     return (

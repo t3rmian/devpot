@@ -1,3 +1,5 @@
+import {globalHistory} from "@reach/router";
+
 const config = {
   author: "Damian Terlecki",
   authorSite: "https://termian.dev",
@@ -37,6 +39,7 @@ export function getGACode() {
   }
 
   let gtagConfig = {
+    'page_path': window.location.pathname,
     'allow_ad_personalization_signals': false,
     'allow_google_signals': false,
     'anonymize_ip': true,
@@ -51,4 +54,12 @@ export function getGACode() {
   };
   gtag("js", new Date());
   gtag("config", config.optional.ga, gtagConfig);
+  const observer = new MutationObserver(function() {
+    if (gtagConfig.page_path === location.pathname) {
+      return
+    }
+    gtagConfig.page_path = location.pathname
+    gtag('config', config.optional.ga, gtagConfig);
+  });
+  observer.observe(document, {subtree: true, childList: true});
 }
