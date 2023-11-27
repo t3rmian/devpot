@@ -5,7 +5,7 @@
     font-family: $title-font-family;
 }
 
-.date-col {
+.date-col:not(.header) {
     font-family: $title-font-family;
     padding-left: 2em;
 }

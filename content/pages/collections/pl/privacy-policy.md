@@ -10,7 +10,7 @@ Cześć! Dotarłeś do blog.termian.dev (dalej „ja”, „witryna”). Oto pod
     - zanonimizowane, nieosobowe informacje o odwiedzinach strony.
 2. Jak wykorzystuję zanonimizowane dane:
     - Sprawdzam popularność postów, czas ich czytania oraz miesięczną liczbę wyświetleń aby ulepszyć zawartość witryny.
-3. Podmioty trzecie przetwarzające Twoje dane:
+3. Podmioty trzecie przetwarzające Twoje dane:  
 Prowadzenie serwisu umożliwiają mi następujące usługi, które przetwarzają dane w prawnie uzasadnionym interesie:
    - netlify.com – korzysta ze swojej infrastruktury, aby udostępniać Ci moje treści;
    - utteranc.es – używa github.com/t3rmian/devpot/issues do przechowywania komentarzy do postów w Twoim imieniu;

@@ -10,7 +10,7 @@ Hello. You've reached blog.termian.dev ("I", "my", "the site"). Here's a summary
    - anonymized, non-personal information about page visits.
 2. How I use the anonymized data:
    - I view post popularity, read times and monthly visits number to improve site's content.
-3. Third parties who process your data:
+3. Third parties who process your data:  
 To run the site, I use the following services that process data in legitimate interest: 
    - netlify.com – uses its infrastructure to serve you my content;
    - utteranc.es – uses github.com/t3rmian/devpot/issues to store post comments on your behalf;

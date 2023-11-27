@@ -29,7 +29,8 @@ export default ({
   twitterContentUsername,
   noindex,
   twitterCard,
-  jsonLd
+  jsonLd,
+  ads
 }) => {
   description = ellipsizeDescription(description);
   const { siteRoot } = useSiteData();
@@ -70,6 +71,8 @@ export default ({
       {twitterCard && <meta name="twitter:card" content={twitterCard} />}
       {date && <meta name="date" content={date} />}
       {jsonLd && <script type="application/ld+json">{jsonLd}</script> }
+      {ads && <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2634621437118444"
+                      crossOrigin="anonymous"></script>}
     </Head>
   );
 };

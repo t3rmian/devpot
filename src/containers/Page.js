@@ -36,6 +36,12 @@ export default () => {
                 />
                 <main>
                     <h1 className="uppercase title header" role="heading" aria-level="1">{page.title}</h1>
+                    <h2 className="header" >
+                        <time className="uppercase date-col header" dateTime={new Date(page.date).toISOString()}>{t("date=post", {
+                            date: new Date(page.date),
+                            lng: lang,
+                        })}</time>
+                    </h2>
                     {convert(page.contents)}
                     <Footer langRefs={langRefs} lang={lang}/>
                 </main>

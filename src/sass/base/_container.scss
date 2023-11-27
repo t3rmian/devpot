@@ -49,3 +49,29 @@
         }
     }
 }
+
+@media (max-width: 1919px) {
+    .container {
+        aside {
+            display: none;
+        }
+    }
+}
+@media (min-width: 1920px) {
+    .container {
+        display: flex;
+        aside {
+            width: 420px;
+        }
+        aside:first-of-type {
+            margin-top: 500px;
+            margin-left: 50px;
+            margin-right: 5px;
+            min-height: 100px;
+            max-height: 800px;
+        }
+        aside:last-of-type {
+            margin-top: 1200px;
+        }
+    }
+}

@@ -3,7 +3,7 @@ title: Ekstraktor danych instrukcji MERGE (OracleDB) w IntelliJ
 url: intellij-ekstraktor-danych-merge-oracledb
 id: 118
 category:
-  - databases: Databases
+  - databases: Bazy danych
 tags:
   - intellij
   - oracle

@@ -108,6 +108,13 @@ export function Post() {
 
   return (
     <div className="container post-container">
+      <aside>
+        <ins className="adsbygoogle"
+             style="display:block"
+             data-ad-format="autorelaxed"
+             data-ad-client="ca-pub-2634621437118444"
+             data-ad-slot="4074638071"></ins>
+      </aside>
       <div className="page">
         <SEOHead
           title={post.title}
@@ -127,6 +134,7 @@ export function Post() {
           }
           twitterCard="summary"
           jsonLd={JSON.stringify(PostJsonLd(post, authorPictureSeo))}
+          ads={true}
         />
         <header>
           <Link className="post-logo fadeIn" to={root}>
@@ -188,6 +196,7 @@ export function Post() {
         <SearchBar root={root} lang={lang} />
         <Footer langRefs={langRefs} lang={lang} />
       </div>
+      <aside></aside>
     </div>
   );
 }
