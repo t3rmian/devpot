@@ -15,7 +15,8 @@ Prowadzenie serwisu umożliwiają mi następujące usługi, które przetwarzają
    - netlify.com – korzysta ze swojej infrastruktury, aby udostępniać Ci moje treści;
    - utteranc.es – używa github.com/t3rmian/devpot/issues do przechowywania komentarzy do postów w Twoim imieniu;
    - fonts.gstatic.com, fonts.googleapis.com – udostępniają usługę dostarczającą czcionki zoptymalizowane pod kątem przeglądarki której używasz;
-   - googletagmanager.com, google-analytics.com – udostępniają usługę gromadzenia i przechowywania statystyk z punktu 1.
+   - googletagmanager.com, google-analytics.com – udostępniają usługę gromadzenia i przechowywania statystyk z punktu 1
+   - Google Adsense - korzystam z ich usług, w celu wyświetlania reklam.
 4. Własne pliki cookie:
     - Nie używam żadnych plików cookies pierwszej kategorii.
 5. Pliki cookies podmiotów zewnętrznych:

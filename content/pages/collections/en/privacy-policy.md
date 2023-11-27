@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 url: privacy-policy
-date: 2023-10-26T20:00:00
+date: 2023-11-27T22:00:00
 ---
 
 Hello. You've reached blog.termian.dev ("I", "my", "the site"). Here's a summary of how I protect your data and respect your privacy.
@@ -14,8 +14,9 @@ Hello. You've reached blog.termian.dev ("I", "my", "the site"). Here's a summary
 To run the site, I use the following services that process data in legitimate interest: 
    - netlify.com – uses its infrastructure to serve you my content;
    - utteranc.es – uses github.com/t3rmian/devpot/issues to store post comments on your behalf;
-   - fonts.gstatic.com, fonts.googleapis.com – use their services to serve you fonts optimized to your user's agent; 
-   - googletagmanager.com, google-analytics.com – use their services to gather and store statistics from point 1.
+   - fonts.gstatic.com, fonts.googleapis.com – I use their services to serve you fonts optimized to your user's agent; 
+   - googletagmanager.com, google-analytics.com – I use their services to gather and store statistics from point 1;
+   - Google Adsense - I use their services to serve you ads.
 4. First-party cookies:
    - I do not use any first-party cookies.
 5. Third-party cookies:
