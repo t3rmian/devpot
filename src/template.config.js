@@ -33,7 +33,7 @@ export function getGACode() {
     set: function() {}
   });
   window.dataLayer = window.dataLayer || [];
-  (window.adsbygoogle = window.adsbygoogle || []).push({});
+  addEventListener("load", () => (window.adsbygoogle = window.adsbygoogle || []).push({}));
 
   function gtag() {
     window.dataLayer.push(arguments);
