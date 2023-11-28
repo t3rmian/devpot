@@ -91,6 +91,28 @@ const methods = {
   },
 };
 
+const injectAds = (htmlString) => {
+  let indexes = []
+  let nextIndex = htmlString.indexOf("</p>\n<p>");
+  while (nextIndex > 0) {
+    indexes.push(nextIndex)
+    nextIndex = htmlString.indexOf("</p>\n<p>", nextIndex + 1);
+  }
+  if (indexes.length === 0) {
+    return htmlString;
+  }
+  nextIndex = indexes[Math.floor(indexes.length / 2)];
+  const ads = `<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2634621437118444"
+     data-ad-slot="5317020259"></ins>`;
+  return htmlString.substring(0, nextIndex + 4)
+      + ads +
+      htmlString.substring(nextIndex + 4, htmlString.length);
+}
+
 export function Post() {
   const { post, isDefaultLang, lang, langRefs, tags, root, categories } = useRouteData();
   const { t } = useTranslation();
@@ -168,7 +190,7 @@ export function Post() {
               })}
             />
             <div className="content">
-              {convert(post.contents)}
+              {convert(injectAds(post.contents))}
               <PostFooter
                 prev={post.prev}
                 source={

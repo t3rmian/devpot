@@ -54,6 +54,9 @@
     .container {
         aside {
             display: none;
+            .adsbygoogle {
+                display: none;
+            }
         }
     }
 }

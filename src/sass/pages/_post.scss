@@ -42,6 +42,14 @@
     figcaption i {
         font-size: 0.75em;
     }
+
+    @media (min-width: 1920px) {
+        .content {
+            .adsbygoogle {
+                display: none;
+            }
+        }
+    }
     
     .page {
         max-width: 1050px;
