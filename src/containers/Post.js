@@ -78,6 +78,19 @@ const secureRoutes = () => {
       });
 }
 
+const loadAds = () => {
+  [].forEach.call(document.querySelectorAll('.ADSENSE'), function (element) {
+    const parentElement = element.parentElement;
+    if (window.getComputedStyle(parentElement).getPropertyValue("display") === "none"
+        || window.getComputedStyle(element).getPropertyValue("display") === "none") {
+      element.remove();
+    } else {
+      element.classList.add("adsbygoogle");
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  });
+}
+
 const methods = {
   componentDidMount() {
     updateCodeSyntaxHighlighting();
@@ -85,6 +98,7 @@ const methods = {
     loadHighlight(getHighlightTheme());
     secureRoutes();
     loadComments(config.optional.commentsRepo, "pathname", getCommentsTheme());
+    loadAds();
   },
   componentDidUpdate() {
     updateCodeSyntaxHighlighting();
@@ -102,7 +116,7 @@ const injectAds = (htmlString) => {
     return htmlString;
   }
   nextIndex = indexes[Math.floor(indexes.length / 2)];
-  const ads = `<ins class="adsbygoogle"
+  const ads = `<ins class="ADSENSE"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
      data-ad-format="fluid"
@@ -131,7 +145,7 @@ export function Post() {
   return (
     <div className="container post-container">
       <aside>
-        <ins className="adsbygoogle"
+        <ins className="ADSENSE"
              style="display:block"
              data-ad-format="autorelaxed"
              data-ad-client="ca-pub-2634621437118444"

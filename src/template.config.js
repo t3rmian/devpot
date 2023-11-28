@@ -1,5 +1,3 @@
-import {globalHistory} from "@reach/router";
-
 const config = {
   author: "Damian Terlecki",
   authorSite: "https://termian.dev",
@@ -33,7 +31,6 @@ export function getGACode() {
     set: function() {}
   });
   window.dataLayer = window.dataLayer || [];
-  addEventListener("load", () => (window.adsbygoogle = window.adsbygoogle || []).push({}));
 
   function gtag() {
     window.dataLayer.push(arguments);
