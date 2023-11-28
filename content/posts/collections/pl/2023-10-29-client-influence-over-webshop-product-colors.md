@@ -59,7 +59,7 @@ Czy można jednak temu zapobiec na wczesnym etapie ograniczając niepotrzebne ko
 Czasami niektóre elementy są zbyt krytyczne biznesowo, aby pozwolić przeglądarce na zmianę ich kolory.
 W takiej sytuacji możesz spróbować obejść to zachowanie lub powiadomić użytkownika o różnicy kolorów.
 
-<img src="/img/hq/night-mode-issue.svg" alt="Diagram przedstawiający możliwe rozwiązania problemu ciemnego motywu nadpisującego krytyczne elementy strony. Sposoby na wyłączenie tego zachowania oraz jego wykrycie i powiadomienie użytkownika." title="Potencjalne rozwiązania problemu ciemnego motywu nadpisującego kolory krytycznych elementów strony">
+<img src="/img/hq/problem-ciemnego-motywu.svg" alt="Diagram przedstawiający możliwe rozwiązania problemu ciemnego motywu nadpisującego krytyczne elementy strony. Sposoby na wyłączenie tego zachowania oraz jego wykrycie i powiadomienie użytkownika." title="Potencjalne rozwiązania problemu ciemnego motywu nadpisującego kolory krytycznych elementów strony">
 
 Na podstawie powyższego diagramu można dojść do wniosku, że najlepszym podejściem
 będzie wyłączenie możliwości wymuszania kolorów i powiadomienie użytkownika, gdy ma on jakiś niestandardowy

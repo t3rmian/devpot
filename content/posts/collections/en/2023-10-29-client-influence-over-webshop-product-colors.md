@@ -57,7 +57,7 @@ online return policies like in the EU. But can it be prevented at an early stage
 Sometimes, some elements are too critical for business to allow the browser to change their colors.
 You can try to override this behavior or notify the user about the color difference.
 
-<img src="/img/hq/problem-ciemnego-motywu.svg" alt="A diagram showing possible solutions to the problem of a dark theme overwriting critical page element colors. Ways to disable this behavior and detect it and notify the user." title="Potential solutions to the problem of a dark theme overriding the colors of critical page elements">
+<img src="/img/hq/night-mode-issue.svg" alt="A diagram showing possible solutions to the problem of a dark theme overwriting critical page element colors. Ways to disable this behavior and detect it and notify the user." title="Potential solutions to the problem of a dark theme overriding the colors of critical page elements">
 
 Based on above diagram, you will come to the conclusion that the best approach
 is to disable forced colors and notify the user when they have some custom 
