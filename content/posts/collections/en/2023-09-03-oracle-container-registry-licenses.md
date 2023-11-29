@@ -97,18 +97,18 @@ OCR CPU Repository Terms and Restrictions
          </td>
       </tr>
       <tr>
-         <td data-label="Licencja">
+         <td data-label="License">
             OCR CPU Repository Terms and Restrictions
          </td>
-         <td data-label="Podsumowanie">
+         <td data-label="TLDR">
             This is a license of typical production images (after application of critical patch updates) for customers who have access to support for a given product.
          </td>
       </tr>
       <tr>
-         <td data-label="Licencja">
+         <td data-label="License">
             Oracle JDK Container Images Licenses
          </td>
-         <td data-label="Podsumowanie">
+         <td data-label="TLDR">
             The Oracle No-Fee Terms and Conditions (NFTC) license for the latest versions of the LTS Oracle JDK image together with the Oracle Linux License currently qualifies for this type of license.<br/>It allows free use even in commercial and production contexts. As in previous licenses – without technical support, guarantees, etc., but without audit restrictions.
          </td>
       </tr>
