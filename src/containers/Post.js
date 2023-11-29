@@ -79,16 +79,20 @@ const secureRoutes = () => {
 }
 
 const loadAds = () => {
-  [].forEach.call(document.querySelectorAll('.ADSENSE'), function (element) {
-    const parentElement = element.parentElement;
-    if (window.getComputedStyle(parentElement).getPropertyValue("display") === "none"
-        || window.getComputedStyle(element).getPropertyValue("display") === "none") {
-      element.remove();
-    } else {
-      element.classList.add("adsbygoogle");
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    }
-  });
+  try {
+    [].forEach.call(document.querySelectorAll('.ADSENSE'), function (element) {
+      const parentElement = element.parentElement;
+      if (window.getComputedStyle(parentElement).getPropertyValue("display") === "none"
+          || window.getComputedStyle(element).getPropertyValue("display") === "none") {
+        element.remove();
+      } else {
+        element.classList.add("adsbygoogle");
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    });
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 const methods = {
