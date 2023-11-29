@@ -79,20 +79,16 @@ const secureRoutes = () => {
 }
 
 const loadAds = () => {
-  try {
-    [].forEach.call(document.querySelectorAll('.ADSENSE'), function (element) {
-      const parentElement = element.parentElement;
-      if (window.getComputedStyle(parentElement).getPropertyValue("display") === "none"
-          || window.getComputedStyle(element).getPropertyValue("display") === "none") {
-        element.remove();
-      } else {
-        element.classList.add("adsbygoogle");
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      }
-    });
-  } catch (e) {
-    console.error(e);
-  }
+  [].forEach.call(document.querySelectorAll('.ADSENSE'), function (element) {
+    const parentElement = element.parentElement;
+    if (window.getComputedStyle(parentElement).getPropertyValue("display") === "none"
+        || window.getComputedStyle(element).getPropertyValue("display") === "none") {
+      element.remove();
+    } else {
+      element.classList.add("adsbygoogle");
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    }
+  });
 }
 
 const methods = {
@@ -102,7 +98,7 @@ const methods = {
     loadHighlight(getHighlightTheme());
     secureRoutes();
     loadComments(config.optional.commentsRepo, "pathname", getCommentsTheme());
-    loadAds();
+    requestAnimationFrame(loadAds);
   },
   componentDidUpdate() {
     updateCodeSyntaxHighlighting();
