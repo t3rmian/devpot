@@ -1,6 +1,6 @@
 ---
-title: Maven i nadpisywanie zależności zarządzanych w sekcji zależności
-url: maven-bom-nadpisywanie-zależności
+title: Overriding BOM dependencies as a library
+url: maven-bom-library-dependency-override
 id: 114
 category:
   - java: Java
