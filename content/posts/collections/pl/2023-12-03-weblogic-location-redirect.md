@@ -6,7 +6,7 @@ category:
   - jee: JEE
 tags:
   - weblogic
-  - servlets
+  - serwlety
 author: Damian Terlecki
 date: 2023-12-03T20:00:00
 ---
