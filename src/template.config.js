@@ -12,6 +12,7 @@ const config = {
   optional: {
     commentsRepo: "t3rmian/devpot",
     ga: isPreview() ? null : "UA-73928706-7",
+    adsense: isPreview() ? null : "ca-pub-2634621437118444",
     twitterAuthor: "t3rmian",
     braveRewardsToken:
         "d8168da8e5089e3919156575ad5514238efa9fcd453950683ab55ebbf2be54e5",

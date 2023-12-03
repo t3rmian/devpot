@@ -105,7 +105,17 @@ const methods = {
   },
 };
 
-const injectAds = (htmlString) => {
+const injectAds = (post) => {
+  let ads = `<ins class="ADSENSE"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-2634621437118444"
+     data-ad-slot="5317020259"></ins>`;
+  if (post.devMode) {
+    ads = '<ins class="ADSENSE"><center>\[ADS\]</center></ins>'
+  }
+  const htmlString = post.contents;
   let indexes = []
   let nextIndex = htmlString.indexOf("</p>\n<p>");
   while (nextIndex > 0) {
@@ -116,12 +126,6 @@ const injectAds = (htmlString) => {
     return htmlString;
   }
   nextIndex = indexes[Math.floor(indexes.length / 2)];
-  const ads = `<ins class="ADSENSE"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-2634621437118444"
-     data-ad-slot="5317020259"></ins>`;
   return htmlString.substring(0, nextIndex + 4)
       + ads +
       htmlString.substring(nextIndex + 4, htmlString.length);
@@ -145,11 +149,14 @@ export function Post() {
   return (
     <div className="container post-container">
       <aside>
-        <ins className="ADSENSE"
+        {post.devMode
+          ? <ins className="ADSENSE"
              style="display:block"
              data-ad-format="autorelaxed"
              data-ad-client="ca-pub-2634621437118444"
              data-ad-slot="4074638071"></ins>
+          : <ins className="ADSENSE"><center>\[ADS\]</center></ins>
+        }
       </aside>
       <div className="page">
         <SEOHead
@@ -170,7 +177,7 @@ export function Post() {
           }
           twitterCard="summary"
           jsonLd={JSON.stringify(PostJsonLd(post, authorPictureSeo))}
-          ads={true}
+          ads={!post.devMode}
         />
         <header>
           <Link className="post-logo fadeIn" to={root}>
@@ -204,7 +211,7 @@ export function Post() {
               })}
             />
             <div className="content">
-              {convert(injectAds(post.contents))}
+              {convert(injectAds(post))}
               <PostFooter
                 prev={post.prev}
                 source={
