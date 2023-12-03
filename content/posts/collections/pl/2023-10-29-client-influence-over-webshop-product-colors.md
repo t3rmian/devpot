@@ -30,7 +30,7 @@ powiązałem problem z (wymuszonym) trybem nocnym, o którego włączeniu nie pa
 
 ## Tryb ciemny standardowy, wymuszony bądź zdefiniowane przez użytkownika
 
-Okazuje się, że istnieją różne implementacje trybu nocnego, a wersja robocza W3C o nazwie (CSS Color Adjustment Module Level 1)[https://www.w3.org/TR/css-color-adjust-1/]
+Okazuje się, że istnieją różne implementacje trybu nocnego, a wersja robocza W3C o nazwie [CSS Color Adjustment Module Level 1](https://www.w3.org/TR/css-color-adjust-1/)
 próbuje ujednolicić niektóre z problematycznych kwestii (i jest zaimplementowana przez wiele przeglądarek), przede wszystkim:
 1. Opisuje definiowanie preferowanych schematów kolorów i zapytanie CSS o preferowany schemat `@media (prefers-color-schemat: dark)`.
 2. Wyjaśnia możliwość zastąpienia schematu kolorów przez przeglądarkę i sposoby pracy z nim/obejścia.

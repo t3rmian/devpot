@@ -30,7 +30,7 @@ found out that some time ago I enabled a (forced) night mode in my mobile browse
 
 ## Standard, forced, and user-defined dark modes
 
-Turns out there are different implementations of the dark mode and there is a W3C draft named (CSS Color Adjustment Module Level 1)[https://www.w3.org/TR/css-color-adjust-1/]
+Turns out there are different implementations of the dark mode and there is a W3C draft named [CSS Color Adjustment Module Level 1](https://www.w3.org/TR/css-color-adjust-1/)
 that tries to standardize some of these (and is supported by many browsers).
 1. It describes preferred colors schemes and CSS media query `@media (prefers-color-scheme: dark)`.
 2. Explains the possibility for the browser to override the color scheme and how to work with/around it.
