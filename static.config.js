@@ -13,7 +13,7 @@ import { countPostMinutes } from "./src/utils";
 import i18n from "./src/i18n";
 
 let devMode = isPreview();
-if (process.env.NODE_ENV === "development") {
+if (!devMode && process.env.NODE_ENV === "development") {
   devMode = true;
   chokidar.watch(["content", "sass"], { ignoreInitial: true })
         .on("all", (path) => { rebuildRoutes(); })

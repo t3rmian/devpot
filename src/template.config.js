@@ -25,12 +25,6 @@ export function isPreview() {
 }
 
 export function getGACode() {
-  Object.defineProperty(document, "cookie", {
-    get: function() {
-      return "";
-    },
-    set: function() {}
-  });
   window.dataLayer = window.dataLayer || [];
 
   function gtag() {
