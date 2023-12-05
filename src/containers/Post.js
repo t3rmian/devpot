@@ -150,12 +150,12 @@ export function Post() {
     <div className="container post-container">
       <aside>
         {post.devMode
-          ? <ins className="ADSENSE"
-             style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-2634621437118444"
-             data-ad-slot="4074638071"></ins>
-          : <ins className="ADSENSE"><center>\[ADS\]</center></ins>
+          ? <ins className="ADSENSE"><center>\[ADS\]</center></ins>
+          : <ins className="ADSENSE"
+                 style="display:block"
+                 data-ad-format="autorelaxed"
+                 data-ad-client="ca-pub-2634621437118444"
+                 data-ad-slot="4074638071"></ins>
         }
       </aside>
       <div className="page">
