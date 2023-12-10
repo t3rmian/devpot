@@ -11,6 +11,9 @@ export default function Comment() {
 }
 
 export function loadComments(repo, issueTerm, theme) {
+    if (repo == null) {
+        return;
+    }
     var d = {}, b = {};
 
     function l(e) {

@@ -10,7 +10,7 @@ const config = {
   defaultLanguage: "en",
 
   optional: {
-    commentsRepo: "t3rmian/devpot",
+    commentsRepo: isPreview() ? null : "t3rmian/devpot",
     ga: isPreview() ? null : "UA-73928706-7",
     adsense: isPreview() ? null : "ca-pub-2634621437118444",
     twitterAuthor: "t3rmian",
@@ -21,7 +21,7 @@ const config = {
 export default config;
 
 export function isPreview() {
-  return process.env.CONTEXT && process.env.CONTEXT !== 'production';
+  return process.env.CONTEXT == null || process.env.CONTEXT && process.env.CONTEXT !== 'production';
 }
 
 export function getGACode() {
