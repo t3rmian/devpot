@@ -1,5 +1,5 @@
 ---
-title: Niezamykalny strumień wyjścia w serwletach na WebLogicu
+title: Unclosable output stream in WebLogic's servlets
 url: weblogic-servlet-output-close
 id: 122
 category:
