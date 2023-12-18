@@ -10,19 +10,22 @@ tags:
   - sqlplus
 author: Damian Terlecki
 date: 2022-12-11T20:00:00
+updated: 2023-12-18T20:00:00
 ---
 
 Handling CLOB types in Oracle can sometimes be cumbersome.
 Several different tools allow importing and exporting such data: SQL*Loader, Data Pump, DBMS_LOB package, and more.
 
 In a purely SQL approach, you can use an implicit cast or the `TO_CLOB` function accepting a VARCHAR2 type parameter.
-Two limitations that come with this concept can be explained under the following errors:
-- `ORA-01704: string literal too long` – caused by using a VARCHAR2 type of length longer than 4000-32767 bytes (exact limit depends on the initialization parameter `MAX_STRING_SIZE`);
-- `SP2-0027: Input is too long (> N characters)` – which is an error of the `sqlplus` tool that appears when a line in the script is longer than the internally defined limit (usually some value greater than 2000).
+Some limitations that come with this concept can be explained under the following issues:
+- `ORA-01704: string literal too long` – erro caused by using a VARCHAR2 type of length longer than 4000-32767 bytes (exact limit depends on the initialization parameter `MAX_STRING_SIZE`);
+- `SP2-0027: Input is too long (> N characters)` – which is an error of the *sqlplus* tool that appears when a line in the script is longer than the internally defined limit (usually some value greater than 2000);
+- `SP2-XXXX: Unknown command` – that usually appears in the *sqlplus* for text containing blank lines (can be mitigated with `SET SQLBLANKLINES` command);
+- a script waiting for a substitution input that begins with an `&` (popular workaround – `SET DEFINE OFF`). 
 
-A workaround for both problems is to break the values into smaller chunks and concatenate them additionally in separate lines.
+A workaround for these problems is to break the values into smaller chunks and concatenate them additionally in separate lines handling special characters.
 This solution is described on the popular [Ask Tom forum](https://asktom.oracle.com/pls/apex/f?p=100:11:0::::P11_QUESTION_ID:9523893800346388494).
-You will need the SQL*Plus tool for this. You might not have this at hand so let me show you how to achieve the same thing with the IntelliJ IDE.
+You will need the SQL*Plus tool for this. But you might not have this at hand so let me show you how to achieve the same thing with the IntelliJ IDE.
 
 ## IntelliJ Data Extractor
 
@@ -42,6 +45,8 @@ Actually, you are free to add your own workaround for ORA-01704 and SP2-0027 as 
 All you have to do is copy the extractor file under a new name, and it will automatically appear on the list of extractors.
 
 <img src="/img/hq/intellij-data-extractors-directory.png" alt="IntelliJ custom Data Extractor in the extractors directory" title="IntelliJ Data Extractor Copy">
+
+## Groovy SQL Insert Statements
 
 Let's check the non-native `SQL-Insert-Statements.sql.groovy` program. It starts with the definition of the default parameters.
 Then there are three important places, indicated by comments below, that implement the extraction logic:
@@ -104,31 +109,34 @@ ROWS.each { row -> record(COLUMNS, row) } // #1
 ## CLOB Data Extractor
 
 JetBrains provides [documentation](https://www.jetbrains.com/help/idea/data-extractors.html#api_for_custom_data_extractors) to help you write your custom extractor.
-First of all, let's start with our own parameters defining separators and the number of characters after which we will call the concatenation:
+First of all, let's start with our own parameters defining separators and the number of characters after which we will put the concatenation.
+Let's also define some tricky characters to provide support for *sqlplus*:
 
 ```groovy
 MAX_STRING_SIZE = 2000
 CONCAT_SEPARATOR = ' || '
-CLOB_PREFIX = '\n TO_CLOB('
+CLOB_PREFIX = System.lineSeparator() + ' TO_CLOB('
+SPECIAL_CHARS = ['\r', '\n', '&']
 ```
 
 In the next steps:
 1. Check if the column is a CLOB type;
-2. After every `MAX_STRING_SIZE` characters, with the help of REGEX substitution, add the `TO_CLOB` with the concatenation;
-3. Print the final value of the column, remembering about the brackets.
+2. Swap special characters with `CHR()` concatenation.
+3. Start with `TO_CLOB` concatenating it in a new line every `MAX_STRING_SIZE` characters;
+4. Append the output string to the `OUT` appender like in the original extractor.
 
 ```groovy
         /*...*/
         if (isStringLiteral && DIALECT.getDbms().isMysql()) stringValue = stringValue.replace("\\", "\\\\")
 
-        def isOracleClob = value != null && FORMATTER.getTypeName(value, column) == "CLOB" && DIALECT.getDbms().isOracle() // #1
+        def isOracleClob = value != null &&
+                "CLOB".equalsIgnoreCase(FORMATTER.getTypeName(value, column)) &&
+                DIALECT.getDbms().isOracle() // #1
         if (isOracleClob) {
-            stringValue = stringValue
-                    .replace(QUOTE, QUOTE + QUOTE)
-                    .replaceAll("(.{" + MAX_STRING_SIZE + "})", "\$1" + QUOTE + ') ' + CONCAT_SEPARATOR + CLOB_PREFIX + QUOTE) // #2
-            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE) // #3
+            stringValue = prepareClobContent(stringValue) // #2/3
+            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE) // #3/4
                     .append(stringValue)
-                    .append(QUOTE + ")\n")
+                    .append(QUOTE).append(")").append(System.lineSeparator())
                     .append(idx != columns.size() - 1 ? SEP : "")
             return
         }
@@ -137,7 +145,42 @@ In the next steps:
         /*...*/
 ```
 
-Now, by selecting the extractor from the list and copying the rows (or by extracting the entire table), you should get the expected export:
+For points 2 and 3, I initially used REGEX, but it was somewhat slow.
+To swap out some special characters for *sqlplus*, I changed it into a simple iteration over the characters.
+It may be crude but is already much faster than the REGEX:
+
+```groovy
+def prepareClobContent(originalString) {
+    def result = new StringBuilder()
+    def lineLength = 0
+    originalString.each { character ->
+        def characterString = mapSpecialCharacter(character) // #2
+        if (lineLength + characterString.length() >= MAX_STRING_SIZE) { // #3
+            result.append(QUOTE).append(') ').append(CONCAT_SEPARATOR)
+                    .append(CLOB_PREFIX).append(QUOTE)
+            lineLength = 0
+        }
+        result.append(characterString)
+        lineLength += characterString.length()
+    }
+    return result.toString()
+}
+
+def String mapSpecialCharacter(String character) {
+    if (character == QUOTE) {
+        return character + character
+    } else if (SPECIAL_CHARS.contains(character)) {
+        return QUOTE + CONCAT_SEPARATOR + 'CHR(' +
+                Character.codePointAt(character, 0) + ')' +
+                CONCAT_SEPARATOR + QUOTE
+    } else {
+        return character
+    }
+}
+```
+
+Now, by selecting the extractor from the list and copying the rows (or by extracting the entire table), you should get the expected export.
+Don't forget to paste as a plain text to skip auto-formatting:
 ```sql
 CREATE TABLE foobar
 (
@@ -187,7 +230,8 @@ KW_VALUES = KEYWORDS_LOWERCASE ? ") values (" : ") VALUES ("
 KW_NULL = KEYWORDS_LOWERCASE ? "null" : "NULL"
 MAX_STRING_SIZE = 2000
 CONCAT_SEPARATOR = ' || '
-CLOB_PREFIX = '\n TO_CLOB('
+CLOB_PREFIX = System.lineSeparator() + ' TO_CLOB('
+SPECIAL_CHARS = ['\r', '\n', '&']
 
 def record(columns, dataRow) {
     OUT.append(KW_INSERT_INTO)
@@ -206,14 +250,12 @@ def record(columns, dataRow) {
         def isStringLiteral = value != null && FORMATTER.isStringLiteral(value, column)
         if (isStringLiteral && DIALECT.getDbms().isMysql()) stringValue = stringValue.replace("\\", "\\\\")
 
-        def isOracleClob = value != null && FORMATTER.getTypeName(value, column) == "CLOB" && DIALECT.getDbms().isOracle()// #1
+        def isOracleClob = value != null && "CLOB".equalsIgnoreCase(FORMATTER.getTypeName(value, column)) && DIALECT.getDbms().isOracle()// #1
         if (isOracleClob) {
-            stringValue = stringValue
-                    .replace(QUOTE, QUOTE + QUOTE)
-                    .replaceAll("(.{" + MAX_STRING_SIZE + "})", "\$1" + QUOTE + ') ' + CONCAT_SEPARATOR + CLOB_PREFIX + QUOTE) // #2
-            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE)
+            stringValue = prepareClobContent(stringValue) // #2/3
+            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE) // #3/4
                     .append(stringValue)
-                    .append(QUOTE + ")\n")
+                    .append(QUOTE).append(")").append(System.lineSeparator())
                     .append(idx != columns.size() - 1 ? SEP : "")
             return
         }
@@ -226,5 +268,32 @@ def record(columns, dataRow) {
     OUT.append(");").append(NEWLINE)
 }
 
+def prepareClobContent(originalString) {
+    def result = new StringBuilder()
+    def lineLength = 0
+    originalString.each { character ->
+        def characterString = mapSpecialCharacter(character) // #2
+        if (lineLength + characterString.length() >= MAX_STRING_SIZE) { // #3
+            result.append(QUOTE).append(') ').append(CONCAT_SEPARATOR).append(CLOB_PREFIX).append(QUOTE)
+            lineLength = 0
+        }
+        result.append(characterString)
+        lineLength += characterString.length()
+    }
+    return result.toString()
+}
+
+def String mapSpecialCharacter(String character) {
+    if (character == QUOTE) {
+        return character + character
+    } else if (SPECIAL_CHARS.contains(character)) {
+        return QUOTE + CONCAT_SEPARATOR + 'CHR(' + Character.codePointAt(character, 0) + ')' + CONCAT_SEPARATOR + QUOTE
+    } else {
+        return character
+    }
+}
+
 ROWS.each { row -> record(COLUMNS, row) }
 ```
+
+> Note: I once encountered problem with `DIALECT.getDbms()` returning `MockDbms` and not evaluating to the Oracle. The issue went away after a restart, but you could also remove this condition if you intend to generate such an insert regardless of the source DB dialect.

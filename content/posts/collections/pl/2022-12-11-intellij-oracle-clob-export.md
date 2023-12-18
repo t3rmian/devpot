@@ -10,6 +10,7 @@ tags:
   - sqlplus
 author: Damian Terlecki
 date: 2022-12-11T20:00:00
+updated: 2023-12-18T20:00:00
 ---
 
 Zarządzanie danymi tekstowymi pod postacią CLOB w Oracle nie jest zbyt wygodne.
@@ -17,10 +18,12 @@ Można wymienić kilka różnych narzędzi pozwalających na import i eksport ta
 
 Gdy jednak potrzebujemy czysto SQLowego podejścia, możemy skorzystać z niejawnego rzutowania bądź funkcji `TO_CLOB` przyjmującej jako parametr typ VARCHAR2.
 Dwa ograniczenia związane z tą koncepcją można wylistować pod postacią błędów:
-- `ORA-01704: string literal too long` – czyli użycie tekstu typu VARCHAR2 o długości wyższej niż 4000-32767 bajtów (w zależności od parametru inicjalizacyjnego `MAX_STRING_SIZE`);
-- `SP2-0027: Input is too long (> N characters)` – czyli błąd narzędzia `sqlplus` pojawiający się, gdy linia w skrypcie jest dłuższa niż wewnętrzny limit narzędzia (zazwyczaj limit większy niż 2000).
+- `ORA-01704: string literal too long` – czyli użycie tekstu typu VARCHAR2 o długości większej niż 4000-32767 bajtów (w zależności od parametru inicjalizacyjnego `MAX_STRING_SIZE`);
+- `SP2-0027: Input is too long (> N characters)` – czyli błędu narzędzia *sqlplus* pojawiającego się, gdy linia w skrypcie jest dłuższa niż wewnętrzny limit narzędzia (zazwyczaj limit większy niż 2000);
+- `SP2-XXXX: Unknown command` – błędy *sqlplus* dla tekstu zawierającego puste linie (do obejćia poleceniem `SET SQLBLANKLINES`);
+- w postaci skryptu oczekującego na wprowadzenie danych do podstawienia rozpoczynającego się od znaku `&` (obejćie poleceniem `SET DEFINE OFF`).
 
-Obejściem obu problemów jest rozbicie wartości na mniejsze kawałki i konkatenacja dodatkowo w oddzielnych liniach.
+Obejściem tych problemów jest rozbicie wartości na mniejsze kawałki i konkatenacja dodatkowo w oddzielnych liniach z uwzględnieniem znaków specjalnych.
 Rozwiązanie to opisane jest na popularnym [forum Ask Tom](https://asktom.oracle.com/pls/apex/f?p=100:11:0::::P11_QUESTION_ID:9523893800346388494).
 Potrzebujemy do tego narzędzia SQL\*Plus, jednak tutaj opiszę, jak możemy obejść się bez niego pod warunkiem, że pracujemy ze środowiskiem IntelliJ.
 
@@ -42,6 +45,8 @@ Nic nie stoi więc na przeszkodzie, aby za pomocą kilku linii, dodać do ekstra
 Wystarczy, że skopiujesz interesujący Cię ekstraktor pod własną nazwą i automatycznie pojawi się on na liście ekstraktorów.
 
 <img src="/img/hq/intellij-data-extractors-directory.png" alt="IntelliJ własny ekstraktor danych" title="IntelliJ własny ekstraktor danych">
+
+## Groovy SQL Insert Statements
 
 Sprawdźmy program `SQL-Insert-Statements.sql.groovy`. Rozpoczyna się on definicją standardowych parametrów, a trzy ważne
 etapy z punktu widzenia przepływu danych to:
@@ -104,7 +109,9 @@ ROWS.each { row -> record(COLUMNS, row) } // #1
 ## CLOB Data Extractor
 
 Do pomocy w napisaniu własnej logiki JetBrains udostępnia [dokumentację](https://www.jetbrains.com/help/idea/data-extractors.html#api_for_custom_data_extractors).
-Przede wszystkim przyda się zdefiniowanie własnych parametrów określających separatory oraz liczbę znaków, po której wywołamy konkatenację:
+Przede wszystkim przyda się zdefiniowanie własnych parametrów określających separatory oraz liczbę znaków, po której wywołamy konkatenację.
+Zdefiniujmy także kilka specjalnych znaków, których nie trawi *sqlplus*:
+
 ```groovy
 MAX_STRING_SIZE = 2000
 CONCAT_SEPARATOR = ' || '
@@ -113,21 +120,22 @@ CLOB_PREFIX = '\n TO_CLOB('
 
 W kolejnych punktach:
 1. Sprawdzamy, czy kolumna jest typu CLOB;
-2. Co `MAX_STRING_SIZE` znaków, przy pomocy podmiany REGEX dodajemy zamianę części tekstu na CLOB wraz z konkatenacją;
 3. Wypisujemy ostateczna wartość kolumny, pamiętając o domknięciu nawiasów.
+3. Zaczynając od funkcji `TO_CLOB`, co `MAX_STRING_SIZE` znaków, dodajemy zamianę części tekstu na CLOB;
+4. Rezultat dopisujemy do *appendera* pod zmienną `OUT`.
 
 ```groovy
         /*...*/
         if (isStringLiteral && DIALECT.getDbms().isMysql()) stringValue = stringValue.replace("\\", "\\\\")
 
-        def isOracleClob = value != null && FORMATTER.getTypeName(value, column) == "CLOB" && DIALECT.getDbms().isOracle() // #1
+        def isOracleClob = value != null &&
+                "CLOB".equalsIgnoreCase(FORMATTER.getTypeName(value, column)) &&
+                DIALECT.getDbms().isOracle() // #1
         if (isOracleClob) {
-            stringValue = stringValue
-                    .replace(QUOTE, QUOTE + QUOTE)
-                    .replaceAll("(.{" + MAX_STRING_SIZE + "})", "\$1" + QUOTE + ') ' + CONCAT_SEPARATOR + CLOB_PREFIX + QUOTE) // #2
-            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE) // #3
+            stringValue = prepareClobContent(stringValue) // #2/3
+            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE) // #3/4
                     .append(stringValue)
-                    .append(QUOTE + ")\n")
+                    .append(QUOTE).append(")").append(System.lineSeparator())
                     .append(idx != columns.size() - 1 ? SEP : "")
             return
         }
@@ -136,7 +144,44 @@ W kolejnych punktach:
         /*...*/
 ```
 
-Teraz wybierając ekstraktor z listy i kopiując wiersze (bądź korzystając z ekstrakcji całej tabeli), otrzymamy oczekiwany eksport:
+Do implementacji punktów 2 i 3 początkowo użyłem REGEX, ale ekstrakcja była nieco powolna dla dłuższych tekstów.
+Aby zamienić znaki specjalne wykluczając możliwość wstawienia nowej linii w nieodpowiednim miejscu, przeszedłem na prostą iterację po znakach.
+Ta doosyć prymitywna implementacji okazała się zadowalająco szybka szczególnie względem REGEXu:
+
+
+```groovy
+def prepareClobContent(originalString) {
+    def result = new StringBuilder()
+    def lineLength = 0
+    originalString.each { character ->
+        def characterString = mapSpecialCharacter(character) // #2
+        if (lineLength + characterString.length() >= MAX_STRING_SIZE) { // #3
+            result.append(QUOTE).append(') ').append(CONCAT_SEPARATOR)
+                    .append(CLOB_PREFIX).append(QUOTE)
+            lineLength = 0
+        }
+        result.append(characterString)
+        lineLength += characterString.length()
+    }
+    return result.toString()
+}
+
+def String mapSpecialCharacter(String character) {
+    if (character == QUOTE) {
+        return character + character
+    } else if (SPECIAL_CHARS.contains(character)) {
+        return QUOTE + CONCAT_SEPARATOR + 'CHR(' +
+                Character.codePointAt(character, 0) + ')' +
+                CONCAT_SEPARATOR + QUOTE
+    } else {
+        return character
+    }
+}
+```
+
+Teraz wybierając ekstraktor z listy i kopiując wiersze (bądź korzystając z ekstrakcji całej tabeli), otrzymamy oczekiwany eksport.
+Przy wklejaniu pamiętaj o wklejaniu w trybie zwykłego tekstu i pominięciu autoformatowania.
+
 ```sql
 CREATE TABLE foobar
 (
@@ -185,7 +230,8 @@ KW_VALUES = KEYWORDS_LOWERCASE ? ") values (" : ") VALUES ("
 KW_NULL = KEYWORDS_LOWERCASE ? "null" : "NULL"
 MAX_STRING_SIZE = 2000
 CONCAT_SEPARATOR = ' || '
-CLOB_PREFIX = '\n TO_CLOB('
+CLOB_PREFIX = System.lineSeparator() + ' TO_CLOB('
+SPECIAL_CHARS = ['\r', '\n', '&']
 
 def record(columns, dataRow) {
     OUT.append(KW_INSERT_INTO)
@@ -204,14 +250,12 @@ def record(columns, dataRow) {
         def isStringLiteral = value != null && FORMATTER.isStringLiteral(value, column)
         if (isStringLiteral && DIALECT.getDbms().isMysql()) stringValue = stringValue.replace("\\", "\\\\")
 
-        def isOracleClob = value != null && FORMATTER.getTypeName(value, column) == "CLOB" && DIALECT.getDbms().isOracle()
+        def isOracleClob = value != null && "CLOB".equalsIgnoreCase(FORMATTER.getTypeName(value, column)) && DIALECT.getDbms().isOracle()// #1
         if (isOracleClob) {
-            stringValue = stringValue
-                    .replace(QUOTE, QUOTE + QUOTE)
-                    .replaceAll("(.{" + MAX_STRING_SIZE + "})", "\$1" + QUOTE + ') ' + CONCAT_SEPARATOR + CLOB_PREFIX + QUOTE)
-            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE)
+            stringValue = prepareClobContent(stringValue) // #2/3
+            OUT.append(STRING_PREFIX + CLOB_PREFIX + QUOTE) // #3/4
                     .append(stringValue)
-                    .append(QUOTE + ")\n")
+                    .append(QUOTE).append(")").append(System.lineSeparator())
                     .append(idx != columns.size() - 1 ? SEP : "")
             return
         }
@@ -224,5 +268,32 @@ def record(columns, dataRow) {
     OUT.append(");").append(NEWLINE)
 }
 
+def prepareClobContent(originalString) {
+    def result = new StringBuilder()
+    def lineLength = 0
+    originalString.each { character ->
+        def characterString = mapSpecialCharacter(character) // #2
+        if (lineLength + characterString.length() >= MAX_STRING_SIZE) { // #3
+            result.append(QUOTE).append(') ').append(CONCAT_SEPARATOR).append(CLOB_PREFIX).append(QUOTE)
+            lineLength = 0
+        }
+        result.append(characterString)
+        lineLength += characterString.length()
+    }
+    return result.toString()
+}
+
+def String mapSpecialCharacter(String character) {
+    if (character == QUOTE) {
+        return character + character
+    } else if (SPECIAL_CHARS.contains(character)) {
+        return QUOTE + CONCAT_SEPARATOR + 'CHR(' + Character.codePointAt(character, 0) + ')' + CONCAT_SEPARATOR + QUOTE
+    } else {
+        return character
+    }
+}
+
 ROWS.each { row -> record(COLUMNS, row) }
 ```
+
+> Uwaga: W jednej ze starszych wersji IDE napotkałem na problem polegający na tym, że polecenie `DIALECT.getDbms()` zwracało `MockDbms` zamiast Oracle. Tym samym generowany był tekst o domyślnym typie zamiast CLOB. Problem zniknął po ponownym uruchomieniu IDE, ale równie dobrze możesz pozbyć się tego warunku, jeśli nie planujesz implementacji wspierającej wiele różnych typów baz docelowych.
