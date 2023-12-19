@@ -18,14 +18,14 @@ Several different tools allow importing and exporting such data: SQL*Loader, Dat
 
 In a purely SQL approach, you can use an implicit cast or the `TO_CLOB` function accepting a VARCHAR2 type parameter.
 Some limitations that come with this concept can be explained under the following issues:
-- `ORA-01704: string literal too long` – erro caused by using a VARCHAR2 type of length longer than 4000-32767 bytes (exact limit depends on the initialization parameter `MAX_STRING_SIZE`);
+- `ORA-01704: string literal too long` – error caused by using a VARCHAR2 type of length longer than 4000-32767 bytes (exact limit depends on the initialization parameter `MAX_STRING_SIZE`);
 - `SP2-0027: Input is too long (> N characters)` – which is an error of the *sqlplus* tool that appears when a line in the script is longer than the internally defined limit (usually some value greater than 2000);
 - `SP2-XXXX: Unknown command` – that usually appears in the *sqlplus* for text containing blank lines (can be mitigated with `SET SQLBLANKLINES` command);
 - a script waiting for a substitution input that begins with an `&` (popular workaround – `SET DEFINE OFF`). 
 
 A workaround for these problems is to break the values into smaller chunks and concatenate them additionally in separate lines handling special characters.
 This solution is described on the popular [Ask Tom forum](https://asktom.oracle.com/pls/apex/f?p=100:11:0::::P11_QUESTION_ID:9523893800346388494).
-You will need the SQL*Plus tool for this. But you might not have this at hand so let me show you how to achieve the same thing with the IntelliJ IDE.
+You will need the SQL Developer tool for this. But you might not have this at hand so let me show you how to achieve the same thing with the IntelliJ IDE.
 
 ## IntelliJ Data Extractor
 
@@ -297,3 +297,7 @@ ROWS.each { row -> record(COLUMNS, row) }
 ```
 
 > Note: I once encountered problem with `DIALECT.getDbms()` returning `MockDbms` and not evaluating to the Oracle. The issue went away after a restart, but you could also remove this condition if you intend to generate such an insert regardless of the source DB dialect.
+
+With this data extractor, you will be able to generate ad-hoc CLOB exports directly from IntelliJ.
+They can go beyond the *varchar* limits and handle special characters, alas only for the CLOB columns.
+Have you already thought about supporting other data types; line, or criteria limits?

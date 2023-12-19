@@ -25,7 +25,7 @@ Dwa ograniczenia związane z tą koncepcją można wylistować pod postacią bł
 
 Obejściem tych problemów jest rozbicie wartości na mniejsze kawałki i konkatenacja dodatkowo w oddzielnych liniach z uwzględnieniem znaków specjalnych.
 Rozwiązanie to opisane jest na popularnym [forum Ask Tom](https://asktom.oracle.com/pls/apex/f?p=100:11:0::::P11_QUESTION_ID:9523893800346388494).
-Potrzebujemy do tego narzędzia SQL\*Plus, jednak tutaj opiszę, jak możemy obejść się bez niego pod warunkiem, że pracujemy ze środowiskiem IntelliJ.
+Potrzebujemy do tego narzędzia SQL Developer, jednak tutaj opiszę, jak możemy obejść się bez niego pod warunkiem, że pracujemy ze środowiskiem IntelliJ.
 
 ## IntelliJ Data Extractor
 
@@ -297,3 +297,7 @@ ROWS.each { row -> record(COLUMNS, row) }
 ```
 
 > Uwaga: W jednej ze starszych wersji IDE napotkałem na problem polegający na tym, że polecenie `DIALECT.getDbms()` zwracało `MockDbms` zamiast Oracle. Tym samym generowany był tekst o domyślnym typie zamiast CLOB. Problem zniknął po ponownym uruchomieniu IDE, ale równie dobrze możesz pozbyć się tego warunku, jeśli nie planujesz implementacji wspierającej wiele różnych typów baz docelowych.
+
+Dzięki temu ekstraktorowi danych wygenerujesz, *ad hoc*, eksport kolumn typu CLOB bezpośrednio z IntelliJ.
+Eksport nie jest limitowany maksymalnym rozmiarem dla typu *varchar* i wspiera znaki specjalne, przy czym tylko dla kolumn CLOB.
+Dalej możemy też zastanowić się nad rozszerzeniem przykładu o pozostałe typy danych, a nawet podpiąć własne funkcje bazodanowe.
