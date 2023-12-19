@@ -22,15 +22,15 @@ export default ({
     <h1 className="title">{title}</h1>
     <div className="meta">
       <span className="item">
-        {updated && (
-          <span>
+        <span className={"creation-date" + (updated ? " updated" : "")}>
+          {updated && (
           <time dateTime={new Date(updated).toISOString()}>
             {updatedFormatted}
             <br />
           </time>
-          </span>
-        )}
-        <time dateTime={new Date(date).toISOString()}>{dateFormatted}</time>
+          )}
+          <time dateTime={new Date(date).toISOString()}>{dateFormatted}</time>
+        </span>
       </span>
       <span className="item profile">
         <span>

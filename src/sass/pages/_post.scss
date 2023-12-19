@@ -95,16 +95,27 @@
                     text-decoration: line-through;
                 }
 
+                .creation-date.updated, .profile div {
+                    line-height: 1.2em;
+                }
+
+                .creation-date, .profile div {
+                    position: relative;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+
                 .profile {
                     line-height: 40px;
                     vertical-align: middle;
 
                     div {
-                        position: relative;
                         top: -2px;
-                        line-height: 1.2em;
-                        display: inline-block;
-                        vertical-align: middle;
+                    }
+
+                    &:after {
+                        position: relative;
+                        top: -1px;
                     }
 
                     img {
