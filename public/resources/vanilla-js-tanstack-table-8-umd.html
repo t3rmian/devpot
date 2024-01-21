@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vanilla JS Demo TanStack 8.11.6 Core UMD Table</title>
+    <script src="https://unpkg.com/@tanstack/table-core@8.11.6/build/umd/index.development.js"></script>
+    <style>
+        body {
+            background: white;
+        }
+        table {
+            border: 1px solid lightgray;
+            border-collapse: collapse;
+        }
+
+        tbody {
+            border-bottom: 1px solid lightgray;
+        }
+
+        th {
+            border-bottom: 1px solid lightgray;
+            border-right: 1px solid lightgray;
+            padding: 2px 4px;
+        }
+
+        tfoot {
+            color: grey;
+        }
+
+        tfoot th {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+<h1>Demo TanStack 8.11.6 Core UMD Table</h1>
+<div id="table-root"></div>
+</body>
+<script>
+    const data = [
+        {
+            fullName: "Alice Johnson",
+            position: "Software Engineer",
+            department: "Engineering",
+            yearsOfService: 3
+        },
+        {
+            fullName: "Bob Smith",
+            position: "Marketing Specialist",
+            department: "Marketing",
+            yearsOfService: 7
+        },
+        {
+            fullName: "Charlie Davis",
+            position: "Project Manager",
+            department: "Project Management",
+            yearsOfService: 5
+        }
+    ];
+
+    const columnHelper = TableCore.createColumnHelper();
+    const columns = [
+        columnHelper.accessor(row => row.fullName, {
+            id: 'fullName',
+            cell: info => info.getValue(),
+            footer: info => info.column.id,
+        }),
+        columnHelper.accessor(row => row.position, {
+            id: 'position',
+            cell: info => `<i>${info.getValue()}</i>`,
+            header: () => `<span>Position</span>`,
+            footer: info => info.column.id,
+        }),
+        columnHelper.accessor(row => row.department, {
+            id: 'department',
+            header: () => 'Department',
+            cell: info => info.renderValue(),
+            footer: info => info.column.id,
+        }),
+        columnHelper.accessor(row => row.yearsOfService, {
+            id: 'yearsOfService',
+            header: () => `<span>Seniority</span>`,
+            footer: info => info.column.id,
+        }),
+    ];
+
+    const table = TableCore.createTable({
+        data,
+        columns,
+        getCoreRowModel: TableCore.getCoreRowModel(),
+        getSortedRowModel: TableCore.getSortedRowModel(),
+        state: {
+            columnPinning: {},
+            pagination: {},
+        },
+        onStateChange: (foo) => {
+            table.setOptions(prev => ({
+                ...prev,
+                state: foo(table.getState())
+            }));
+            drawTable("table-root", table)
+        },
+        debugAll: true,
+    });
+
+    drawTable("table-root", table);
+
+    function drawTable(rootElementId, tableModel) {
+        const rootElement = document.getElementById(rootElementId);
+        const tableElement = document.createElement("table");
+        const thead = document.createElement("thead");
+        const tbody = document.createElement("tbody");
+        const tfoot = document.createElement("tfoot");
+
+        thead.append(...tableModel.getHeaderGroups().map(headerGroup => {
+            const rowElement = document.createElement("tr");
+            rowElement.append(...headerGroup.headers.map(header => {
+                const cellElement = document.createElement("th");
+                cellElement.innerHTML = flexRender(header.column.columnDef.header, header.getContext());
+                cellElement.onclick = header.column.getToggleSortingHandler()
+                if (header.column.getIsSorted()) {
+                    cellElement.innerHTML += header.column.getIsSorted() === 'asc' ? '↑' : '↓'
+                }
+                return cellElement;
+            }));
+            return rowElement;
+        }));
+
+        tbody.append(...tableModel.getRowModel().rows.map(row => {
+            const rowElement = document.createElement("tr");
+            rowElement.append(...row.getVisibleCells().map(cell => {
+                const cellElement = document.createElement("td");
+                cellElement.innerHTML = flexRender(cell.column.columnDef.cell, cell.getContext());
+                return cellElement;
+            }));
+            return rowElement;
+        }));
+
+        tfoot.append(...tableModel.getFooterGroups().map(footerGroup => {
+            const rowElement = document.createElement("tr");
+            rowElement.append(...footerGroup.headers.map(header => {
+                const cellElement = document.createElement("th");
+                cellElement.innerHTML = flexRender(header.column.columnDef.footer, header.getContext());
+                return cellElement;
+            }));
+            return rowElement;
+        }));
+        tableElement.append(thead, tbody, tfoot);
+        tableElement.id = rootElementId;
+        rootElement.replaceWith(tableElement);
+
+        function flexRender(renderer, context) {
+            // if the content is unsafe, you can sanitize it here
+            if (typeof renderer === "function") {
+                return renderer(context);
+            }
+            return renderer
+        }
+    }
+</script>
+</html>
