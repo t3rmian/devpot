@@ -3,7 +3,7 @@ title: Ad-hoc way to debug output queries in EclipseLink
 url: debug-output-sql-executions-eclipselink
 id: 124
 category:
-  - jee: JPA
+  - jpa: JPA
 tags:
   - eclipselink
   - logging

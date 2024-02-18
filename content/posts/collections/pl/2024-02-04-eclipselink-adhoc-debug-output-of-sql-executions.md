@@ -3,7 +3,7 @@ title: Doraźny sposób wypisania zapytań wyjściowych EclipseLink w trybie deb
 url: debugowanie-zapytań-wyjściowych-sql-eclipselink
 id: 124
 category:
-  - jee: JPA
+  - jpa: JPA
 tags:
   - eclipselink
   - logowanie
