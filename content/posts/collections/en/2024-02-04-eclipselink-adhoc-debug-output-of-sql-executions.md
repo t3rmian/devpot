@@ -49,7 +49,7 @@ you are free to debug it to your needs.
 
 With the help of an IDE, you can output the query details into the local console.
 For the breakpoint condition, check if it's a statement execution query `SessionProfiler.StatementExecute.equals(operationName) && query != null`.
-As for the output, concatenate the SQL string with an optional translation row representing the bind parameters `return query.getSQLString() + System.lineSeparator() + "Bind parameters:" + query.getTranslationRow();`:
+As for the output, concatenate the SQL string with an optional translation row representing the bind parameters `return String.format("%s%nBind parameters: %s%n%s",query.getSQLString(), java.util.Objects.toString(query.getQueryMechanism().getModifyRow(), ""), java.util.Objects.toString(query.getQueryMechanism().getTranslationRow(), ""));`:
 
 <img src="/img/hq/debug-output-sql-executions-eclipselink.png" title="EclipseLink AbstractSession profiler debug" alt="EclipseLink AbstractSession profiler debug">
 

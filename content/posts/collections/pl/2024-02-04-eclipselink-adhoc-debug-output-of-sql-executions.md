@@ -55,7 +55,7 @@ zmianom (wersja 2.7), to nic nie stoi na przeszkodzie, abyśmy ją przedebugowal
 Za pomocą IDE możesz wypisać szczegóły zapytania z parametru do konsoli lokalnej. Do *breakpointu* warto dodać warunek
 sprawdzający typ operacji, jakim jest wykonanie zapytania: `SessionProfiler.StatementExecute.equals(nazwaoperacji) && query != null`.
 Jeśli chodzi o dane wyjściowe, treść zapytania SQL możemy wypisać na konsolę IDE wraz z opcjonalnym wierszem tłumaczenia reprezentującym parametry
-wiązania `return query.getSQLString() + System.lineSeparator() + "Bind parameters:" + query.getTranslationRow();`:
+wiązania `return String.format("%s%nBind parameters: %s%n%s",query.getSQLString(), java.util.Objects.toString(query.getQueryMechanism().getModifyRow(), ""), java.util.Objects.toString(query.getQueryMechanism().getTranslationRow(), ""));`:
 
 <img src="/img/hq/debug-output-sql-executions-eclipselink.png" title="Debugowanie (IntelliJ) profilowania EclipseLink w AbstractSession" alt="Debugowanie (IntelliJ) profilowania EclipseLink w AbstractSession">
 
