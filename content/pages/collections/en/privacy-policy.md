@@ -1,7 +1,7 @@
 ---
 title: Privacy Policy
 url: privacy-policy
-date: 2025-05-15T19:25:00
+date: 2025-05-15T15:25:00
 ---
 
 Hello. You've reached blog.termian.dev ("I", "my", "the site"). Here's a summary of how I protect your data and respect your privacy.
