@@ -89,5 +89,6 @@
       "html",
       "lcov"
     ]
-  }
+  },
+  "packageManager": "pnpm@8.15.9"
 }
