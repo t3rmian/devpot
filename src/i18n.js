@@ -82,9 +82,6 @@ const resources = {
   },
   es: {
     translation: {
-      defaultLang: "Idioma predeterminado",
-      "site title": "Título del sitio",
-      "twitter author": "Autor de Twitter",
       "date=year+month": "{{date, year+month}}",
       "date=month+day": "{{date, month+day}}",
       "date=post": "{{date, year+month+day}}",
@@ -123,9 +120,7 @@ const resources = {
   },
   ja: {
     translation: {
-      defaultLang: "デフォルト言語",
-      "site title": "サイトタイトル",
-      "twitter author": "Twitter著者",
+      "site title": "デブポット",
       "date=year+month": "{{date, year+month}}",
       "date=month+day": "{{date, month+day}}",
       "date=post": "{{date, year+month+day}}",
