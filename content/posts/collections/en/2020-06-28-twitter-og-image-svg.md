@@ -22,8 +22,6 @@ In the case of my blog, the list of supported image types turned out to be a tee
 
 Due to the fact that SVG is a vector graphics format, it allows us to obtain a much smaller size compared to the PNG format. Depending on the situation, we can count on savings in the range [from 60% to 80% of the size] (https://vecta.io/blog/comparing-svg-and-png-file-sizes). Of course, there are also cases where our SVG image will weigh a ton (hand-embedded fonts), so it's always worth choosing the right format for what you need.
 
-Ze względu na to, że SVG jest formatem grafiki wektorowej, pozwala na uzyskanie znacznie mniejszego rozmiaru w porównaniu do formatu PNG. W zależności od sytuacji, możemy liczyć na oszczędności w zakresie [od 60% do 80% rozmiaru](https://vecta.io/blog/comparing-svg-and-png-file-sizes). Oczywiście są też przypadki gdzie nasz obrazek SVG będzie ważył tonę (ręcznie osadzone czcionki), dlatego zawsze warto dobierać odpowiedni format do tego co potrzebujemy (format SVG ma również inne zalety).
-
 These and other advantages of the SVG format make me reach for it from time to time. So what if I wanted to use SVG and at the same time ensure that the images display correctly on social media?
 
 ## SVG to JPEG/PNG

@@ -19,7 +19,7 @@ export function Index(siteVariant, pages, loadEagerly) {
       categories: siteVariant.getCategories(),
       date: new Date().toISOString()
     }),
-    children: Pages(siteVariant, pages, Object.values(pages[siteVariant.lang]))
+    children: Pages(siteVariant, pages, Object.values(pages[siteVariant.lang] ?? {}))
         .concat(Posts(siteVariant))
   };
 }
