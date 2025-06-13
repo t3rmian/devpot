@@ -155,14 +155,14 @@ WHERE SUBSTR(text, 1, 4) = to_char(TO_DATE('2022', 'YYYY'), 'YYYY')
 
 Ao encontrar tal erro em uma consulta complexa, vale a pena verificar se você não fez suposições incorretas sobre a ordem.
 No Oracle DB, erros comuns de conversão incluem os seguintes códigos:
-- ORA-01722: número inválido;
-- ORA-01858: um caractere não numérico foi encontrado onde um numérico era esperado;
-- ORA-01859: um caractere não alfabético foi encontrado onde um alfabético era esperado;
-- ORA-01861: literal não corresponde à string de formato;
-- ORA-01863: o ano não é suportado para o calendário atual;
-- ORA-01864: a data está fora do intervalo para o calendário atual;
-- ORA-01865: não é uma era válida;
-- ORA-01884: divisor é igual a zero.
+- ORA-01722: invalid number;
+- ORA-01858: a non-numeric character was found where a numeric was expected;
+- ORA-01859: a non-alphabetic character was found where an alphabetic was expected;
+- ORA-01861: literal does not match format string;
+- ORA-01863: the year is not supported for the current calendar;
+- ORA-01864: the date is out of range for the current calendar;
+- ORA-01865: not a valid era;
+- ORA-01884: divisor is equal to zero.
 
 Esses erros podem ser particularmente surpreendentes se ocorrerem apenas ao invocar consultas da aplicação.
 Na maioria das vezes, isso se deve a diferenças nos planos de consulta (um número diferente de variáveis de bind ou falta delas).

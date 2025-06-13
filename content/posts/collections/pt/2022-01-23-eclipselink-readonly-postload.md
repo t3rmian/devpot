@@ -7,8 +7,8 @@ category:
 tags:
   - sql
   - eclipselink
-    author: Damian Terlecki
-    date: 2022-01-23T20:00:00
+author: Damian Terlecki
+date: 2022-01-23T20:00:00
 ---
 De acordo com a especificação JPA 2.1, os métodos de entidade anotados com `@PostLoad` são usados como callbacks quando a entidade é carregada do banco de dados. Mais precisamente, isso acontece quando a entidade é carregada no contexto de persistência e quando a atualização (refresh) é invocada. No entanto, existe um equívoco de que o método será chamado sempre que buscarmos dados do banco de dados.
 

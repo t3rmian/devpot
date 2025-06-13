@@ -8,8 +8,8 @@ tags:
   - sql
   - eclipselink
   - hibernate
-    author: Damian Terlecki
-    date: 2022-01-09T20:00:00
+author: Damian Terlecki
+date: 2022-01-09T20:00:00
 ---
 
 A ideia principal por trás do JPA é o mapeamento objeto-relacional, graças ao qual podemos esquecer as colunas do banco de dados ao criar queries e trabalhar com propriedades de objetos mapeados. No entanto, se quisermos nos referir a uma coluna que não está mapeada, dependendo da forma como construímos a query, pode ser necessário usar uma interface fornecida pela implementação específica do JPA, como o EclipseLink.

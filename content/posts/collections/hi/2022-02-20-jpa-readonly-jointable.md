@@ -1,24 +1,21 @@
 ---
-title: Tabela de junção (join table) somente leitura no JPA
-url: jpa-tabela-de-juncao-somente-leitura
+title: JPA रीड-ओनली जॉइन टेबल
+url: jpa-रीड-ओनली-जॉइन-टेबल
 id: 80
 category:
-- jpa: JPA
+- jpa: जेपीए
 tags:
-  - sql
-  - desempenho
-  - eclipselink
-  - hibernate
+  - एसक्यूएल
+  - प्रदर्शन
+  - इक्लिप्सलिंक
+  - हाइबरनेट
 author: Damian Terlecki
 date: 2022-02-20T20:00:00
 ---
 
-As duas anotações JPA comumente usadas para mapear relacionamentos usando uma tabela de junção são *@JoinTable* e a
-combinação de *@ElementCollection* e *@CollectionTable*. Em ambos os casos, elas são aplicadas ao lado que possui o
-relacionamento. Todas as modificações no relacionamento representado pela tabela de junção são, por padrão, sincronizadas a partir do lado proprietário.
+दो JPA एनोटेशन जो आमतौर पर एक जॉइन टेबल का उपयोग करके संबंधों को मैप करने के लिए उपयोग किए जाते हैं, वे हैं *@JoinTable* और *@ElementCollection* और *@CollectionTable* का संयोजन। दोनों ही मामलों में, वे उस पक्ष पर लागू होते हैं जो संबंध का स्वामी है। जॉइन टेबल द्वारा दर्शाए गए संबंध में सभी संशोधन, डिफ़ॉल्ट रूप से, स्वामी के पक्ष से सिंक्रनाइज़ किए जाते हैं।
 
-Desabilitar o comportamento de atualização da tabela de junção não é tão simples. Embora a anotação *@JoinTable*
-contenha atributos *@JoinColumn* com as propriedades `updatable` e `insertable`, elas não afetam esse comportamento, ao contrário do caso de uma junção simples. Vamos verificar isso em um exemplo:
+जॉइन टेबल को अपडेट करने के व्यवहार को अक्षम करना इतना सरल नहीं है। भले ही *@JoinTable* एनोटेशन में `updatable` और `insertable` गुणों के साथ *@JoinColumn* विशेषताएँ हों, वे इस व्यवहार को प्रभावित नहीं करती हैं, जो एक साधारण जॉइन के मामले के विपरीत है। आइए इसे एक उदाहरण पर जांचें:
 
 ```java
 import lombok.Getter;
@@ -76,7 +73,7 @@ public class User extends Person {
 }
 ```
 
-No exemplo acima, temos uma entidade de usuário simples com um relacionamento muitos-para-muitos na forma de um link mentor (usuário) — mentorado (usuário). Este relacionamento é mapeado de duas maneiras usando *@JoinTable* (lista de entidades) e *@ElementCollection* (lista de IDs de entidades). O cascateamento está desabilitado por padrão. Agora vamos tentar persistir dois objetos e adicionar um relacionamento entre eles:
+उपरोक्त उदाहरण में, हमारे पास एक साधारण उपयोगकर्ता एंटिटी है जिसमें मेंटर (उपयोगकर्ता) — मेंटी (उपयोगकर्ता) लिंक के रूप में एक अनेक-से-अनेक संबंध है। यह संबंध *@JoinTable* (एंटिटी सूची) और *@ElementCollection* (एंटिटी आईडी सूची) का उपयोग करके दो तरीकों से मैप किया गया है। कैस्केडिंग डिफ़ॉल्ट रूप से अक्षम है। अब आइए दो ऑब्जेक्ट्स को बनाए रखने और उनके बीच एक संबंध जोड़ने का प्रयास करें:
 
 ```java
 import org.junit.jupiter.api.BeforeEach;
@@ -161,9 +158,9 @@ public class ReadOnlyCollectionTest {
 }
 ```
 
-Tanto para o Hibernate quanto para o EclipseLink, o *EntityManager* constrói e envia duas queries de inserção para adicionar um relacionamento à tabela de junção. Uma *RollbackException* é lançada.
+Hibernate और EclipseLink दोनों के लिए, *EntityManager* जॉइन टेबल में एक संबंध जोड़ने के लिए दो इंसर्ट क्वेरी बनाता और भेजता है। एक *RollbackException* फेंका जाता है।
 
-Logs do Hibernate:
+Hibernate लॉग्स:
 ```sql
 2022-02-20 14:39:40.533 DEBUG 2760 --- [main] org.hibernate.SQL                        : 
     
@@ -214,7 +211,7 @@ Hibernate:
 
 ```
 
-Logs do EclipseLink:
+EclipseLink लॉग्स:
 ```sql
 [EL Fine]: sql: 2022-02-20 15:19:14.204--ClientSession(1679352734)--Connection(488422671)--Thread(Thread[main,5,main])--INSERT INTO mentored_users (mentee_user_id, mentor_user_id) VALUES (?, ?)
 	bind => [6, 5]
@@ -230,13 +227,13 @@ Call: INSERT INTO mentored_users (mentor_user_id, mentee_user_id) VALUES (?, ?)
 	bind => [5, 6]
 ```
 
-## Tabela de junção somente leitura
+## रीड-ओनली जॉइन टेबल
 
-O exemplo acima não está totalmente correto do ponto de vista do JPA. No entanto, as implementações do JPA nos permitem modificar o relacionamento de uma forma que nos atenda.
+उपरोक्त उदाहरण JPA के दृष्टिकोण से बिल्कुल सही नहीं है। फिर भी, JPA कार्यान्वयन हमें संबंध को इस तरह से संशोधित करने की अनुमति देते हैं जो हमारे लिए उपयुक्त होगा।
 
 ### Hibernate
 
-As interfaces `org.hibernate.persister.entity.EntityPersister` e `org.hibernate.persister.collection.CollectionPersister` com a anotação `org.hibernate.annotations.Persister` permitem definir uma lógica de mapeamento de entidade/elemento personalizada para um campo específico. Simplesmente estenda a classe *BasicCollectionPersister* definindo a flag `inverse` da coleção como `true` no construtor. Salvar, atualizar e excluir linhas da tabela de junção serão ignorados como se o relacionamento fosse de propriedade de outro lado.
+`org.hibernate.persister.entity.EntityPersister` और `org.hibernate.persister.collection.CollectionPersister` इंटरफेस `org.hibernate.annotations.Persister` एनोटेशन के साथ आपको एक निर्दिष्ट फ़ील्ड के लिए एक कस्टम एंटिटी/एलिमेंट मैपिंग लॉजिक को परिभाषित करने की अनुमति देते हैं। बस *BasicCollectionPersister* क्लास का विस्तार करें और कंस्ट्रक्टर में संग्रह `inverse` ध्वज को `true` पर सेट करें। जॉइन टेबल पंक्तियों को सहेजना, अपडेट करना और हटाना छोड़ दिया जाएगा जैसे कि संबंध दूसरे पक्ष के स्वामित्व में था।
 
 ```java
 import org.hibernate.MappingException;
@@ -261,7 +258,7 @@ public class ReadOnlyCollectionPersister extends BasicCollectionPersister {
     }
 }
 ```
-Agora adicione a anotação *@Persister* apontando para o contrato de mapeamento, e o teste passará:
+अब *@Persister* एनोटेशन को मैपिंग कॉन्ट्रैक्ट की ओर इशारा करते हुए जोड़ें, और टेस्ट पास हो जाएगा:
 
 ```java
     //...
@@ -275,11 +272,11 @@ Agora adicione a anotação *@Persister* apontando para o contrato de mapeamento
     //...
 ```
 
-O Hibernate também fornece uma anotação `org.hibernate.annotations.Immutable`. No entanto, ela não se encaixa bem na nossa solução. Basicamente, ela impede que você remova e adicione itens de coleção para um objeto gerenciado, lançando uma exceção. Além do *BasicCollectionPersister*, você pode estender a classe *OneToManyPersister* se usar a anotação *@OneToMany*.
+Hibernate एक `org.hibernate.annotations.Immutable` एनोटेशन भी प्रदान करता है। हालाँकि, यह हमारे समाधान में पूरी तरह से फिट नहीं बैठता है। मूल रूप से, यह एक अपवाद फेंककर एक प्रबंधित ऑब्जेक्ट के लिए संग्रह आइटम को हटाने और जोड़ने से रोकता है। *BasicCollectionPersister* के अलावा, यदि आप *@OneToMany* एनोटेशन का उपयोग करते हैं तो आप *OneToManyPersister* क्लास का विस्तार कर सकते हैं।
 
 ### EclipseLink
 
-No caso do EclipseLink, você pode modificar as informações de mapeamento usando uma anotação em nível de tipo `org.eclipse.persistence.annotations.Customizer`. Esta anotação é um ponto de entrada para a implementação da interface `org.eclipse.persistence.config.DescriptorCustomizer`. Para obter um resultado semelhante no contexto de gerenciamento da tabela intermediária, podemos usar o recurso somente leitura. Embora você não possa adicionar a anotação *@ReadOnly* em um campo, você pode colocar o relacionamento no modo esperado durante a configuração do descritor.
+EclipseLink के मामले में, आप एक प्रकार-स्तर `org.eclipse.persistence.annotations.Customizer` एनोटेशन का उपयोग करके मैपिंग जानकारी को संशोधित कर सकते हैं। यह एनोटेशन `org.eclipse.persistence.config.DescriptorCustomizer` इंटरफ़ेस के कार्यान्वयन के लिए एक प्रवेश बिंदु है। मध्यवर्ती तालिका के प्रबंधन के संदर्भ में एक समान परिणाम प्राप्त करने के लिए, हम रीड-ओनली सुविधा का उपयोग कर सकते हैं। हालाँकि आप किसी फ़ील्ड पर *@ReadOnly* एनोटेशन नहीं जोड़ सकते हैं, आप डिस्क्रिप्टर कॉन्फ़िगरेशन के दौरान संबंध को अपेक्षित मोड में डाल सकते हैं।
 
 ```java
 import org.eclipse.persistence.config.DescriptorCustomizer;
@@ -293,7 +290,7 @@ public class UserDescriptorCustomizer implements DescriptorCustomizer {
 }
 ```
 
-Você pode aplicar o customizador na classe da entidade:
+आप एंटिटी क्लास पर कस्टमाइज़र लागू कर सकते हैं:
 
 ```java
 //...
@@ -301,4 +298,5 @@ Você pode aplicar o customizador na classe da entidade:
 public class User extends Person { /*...*/ }
 ```
 
-<img src="/img/hq/jpa-readonly-jointable.png" alt="JPA @JoinTable somente leitura" title="JPA @JoinTable somente leitura">
+<img src="/img/hq/jpa-readonly-jointable.png" alt="JPA रीड-ओनली @JoinTable" title="JPA रीड-ओनली @JoinTable">
+

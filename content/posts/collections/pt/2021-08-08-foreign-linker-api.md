@@ -6,9 +6,9 @@ category:
 - java: Java
 tags:
   - nativo
-    author: Damian Terlecki
-    date: 2021-08-08T20:00:00
-    source: https://github.com/t3rmian/setsockopt-java-demo
+author: Damian Terlecki
+date: 2021-08-08T20:00:00
+source: https://github.com/t3rmian/setsockopt-java-demo
 ---
 
 Em [um dos meus artigos anteriores](/posts/java-socket-native-options), mostrei como podemos usar um descritor de soquete Java para definir algumas opções nativas de TCP/IP usando JNA (Java Native Access). Recentemente, a proposta de aprimoramento do JDK [JEP 389: Foreign Linker API (Incubator)](https://openjdk.java.net/jeps/389) implementada no JDK 16 como um complemento à API de Acesso à Memória Estrangeira (JEP-370<wbr>/<wbr>JEP 383<wbr>/<wbr>JEP 393), introduziu mais uma interface poderosa que permite uma grande interoperabilidade com bibliotecas C.

@@ -117,7 +117,7 @@ Total hints for statement: 2
 クエリの直接の結果を更新し、深くネストされたサブクエリを取り除くこともできます。
 ただし、条件は、クエリが更新される各レコードに対して正確に1行を返すことです。
 そうでなければ、必然的に`ORA-01779`エラーが発生します。
-> ORA-01779: キー保存されていないテーブルにマップされている列は変更できません
+> ORA-01779: cannot modify a column which maps to a non key-preserved table
 
 ```sql
 CREATE UNIQUE INDEX U_BT2_OBJECT_ID ON BIG_TABLE_2 (OBJECT_ID);

@@ -8,8 +8,8 @@ tags:
   - sql
   - eclipselink
   - hibernate
-    author: Damian Terlecki
-    date: 2021-05-30T20:00:00
+author: Damian Terlecki
+date: 2021-05-30T20:00:00
 ---
 
 Um dos casos interessantes relacionados à construção de consultas JPQL (Java Persistence Query Language)

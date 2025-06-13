@@ -8,8 +8,8 @@ tags:
   - sql
   - eclipselink
   - hibernate
-    author: Damian Terlecki
-    date: 2021-05-16T20:00:00
+author: Damian Terlecki
+date: 2021-05-16T20:00:00
 ---
 
 No JPA 2.2, um novo método foi adicionado à interface *javax.persistence.Query*, `Stream getResultStream()`, que permite

@@ -155,14 +155,14 @@ WHERE SUBSTR(text, 1, 4) = to_char(TO_DATE('2022', 'YYYY'), 'YYYY')
 
 複雑なクエリでこのようなエラーに遭遇した場合、順序について誤った仮定をしていないか検証する価値があります。
 Oracle DBでは、一般的な変換エラーには以下のコードが含まれます：
-- ORA-01722: 無効な数値です。
-- ORA-01858: 数値であるところに数値以外の文字が見つかりました。
-- ORA-01859: 英字であるところに英字以外の文字が見つかりました。
-- ORA-01861: リテラルが書式文字列と一致しません。
-- ORA-01863: 年が現在のカレンダでサポートされていません。
-- ORA-01864: 日付が現在のカレンダの範囲外です。
-- ORA-01865: 有効な元号ではありません。
-- ORA-01884: 除数がゼロです。
+- ORA-01722: invalid number;
+- ORA-01858: a non-numeric character was found where a numeric was expected;
+- ORA-01859: a non-alphabetic character was found where an alphabetic was expected;
+- ORA-01861: literal does not match format string;
+- ORA-01863: the year is not supported for the current calendar;
+- ORA-01864: the date is out of range for the current calendar;
+- ORA-01865: not a valid era;
+- ORA-01884: divisor is equal to zero.
 
 これらのエラーは、アプリケーションからクエリを呼び出したときにのみ発生する場合、特に驚くかもしれません。
 これは、クエリプランの違い（バインド変数の数が異なる、または存在しない）が原因であることがほとんどです。

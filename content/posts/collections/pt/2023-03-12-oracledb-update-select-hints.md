@@ -117,7 +117,7 @@ Total hints for statement: 2
 Você também pode atualizar o resultado direto de uma consulta e se livrar de subconsultas profundamente aninhadas.
 No entanto, a condição é que a consulta retorne exatamente uma linha para cada registro atualizado.
 Caso contrário, você inevitavelmente receberá o erro `ORA-01779`:
-> ORA-01779: não é possível modificar uma coluna que mapeia para uma tabela não preservada por chave
+> ORA-01779: cannot modify a column which maps to a non key-preserved table
 ```sql
 CREATE UNIQUE INDEX U_BT2_OBJECT_ID ON BIG_TABLE_2 (OBJECT_ID);
 

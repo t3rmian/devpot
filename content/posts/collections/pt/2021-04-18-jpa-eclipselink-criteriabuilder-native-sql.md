@@ -7,8 +7,8 @@ category:
 tags:
   - sql
   - eclipselink
-    author: Damian Terlecki
-    date: 2021-04-18T20:00:00
+author: Damian Terlecki
+date: 2021-04-18T20:00:00
 ---
 
 Ao usar o JPA CriteriaBuilder, mais cedo ou mais tarde você encontrará algumas limitações que resultam da especificação. Um exemplo disso pode ser a limitação do número máximo de resultados retornados em uma subconsulta, ou a alteração da ordem de classificação dos valores NULL. O EclipseLink, como alternativa ao Hibernate, oferece uma abstração bastante interessante na forma da interface *JpaCriteriaBuilder* e da classe *ExpressionBuilder*.

@@ -7,8 +7,8 @@ category:
 tags:
   - sql
   - eclipselink
-    author: Damian Terlecki
-    date: 2021-04-04T20:00:00
+author: Damian Terlecki
+date: 2021-04-04T20:00:00
 ---
 
 As funções de janela do banco de dados são um grupo de funções analíticas que permitem criar relatórios detalhados apresentando informações sobre certas tendências. Um exemplo de tal função pode ser a soma de um determinado grupo:

@@ -6,8 +6,8 @@ category:
 - jee: JEE
 tags:
   - weblogic
-    author: Damian Terlecki
-    date: 2021-05-02T20:00:00
+author: Damian Terlecki
+date: 2021-05-02T20:00:00
 ---
 
 Ao criar uma aplicação em tecnologia EJB para servidores WebLogic, o acesso ao banco de dados geralmente é realizado através dos beans EJB. No entanto, às vezes, do ponto de vista do cliente SE (Standard Edition), podemos precisar de acesso direto ao banco de dados, por exemplo, para verificar nosso sistema ou para testes de integração.

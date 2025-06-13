@@ -6,9 +6,9 @@ category:
 - java: Java
 tags:
   - nativo
-    author: Damian Terlecki
-    date: 2021-07-12T20:00:00
-    source: https://github.com/t3rmian/setsockopt-java-demo
+author: Damian Terlecki
+date: 2021-07-12T20:00:00
+source: https://github.com/t3rmian/setsockopt-java-demo
 ---
 
 Quando precisamos aplicar opções TCP/IP além das oferecidas pelo Java, temos várias opções para escolher:
