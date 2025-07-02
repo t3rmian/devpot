@@ -3,7 +3,7 @@ title: Wskazówki konfiguracyjne replikacji MongoDB przy użyciu Podmana (Compos
 url: mongodb-replika-wskazówki-podman-compose
 id: 126
 category:
-  - databases: Databases
+  - databases: Bazy danych
 tags:
   - mongodb
   - docker
