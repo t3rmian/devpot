@@ -6,7 +6,7 @@ const config = {
   siteLongTitle: "☕ Devpot",
   siteShortTitle: "Devpot",
   siteTitle: "Devpot",
-  siteRoot: isPreview() ? process.env.DEPLOY_PRIME_URL : "https://blog.termian.dev",
+  siteRoot: isPreview() ? process.env.DEPLOY_PRIME_URL ?? "http://localhost:3000" : "https://blog.termian.dev",
   defaultLanguage: "en",
 
   optional: {

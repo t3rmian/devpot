@@ -46,7 +46,13 @@ export default function Footer({ langRefs, lang, is404, privacyPolicy }) {
               rel: "alternate",
               hreflang: "x-default",
               href: ref.url
-            }))
+            })),
+            ...langRefs
+                .filter(ref => ref.lang === lang)
+                .map(ref => ({
+                    rel: "canonical",
+                    href: ref.url
+                })),
         ]}
       />
     </footer>
