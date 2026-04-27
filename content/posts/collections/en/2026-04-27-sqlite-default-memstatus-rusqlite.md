@@ -32,13 +32,12 @@ The docs sell the speedup; the mechanism behind it is dropping a process-global 
 
 The interesting asymmetry is between drivers. SQLite is the same C source tree, but each ecosystem ships its own build:
 
-```
-Project              SQLITE_DEFAULT_MEMSTATUS    Set where
-rusqlite (bundled)   =1 (upstream default)       not overridden
-sqlite-jdbc          =0                          Makefile.common
-node:sqlite (Node)   =0                          PR #56541 (Jan 2025)
-CPython sqlite3      =0                          setup_helpers.py
-```
+| Project            | SQLITE_DEFAULT_MEMSTATUS | Set where            |
+|:-------------------|:-------------------------|:---------------------|
+| rusqlite (bundled) | =1 (upstream default)    | not overridden       |
+| sqlite-jdbc        | =0                       | Makefile.common      |
+| node:sqlite (Node) | =0                       | PR #56541 (Jan 2025) |
+| CPython sqlite3    | =0                       | setup_helpers.py     |
 
 Three of the four mainstream embedded-SQLite stories explicitly disable the mutex. The Rust one doesn't.
 
